@@ -269,16 +269,17 @@ main {
 .liquid-back-to-top {
   overflow: hidden;
   background:
-    radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.96), transparent 32%),
-    radial-gradient(circle at 82% 92%, rgba(146, 192, 255, 0.24), transparent 42%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.22));
-  border-color: rgba(255, 255, 255, 0.62);
+    radial-gradient(circle at 28% 16%, rgba(255, 255, 255, 0.9), transparent 28%),
+    radial-gradient(circle at 76% 88%, rgba(255, 255, 255, 0.22), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.08));
+  border-color: rgba(255, 255, 255, 0.52);
   box-shadow:
-    0 18px 48px rgba(10, 32, 71, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.88),
-    inset 0 -1px 0 rgba(10, 32, 71, 0.08);
-  backdrop-filter: blur(26px) saturate(1.7);
-  -webkit-backdrop-filter: blur(26px) saturate(1.7);
+    0 18px 48px rgba(10, 32, 71, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -1px 0 rgba(10, 32, 71, 0.05),
+    inset 0 0 22px rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(18px) saturate(1.45) brightness(1.05);
+  -webkit-backdrop-filter: blur(18px) saturate(1.45) brightness(1.05);
 }
 
 .liquid-back-to-top::before {
@@ -299,6 +300,15 @@ main {
     --sofin-copy-size-large: clamp(0.98rem, 4.1vw, 1.12rem);
     --sofin-card-copy-size: clamp(0.92rem, 3.8vw, 1.02rem);
   }
+
+  .liquid-glass-shell {
+    border-radius: 28px;
+  }
+
+  .container-shell {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 .liquid-language-active {
@@ -312,7 +322,7 @@ main {
 }
 
 .soft-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.5));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.28));
   border: 1px solid rgba(255, 255, 255, 0.48);
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(18px);
@@ -384,5 +394,29 @@ main {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
+  }
+}
+
+.sofin-premium-loader::before,
+.sofin-loader-orbit::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  border-radius: inherit;
+  background:
+    conic-gradient(from 120deg, transparent, rgba(255, 255, 255, 0.72), transparent 38%, rgba(197, 144, 93, 0.18), transparent 72%);
+  opacity: 0.62;
+  filter: blur(18px);
+  animation: sofinLoaderBreath 4.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes sofinLoaderBreath {
+  0%, 100% {
+    transform: rotate(0deg) scale(0.98);
+    opacity: 0.42;
+  }
+  48% {
+    transform: rotate(28deg) scale(1.04);
+    opacity: 0.78;
   }
 }

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {useEffect, useState} from 'react';
 
 const PRELOAD_ASSETS = [
-  '/images/hero/hero1.jpeg',
+  '/images/hero/hero1.png',
   '/images/hero/hero2.jpeg',
   '/images/brand/pack-line.jpg',
   '/logo/sofin-logo.png'
@@ -62,7 +62,7 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
         >
           <div className="absolute inset-0">
             <Image
-              src="/images/hero/hero1.jpeg"
+              src="/images/hero/hero1.png"
               alt=""
               fill
               priority
@@ -78,11 +78,11 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
             transition={{duration: 0.78, ease: [0.22, 1, 0.36, 1]}}
             className="relative flex flex-col items-center"
           >
-            <div className="relative flex h-40 w-40 items-center justify-center rounded-[2rem] border border-white/62 bg-[linear-gradient(145deg,rgba(255,255,255,0.74),rgba(255,246,236,0.32))] shadow-[0_28px_90px_rgba(78,49,31,0.18)] backdrop-blur-2xl sm:h-48 sm:w-48">
+            <div className="sofin-premium-loader relative flex h-40 w-40 items-center justify-center rounded-[2rem] border border-white/62 bg-[linear-gradient(145deg,rgba(255,255,255,0.74),rgba(255,246,236,0.32))] shadow-[0_28px_90px_rgba(78,49,31,0.18)] backdrop-blur-2xl sm:h-48 sm:w-48">
               <motion.div
                 className="absolute inset-3 rounded-[1.5rem] border border-[#3b2d26]/10"
-                animate={{rotate: 360}}
-                transition={{duration: 8, repeat: Infinity, ease: 'linear'}}
+                animate={{rotate: [0, 12, -8, 0], scale: [1, 1.015, 0.995, 1]}}
+                transition={{duration: 4.8, repeat: Infinity, ease: [0.22, 1, 0.36, 1]}}
               />
               <Image
                 src="/logo/sofin-logo.png"
@@ -97,9 +97,6 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
             <div className="mt-7 text-center">
               <div className="text-[11px] font-semibold uppercase tracking-[0.46em] text-[#3b2d26]/54">
                 SOFIN
-              </div>
-              <div className="mt-3 text-sm font-medium text-[#3b2d26]/72">
-                Загружаем свежесть
               </div>
             </div>
 

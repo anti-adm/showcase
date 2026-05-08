@@ -45,9 +45,12 @@ export function SiteHeader() {
 
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    const closeOnResize = () => setOpen(false);
 
+    window.addEventListener('orientationchange', closeOnResize);
     return () => {
       document.body.style.overflow = previous;
+      window.removeEventListener('orientationchange', closeOnResize);
     };
   }, [open]);
 
@@ -91,7 +94,7 @@ export function SiteHeader() {
           transition={{duration: 0.72, ease: [0.22, 1, 0.36, 1]}}
           onPointerMove={handleGlassPointerMove}
           className={cn(
-            'liquid-glass-shell pointer-events-auto px-4 py-3 transition-[transform,box-shadow,background] duration-500 sm:px-5',
+            'liquid-glass-shell pointer-events-auto px-3 py-2.5 transition-[transform,box-shadow,background] duration-500 sm:px-5 sm:py-3',
             scrolled && 'liquid-glass-shell-scrolled'
           )}
         >
@@ -167,7 +170,7 @@ export function SiteHeader() {
               aria-label={open ? t('closeMenu') : t('openMenu')}
               aria-expanded={open}
               onClick={() => setOpen((value) => !value)}
-              className="liquid-icon-button focus-ring ml-auto inline-flex h-12 w-12 items-center justify-center rounded-full text-[color:var(--text)] xl:hidden"
+              className="liquid-icon-button focus-ring ml-auto inline-flex h-11 w-11 items-center justify-center rounded-full text-[color:var(--text)] sm:h-12 sm:w-12 xl:hidden"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {open ? (
@@ -202,9 +205,9 @@ export function SiteHeader() {
                 animate={{height: 'auto', opacity: 1}}
                 exit={{height: 0, opacity: 0}}
                 transition={{duration: 0.38, ease: [0.22, 1, 0.36, 1]}}
-                className="liquid-mobile-panel relative z-10 mt-3 overflow-hidden xl:hidden"
+                className="liquid-mobile-panel relative z-10 mt-3 max-h-[calc(100svh-7rem)] overflow-y-auto xl:hidden"
               >
-                <div className="space-y-2 pb-2 pt-3">
+                <div className="space-y-1.5 pb-2 pt-3">
                   {navItems.map((item, index) => {
                     const active = item.href === activeHref;
 
@@ -221,7 +224,7 @@ export function SiteHeader() {
                       >
                         <Link
                           className={cn(
-                            'focus-ring relative flex items-center justify-between overflow-hidden rounded-2xl px-4 py-3 text-base font-medium transition',
+                            'focus-ring relative flex items-center justify-between overflow-hidden rounded-2xl px-4 py-2.5 text-[15px] font-medium transition',
                             active
                               ? 'liquid-mobile-active text-[color:var(--text)]'
                               : 'text-[color:var(--text-soft)] hover:bg-white/38 hover:text-[color:var(--text)]'

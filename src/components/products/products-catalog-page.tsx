@@ -53,46 +53,46 @@ function ProductCard({locale, product, index}: ProductCardProps) {
     >
       <Link
         href={`/${locale}/products/${product.slug}`}
-        className="group relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-[32px] border border-white/58 bg-[#f8f4ed]/72 p-3 shadow-[0_22px_70px_rgba(65,54,42,0.08)] backdrop-blur-[18px] transition duration-500 hover:-translate-y-1.5 hover:bg-[#fbf7f0]/82 hover:shadow-[0_30px_90px_rgba(65,54,42,0.13)] sm:min-h-[460px]"
+        className="group relative flex h-full min-h-[300px] flex-col overflow-hidden rounded-[22px] border border-white/58 bg-[#f8f4ed]/72 p-2 shadow-[0_18px_54px_rgba(65,54,42,0.08)] backdrop-blur-[18px] transition duration-500 hover:-translate-y-1.5 hover:bg-[#fbf7f0]/82 hover:shadow-[0_30px_90px_rgba(65,54,42,0.13)] sm:min-h-[460px] sm:rounded-[32px] sm:p-3"
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.9),transparent_34%),radial-gradient(circle_at_92%_0%,rgba(255,225,188,0.34),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.34),transparent_54%)]" />
         <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-white/70" />
 
-        <div className="relative flex flex-1 items-center justify-center overflow-hidden rounded-[26px] bg-[linear-gradient(180deg,rgba(255,255,255,0.8),rgba(245,238,228,0.62))]">
+        <div className="relative flex flex-1 items-center justify-center overflow-hidden rounded-[18px] bg-[linear-gradient(180deg,rgba(255,255,255,0.8),rgba(245,238,228,0.62))] sm:rounded-[26px]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.85),transparent_36%),radial-gradient(circle_at_50%_100%,rgba(205,183,153,0.16),transparent_38%)]" />
-          <div className="relative aspect-[4/5] w-full max-w-[320px] transition duration-700 ease-out group-hover:-translate-y-2 group-hover:scale-[1.04]">
+          <div className="relative aspect-[4/5] w-full max-w-[240px] transition duration-700 ease-out group-hover:-translate-y-2 group-hover:scale-[1.04] sm:max-w-[320px]">
             <Image
               src={image}
               alt={product.title[locale]}
               fill
-              sizes="(min-width: 1280px) 18vw, (min-width: 768px) 28vw, 46vw"
+              sizes="(min-width: 1280px) 18vw, (min-width: 768px) 28vw, 44vw"
               className="scale-[1.18] object-cover drop-shadow-[0_26px_28px_rgba(67,55,42,0.16)] transition duration-700 ease-out group-hover:scale-[1.26]"
               priority={index < 4}
             />
           </div>
         </div>
 
-        <div className="relative mt-3 rounded-[24px] border border-white/58 bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <span className="rounded-full bg-[#2b211c]/[0.06] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6f6257]">
+        <div className="relative mt-2 rounded-[18px] border border-white/58 bg-white/54 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl sm:mt-3 sm:rounded-[24px] sm:p-4">
+          <div className="mb-2 flex items-center justify-between gap-2 sm:mb-3">
+            <span className="rounded-full bg-[#2b211c]/[0.06] px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.18em] text-[#6f6257] sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
               SOFIN
             </span>
-            <span className="text-xs font-medium text-[#8b7b6d]">{product.weight[locale]}</span>
+            <span className="truncate text-[10px] font-medium text-[#8b7b6d] sm:text-xs">{product.weight[locale]}</span>
           </div>
 
-          <h2 className="line-clamp-2 min-h-[3rem] text-[17px] font-semibold leading-6 tracking-[-0.03em] text-[#302823]">
+          <h2 className="line-clamp-2 min-h-[2.45rem] text-[14px] font-semibold leading-5 tracking-[-0.03em] text-[#302823] sm:min-h-[3rem] sm:text-[17px] sm:leading-6">
             {product.title[locale]}
           </h2>
-          <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#766b61]">
+          <p className="mt-1 line-clamp-2 text-xs leading-5 text-[#766b61] sm:mt-2 sm:text-sm sm:leading-6">
             {product.subtitle[locale]}
           </p>
 
-          <div className="mt-4 flex items-center justify-between">
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#9a8978]">
+          <div className="mt-3 flex items-center justify-between sm:mt-4">
+            <span className="truncate text-[10px] font-medium uppercase tracking-[0.12em] text-[#9a8978] sm:text-xs sm:tracking-[0.2em]">
               {product.fatPercent ?? product.netWeight ?? product.badge}
             </span>
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-[#2b211c] text-white shadow-[0_14px_28px_rgba(43,33,28,0.18)] transition duration-300 group-hover:translate-x-1">
-              <ArrowRight className="h-4 w-4" />
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-[#2b211c] text-white shadow-[0_14px_28px_rgba(43,33,28,0.18)] transition duration-300 group-hover:translate-x-1 sm:h-10 sm:w-10">
+              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </span>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function ProductsCatalogPage() {
               hidden: {},
               visible: {transition: {staggerChildren: 0.035, delayChildren: 0.08}}
             }}
-            className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+            className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
           >
             {filteredProducts.map((product, index) => (
               <ProductCard

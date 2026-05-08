@@ -10,23 +10,23 @@ export function SiteFooter() {
   const locale = useLocale();
 
   return (
-    <footer className="container-shell pb-10 pt-16">
-      <div className="soft-card rounded-[36px] px-8 py-10 sm:px-10 lg:px-12">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
+    <footer className="container-shell pb-6 pt-8 sm:pb-8 sm:pt-10">
+      <div className="soft-card rounded-[28px] px-5 py-6 sm:px-7 lg:px-8">
+        <div className="grid gap-7 md:grid-cols-[1fr_0.8fr] lg:grid-cols-[1.1fr_0.8fr_0.8fr]">
           <div>
             <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]">
                 <Image
                   src="/logo/sofin-logo.png"
                   alt="SOFIN"
                   width={40}
                   height={40}
-                  className="h-10 w-auto object-contain"
+                  className="h-8 w-auto object-contain"
                 />
               </div>
 
               <div>
-                <div className="text-2xl font-semibold tracking-[0.22em] text-[var(--text)]">
+                <div className="text-xl font-semibold tracking-[0.22em] text-[var(--text)]">
                   SOFIN
                 </div>
                 <div className="text-xs uppercase tracking-[0.34em] text-[var(--muted)]">
@@ -34,10 +34,6 @@ export function SiteFooter() {
                 </div>
               </div>
             </div>
-
-            <p className="mt-6 max-w-[420px] text-base leading-8 text-[var(--text-soft)]">
-              {t("description")}
-            </p>
           </div>
 
           <div>
@@ -45,7 +41,7 @@ export function SiteFooter() {
               {t("navigation")}
             </div>
 
-            <nav className="mt-5 flex flex-col gap-3 text-[var(--text-soft)]">
+            <nav className="mt-4 grid grid-cols-2 gap-2 text-sm text-[var(--text-soft)] sm:flex sm:flex-col sm:gap-2.5">
               <Link href={`/${locale}`} className="transition hover:text-[var(--text)]">
                 {nav("home")}
               </Link>
@@ -54,6 +50,12 @@ export function SiteFooter() {
                 className="transition hover:text-[var(--text)]"
               >
                 {nav("products")}
+              </Link>
+              <Link
+                href={`/${locale}/yogurts`}
+                className="transition hover:text-[var(--text)]"
+              >
+                {nav("yogurts")}
               </Link>
               <Link
                 href={`/${locale}/company`}
@@ -81,7 +83,7 @@ export function SiteFooter() {
               {t("contacts")}
             </div>
 
-            <div className="mt-5 space-y-3 text-[var(--text-soft)]">
+            <div className="mt-4 space-y-2 text-sm text-[var(--text-soft)]">
               <p>{t("address")}</p>
               <p>{t("phone")}</p>
               <p>{t("email")}</p>

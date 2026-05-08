@@ -361,7 +361,15 @@ export function YogurtsShowcasePage() {
       const currentCollectionStage = collectionStageRef.current;
 
       if (currentCollectionStage > 0) {
-        if (isMobileRef.current) return;
+        if (isMobileRef.current) {
+          if (intent === "previous") {
+            collectionStageRef.current = 0;
+            setShowcaseSceneMounted(true);
+            setCollectionStage(0);
+            lockNavigationForCollection();
+          }
+          return;
+        }
 
         if (intent === "next") {
           const nextStage = Math.min(COLLECTION_OUTRO_STAGE, currentCollectionStage + 1);
@@ -441,8 +449,6 @@ export function YogurtsShowcasePage() {
     };
 
     const onTouchEnd = (event: TouchEvent) => {
-      if (isMobileRef.current && collectionStageRef.current > 0) return;
-
       const startY = touchStartYRef.current;
       const endY = event.changedTouches[0]?.clientY;
       touchStartYRef.current = null;
@@ -451,6 +457,18 @@ export function YogurtsShowcasePage() {
 
       const deltaY = startY - endY;
       if (Math.abs(deltaY) < TOUCH_THRESHOLD) return;
+
+      if (isMobileRef.current && collectionStageRef.current > 0) {
+        const collectionRoot = document.querySelector<HTMLElement>("[data-collection-stage]");
+        const atCollectionTop = (collectionRoot?.scrollTop ?? 0) <= 12;
+
+        if (deltaY < 0 && atCollectionTop) {
+          event.preventDefault();
+          navigate("previous");
+        }
+
+        return;
+      }
 
       event.preventDefault();
       navigate(deltaY > 0 ? "next" : "previous");
@@ -756,12 +774,12 @@ export function YogurtsShowcasePage() {
         type="button"
         aria-label={pageCopy.backToTop}
         onClick={resetToTop}
-        className={`fixed right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-[#2f241f]/88 text-2xl leading-none text-white shadow-[0_18px_42px_rgba(47,36,31,0.22)] backdrop-blur-xl transition duration-500 hover:bg-[#3a2c24] sm:right-6 ${
+        className={`liquid-back-to-top fixed right-4 z-50 flex h-11 w-11 items-center justify-center rounded-full text-xl leading-none text-[#2f241f] transition duration-500 sm:right-6 sm:h-12 sm:w-12 ${
           step > 0 && !collectionActive ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0 pointer-events-none"
         }`}
         style={{
           ...(isMobile
-            ? { bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }
+            ? { bottom: "calc(env(safe-area-inset-bottom) + 0.7rem)" }
             : { bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }),
         }}
       >
@@ -1081,8 +1099,7 @@ function normalizeLocale(locale: string): Locale {
 
 function SofinPreloader({
   visible,
-  progress,
-  label
+  progress
 }: {
   visible: boolean;
   progress: number;
@@ -1122,10 +1139,6 @@ function SofinPreloader({
             style={{ width: `${Math.round(progress * 100)}%` }}
           />
         </div>
-
-        <p className="mt-4 text-center text-[11px] font-semibold uppercase text-[#5e4d42]/70">
-          {label}
-        </p>
       </div>
     </div>
   );

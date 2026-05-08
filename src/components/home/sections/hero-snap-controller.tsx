@@ -24,6 +24,7 @@ export default function HeroSnapController({
     let locked = false;
     let wheelAccumulator = 0;
     let touchStartY = 0;
+    let touchLastY = 0;
     let touchLocked = false;
 
     const clamp = (value: number, min: number, max: number) =>
@@ -126,6 +127,7 @@ export default function HeroSnapController({
     const onTouchStart = (event: TouchEvent) => {
       if (!isHeroActiveZone()) return;
       touchStartY = event.touches[0]?.clientY ?? 0;
+      touchLastY = touchStartY;
     };
 
     const onTouchMove = (event: TouchEvent) => {
@@ -137,8 +139,10 @@ export default function HeroSnapController({
 
       const currentY = event.touches[0]?.clientY ?? 0;
       const delta = touchStartY - currentY;
+      const frameDelta = touchLastY - currentY;
+      touchLastY = currentY;
 
-      if (Math.abs(delta) < 78) return;
+      if (Math.abs(delta) < 10) return;
 
       syncCurrentIndex();
 
@@ -147,6 +151,9 @@ export default function HeroSnapController({
       }
 
       event.preventDefault();
+
+      if (Math.abs(delta) < 72 && Math.abs(frameDelta) < 18) return;
+
       touchLocked = true;
 
       if (delta > 0) {

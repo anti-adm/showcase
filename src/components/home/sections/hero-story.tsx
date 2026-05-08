@@ -10,14 +10,6 @@ import {heroScenes, type HeroScene} from "@/data/home/hero-scenes";
 import {cn} from "@/lib/utils";
 import HeroSnapController from "./hero-snap-controller";
 
-const productVisuals = [
-  "/logo/sofin-logo.png",
-  "/images/brand/pack-line.jpg",
-  "/images/brand/brand-story.png",
-  "/images/products/yogurt-raspberry-270.jpg",
-  "/images/products/yogurt-pineapple-270.jpg"
-] as const;
-
 function useReducedMotionPreference() {
   const [reduced, setReduced] = useState(false);
 
@@ -167,7 +159,14 @@ export default function HeroStory() {
                 index === heroScenes.length - 1 ? "snap-end" : "snap-start"
               )}
             >
-              <div className="mx-auto grid w-full max-w-[1380px] items-center gap-8 px-5 pb-14 pt-28 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.85fr)] lg:px-12 xl:gap-12">
+              <div
+                className={cn(
+                  "mx-auto grid w-full max-w-[1380px] items-center gap-8 px-5 pb-14 pt-28 sm:px-8 lg:px-12 xl:gap-12",
+                  index === 2
+                    ? "lg:grid-cols-[minmax(0,0.92fr)_minmax(340px,0.76fr)]"
+                    : "lg:grid-cols-1"
+                )}
+              >
                 <AnimatePresence mode="wait">
                   {isActive ? (
                     <motion.div
@@ -219,7 +218,12 @@ export default function HeroStory() {
                           duration: 0.68,
                           ease: [0.22, 1, 0.36, 1]
                         }}
-                        className="max-w-[760px] text-balance text-[3.2rem] font-semibold leading-[0.92] tracking-[-0.055em] text-white sm:text-[4.2rem] lg:text-[5.35rem] xl:text-[5.9rem]"
+                        className={cn(
+                          "max-w-[760px] text-balance font-semibold leading-[0.92] tracking-[-0.055em] text-white sm:text-[4.2rem] lg:text-[5.35rem] xl:text-[5.9rem]",
+                          index === 2
+                            ? "text-[clamp(2.25rem,10.2vw,3.15rem)] sm:text-[clamp(2.7rem,7vw,4.1rem)] lg:text-[clamp(3.15rem,5vw,4.45rem)] xl:text-[clamp(3.25rem,4.7vw,4.7rem)]"
+                            : "text-[3.2rem]"
+                        )}
                       >
                         {scene.title}
                       </motion.h1>
@@ -251,7 +255,7 @@ export default function HeroStory() {
                           duration: 0.62,
                           ease: [0.22, 1, 0.36, 1]
                         }}
-                        className="mt-7 max-w-[560px] rounded-[28px] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(4,19,36,0.18)] backdrop-blur-[24px] sm:p-6"
+                        className="mt-7 max-w-[600px] rounded-[28px] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(4,19,36,0.18)] backdrop-blur-[24px] sm:p-6"
                       >
                         <p className="text-pretty text-sm leading-7 text-white/80 sm:text-[15px] lg:text-base lg:leading-8">
                           {scene.description}
@@ -273,9 +277,10 @@ export default function HeroStory() {
                   ) : null}
                 </AnimatePresence>
 
-                <div className="relative hidden lg:block">
-                  <AnimatePresence mode="wait">
-                    {isActive ? (
+                {index === 2 ? (
+                  <div className="relative hidden lg:block">
+                    <AnimatePresence mode="wait">
+                      {isActive ? (
                       <motion.div
                         key={`visual-${scene.id}`}
                         initial={{
@@ -302,45 +307,53 @@ export default function HeroStory() {
                         }}
                         className="ml-auto w-full max-w-[520px]"
                       >
-                        <HeroProductVisual image={productVisuals[index] ?? productVisuals[0]} label={scene.eyebrow ?? "SOFIN"} />
+                        <YogurtsPreviewCard />
                       </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
+                      ) : null}
+                    </AnimatePresence>
+                  </div>
+                ) : null}
               </div>
             </div>
           );
         })}
       </div>
 
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-40 bg-[linear-gradient(180deg,rgba(7,25,45,0),rgba(239,245,252,0.88)_78%,rgba(247,251,255,1))]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-16 bg-[linear-gradient(180deg,rgba(7,25,45,0),rgba(7,25,45,0.14))]" />
     </section>
   );
 }
 
-function HeroProductVisual({image, label}: {image: string; label: string}) {
+function YogurtsPreviewCard() {
   return (
-    <div className="relative min-h-[420px] overflow-hidden rounded-[32px] border border-white/18 bg-[linear-gradient(145deg,rgba(255,255,255,0.18),rgba(255,255,255,0.06))] p-5 shadow-[0_26px_80px_rgba(4,19,36,0.22)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_78%,rgba(137,182,255,0.16),transparent_32%)]" />
-      <div className="relative h-[380px] overflow-hidden rounded-[26px] border border-white/18 bg-white/16">
+    <Link
+      href="/yogurts"
+      className="group relative block min-h-[420px] overflow-hidden rounded-[32px] border border-white/22 bg-[linear-gradient(145deg,rgba(255,255,255,0.26),rgba(255,255,255,0.08))] p-5 shadow-[0_26px_80px_rgba(4,19,36,0.22)] outline-none transition duration-500 hover:-translate-y-1 hover:bg-white/18 focus-visible:ring-2 focus-visible:ring-white/70"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.34),transparent_28%),radial-gradient(circle_at_78%_78%,rgba(255,220,184,0.18),transparent_32%)]" />
+      <div className="relative h-[380px] overflow-hidden rounded-[26px] border border-white/22 bg-white/18">
         <Image
-          src={image}
+          src="/backgrounds/main-background.png"
           alt=""
           fill
           sizes="520px"
-          className="object-cover"
+          className="object-cover transition duration-700 group-hover:scale-[1.035]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(5,18,34,0.48)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(5,18,34,0.12)_50%,rgba(5,18,34,0.58)_100%)]" />
       </div>
 
       <div className="absolute left-8 top-8 rounded-full border border-white/18 bg-white/18 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-white/86 backdrop-blur-md">
-        {label}
+        SOFIN / Yogurts
       </div>
 
       <div className="absolute bottom-8 left-8 right-8 rounded-[22px] border border-white/18 bg-white/14 p-4 text-white backdrop-blur-md">
-        <div className="text-sm font-medium uppercase tracking-[0.28em] text-white/70">SOFIN</div>
-        <div className="mt-2 text-2xl font-semibold tracking-[-0.04em]">Свежесть без лишней нагрузки</div>
+        <div className="text-sm font-medium uppercase tracking-[0.28em] text-white/70">
+          Коллекция
+        </div>
+        <div className="mt-2 text-2xl font-semibold tracking-[-0.04em]">
+          Перейти к странице йогуртов
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
