@@ -1,0 +1,361 @@
+{
+  "Metadata": {
+    "title": "SOFIN — Fermadan tokchagacha",
+    "description": "Skrroll asosidagi premium hikoya va to'liq ekranli kinomatografik bloklarga ega ko'p tilli sut brendi sayti."
+  },
+  "Navigation": {
+    "home": "Bosh sahifa",
+    "yogurts": "Yogurtlar",
+    "products": "Mahsulotlar",
+    "company": "Kompaniya",
+    "recipes": "Retseptlar",
+    "contacts": "Kontaktlar",
+    "openMenu": "Menyuni ochish",
+    "closeMenu": "Menyuni yopish"
+  },
+  "Hero": {
+    "scrollLabel": "Hikoyani aylantiring",
+    "sceneLabel": "Sahna",
+    "mobileHelper": "Sekin aylantiring. Har bir harakat brendning keyingi sahnasini ochadi.",
+    "scene1": {
+      "eyebrow": "Premium sut brendi",
+      "title": "SOFIN — Fermadan tokchagacha",
+      "description": "Yangilik, ishonch va tokchadagi toza ko'rinishga asoslangan sokin sut brendi talqini.",
+      "cta": "Brend haqida",
+      "href": "/company"
+    },
+    "scene2": {
+      "eyebrow": "Mahsulot fokusida",
+      "title": "Yumshoq va zamonaviy qadoq tili bilan mevali yogurt",
+      "description": "Birinchi vizual qatlam SOFIN'ni aniq va iliq kayfiyatdagi yaxlit mahsulot oilasi sifatida ko'rsatadi.",
+      "cta": "Mahsulotlarni ko'rish",
+      "href": "/products"
+    },
+    "scene3": {
+      "eyebrow": "Nazorat ostidagi sifat",
+      "title": "Yangilik zamonaviy standartlar va ishlab chiqarish intizomi bilan mustahkamlangan",
+      "description": "Bosh sahifa fermadan tokchagacha bo'lgan hikoyani g'amxo'rlik, gigiyena va barqarorlik belgilariga bog'laydi.",
+      "cta": "Sifat tamoyillari",
+      "href": "/company"
+    },
+    "scene4": {
+      "eyebrow": "Brend detali",
+      "title": "Har bir qadoqda esda qoladigan o'ziga xos belgi",
+      "description": "SOFIN belgisi sut mahsulotlari, retseptlar va kelajak kampaniyalari bo'ylab yagona muhrga aylanadi.",
+      "cta": "SOFIN haqida",
+      "href": "/company"
+    },
+    "scene5": {
+      "eyebrow": "Keyingi qatlam",
+      "title": "Mahsulotlar, retseptlar va aloqa nuqtalariga o'ting",
+      "description": "Asosiy sahifa endi premium hikoya kabi ishlaydi, saytning to'liq tuzilmasi esa kengayishga tayyor.",
+      "cta": "Retseptlarni ochish",
+      "href": "/recipes"
+    }
+  },
+  "Panels": {
+    "brand": {
+      "eyebrow": "Brend kirish qismi",
+      "title": "Ko'proq sokinlik va ishonch beradigan tozaroq sut taqdimoti",
+      "description": "SOFIN premium, ammo yaqin ko'rinadigan sut kompaniyasi sifatida quriladi. Vizual tizim yumshoqlik, sovuq yangilik, ishonch va juda yig'iq birinchi taassurotga tayanadi.",
+      "stat1": "Asosiy kommunikatsiya o'zbek tilida",
+      "stat2": "Oq-ko'k kinomatografik interfeys",
+      "stat3": "Haqiqiy mahsulot suratlari uchun tayyor asos",
+      "cta": "Kompaniya haqida"
+    },
+    "categories": {
+      "eyebrow": "Asosiy assortiment",
+      "title": "Kelajak katalogi uchun yirik kategoriya bloklari",
+      "description": "Sut, kefir, yogurt, pishloq va ayran keyinchalik bosh sahifa asosini buzmasdan to'liq mahsulot sahifalariga kengaytiriladi.",
+      "milk": "Sut",
+      "kefir": "Kefir",
+      "yogurt": "Yogurt",
+      "cheese": "Pishloq",
+      "ayran": "Ayran",
+      "cta": "Mahsulotlarga o'tish"
+    },
+    "quality": {
+      "eyebrow": "Nega SOFIN",
+      "title": "Tizim sifat, tokchadagi ishonch va yangilik intizomi atrofida qurilgan",
+      "description": "Mayda odatiy kartalar o'rniga bosh sahifada keyinchalik sertifikatlar, fermalar tarixi va ishlab chiqarish tafsilotlarini joylashtirish mumkin bo'lgan yirik editorial panellar ishlatiladi.",
+      "point1": "Fermadan tokchagacha tuzilma",
+      "point2": "Sovuq yangilik vizual tili",
+      "point3": "Zamonaviy ishlab chiqarish belgisi",
+      "point4": "Aniq retail taqdimoti",
+      "cta": "Kompaniyani ko'rish"
+    },
+    "recipes": {
+      "eyebrow": "Retsept yo'nalishi",
+      "title": "Retseptlar ham to'liq ekranli brend qatlamiga aylanadi",
+      "description": "Bu bo'lim bosh sahifaning kinomatografik kayfiyatini saqlab, sutli nonushta, desert va oilaviy g'oyalar uchun joy ochadi.",
+      "card1": "Nonushta g'oyalari",
+      "card2": "Yengil desertlar",
+      "card3": "Oilaviy dasturxon",
+      "cta": "Retseptlarni ochish"
+    },
+    "contact": {
+      "eyebrow": "Keyingi qadam",
+      "title": "Mahsulotlar, distributorlar va to'g'ridan to'g'ri aloqa uchun tayyor",
+      "description": "Hozirgi yig'ma bosh sahifaga qaratilgan, biroq marshrutlar va arxitektura to'liq tijoriy sayt uchun tayyor.",
+      "primary": "SOFIN bilan bog'lanish",
+      "secondary": "Mahsulotlarni ko'rish"
+    }
+  },
+  "Footer": {
+    "description": "SOFIN premium sayt asosi. Ko'p tilli, skrroll hikoyali va keyingi bosqichlarga tayyor.",
+    "navigation": "Navigatsiya",
+    "contacts": "Aloqa ma'lumotlari",
+    "address": "Toshkent viloyati, vaqtinchalik manzil",
+    "phone": "+998 71 200 36 36",
+    "email": "hello@sofin.uz"
+  },
+  "FuturePages": {
+    "products": {
+      "eyebrow": "Kelajak sahifa",
+      "title": "Mahsulotlar sahifasi asosi",
+      "description": "Bu marshrut to'liq assortiment, filtrlar, qadoq vizuallari va kategoriya hikoyalari uchun ishlatiladi.",
+      "cta": "Keyingi bosqichga tayyor"
+    },
+    "company": {
+      "eyebrow": "Kelajak sahifa",
+      "title": "Kompaniya sahifasi asosi",
+      "description": "Bu yerda brend tarixi, ishlab chiqarish standartlari, fermalar va sertifikatlar ochiladi.",
+      "cta": "Keyingi bosqichga tayyor"
+    },
+    "recipes": {
+      "eyebrow": "Kelajak sahifa",
+      "title": "Retseptlar sahifasi asosi",
+      "description": "Bu sahifada editorial retseptlar, teglar, mahsulot juftliklari va kampaniya to'plamlari quriladi.",
+      "cta": "Keyingi bosqichga tayyor"
+    },
+    "contacts": {
+      "eyebrow": "Kelajak sahifa",
+      "title": "Kontaktlar sahifasi asosi",
+      "description": "Bu marshrut distributorlar, fikr formasi, ofislar va biznes murojaatlariga kengayadi.",
+      "cta": "Keyingi bosqichga tayyor"
+    }
+  },
+  "ProductsPage": {
+    "breadcrumbs": {
+      "home": "Bosh sahifa",
+      "catalog": "Katalog"
+    },
+    "gallery": {
+      "open": "Rasmni ochish",
+      "close": "Galeriyani yopish",
+      "prev": "Oldingi rasm",
+      "next": "Keyingi rasm"
+    },
+    "product": {
+      "badge": "Mahsulot kartasi",
+      "title": "Smetana",
+      "subtitle": "Sour Cream",
+      "gallery": {
+        "alt1": "Smetana mahsulot rasmi 1",
+        "alt2": "Smetana mahsulot rasmi 2"
+      },
+      "nutrition": {
+        "energy": "Energiya",
+        "fat": "Yog'lar",
+        "protein": "Oqsillar",
+        "carbs": "Uglevodlar",
+        "per100g": "100 g mahsulot uchun"
+      },
+      "storage": {
+        "title": "Saqlash muddati",
+        "value": "21 kun"
+      },
+      "packaging": {
+        "title": "Qadoqlash",
+        "value": "Mahsulot kartasiga qo‘shiladi"
+      },
+      "weight": {
+        "title": "Format",
+        "value": "Smetana"
+      },
+      "compositionTitle": "Tarkibi",
+      "composition": "Me’yorlashtirilgan qaymoq, achitqi.",
+      "storageText": "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
+      "productionDateText": "Ishlab chiqarilgan sana va yaroqlilik muddati idishda ko‘rsatilgan.",
+      "manufacturer": "Ishlab chiqaruvchi: «Yangi Asr» F/X.",
+      "address": "Manzil: Oʻzbekiston Respublikasi, Navoiy viloyati, Qiziltepa tumani, Gʻoyibon MFY, Navgandi qishlogʻi, 90-uy.",
+      "openedText": "Saqlash muddati 21 kun. Ochilgandan so‘ng 24 soat davomida iste’mol qilinsin."
+    }
+  },
+    "ProductsCatalogPage": {
+  "eyebrow": "Mahsulot katalogi",
+  "title": "Mahsulotlar katalogi",
+  "description": "",
+  "filters": {
+    "all": "Barchasi",
+    "milk": "Sut",
+    "kefir": "Kefir",
+    "yogurt": "Yogurt",
+    "ayran": "Ayran",
+    "qatiq": "Qatiq",
+    "tvorog": "Tvorog",
+    "cheese": "Pishloq",
+    "cream": "Smetana va qaymoq"
+  },
+  "empty": "Bu kategoriya uchun mahsulotlar hali qo‘shilmagan."
+  },
+  "ContactsPage": {
+  "badge": "Aloqa",
+  "title": "Biz bilan bog'laning",
+  "description": "SOFIN bo'yicha savollar, hamkorlik takliflari yoki mahsulotlar haqidagi murojaatlaringizni yuboring. Biz siz bilan tez orada bog'lanamiz.",
+  "cards": {
+    "phone": {
+      "title": "Telefon",
+      "value": "+998 71 200 36 36"
+    },
+    "email": {
+      "title": "Elektron pochta",
+      "value": "yangi_asr_2000@mail.ru"
+    },
+    "instagram": {
+      "title": "Instagram",
+      "value": "@sofin.uz"
+    },
+    "telegram": {
+      "title": "Telegram",
+      "value": "@sofin.uz"
+    },
+    "address": {
+      "title": "Manzil",
+      "value": "O'zbekiston Respublikasi, Navoiy viloyati, Qiziltepa tumani, G'oyibon MFY, Navgandi qishlog'i, 90-uy"
+    }
+  },
+  "form": {
+    "eyebrow": "Qayta aloqa",
+    "title": "Xabar yuborish",
+    "description": "Ismingizni, emailingizni va xabaringizni qoldiring.",
+    "name": "Ism",
+    "namePlaceholder": "Ismingizni kiriting",
+    "email": "Email",
+    "emailPlaceholder": "Email manzilingizni kiriting",
+    "message": "Xabar",
+    "messagePlaceholder": "Xabaringizni yozing",
+    "submit": "Yuborish",
+    "sending": "Yuborilmoqda...",
+    "success": "Xabaringiz muvaffaqiyatli yuborildi.",
+    "error": "Xabarni yuborib bo'lmadi. Qayta urinib ko'ring."
+  }
+  },
+  "CompanyPage": {
+  "badge": "Kompaniya",
+  "title": "Korxona tarixi",
+  "description": "SOFIN va “Yangi asr” fermer xo‘jaligi tarixi — fermadan ishlab chiqarishgacha bo‘lgan yo‘l, zamonaviy sut mahsulotlari va yillik rivojlanish bosqichlari.",
+  "timelineLabel": "Bosqich",
+  "intro": {
+    "eyebrow": "Boshlanish",
+    "title": "“Yangi asr” fermer xo‘jaligining shakllanishi",
+    "paragraph1": "“Yangi asr” fermer xo‘jaligi 2000 yilda K-5/840-sonli Qiziltepa tuman hokimligi qaroriga asosan Vang‘ozi mahalla fuqarolar yig‘inida tashkil topgan.",
+    "paragraph2": "Fermer xo‘jaligi rahbari Temirov Jobir Jamolovich 1973-yil 11-mayda Navoiy viloyati, Qiziltepa tumani Vang‘ozi MFY hududida tug‘ilgan. Ma’lumoti o‘rta maxsus bo‘lib, Buxoro Bank kollejini tamomlagan.",
+    "paragraph3": "Faoliyat boshida xo‘jalik tarkibida 80 bosh yirik shoxli qoramol, 35 gektar paxtachilik yer maydoni, 45 gektar g‘allachilik yer maydoni hamda 60 gektar yaylov hududi mavjud edi."
+  },
+  "stats": {
+    "products": "turdagi sut mahsuloti",
+    "factory": "sutni qayta ishlash quvvati / sutka",
+    "cattle": "bosh naslli qoramol olib kelingan",
+    "milk": "sut sog‘imi kuniga"
+  },
+  "timeline": {
+    "foundation": {
+      "title": "Xo‘jalikning tashkil topishi",
+      "text": "2000-yilda xo‘jalik chorvachilik va dehqonchilik faoliyatini birlashtirgan holda o‘z faoliyatini boshladi. Dastlabki infratuzilma yer maydonlari, qoramol soni va yem-xashak bazasi asosida shakllantirildi."
+    },
+    "import": {
+      "title": "Naslli qoramollarni olib kelish va rivojlanish",
+      "text": "2017-yil mart oyida Prezidentimiz Shavkat Miromonovich Mirziyoyevning Navoiy viloyatiga tashrifi davomida xo‘jalik rahbarining biznes loyihasi bilan tanishildi. Shu asosda Germaniya, Estoniya va Daniya davlatlaridan “GOLSHTEYN” zotli 394 bosh naslli qoramol olib kelinib, 40 nafar aholi ish bilan ta’minlandi. Natijada 396 bosh buzoq olinib, kuniga 4000–5000 litr sut sog‘ib olina boshlandi."
+    },
+    "factory": {
+      "title": "Qayta ishlash zavodining ishga tushirilishi",
+      "text": "2019-yil sentyabr oyida Turkiya va Germaniya texnologiyasi asosida sutkasiga 40 tonna sutni qayta ishlash zavodi ishga tushirildi. Bu bosqichda tumandagi yana 70 nafar yoshlar ish bilan ta’minlandi. Hozirgi kunda xo‘jalik 37 turdagi sut mahsulotlarini ishlab chiqarib, respublika viloyatlariga yetkazib bermoqda."
+    },
+    "award": {
+      "title": "Yuksak e’tirof",
+      "text": "Kompaniya 2021-yil may oyida “Tashabbus-2021” tanlovida “Yilning eng yaxshi fermeri” yo‘nalishida tuman, viloyat va respublika bosqichlarida 1-o‘rinni egalladi."
+    }
+  },
+  "production": {
+    "title": "Bugungi ishlab chiqarish va yo‘nalish",
+    "paragraph1": "Bugungi kunda “Yangi asr” fermer xo‘jaligi zamonaviy sut mahsulotlari ishlab chiqarish, logistika va sifat nazorati tizimi bilan ishlaydi. Ishlab chiqarish jarayonida xavfsizlik, tozalik va mahsulotning barqaror sifati ustuvor hisoblanadi.",
+    "paragraph2": "Korxonaning rivojlanish yo‘li fermer xo‘jaligidan yirik sut mahsulotlari ishlab chiqaruvchisigacha bo‘lgan bosqichlarni o‘z ichiga oladi. Bu esa SOFIN brendining asosiy qadriyatlarini — ishonch, sifat va zamonaviy yondashuvni mustahkamlaydi."
+  },
+  "cards": {
+    "employment": {
+      "title": "Bandlik",
+      "text": "Turli bosqichlarda o‘nlab aholi va yoshlar doimiy ish bilan ta’minlandi."
+    },
+    "capacity": {
+      "title": "Quvvat",
+      "text": "Zavod sutkasiga 40 tonnagacha sutni qayta ishlash imkoniyatiga ega."
+    },
+    "address": {
+      "title": "Manzil",
+      "text": "Navoiy viloyati, Qiziltepa tumani, “G‘oyibon” MFY, Navgandi qishlog‘i, 90-uy."
+    },
+    "email": {
+      "title": "Elektron pochta",
+      "text": "yangi_asr_2000@mail.ru"
+    }
+  }
+  },
+  "RecipesPage": {
+  "catalog": {
+    "badge": "Retseptlar katalogi",
+    "title": "Mazali sutli retseptlar",
+    "description": "SOFIN mahsulotlari bilan tayyorlanadigan nonushta, desert va kundalik taomlar uchun chiroyli retseptlar to‘plami.",
+    "cardBadge": "Retsept"
+  },
+  "detail": {
+    "back": "Retseptlarga qaytish",
+    "badge": "Retsept kartasi",
+    "ingredients": "Tarkibi",
+    "steps": "Tayyorlash usuli",
+    "servings": "Porsiya",
+    "totalWeight": "Umumiy massa",
+    "nutrition": {
+      "calories": "Kkal",
+      "protein": "Oqsillar",
+      "fat": "Yog‘lar",
+      "carbs": "Uglevodlar",
+      "weight": "Sof massa",
+      "time": "Vaqt"
+    }
+  }
+  },
+"ShowcasePage": {
+  "hero": {
+    "badge": "Premium showcase",
+    "points": {
+      "quality": "Nazorat ostidagi sifat",
+      "fresh": "Sovuq va toza taqdimot",
+      "line": "Premium yogurt line"
+    }
+  },
+  "scene": {
+    "primaryCta": "Katalogni ko‘rish",
+    "secondaryCta": "Brend haqida"
+  },
+  "ending": {
+    "badge": "SOFIN signature",
+    "title": "Mahsulot, vizual til va brend bir butun premium taassurotga aylanadi",
+    "description": "Bu sahifa keyinchalik to‘liq campaign landing, product launch yoki interaktiv premium prezentatsiya sifatida kengaytirilishi mumkin.",
+    "cards": {
+      "visual": {
+        "title": "Toza visual til",
+        "text": "Ko‘k-oq premium muhit mahsulotni aniq, qimmat va zamonaviy ko‘rsatadi."
+      },
+      "product": {
+        "title": "Hero-shot taqdimot",
+        "text": "Har bir model diqqat markazidagi premium mahsulot sifatida namoyon bo‘ladi."
+      },
+      "brand": {
+        "title": "Kuchli brend hissi",
+        "text": "SOFIN zamonaviy, ishonchli va esda qoladigan dairy-brend sifatida ko‘rinadi."
+      }
+      }
+    }
+  }
+}

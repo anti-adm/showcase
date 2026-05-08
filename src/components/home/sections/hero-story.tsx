@@ -1,0 +1,346 @@
+"use client";
+
+import {useEffect, useMemo, useRef, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
+import {ArrowRight} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+
+import {heroScenes, type HeroScene} from "@/data/home/hero-scenes";
+import {cn} from "@/lib/utils";
+import HeroSnapController from "./hero-snap-controller";
+
+const productVisuals = [
+  "/logo/sofin-logo.png",
+  "/images/brand/pack-line.jpg",
+  "/images/brand/brand-story.png",
+  "/images/products/yogurt-raspberry-270.jpg",
+  "/images/products/yogurt-pineapple-270.jpg"
+] as const;
+
+function useReducedMotionPreference() {
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return reduced;
+}
+
+export default function HeroStory() {
+  const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [activeScene, setActiveScene] = useState(0);
+  const reducedMotion = useReducedMotionPreference();
+
+  const backgroundByScene = useMemo(
+    () => [
+      "/images/hero/hero1.png",
+      "/images/hero/hero1.png",
+      "/images/hero/hero1.png",
+      "/images/hero/hero2.jpeg",
+      "/images/hero/hero2.jpeg"
+    ],
+    []
+  );
+
+  useEffect(() => {
+    const nodes = sceneRefs.current.filter(Boolean) as HTMLDivElement[];
+    if (!nodes.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible) return;
+
+        const index = Number(
+          (visible.target as HTMLElement).dataset.sceneIndex ?? 0
+        );
+
+        setActiveScene(index);
+      },
+      {
+        threshold: [0.42, 0.58, 0.72]
+      }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const snapToScene = (index: number) => {
+    const node = sceneRefs.current[index];
+    if (!node) return;
+
+    node.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start"
+    });
+  };
+
+  const currentBg = backgroundByScene[activeScene];
+
+  return (
+    <section id="hero-story-root" className="relative bg-[#07192d]">
+      <HeroSnapController
+        rootId="hero-story-root"
+        selector="[data-scene-index]"
+      />
+
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#07192d]">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentBg}
+            initial={{opacity: 0.18, scale: 1.02}}
+            animate={{opacity: 1, scale: 1}}
+            exit={{opacity: 0, scale: 1.01}}
+            transition={{
+              duration: reducedMotion ? 0 : 0.72,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="absolute inset-0"
+          >
+            <div className="absolute inset-0">
+              <Image
+                src={currentBg}
+                alt=""
+                fill
+                priority
+                className="object-cover"
+              />
+            </div>
+
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_34%),linear-gradient(180deg,rgba(7,20,36,0.20)_0%,rgba(8,24,44,0.48)_50%,rgba(6,18,33,0.72)_100%)]" />
+            <div className="absolute inset-0 bg-[#07192d]/18" />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <div className="pointer-events-none fixed left-4 top-1/2 z-30 hidden -translate-y-1/2 lg:flex">
+        <div className="rounded-full border border-white/18 bg-white/8 px-2.5 py-3 backdrop-blur-2xl">
+          <div className="flex flex-col gap-2.5">
+            {heroScenes.map((scene: HeroScene, index: number) => (
+              <button
+                key={scene.id}
+                type="button"
+                onClick={() => snapToScene(index)}
+                className="pointer-events-auto flex items-center justify-center"
+                aria-label={`Go to scene ${index + 1}`}
+              >
+                <span
+                  className={cn(
+                    "block h-2.5 w-2.5 rounded-full border transition-all duration-400",
+                    activeScene === index
+                      ? "scale-110 border-white bg-white shadow-[0_0_12px_rgba(255,255,255,0.55)]"
+                      : "border-white/45 bg-white/12 hover:bg-white/24"
+                  )}
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 h-[500svh] snap-y snap-proximity">
+        {heroScenes.map((scene: HeroScene, index: number) => {
+          const isActive = index === activeScene;
+
+          return (
+            <div
+              key={scene.id}
+              ref={(node) => {
+                sceneRefs.current[index] = node;
+              }}
+              data-scene-index={index}
+              className={cn(
+                "relative flex h-[100svh] items-center",
+                index === heroScenes.length - 1 ? "snap-end" : "snap-start"
+              )}
+            >
+              <div className="mx-auto grid w-full max-w-[1380px] items-center gap-8 px-5 pb-14 pt-28 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.85fr)] lg:px-12 xl:gap-12">
+                <AnimatePresence mode="wait">
+                  {isActive ? (
+                    <motion.div
+                      key={`content-${scene.id}`}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      variants={{
+                        hidden: {},
+                        visible: {
+                          transition: {
+                            staggerChildren: reducedMotion ? 0 : 0.12,
+                            delayChildren: reducedMotion ? 0 : 0.04
+                          }
+                        },
+                        exit: {
+                          transition: {
+                            staggerChildren: 0.03,
+                            staggerDirection: -1
+                          }
+                        }
+                      }}
+                      className="max-w-[760px]"
+                    >
+                      {scene.eyebrow ? (
+                        <motion.div
+                          variants={{
+                            hidden: {opacity: 0, y: 14, filter: "blur(8px)"},
+                            visible: {opacity: 1, y: 0, filter: "blur(0px)"},
+                            exit: {opacity: 0, y: -10}
+                          }}
+                          transition={{
+                            duration: 0.45,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                          className="mb-4 inline-flex rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.32em] text-white/82 backdrop-blur-2xl"
+                        >
+                          {scene.eyebrow}
+                        </motion.div>
+                      ) : null}
+
+                      <motion.h1
+                        variants={{
+                          hidden: {opacity: 0, y: 22, filter: "blur(12px)"},
+                          visible: {opacity: 1, y: 0, filter: "blur(0px)"},
+                          exit: {opacity: 0, y: -14}
+                        }}
+                        transition={{
+                          duration: 0.68,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
+                        className="max-w-[760px] text-balance text-[3.2rem] font-semibold leading-[0.92] tracking-[-0.055em] text-white sm:text-[4.2rem] lg:text-[5.35rem] xl:text-[5.9rem]"
+                      >
+                        {scene.title}
+                      </motion.h1>
+
+                      {scene.subtitle ? (
+                        <motion.p
+                          variants={{
+                            hidden: {opacity: 0, y: 18, filter: "blur(8px)"},
+                            visible: {opacity: 1, y: 0, filter: "blur(0px)"},
+                            exit: {opacity: 0, y: -10}
+                          }}
+                          transition={{
+                            duration: 0.56,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                          className="mt-4 max-w-[540px] text-xl font-medium text-white/90 sm:text-2xl lg:text-[1.85rem]"
+                        >
+                          {scene.subtitle}
+                        </motion.p>
+                      ) : null}
+
+                      <motion.div
+                        variants={{
+                          hidden: {opacity: 0, y: 24, filter: "blur(10px)"},
+                          visible: {opacity: 1, y: 0, filter: "blur(0px)"},
+                          exit: {opacity: 0, y: -12}
+                        }}
+                        transition={{
+                          duration: 0.62,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
+                        className="mt-7 max-w-[560px] rounded-[28px] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(4,19,36,0.18)] backdrop-blur-[24px] sm:p-6"
+                      >
+                        <p className="text-pretty text-sm leading-7 text-white/80 sm:text-[15px] lg:text-base lg:leading-8">
+                          {scene.description}
+                        </p>
+
+                        {scene.cta ? (
+                          <div className="mt-5">
+                            <Link
+                              href={scene.cta.href}
+                              className="group inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/12 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                            >
+                              {scene.cta.label}
+                              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                            </Link>
+                          </div>
+                        ) : null}
+                      </motion.div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+
+                <div className="relative hidden lg:block">
+                  <AnimatePresence mode="wait">
+                    {isActive ? (
+                      <motion.div
+                        key={`visual-${scene.id}`}
+                        initial={{
+                          opacity: 0,
+                          x: 30,
+                          scale: 0.98,
+                          filter: "blur(14px)"
+                        }}
+                        animate={{
+                          opacity: 1,
+                          x: 0,
+                          scale: 1,
+                          filter: "blur(0px)"
+                        }}
+                        exit={{
+                          opacity: 0,
+                          x: 18,
+                          scale: 0.98,
+                          filter: "blur(12px)"
+                        }}
+                        transition={{
+                          duration: 0.72,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
+                        className="ml-auto w-full max-w-[520px]"
+                      >
+                        <HeroProductVisual image={productVisuals[index] ?? productVisuals[0]} label={scene.eyebrow ?? "SOFIN"} />
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-40 bg-[linear-gradient(180deg,rgba(7,25,45,0),rgba(239,245,252,0.88)_78%,rgba(247,251,255,1))]" />
+    </section>
+  );
+}
+
+function HeroProductVisual({image, label}: {image: string; label: string}) {
+  return (
+    <div className="relative min-h-[420px] overflow-hidden rounded-[32px] border border-white/18 bg-[linear-gradient(145deg,rgba(255,255,255,0.18),rgba(255,255,255,0.06))] p-5 shadow-[0_26px_80px_rgba(4,19,36,0.22)]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_78%,rgba(137,182,255,0.16),transparent_32%)]" />
+      <div className="relative h-[380px] overflow-hidden rounded-[26px] border border-white/18 bg-white/16">
+        <Image
+          src={image}
+          alt=""
+          fill
+          sizes="520px"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(5,18,34,0.48)_100%)]" />
+      </div>
+
+      <div className="absolute left-8 top-8 rounded-full border border-white/18 bg-white/18 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-white/86 backdrop-blur-md">
+        {label}
+      </div>
+
+      <div className="absolute bottom-8 left-8 right-8 rounded-[22px] border border-white/18 bg-white/14 p-4 text-white backdrop-blur-md">
+        <div className="text-sm font-medium uppercase tracking-[0.28em] text-white/70">SOFIN</div>
+        <div className="mt-2 text-2xl font-semibold tracking-[-0.04em]">Свежесть без лишней нагрузки</div>
+      </div>
+    </div>
+  );
+}

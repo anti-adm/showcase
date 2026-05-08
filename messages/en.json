@@ -1,0 +1,361 @@
+{
+  "Metadata": {
+    "title": "SOFIN — From farm to shelf",
+    "description": "Premium multilingual dairy brand website with scroll-driven storytelling and cinematic full-screen sections."
+  },
+  "Navigation": {
+    "home": "Home",
+    "yogurts": "Yogurts",
+    "products": "Products",
+    "company": "Company",
+    "recipes": "Recipes",
+    "contacts": "Contacts",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "Hero": {
+    "scrollLabel": "Scroll the story",
+    "sceneLabel": "Scene",
+    "mobileHelper": "Scroll slowly. Each movement reveals the next brand scene.",
+    "scene1": {
+      "eyebrow": "Premium dairy brand",
+      "title": "SOFIN — From farm to shelf",
+      "description": "A calm dairy identity built around freshness, trust and a cleaner shelf presence.",
+      "cta": "Discover the brand",
+      "href": "/company"
+    },
+    "scene2": {
+      "eyebrow": "Product focus",
+      "title": "Fruit yogurt with a softer, modern packaging language",
+      "description": "The first visual layer introduces SOFIN as a shelf-ready product family with clarity and warmth.",
+      "cta": "View products",
+      "href": "/products"
+    },
+    "scene3": {
+      "eyebrow": "Controlled quality",
+      "title": "Freshness supported by modern standards and disciplined production",
+      "description": "The homepage combines farm-to-shelf storytelling with visual cues of care, hygiene and consistency.",
+      "cta": "Quality principles",
+      "href": "/company"
+    },
+    "scene4": {
+      "eyebrow": "Brand detail",
+      "title": "A distinctive mark designed to feel memorable on every package",
+      "description": "The SOFIN sign becomes a branded stamp across dairy categories, recipes and future campaigns.",
+      "cta": "About SOFIN",
+      "href": "/company"
+    },
+    "scene5": {
+      "eyebrow": "Next layer",
+      "title": "Continue into products, recipes and contact touchpoints",
+      "description": "The main page now behaves like a premium story, while the full structure remains ready for scale.",
+      "cta": "Open recipes",
+      "href": "/recipes"
+    }
+  },
+  "Panels": {
+    "brand": {
+      "eyebrow": "Brand introduction",
+      "title": "A cleaner dairy presentation with more calm and more confidence",
+      "description": "SOFIN is positioned as a premium but accessible dairy company. The visual system prioritizes softness, cold freshness, trust and a highly controlled first impression.",
+      "stat1": "Uzbek-first brand communication",
+      "stat2": "White-blue cinematic interface",
+      "stat3": "Built for real product photography",
+      "cta": "Learn about the company"
+    },
+    "categories": {
+      "eyebrow": "Featured range",
+      "title": "Large category blocks ready for the future catalog",
+      "description": "Milk, kefir, yogurt, cheese and ayran can later expand into richer product pages without changing the homepage foundation.",
+      "milk": "Milk",
+      "kefir": "Kefir",
+      "yogurt": "Yogurt",
+      "cheese": "Cheese",
+      "ayran": "Ayran",
+      "cta": "Go to products"
+    },
+    "quality": {
+      "eyebrow": "Why SOFIN",
+      "title": "The system is built around quality, shelf trust and disciplined freshness",
+      "description": "Instead of small generic cards, the homepage uses larger editorial panels that can later hold certifications, farm stories and production details.",
+      "point1": "Farm-to-shelf structure",
+      "point2": "Cold-chain visual language",
+      "point3": "Modern production cues",
+      "point4": "Clear retail presentation",
+      "cta": "Explore the company"
+    },
+    "recipes": {
+      "eyebrow": "Recipe direction",
+      "title": "Recipes become another full-screen brand layer",
+      "description": "This section keeps the homepage cinematic while opening space for dairy breakfasts, desserts and family table ideas.",
+      "card1": "Breakfast ideas",
+      "card2": "Soft desserts",
+      "card3": "Family table moments",
+      "cta": "Open recipes"
+    },
+    "contact": {
+      "eyebrow": "Next step",
+      "title": "Ready for products, distributors and direct contact",
+      "description": "The current build is homepage-first, but the routing and architecture are prepared for a full commercial website.",
+      "primary": "Contact SOFIN",
+      "secondary": "See products"
+    }
+  },
+  "Footer": {
+    "description": "SOFIN premium dairy brand foundation. Multilingual, scroll-driven and prepared for further expansion.",
+    "navigation": "Navigation",
+    "contacts": "Contact details",
+    "address": "Tashkent region, placeholder address",
+    "phone": "+998 71 200 36 36",
+    "email": "hello@sofin.uz"
+  },
+  "FuturePages": {
+    "products": {
+      "eyebrow": "Future page",
+      "title": "Products page foundation",
+      "description": "Use this route for the full assortment, filters, package visuals and category storytelling.",
+      "cta": "Ready for next phase"
+    },
+    "company": {
+      "eyebrow": "Future page",
+      "title": "Company page foundation",
+      "description": "Expand this page with brand history, production standards, farms and certifications.",
+      "cta": "Ready for next phase"
+    },
+    "recipes": {
+      "eyebrow": "Future page",
+      "title": "Recipes page foundation",
+      "description": "Build editorial recipes, tags, product pairings and campaign collections here.",
+      "cta": "Ready for next phase"
+    },
+    "contacts": {
+      "eyebrow": "Future page",
+      "title": "Contacts page foundation",
+      "description": "This route can grow into distributors, feedback forms, offices and business inquiries.",
+      "cta": "Ready for next phase"
+    }
+  },
+  "ProductsPage": {
+    "breadcrumbs": {
+      "home": "Home",
+      "catalog": "Catalog"
+    },
+    "gallery": {
+      "open": "Open image",
+      "close": "Close gallery",
+      "prev": "Previous image",
+      "next": "Next image"
+    },
+    "product": {
+      "badge": "Product card",
+      "title": "Smetana",
+      "subtitle": "Sour Cream",
+      "gallery": {
+        "alt1": "Sour cream image 1",
+        "alt2": "Sour cream image 2"
+      },
+      "nutrition": {
+        "energy": "Energy",
+        "fat": "Fats",
+        "protein": "Proteins",
+        "carbs": "Carbohydrates",
+        "per100g": "Per 100 g of product"
+      },
+      "storage": {
+        "title": "Shelf life",
+        "value": "21 days"
+      },
+      "packaging": {
+        "title": "Packaging",
+        "value": "Will be added to the card"
+      },
+      "weight": {
+        "title": "Format",
+        "value": "Sour Cream"
+      },
+      "compositionTitle": "Composition",
+      "composition": "Standardized cream, starter culture.",
+      "storageText": "Storage conditions: keep at 4 ± 2°C.",
+      "productionDateText": "Production date and expiry date are indicated on the package.",
+      "manufacturer": "Manufacturer: «Yangi Asr» F/X.",
+      "address": "Address: Republic of Uzbekistan, Navoi region, Kyzyltepa district, Gʻoyibon MFY, Navgandi village, house 90.",
+      "openedText": "Shelf life is 21 days. Consume within 24 hours after opening."
+    }
+  },
+  "ProductsCatalogPage": {
+  "eyebrow": "Product catalog",
+  "title": "Our product catalog",
+  "description": "",
+  "filters": {
+    "all": "All",
+    "milk": "Milk",
+    "kefir": "Kefir",
+    "yogurt": "Yogurts",
+    "ayran": "Ayran",
+    "qatiq": "Qatiq",
+    "tvorog": "Tvorog",
+    "cheese": "Cheese",
+    "cream": "Cream & sour cream"
+  },
+  "empty": "No products have been added for this category yet."
+  },
+  "ContactsPage": {
+  "badge": "Contacts",
+  "title": "Get in touch",
+  "description": "Send your question, partnership request or product-related message to SOFIN. We will get back to you shortly.",
+  "cards": {
+    "phone": {
+      "title": "Phone",
+      "value": "+998 71 200 36 36"
+    },
+    "email": {
+      "title": "Email",
+      "value": "yangi_asr_2000@mail.ru"
+    },
+    "instagram": {
+      "title": "Instagram",
+      "value": "@sofin.uz"
+    },
+    "telegram": {
+      "title": "Telegram",
+      "value": "@sofin.uz"
+    },
+    "address": {
+      "title": "Address",
+      "value": "Republic of Uzbekistan, Navoi region, Kyzyltepa district, Gʻoyibon MFY, Navgandi village, house 90"
+    }
+  },
+  "form": {
+    "eyebrow": "Feedback",
+    "title": "Send a message",
+    "description": "Leave your name, email and message.",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "message": "Message",
+    "messagePlaceholder": "Write your message",
+    "submit": "Send",
+    "sending": "Sending...",
+    "success": "Your message has been sent successfully.",
+    "error": "Failed to send the message. Please try again."
+  }
+  },
+  "CompanyPage": {
+  "badge": "Company",
+  "title": "Company history",
+  "description": "The story of SOFIN and the “Yangi asr” farm — from its agricultural roots to modern dairy production, technology, growth and long-term development.",
+  "timelineLabel": "Stage",
+  "intro": {
+    "eyebrow": "Beginning",
+    "title": "The foundation of the “Yangi asr” farm",
+    "paragraph1": "The “Yangi asr” farm was established in 2000 under decision K-5/840 of the Kyzyltepa district administration in the Vang'ozi citizens' assembly.",
+    "paragraph2": "The head of the farm, Temirov Jobir Jamolovich, was born on May 11, 1973 in Navoi region, Kyzyltepa district, Vang'ozi MFY. He holds a secondary specialized education and graduated from the Bukhara Banking College.",
+    "paragraph3": "At the beginning, the farm included 80 heads of cattle, 35 hectares of cotton fields, 45 hectares of grain fields and 60 hectares of pastureland used for livestock feed."
+  },
+  "stats": {
+    "products": "types of dairy products",
+    "factory": "daily milk processing capacity",
+    "cattle": "heads of pedigree cattle imported",
+    "milk": "daily milk yield"
+  },
+  "timeline": {
+    "foundation": {
+      "title": "Establishment of the farm",
+      "text": "In 2000, the farm began its activity by combining livestock farming and agriculture. Its early structure was built around land resources, cattle and feed capacity."
+    },
+    "import": {
+      "title": "Import of pedigree cattle and expansion",
+      "text": "During President Shavkat Mirziyoyev’s visit to Navoi region in March 2017, the farm’s business project was reviewed. As a result, 394 heads of HOLSTEIN pedigree cattle were imported from Germany, Estonia and Denmark, and 40 local residents received employment. Later, 396 calves were obtained and daily milk yield reached 4000–5000 liters."
+    },
+    "factory": {
+      "title": "Launch of the processing plant",
+      "text": "In September 2019, a milk processing plant with a daily capacity of 40 tons was launched using Turkish and German technologies. This stage created jobs for another 70 young people in the district. Today, the enterprise produces 37 types of dairy products and supplies them across the regions of Uzbekistan."
+    },
+    "award": {
+      "title": "National recognition",
+      "text": "In May 2021, the company won 1st place in the district, regional and national stages of the “Tashabbus-2021” competition in the “Best Farmer of the Year” category."
+    }
+  },
+  "production": {
+    "title": "Current production and development direction",
+    "paragraph1": "Today, the “Yangi asr” farm operates as a modern dairy production system with logistics and quality control. Safety, cleanliness and consistency remain central to the process.",
+    "paragraph2": "The company’s path covers the transition from a farm operation to a major dairy producer. This strengthens the core values behind the SOFIN brand — trust, quality and a modern approach."
+  },
+  "cards": {
+    "employment": {
+      "title": "Employment",
+      "text": "At different stages of growth, dozens of local residents and young specialists received stable jobs."
+    },
+    "capacity": {
+      "title": "Capacity",
+      "text": "The plant can process up to 40 tons of milk per day."
+    },
+    "address": {
+      "title": "Address",
+      "text": "Navoi region, Kyzyltepa district, G‘oyibon MFY, Navgandi village, house 90."
+    },
+    "email": {
+      "title": "Email",
+      "text": "yangi_asr_2000@mail.ru"
+    }
+  }
+  },
+  "RecipesPage": {
+  "catalog": {
+    "badge": "Recipes catalog",
+    "title": "Beautiful dairy recipes",
+    "description": "A curated collection of breakfast, dessert and everyday recipes made with SOFIN dairy products.",
+    "cardBadge": "Recipe"
+  },
+  "detail": {
+    "back": "Back to recipes",
+    "badge": "Recipe card",
+    "ingredients": "Ingredients",
+    "steps": "Preparation method",
+    "servings": "Servings",
+    "totalWeight": "Total weight",
+    "nutrition": {
+      "calories": "Calories",
+      "protein": "Protein",
+      "fat": "Fat",
+      "carbs": "Carbs",
+      "weight": "Net weight",
+      "time": "Time"
+    }
+  }
+  },
+  "ShowcasePage": {
+  "hero": {
+    "badge": "Premium showcase",
+    "points": {
+      "quality": "Controlled quality",
+      "fresh": "Cold and clean presentation",
+      "line": "Premium yogurt line"
+    }
+  },
+  "scene": {
+    "primaryCta": "Open catalog",
+    "secondaryCta": "About the brand"
+  },
+  "ending": {
+    "badge": "SOFIN signature",
+    "title": "Product, visual language and brand merge into one premium experience",
+    "description": "Later this page can evolve into a full campaign landing, product launch or interactive premium presentation.",
+    "cards": {
+      "visual": {
+        "title": "Clean visual language",
+        "text": "A blue-white premium environment makes the product feel refined, modern and expensive."
+      },
+      "product": {
+        "title": "Hero-shot presentation",
+        "text": "Each model appears as a central premium object inside a polished digital experience."
+      },
+      "brand": {
+        "title": "Strong brand feeling",
+        "text": "SOFIN feels modern, confident and memorable as a quality-first dairy brand."
+      }
+    }
+  }
+}
+}
