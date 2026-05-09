@@ -1,6 +1,6 @@
 "use client";
 
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 import {motion, useScroll, useTransform} from "framer-motion";
 import Image from "next/image";
 import {Link} from "@/i18n/navigation";
@@ -15,25 +15,93 @@ type HomeScrollShowcaseProps = {
   recipes: RecipeItem[];
 };
 
+const HOME_SCROLL_COPY: Record<
+  Locale,
+  {
+    productsEyebrow: string;
+    productsTitle: string;
+    recipesEyebrow: string;
+    recipesTitle: string;
+  }
+> = {
+  ru: {
+    productsEyebrow: "SOFIN / Products",
+    productsTitle: "Продукты SOFIN для спокойного ежедневного выбора",
+    recipesEyebrow: "SOFIN / Recipes",
+    recipesTitle: "Идеи для завтрака, десертов и мягких семейных пауз"
+  },
+  uz: {
+    productsEyebrow: "SOFIN / Mahsulotlar",
+    productsTitle: "Har kungi sokin tanlov uchun SOFIN mahsulotlari",
+    recipesEyebrow: "SOFIN / Retseptlar",
+    recipesTitle: "Nonushta, desert va oilaviy lahzalar uchun g‘oyalar"
+  },
+  en: {
+    productsEyebrow: "SOFIN / Products",
+    productsTitle: "SOFIN products for calm everyday choice",
+    recipesEyebrow: "SOFIN / Recipes",
+    recipesTitle: "Ideas for breakfast, desserts and soft family pauses"
+  }
+};
+
 export function HomeScrollShowcase({
   locale,
   products,
   recipes
 }: HomeScrollShowcaseProps) {
+  const copy = HOME_SCROLL_COPY[locale];
+  const rootRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const onWheel = (event: WheelEvent) => {
+      if (!window.matchMedia("(min-width: 900px)").matches) return;
+
+      const rect = root.getBoundingClientRect();
+      const isActive =
+        rect.top < window.innerHeight * 1.25 &&
+        rect.bottom > window.innerHeight * 0.2;
+
+      if (!isActive) return;
+
+      const canLeaveTop = rect.top >= -2 && event.deltaY < 0;
+      const canLeaveBottom =
+        rect.bottom <= window.innerHeight + 2 && event.deltaY > 0;
+
+      if (canLeaveTop || canLeaveBottom) return;
+
+      event.preventDefault();
+
+      const clampedDelta = Math.max(-360, Math.min(360, event.deltaY));
+      window.scrollBy({top: clampedDelta * 0.48, behavior: "auto"});
+    };
+
+    window.addEventListener("wheel", onWheel, {passive: false});
+
+    return () => window.removeEventListener("wheel", onWheel);
+  }, []);
+
   return (
-    <main className="relative overflow-hidden bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_48%,#d1dcea_100%)]">
+    <main
+      ref={rootRef}
+      className="relative z-20 overflow-hidden bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_48%,#d1dcea_100%)]"
+    >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.58),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(185,214,255,0.22),transparent_34%)]" />
 
-      <PinnedProductCarousel locale={locale} products={products} />
-      <PinnedRecipeCarousel locale={locale} recipes={recipes} />
+      <PinnedProductCarousel copy={copy} locale={locale} products={products} />
+      <PinnedRecipeCarousel copy={copy} locale={locale} recipes={recipes} />
     </main>
   );
 }
 
 function PinnedProductCarousel({
+  copy,
   locale,
   products
 }: {
+  copy: (typeof HOME_SCROLL_COPY)[Locale];
   locale: Locale;
   products: ProductItem[];
 }) {
@@ -52,15 +120,15 @@ function PinnedProductCarousel({
     <section
       ref={ref}
       className="relative"
-      style={{height: `calc(${Math.max(products.length, 5)} * 72svh)`}}
+      style={{height: `${Math.max(products.length, 5) * 88}svh`}}
     >
-      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden px-5 py-24 sm:px-8 lg:px-10">
-        <div className="mx-auto mb-8 w-full max-w-[1480px] text-center">
+      <div className="sticky top-0 flex h-[100svh] flex-col justify-start overflow-hidden px-5 pb-12 pt-32 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10">
+        <div className="mx-auto mb-6 w-full max-w-[1480px] text-center lg:mb-7">
           <p className="text-[11px] font-semibold uppercase tracking-[0.36em] text-slate-600">
-            SOFIN / Products
+            {copy.productsEyebrow}
           </p>
-          <h2 className="mx-auto mt-3 max-w-[920px] text-balance text-4xl font-semibold leading-[0.96] tracking-[-0.055em] text-[var(--brand-primary)] sm:text-5xl lg:text-6xl">
-            Продукты SOFIN для спокойного ежедневного выбора
+          <h2 className="mx-auto mt-3 max-w-[920px] text-balance text-3xl font-semibold leading-[0.98] tracking-[-0.055em] text-[var(--brand-primary)] sm:text-4xl lg:text-5xl">
+            {copy.productsTitle}
           </h2>
         </div>
 
@@ -72,7 +140,7 @@ function PinnedProductCarousel({
             <Link
               key={product.slug}
               href={`/products/${product.slug}`}
-              className="group relative h-[min(62vh,620px)] w-[min(78vw,420px)] shrink-0 overflow-hidden rounded-[16px] shadow-[0_28px_80px_rgba(38,30,24,0.18)] transition duration-500 hover:-translate-y-2 sm:w-[min(44vw,430px)] lg:w-[min(31vw,440px)]"
+              className="group relative h-[min(54vh,520px)] w-[min(78vw,420px)] shrink-0 overflow-hidden rounded-[16px] shadow-[0_28px_80px_rgba(38,30,24,0.18)] transition duration-500 hover:-translate-y-2 sm:w-[min(44vw,430px)] lg:w-[min(31vw,440px)]"
             >
               <Image
                 src={getProductImage(product, index)}
@@ -102,9 +170,11 @@ function PinnedProductCarousel({
 }
 
 function PinnedRecipeCarousel({
+  copy,
   locale,
   recipes
 }: {
+  copy: (typeof HOME_SCROLL_COPY)[Locale];
   locale: Locale;
   recipes: RecipeItem[];
 }) {
@@ -123,15 +193,15 @@ function PinnedRecipeCarousel({
     <section
       ref={ref}
       className="relative"
-      style={{height: `calc(${Math.max(recipes.length, 4)} * 72svh)`}}
+      style={{height: `${Math.max(recipes.length, 4) * 88}svh`}}
     >
-      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden px-5 py-24 sm:px-8 lg:px-10">
-        <div className="mx-auto mb-8 w-full max-w-[1480px] text-center">
+      <div className="sticky top-0 flex h-[100svh] flex-col justify-start overflow-hidden px-5 pb-12 pt-32 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10">
+        <div className="mx-auto mb-6 w-full max-w-[1480px] text-center lg:mb-7">
           <p className="text-[11px] font-semibold uppercase tracking-[0.36em] text-slate-600">
-            SOFIN / Recipes
+            {copy.recipesEyebrow}
           </p>
-          <h2 className="mx-auto mt-3 max-w-[920px] text-balance text-4xl font-semibold leading-[0.96] tracking-[-0.055em] text-[var(--brand-primary)] sm:text-5xl lg:text-6xl">
-            Идеи для завтрака, десертов и мягких семейных пауз
+          <h2 className="mx-auto mt-3 max-w-[920px] text-balance text-3xl font-semibold leading-[0.98] tracking-[-0.055em] text-[var(--brand-primary)] sm:text-4xl lg:text-5xl">
+            {copy.recipesTitle}
           </h2>
         </div>
 
@@ -143,7 +213,7 @@ function PinnedRecipeCarousel({
             <Link
               key={recipe.slug}
               href={`/recipes/${recipe.slug}`}
-              className="group relative h-[min(62vh,620px)] w-[min(78vw,420px)] shrink-0 overflow-hidden rounded-[16px] shadow-[0_28px_80px_rgba(38,30,24,0.18)] transition duration-500 hover:-translate-y-2 sm:w-[min(44vw,430px)] lg:w-[min(31vw,440px)]"
+              className="group relative h-[min(54vh,520px)] w-[min(78vw,420px)] shrink-0 overflow-hidden rounded-[16px] shadow-[0_28px_80px_rgba(38,30,24,0.18)] transition duration-500 hover:-translate-y-2 sm:w-[min(44vw,430px)] lg:w-[min(31vw,440px)]"
             >
               <Image
                 src={recipe.image}

@@ -310,7 +310,7 @@ function MobileTextLayer({
           }}
           className="absolute inset-x-0 flex justify-center px-3"
           style={{
-            bottom: "calc(env(safe-area-inset-bottom) + 4.6rem)",
+            bottom: "calc(env(safe-area-inset-bottom) + 2.6rem)",
           }}
         >
           <motion.div
@@ -321,7 +321,7 @@ function MobileTextLayer({
               scale: lerp(0.97, 1, cardIn),
             }}
             transition={getPhaseTransition(0.95)}
-            className="relative w-full max-w-[430px] overflow-hidden border border-white/48 bg-[linear-gradient(145deg,rgba(255,255,255,0.68),rgba(255,255,255,0.34)_48%,rgba(255,249,244,0.22)_100%)] px-5 py-5 text-center shadow-[0_22px_72px_rgba(78,49,31,0.18)] backdrop-blur-[26px]"
+            className="relative w-full max-w-[360px] overflow-hidden border border-white/48 bg-[linear-gradient(145deg,rgba(255,255,255,0.68),rgba(255,255,255,0.34)_48%,rgba(255,249,244,0.22)_100%)] px-4 py-4 text-center shadow-[0_22px_72px_rgba(78,49,31,0.18)] backdrop-blur-[26px]"
             style={{
               borderRadius: "clamp(24px, 8vw, 34px)",
             }}
@@ -364,9 +364,9 @@ function MobileTextLayer({
                 style={{
                   fontSize:
                     step === 0
-                      ? "clamp(1.85rem, 8.7vw, 2.35rem)"
-                      : "clamp(2rem, 10vw, 2.85rem)",
-                  lineHeight: 0.98,
+                      ? "clamp(1.55rem, 7.5vw, 2rem)"
+                      : "clamp(1.62rem, 8.3vw, 2.28rem)",
+                  lineHeight: 1.02,
                   textWrap: "balance",
                 }}
               >
@@ -389,8 +389,8 @@ function MobileTextLayer({
                   transition={getPhaseTransition(0.9)}
                   className={`${inter.className} mt-4 text-[#5e4d42]/84`}
                   style={{
-                    fontSize: "clamp(0.92rem, 4vw, 1.02rem)",
-                    lineHeight: 1.62,
+                    fontSize: "clamp(0.84rem, 3.45vw, 0.96rem)",
+                    lineHeight: 1.5,
                     textWrap: "balance",
                   }}
                 >
@@ -407,18 +407,18 @@ function MobileTextLayer({
                     scale: lerp(0.98, 1, actionsIn),
                   }}
                   transition={getPhaseTransition(0.84)}
-                  className="mt-5 flex flex-wrap justify-center gap-3"
+                  className="mt-4 flex flex-wrap justify-center gap-2.5"
                 >
                   <button
                     type="button"
-                    className={`${inter.className} pointer-events-auto rounded-full bg-[#2f241f] px-6 py-3 text-xs font-semibold uppercase text-white shadow-[0_14px_30px_rgba(47,36,31,0.18)]`}
+                    className={`${inter.className} pointer-events-auto rounded-full bg-[#2f241f] px-5 py-2.5 text-[11px] font-semibold uppercase text-white shadow-[0_14px_30px_rgba(47,36,31,0.18)]`}
                   >
                     {uiLabels.catalog}
                   </button>
 
                   <button
                     type="button"
-                    className={`${inter.className} pointer-events-auto rounded-full border border-white/52 bg-white/62 px-6 py-3 text-xs font-semibold uppercase text-[#3b2d26] backdrop-blur-xl`}
+                    className={`${inter.className} pointer-events-auto rounded-full border border-white/52 bg-white/62 px-5 py-2.5 text-[11px] font-semibold uppercase text-[#3b2d26] backdrop-blur-xl`}
                   >
                     {uiLabels.details}
                   </button>

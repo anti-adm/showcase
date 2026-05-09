@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 220" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="milkBody" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8fcff"/>
+      <stop offset="0.42" stop-color="#e8f5ff"/>
+      <stop offset="0.78" stop-color="#d7ecff"/>
+      <stop offset="1" stop-color="#f7fbff"/>
+    </linearGradient>
+    <linearGradient id="milkShine" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="0.35" stop-color="#9fd5ff" stop-opacity="0.45"/>
+      <stop offset="0.72" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#cdeaff" stop-opacity="0.38"/>
+    </linearGradient>
+    <filter id="softGlow" x="-5%" y="-40%" width="110%" height="180%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="220" fill="#15253a"/>
+  <path
+    d="M0 82 C32 70 60 73 88 82 C116 91 142 92 170 77 C206 58 238 60 272 78 C308 96 342 93 382 82 C422 70 452 77 484 84 C515 91 546 74 582 72 C618 70 650 96 690 95 C724 94 758 80 792 78 C826 76 858 94 892 94 C930 94 958 74 994 68 C1034 61 1060 90 1094 92 C1128 94 1158 78 1190 76 C1225 74 1248 96 1282 96 C1322 96 1354 82 1390 78 C1426 74 1454 92 1492 92 C1532 92 1562 75 1596 70 C1632 65 1660 93 1698 95 C1734 97 1766 82 1798 72 C1832 61 1860 92 1890 92 C1908 92 1915 82 1920 72 L1920 220 L0 220 Z"
+    fill="url(#milkBody)"
+  />
+  <path
+    d="M0 88 C42 76 70 88 112 88 C156 88 178 65 218 65 C260 65 292 92 334 92 C388 92 410 72 454 78 C498 84 522 95 560 78 C600 60 634 88 682 91 C732 94 762 76 806 78 C850 80 878 100 924 96 C972 92 1004 66 1046 73 C1088 80 1106 99 1152 96 C1200 93 1232 76 1276 80 C1320 84 1342 99 1390 94 C1438 89 1472 68 1516 74 C1560 80 1586 101 1634 96 C1684 91 1716 72 1760 78 C1804 84 1828 101 1872 96 C1896 93 1908 82 1920 75"
+    fill="none"
+    stroke="url(#milkShine)"
+    stroke-width="18"
+    stroke-linecap="round"
+    opacity="0.55"
+    filter="url(#softGlow)"
+  />
+</svg>

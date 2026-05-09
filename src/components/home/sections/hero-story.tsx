@@ -5,8 +5,9 @@ import {AnimatePresence, motion} from "framer-motion";
 import {ArrowRight} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import {useLocale} from "next-intl";
 
-import {heroScenes, type HeroScene} from "@/data/home/hero-scenes";
+import {getHeroScenes, type HeroScene} from "@/data/home/hero-scenes";
 import {cn} from "@/lib/utils";
 import HeroSnapController from "./hero-snap-controller";
 
@@ -30,6 +31,8 @@ export default function HeroStory() {
   const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [activeScene, setActiveScene] = useState(0);
   const reducedMotion = useReducedMotionPreference();
+  const locale = useLocale();
+  const heroScenes = useMemo(() => getHeroScenes(locale), [locale]);
 
   const backgroundByScene = useMemo(
     () => [
@@ -143,7 +146,7 @@ export default function HeroStory() {
         </div>
       </div>
 
-      <div className="relative z-10 h-[500svh] snap-y snap-proximity">
+      <div className="relative z-10 h-[500svh]">
         {heroScenes.map((scene: HeroScene, index: number) => {
           const isActive = index === activeScene;
 
@@ -155,7 +158,7 @@ export default function HeroStory() {
               }}
               data-scene-index={index}
               className={cn(
-                "relative flex h-[100svh] items-center snap-start"
+                "relative flex h-[100svh] items-center"
               )}
             >
               <div
@@ -188,7 +191,7 @@ export default function HeroStory() {
                           }
                         }
                       }}
-                      className={cn("max-w-[760px]", index === 2 && "lg:max-w-[820px]")}
+                      className={cn("max-w-[1080px]", index === 2 && "lg:max-w-[920px]")}
                     >
                       {scene.eyebrow ? (
                         <motion.div
@@ -209,19 +212,19 @@ export default function HeroStory() {
 
                       <motion.h1
                         variants={{
-                          hidden: {opacity: 0, y: 22, filter: "blur(12px)"},
+                          hidden: {opacity: 0, y: 26, scale: 0.982, filter: "blur(14px)"},
                           visible: {opacity: 1, y: 0, filter: "blur(0px)"},
-                          exit: {opacity: 0, y: -14}
+                          exit: {opacity: 0, y: -16, scale: 0.992}
                         }}
                         transition={{
-                          duration: 0.68,
+                          duration: 0.86,
                           ease: [0.22, 1, 0.36, 1]
                         }}
                         className={cn(
-                          "max-w-[760px] text-balance font-semibold leading-[0.94] tracking-[-0.045em] text-white",
+                          "max-w-[1080px] text-balance font-semibold leading-[1.06] tracking-[-0.045em] text-white",
                           index === 2
-                            ? "max-w-[820px] leading-[0.98] text-[clamp(2.15rem,9.6vw,3rem)] sm:text-[clamp(2.7rem,6.3vw,3.9rem)] lg:text-[clamp(2.7rem,3.15vw,3.35rem)]"
-                            : "text-[clamp(2.7rem,10vw,3.45rem)] sm:text-[clamp(3.4rem,6.2vw,4.55rem)] lg:text-[clamp(4rem,5vw,5.05rem)]"
+                            ? "max-w-[860px] leading-[1.06] text-[clamp(2rem,8.8vw,2.85rem)] sm:text-[clamp(2.55rem,5.7vw,3.45rem)] lg:text-[clamp(2.7rem,3vw,3.22rem)]"
+                            : "text-[clamp(2.35rem,8.4vw,3.05rem)] sm:text-[clamp(2.8rem,5vw,3.7rem)] lg:text-[clamp(3rem,3.35vw,3.65rem)]"
                         )}
                       >
                         {scene.title}
@@ -230,12 +233,13 @@ export default function HeroStory() {
                       {scene.subtitle ? (
                         <motion.p
                           variants={{
-                            hidden: {opacity: 0, y: 18, filter: "blur(8px)"},
+                            hidden: {opacity: 0, y: 22, scale: 0.992, filter: "blur(10px)"},
                             visible: {opacity: 1, y: 0, filter: "blur(0px)"},
                             exit: {opacity: 0, y: -10}
                           }}
                           transition={{
-                            duration: 0.56,
+                            duration: 0.74,
+                            delay: reducedMotion ? 0 : 0.04,
                             ease: [0.22, 1, 0.36, 1]
                           }}
                           className="mt-4 max-w-[540px] text-xl font-medium text-white/90 sm:text-2xl lg:text-[1.85rem]"
@@ -247,12 +251,13 @@ export default function HeroStory() {
                       {index !== 2 ? (
                         <motion.div
                           variants={{
-                            hidden: {opacity: 0, y: 24, filter: "blur(10px)"},
+                            hidden: {opacity: 0, y: 28, scale: 0.986, filter: "blur(12px)"},
                             visible: {opacity: 1, y: 0, filter: "blur(0px)"},
                             exit: {opacity: 0, y: -12}
                           }}
                           transition={{
-                            duration: 0.62,
+                            duration: 0.82,
+                            delay: reducedMotion ? 0 : 0.08,
                             ease: [0.22, 1, 0.36, 1]
                           }}
                           className="mt-7 max-w-[600px] rounded-[28px] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(4,19,36,0.18)] backdrop-blur-[24px] sm:p-6"

@@ -666,7 +666,7 @@ export function YogurtsShowcasePage() {
 
   return (
     <main
-      className="relative min-h-[100dvh] overflow-hidden"
+      className="relative min-h-dvh overflow-hidden"
       style={{
         background: palette.base,
         overscrollBehavior: "none",
@@ -779,7 +779,7 @@ export function YogurtsShowcasePage() {
         }`}
         style={{
           ...(isMobile
-            ? { bottom: "calc(env(safe-area-inset-bottom) + 0.7rem)" }
+            ? { bottom: "calc(env(safe-area-inset-bottom) + 17rem)" }
             : { bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }),
         }}
       >

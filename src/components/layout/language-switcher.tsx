@@ -2,7 +2,7 @@
 
 import {Languages} from 'lucide-react';
 import {useLocale} from 'next-intl';
-import {usePathname, useRouter} from '@/i18n/navigation';
+import {Link, usePathname} from '@/i18n/navigation';
 import {routing} from '@/i18n/routing';
 import {cn} from '@/lib/utils';
 
@@ -23,10 +23,8 @@ export default function LanguageSwitcher({
 }: LanguageSwitcherProps) {
   const locale = useLocale();
   const pathname = usePathname();
-  const router = useRouter();
 
-  const handleChange = (nextLocale: (typeof routing.locales)[number]) => {
-    router.replace(pathname, {locale: nextLocale});
+  const handleChange = () => {
     onChange?.();
   };
 
@@ -42,12 +40,13 @@ export default function LanguageSwitcher({
             const active = item === locale;
 
             return (
-              <button
+              <Link
                 key={item}
-                type="button"
-                onClick={() => handleChange(item)}
+                href={pathname}
+                locale={item}
+                onClick={handleChange}
                 className={cn(
-                  'flex-1 rounded-full px-3 py-2 text-sm font-medium transition',
+                  'flex-1 rounded-full px-3 py-2 text-center text-sm font-medium transition',
                   active
                     ? 'liquid-language-active text-[color:var(--text)]'
                     : 'text-[color:var(--text-soft)] hover:bg-white/42 hover:text-[color:var(--text)]'
@@ -55,7 +54,7 @@ export default function LanguageSwitcher({
                 aria-pressed={active}
               >
                 {labels[item]}
-              </button>
+              </Link>
             );
           })}
         </div>
@@ -73,10 +72,11 @@ export default function LanguageSwitcher({
         const active = item === locale;
 
         return (
-          <button
+          <Link
             key={item}
-            type="button"
-            onClick={() => handleChange(item)}
+            href={pathname}
+            locale={item}
+            onClick={handleChange}
             className={cn(
               'rounded-full px-3 py-2 text-xs font-medium transition',
               active
@@ -86,7 +86,7 @@ export default function LanguageSwitcher({
             aria-pressed={active}
           >
             {labels[item]}
-          </button>
+          </Link>
         );
       })}
     </div>
