@@ -7,6 +7,8 @@ import {useEffect, useState} from 'react';
 const PRELOAD_ASSETS = [
   '/images/hero/hero1.png',
   '/images/hero/hero2.jpeg',
+  '/images/products.png',
+  '/images/products-m.png',
   '/images/brand/pack-line.jpg',
   '/logo/sofin-logo.png'
 ];
@@ -67,9 +69,9 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
               fill
               priority
               sizes="100vw"
-              className="object-cover opacity-45"
+              className="object-cover opacity-70"
             />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.74),transparent_32%),linear-gradient(180deg,rgba(250,244,235,0.86),rgba(232,240,249,0.82))]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.38),transparent_34%),linear-gradient(180deg,rgba(250,244,235,0.42),rgba(226,237,249,0.54))]" />
           </div>
 
           <motion.div
@@ -78,20 +80,37 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
             transition={{duration: 0.78, ease: [0.22, 1, 0.36, 1]}}
             className="relative flex flex-col items-center"
           >
-            <div className="sofin-premium-loader relative flex h-40 w-40 items-center justify-center rounded-[2rem] border border-white/62 bg-[linear-gradient(145deg,rgba(255,255,255,0.74),rgba(255,246,236,0.32))] shadow-[0_28px_90px_rgba(78,49,31,0.18)] backdrop-blur-2xl sm:h-48 sm:w-48">
+            <div className="sofin-premium-loader relative flex h-40 w-40 items-center justify-center overflow-hidden rounded-[2rem] border border-white/54 bg-[linear-gradient(145deg,rgba(255,255,255,0.46),rgba(255,246,236,0.18))] shadow-[0_28px_90px_rgba(34,61,94,0.18)] backdrop-blur-2xl sm:h-48 sm:w-48">
               <motion.div
-                className="absolute inset-3 rounded-[1.5rem] border border-[#3b2d26]/10"
+                className="absolute inset-3 rounded-[1.5rem] border border-white/36 bg-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.64)]"
                 animate={{rotate: [0, 12, -8, 0], scale: [1, 1.015, 0.995, 1]}}
                 transition={{duration: 4.8, repeat: Infinity, ease: [0.22, 1, 0.36, 1]}}
               />
-              <Image
-                src="/logo/sofin-logo.png"
-                alt="SOFIN"
-                width={112}
-                height={112}
-                priority
-                className="relative h-24 w-24 rounded-[1.25rem] object-cover sm:h-28 sm:w-28"
-              />
+              <div className="relative h-24 w-24 overflow-hidden rounded-[1.25rem] sm:h-28 sm:w-28">
+                <Image
+                  src="/logo/sofin-logo.png"
+                  alt="SOFIN"
+                  width={112}
+                  height={112}
+                  priority
+                  className="absolute inset-0 h-full w-full object-cover opacity-24 grayscale"
+                />
+                <motion.div
+                  className="absolute inset-0 overflow-hidden"
+                  animate={{clipPath: `inset(${Math.max(0, 100 - Math.round(progress * 100))}% 0% 0% 0%)`}}
+                  transition={{duration: 0.28, ease: [0.22, 1, 0.36, 1]}}
+                >
+                  <Image
+                    src="/logo/sofin-logo.png"
+                    alt=""
+                    width={112}
+                    height={112}
+                    priority
+                    className="h-full w-full object-cover saturate-[0.85]"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(145deg,rgba(255,255,255,0.18),rgba(178,211,232,0.18))] mix-blend-screen" />
+                </motion.div>
+              </div>
             </div>
 
             <div className="mt-7 text-center">

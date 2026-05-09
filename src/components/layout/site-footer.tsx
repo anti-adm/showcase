@@ -2,18 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import {Mail, Phone, Send} from "lucide-react";
 import {useLocale, useTranslations} from "next-intl";
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
   const nav = useTranslations("Navigation");
   const locale = useLocale();
+  const navItems = [
+    {href: `/${locale}`, label: nav("home")},
+    {href: `/${locale}/products`, label: nav("products")},
+    {href: `/${locale}/yogurts`, label: nav("yogurts")},
+    {href: `/${locale}/company`, label: nav("company")},
+    {href: `/${locale}/recipes`, label: nav("recipes")},
+    {href: `/${locale}/contacts`, label: nav("contacts")}
+  ];
+  const contactItems = [
+    {href: "tel:+998712003636", label: t("phone"), icon: Phone},
+    {href: "mailto:hello@sofin.uz", label: t("email"), icon: Mail},
+    {href: "https://t.me/sofinuz", label: "Telegram", icon: Send}
+  ];
 
   return (
     <footer className="container-shell pb-6 pt-8 sm:pb-8 sm:pt-10">
-      <div className="soft-card rounded-[28px] px-5 py-6 sm:px-7 lg:px-8">
-        <div className="grid gap-7 md:grid-cols-[1fr_0.8fr] lg:grid-cols-[1.1fr_0.8fr_0.8fr]">
-          <div>
+      <div className="rounded-[30px] border border-white/44 bg-[#e8f1fb]/72 px-5 py-6 shadow-[0_22px_70px_rgba(10,32,71,0.10)] backdrop-blur-2xl sm:px-7 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-[0.92fr_1.12fr_0.86fr] lg:items-start">
+          <div className="space-y-5">
             <div className="flex items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]">
                 <Image
@@ -34,56 +48,53 @@ export function SiteFooter() {
                 </div>
               </div>
             </div>
+
+            <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
+              {contactItems.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                    className="group inline-flex items-center gap-2 rounded-full border border-white/42 bg-white/30 px-3.5 py-2.5 text-sm font-medium text-[var(--text-soft)] shadow-[0_10px_26px_rgba(10,32,71,0.05)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/52 hover:text-[var(--text)]"
+                  >
+                    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/50 text-[var(--text)] transition group-hover:bg-white/72">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className="truncate">{item.label}</span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
-          <div>
+          <div className="rounded-[26px] border border-white/34 bg-white/24 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.56)] backdrop-blur-xl">
             <div className="text-xs uppercase tracking-[0.34em] text-[var(--muted)]">
               {t("navigation")}
             </div>
 
-            <nav className="mt-4 grid grid-cols-2 gap-2 text-sm text-[var(--text-soft)] sm:flex sm:flex-col sm:gap-2.5">
-              <Link href={`/${locale}`} className="transition hover:text-[var(--text)]">
-                {nav("home")}
-              </Link>
-              <Link
-                href={`/${locale}/products`}
-                className="transition hover:text-[var(--text)]"
-              >
-                {nav("products")}
-              </Link>
-              <Link
-                href={`/${locale}/yogurts`}
-                className="transition hover:text-[var(--text)]"
-              >
-                {nav("yogurts")}
-              </Link>
-              <Link
-                href={`/${locale}/company`}
-                className="transition hover:text-[var(--text)]"
-              >
-                {nav("company")}
-              </Link>
-              <Link
-                href={`/${locale}/recipes`}
-                className="transition hover:text-[var(--text)]"
-              >
-                {nav("recipes")}
-              </Link>
-              <Link
-                href={`/${locale}/contacts`}
-                className="transition hover:text-[var(--text)]"
-              >
-                {nav("contacts")}
-              </Link>
+            <nav className="mt-7 grid grid-cols-2 gap-x-8 gap-y-5 rounded-[24px] bg-white/12 px-4 py-4 text-sm font-semibold text-[var(--text-soft)] sm:grid-cols-3 sm:px-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-full px-1 py-1 transition hover:translate-x-1 hover:text-[var(--text)]"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
           </div>
 
-          <div>
+          <div className="rounded-[26px] border border-white/34 bg-white/24 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.56)] backdrop-blur-xl">
             <div className="text-xs uppercase tracking-[0.34em] text-[var(--muted)]">
               {t("contacts")}
             </div>
 
-            <div className="mt-4 space-y-2 text-sm text-[var(--text-soft)]">
+            <div className="mt-4 space-y-2 text-sm leading-7 text-[var(--text-soft)]">
               <p>{t("address")}</p>
               <p>{t("phone")}</p>
               <p>{t("email")}</p>

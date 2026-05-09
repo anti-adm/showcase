@@ -24,12 +24,12 @@ type Locale = "uz" | "ru" | "en";
 const COLLECTION_FINAL_TEXT_CONTROLS = {
   desktop: {
     x: "0px",
-    y: "0px",
+    y: "72px",
     maxWidth: "1600px",
   },
   mobile: {
     x: "0px",
-    y: "24px",
+    y: "64px",
     maxWidth: "330px",
   },
 } as const;
@@ -666,7 +666,7 @@ export function YogurtsShowcasePage() {
 
   return (
     <main
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-[100dvh] overflow-hidden"
       style={{
         background: palette.base,
         overscrollBehavior: "none",
@@ -979,7 +979,7 @@ function CollectionExperience({
                 transform: `translate3d(${finalTextControls.x}, ${finalTextControls.y}, 0)`,
               }}
             >
-              {copy.finalText}
+              <TypingText text={copy.finalText} active={active} />
             </h2>
           </div>
         </div>
@@ -1085,10 +1085,43 @@ function CollectionExperience({
           className={`${collectionSerif.className} max-w-235 text-center text-[clamp(2.05rem,4.7vw,4.45rem)] font-semibold leading-[1.05] text-[#251b17] drop-shadow-[0_16px_50px_rgba(255,255,255,0.45)]`}
           style={{ maxWidth: finalTextControls.maxWidth }}
         >
-          {copy.finalText}
+          <TypingText text={copy.finalText} active={outroVisible} />
         </h2>
       </div>
     </section>
+  );
+}
+
+function TypingText({text, active}: {text: string; active: boolean}) {
+  return (
+    <span
+      className="inline-block"
+      aria-label={text}
+    >
+      {Array.from(text).map((char, index) => (
+        <span
+          key={`${char}-${index}`}
+          aria-hidden="true"
+          className="inline-block opacity-0"
+          style={{
+            animation: active
+              ? `sofinTypingGlyph 36ms ${Math.min(index * 34, 1800)}ms linear forwards`
+              : "none",
+          }}
+        >
+          {char === " " ? "\u00a0" : char}
+        </span>
+      ))}
+      <span
+        aria-hidden="true"
+        className="ml-1 inline-block h-[0.78em] w-[0.045em] translate-y-[0.08em] bg-current align-middle"
+        style={{
+          animation: active
+            ? "sofinTypingCursor 820ms steps(1,end) infinite"
+            : "none",
+        }}
+      />
+    </span>
   );
 }
 

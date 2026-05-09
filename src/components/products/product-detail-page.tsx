@@ -107,20 +107,29 @@ export default function ProductDetailPage({slug}: {slug: string}) {
 
   return (
     <main className="relative overflow-hidden pt-28 sm:pt-32">
-      <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#f2ece2_0%,#ece4d8_50%,#e4dacd_100%)]" />
-      <div className="absolute inset-0 -z-20">
+      <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)]" />
+      <div className="absolute inset-0 -z-20 hidden sm:block">
         <Image
-          src="/images/Carta.png"
+          src="/images/products.png"
           alt=""
           fill
           priority
-          className="object-cover opacity-20"
+          className="object-cover object-center opacity-36"
         />
       </div>
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(245,239,229,0.8)_0%,rgba(237,228,215,0.9)_52%,rgba(226,216,203,0.94)_100%)] backdrop-blur-[10px]" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.68),transparent_30%),radial-gradient(circle_at_86%_4%,rgba(229,204,170,0.26),transparent_34%),radial-gradient(circle_at_50%_100%,rgba(68,50,36,0.08),transparent_42%)]" />
+      <div className="absolute inset-0 -z-20 sm:hidden">
+        <Image
+          src="/images/products-m.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center opacity-34"
+        />
+      </div>
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.36)_0%,rgba(218,231,246,0.48)_52%,rgba(207,222,239,0.62)_100%)] backdrop-blur-[4px]" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.58),transparent_30%),radial-gradient(circle_at_86%_4%,rgba(192,218,255,0.22),transparent_34%),radial-gradient(circle_at_50%_100%,rgba(44,78,120,0.08),transparent_42%)]" />
 
-      <section className="mx-auto max-w-[1420px] px-5 pb-16 sm:px-8 lg:px-10">
+      <section className="mx-auto max-w-[1420px] px-5 pb-32 sm:px-8 lg:px-10">
         <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-[#776b60]">
           <Link href={`/${locale}`} className="transition hover:text-[#2e241f]">
             {t("breadcrumbs.home")}
@@ -136,17 +145,22 @@ export default function ProductDetailPage({slug}: {slug: string}) {
           <span className="font-medium text-[#2e241f]">{product.title[locale]}</span>
         </div>
 
-        <div className="grid items-start gap-7 lg:grid-cols-[minmax(340px,0.9fr)_minmax(0,1.12fr)] lg:gap-10">
+        <div className="grid items-start gap-7 lg:grid-cols-[minmax(300px,0.82fr)_minmax(0,1.18fr)] lg:gap-10">
           <motion.aside
             initial={{opacity: 0, x: -20, filter: "blur(10px)"}}
             animate={{opacity: 1, x: 0, filter: "blur(0px)"}}
             transition={{duration: 0.68, ease: [0.22, 1, 0.36, 1]}}
-            className="lg:sticky lg:top-28"
+            className="lg:sticky lg:top-32"
           >
-            <div className="relative overflow-hidden rounded-[38px] border border-white/58 bg-white/26 p-3 shadow-[0_28px_90px_rgba(67,54,39,0.1)] backdrop-blur-[22px] sm:p-4">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.78),transparent_34%),radial-gradient(circle_at_86%_90%,rgba(209,183,148,0.18),transparent_36%)]" />
+            <div className="relative overflow-hidden rounded-[34px] border border-white/48 bg-white/18 p-3 shadow-[0_24px_78px_rgba(44,78,120,0.10)] backdrop-blur-[18px] sm:p-4">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.66),transparent_34%),radial-gradient(circle_at_86%_90%,rgba(162,196,238,0.16),transparent_36%)]" />
 
-              <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-[30px] bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(244,236,225,0.58))] px-4 py-8 sm:min-h-[520px] lg:min-h-[calc(100vh-220px)] lg:max-h-[720px]">
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(true)}
+                className="relative flex min-h-[300px] w-full items-center justify-center overflow-hidden rounded-[26px] bg-[linear-gradient(180deg,rgba(255,255,255,0.68),rgba(228,237,248,0.48))] px-3 py-6 text-left sm:min-h-[430px] lg:min-h-[calc(100vh-250px)] lg:max-h-[660px]"
+                aria-label={t("gallery.open")}
+              >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.9),transparent_35%),radial-gradient(circle_at_50%_100%,rgba(79,60,42,0.12),transparent_36%)]" />
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -155,24 +169,24 @@ export default function ProductDetailPage({slug}: {slug: string}) {
                     animate={{opacity: 1, y: 0, scale: 1, filter: "blur(0px)"}}
                     exit={{opacity: 0, y: -8, scale: 0.985, filter: "blur(7px)"}}
                     transition={{duration: 0.46, ease: [0.22, 1, 0.36, 1]}}
-                    className="relative aspect-square w-full max-w-[620px]"
+                    className="relative aspect-square w-full max-w-[540px] overflow-hidden rounded-[24px]"
                   >
                     <Image
                       src={gallery[activeImage].src}
                       alt={gallery[activeImage].alt}
                       fill
                       sizes="(min-width: 1024px) 44vw, 92vw"
-                      className="scale-[1.08] object-cover drop-shadow-[0_32px_34px_rgba(67,54,39,0.18)]"
+                      className="scale-[1.06] rounded-[24px] object-cover drop-shadow-[0_30px_34px_rgba(44,78,120,0.14)]"
                       priority
                     />
                   </motion.div>
                 </AnimatePresence>
-              </div>
+              </button>
 
               <button
                 type="button"
                 onClick={() => setLightboxOpen(true)}
-                className="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/62 bg-white/68 text-[#2e241f] shadow-[0_14px_30px_rgba(67,54,39,0.1)] backdrop-blur-xl transition hover:bg-white"
+                className="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/62 bg-white/62 text-[var(--brand-primary)] shadow-[0_14px_30px_rgba(44,78,120,0.1)] backdrop-blur-xl transition hover:bg-white"
                 aria-label={t("gallery.open")}
               >
                 <Expand className="h-4 w-4" />
@@ -235,12 +249,12 @@ export default function ProductDetailPage({slug}: {slug: string}) {
             transition={{duration: 0.68, delay: 0.04, ease: [0.22, 1, 0.36, 1]}}
             className="space-y-5"
           >
-            <section className="rounded-[36px] border border-white/58 bg-white/34 p-6 shadow-[0_24px_80px_rgba(67,54,39,0.08)] backdrop-blur-[22px] sm:p-8 lg:p-10">
+            <section className="rounded-[34px] border border-white/42 bg-white/20 p-6 shadow-[0_22px_70px_rgba(44,78,120,0.08)] backdrop-blur-[16px] sm:p-8 lg:p-10">
               <div className="mb-4 inline-flex rounded-full border border-white/60 bg-white/58 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#6e6258]">
                 {t("product.badge")}
               </div>
 
-              <h1 className="text-balance text-4xl font-semibold tracking-[-0.055em] text-[#2e241f] sm:text-5xl lg:text-[4rem]">
+              <h1 className="text-balance text-3xl font-semibold tracking-[-0.055em] text-[var(--brand-primary)] sm:text-5xl lg:text-[4rem]">
                 {product.title[locale]}
               </h1>
 
@@ -256,7 +270,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
                 return (
                   <div
                     key={item.label}
-                    className="rounded-[26px] border border-white/54 bg-white/36 p-5 shadow-[0_16px_44px_rgba(67,54,39,0.06)] backdrop-blur-[18px]"
+                    className="rounded-[24px] border border-white/54 bg-white/36 p-4 shadow-[0_16px_44px_rgba(67,54,39,0.06)] backdrop-blur-[18px] sm:p-5"
                   >
                     <div className="flex items-start gap-4">
                       <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2e241f]/[0.06] text-[#2e241f]">
@@ -315,8 +329,8 @@ export default function ProductDetailPage({slug}: {slug: string}) {
               ) : null}
             </section>
 
-            <section className="rounded-[36px] border border-white/54 bg-white/34 p-6 shadow-[0_24px_70px_rgba(67,54,39,0.07)] backdrop-blur-[20px] sm:p-8">
-              <h2 className="text-3xl font-semibold tracking-[-0.04em] text-[#2e241f] sm:text-4xl">
+            <section className="rounded-[32px] border border-white/54 bg-white/34 p-5 shadow-[0_24px_70px_rgba(67,54,39,0.07)] backdrop-blur-[20px] sm:p-8">
+              <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[#2e241f] sm:text-4xl">
                 {product.compositionTitle[locale]}
               </h2>
 
@@ -349,6 +363,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
             animate={{opacity: 1}}
             exit={{opacity: 0}}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-[#17110d]/86 p-4 backdrop-blur-md"
+            onClick={() => setLightboxOpen(false)}
           >
             <button
               type="button"
@@ -361,7 +376,10 @@ export default function ProductDetailPage({slug}: {slug: string}) {
 
             <button
               type="button"
-              onClick={prevImage}
+              onClick={(event) => {
+                event.stopPropagation();
+                prevImage();
+              }}
               className="absolute left-4 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20"
               aria-label={t("gallery.prev")}
             >
@@ -375,6 +393,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
               exit={{opacity: 0, scale: 0.985, filter: "blur(6px)"}}
               transition={{duration: 0.35, ease: [0.22, 1, 0.36, 1]}}
               className="relative flex h-[82vh] w-full max-w-[1100px] items-center justify-center"
+              onClick={(event) => event.stopPropagation()}
             >
               <Image
                 src={gallery[activeImage].src}
@@ -387,7 +406,10 @@ export default function ProductDetailPage({slug}: {slug: string}) {
 
             <button
               type="button"
-              onClick={nextImage}
+              onClick={(event) => {
+                event.stopPropagation();
+                nextImage();
+              }}
               className="absolute right-4 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20"
               aria-label={t("gallery.next")}
             >

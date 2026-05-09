@@ -155,15 +155,14 @@ export default function HeroStory() {
               }}
               data-scene-index={index}
               className={cn(
-                "relative flex h-[100svh] items-center",
-                index === heroScenes.length - 1 ? "snap-end" : "snap-start"
+                "relative flex h-[100svh] items-center snap-start"
               )}
             >
               <div
                 className={cn(
-                  "mx-auto grid w-full max-w-[1380px] items-center gap-8 px-5 pb-14 pt-28 sm:px-8 lg:px-12 xl:gap-12",
+                  "mx-auto grid w-full max-w-[1380px] items-center gap-8 px-5 pb-14 pt-32 sm:px-8 sm:pt-36 lg:px-12 xl:gap-12",
                   index === 2
-                    ? "lg:grid-cols-[minmax(0,0.92fr)_minmax(340px,0.76fr)]"
+                    ? "lg:grid-cols-[minmax(0,0.86fr)_minmax(360px,0.72fr)]"
                     : "lg:grid-cols-1"
                 )}
               >
@@ -189,7 +188,7 @@ export default function HeroStory() {
                           }
                         }
                       }}
-                      className="max-w-[760px]"
+                      className={cn("max-w-[760px]", index === 2 && "lg:max-w-[820px]")}
                     >
                       {scene.eyebrow ? (
                         <motion.div
@@ -219,10 +218,10 @@ export default function HeroStory() {
                           ease: [0.22, 1, 0.36, 1]
                         }}
                         className={cn(
-                          "max-w-[760px] text-balance font-semibold leading-[0.92] tracking-[-0.055em] text-white sm:text-[4.2rem] lg:text-[5.35rem] xl:text-[5.9rem]",
+                          "max-w-[760px] text-balance font-semibold leading-[0.94] tracking-[-0.045em] text-white",
                           index === 2
-                            ? "text-[clamp(2.25rem,10.2vw,3.15rem)] sm:text-[clamp(2.7rem,7vw,4.1rem)] lg:text-[clamp(3.15rem,5vw,4.45rem)] xl:text-[clamp(3.25rem,4.7vw,4.7rem)]"
-                            : "text-[3.2rem]"
+                            ? "max-w-[820px] leading-[0.98] text-[clamp(2.15rem,9.6vw,3rem)] sm:text-[clamp(2.7rem,6.3vw,3.9rem)] lg:text-[clamp(2.7rem,3.15vw,3.35rem)]"
+                            : "text-[clamp(2.7rem,10vw,3.45rem)] sm:text-[clamp(3.4rem,6.2vw,4.55rem)] lg:text-[clamp(4rem,5vw,5.05rem)]"
                         )}
                       >
                         {scene.title}
@@ -245,34 +244,36 @@ export default function HeroStory() {
                         </motion.p>
                       ) : null}
 
-                      <motion.div
-                        variants={{
-                          hidden: {opacity: 0, y: 24, filter: "blur(10px)"},
-                          visible: {opacity: 1, y: 0, filter: "blur(0px)"},
-                          exit: {opacity: 0, y: -12}
-                        }}
-                        transition={{
-                          duration: 0.62,
-                          ease: [0.22, 1, 0.36, 1]
-                        }}
-                        className="mt-7 max-w-[600px] rounded-[28px] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(4,19,36,0.18)] backdrop-blur-[24px] sm:p-6"
-                      >
-                        <p className="text-pretty text-sm leading-7 text-white/80 sm:text-[15px] lg:text-base lg:leading-8">
-                          {scene.description}
-                        </p>
+                      {index !== 2 ? (
+                        <motion.div
+                          variants={{
+                            hidden: {opacity: 0, y: 24, filter: "blur(10px)"},
+                            visible: {opacity: 1, y: 0, filter: "blur(0px)"},
+                            exit: {opacity: 0, y: -12}
+                          }}
+                          transition={{
+                            duration: 0.62,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                          className="mt-7 max-w-[600px] rounded-[28px] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(4,19,36,0.18)] backdrop-blur-[24px] sm:p-6"
+                        >
+                          <p className="text-pretty text-sm leading-7 text-white/80 sm:text-[15px] lg:text-base lg:leading-8">
+                            {scene.description}
+                          </p>
 
-                        {scene.cta ? (
-                          <div className="mt-5">
-                            <Link
-                              href={scene.cta.href}
-                              className="group inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/12 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                            >
-                              {scene.cta.label}
-                              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                            </Link>
-                          </div>
-                        ) : null}
-                      </motion.div>
+                          {scene.cta ? (
+                            <div className="mt-5">
+                              <Link
+                                href={scene.cta.href}
+                                className="group inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/12 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                              >
+                                {scene.cta.label}
+                                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                              </Link>
+                            </div>
+                          ) : null}
+                        </motion.div>
+                      ) : null}
                     </motion.div>
                   ) : null}
                 </AnimatePresence>
