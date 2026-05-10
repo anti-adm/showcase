@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   type MouseEvent,
+  type PointerEvent,
   type RefObject
 } from "react";
 import {
@@ -73,7 +74,6 @@ type HomeScrollCopy = (typeof HOME_SCROLL_COPY)[Locale];
 
 const DESKTOP_MIN_WIDTH = 900;
 const WHEEL_THRESHOLD = 14;
-const TOUCH_THRESHOLD = 48;
 const SCENE_LOCK_MS = 760;
 
 const DESKTOP_CARD_WIDTH_PX = 420;
@@ -136,6 +136,12 @@ function PinnedProductScenes({
   const totalSlots = count + EXTRA * 2;
   const stripX = useGhostStripX(xMotion, EXTRA);
 
+  const swipeHandlers = useMobileCardSwipe({
+    activeIndex,
+    count,
+    onIndex: goToIndex
+  });
+
   if (count <= 0) return null;
 
   return (
@@ -144,14 +150,17 @@ function PinnedProductScenes({
       className="relative"
       style={{height: `${Math.max(count, 1) * 100}svh`}}
     >
-      <div className="sticky top-0 z-10 flex h-svh touch-none select-none flex-col items-center overflow-hidden overscroll-contain px-4 pb-8 pt-[104px] sm:touch-auto sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
+      <div className="sticky top-0 z-10 flex h-svh touch-pan-y select-none flex-col items-center overflow-hidden px-4 pb-8 pt-[104px] sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
         <ShowcaseHeading
           eyebrow={copy.productsEyebrow}
           title={copy.productsTitle}
           sceneProgress={sceneProgress}
         />
 
-        <div className="relative w-screen overflow-visible">
+        <div
+          className="relative w-screen touch-pan-y overflow-visible"
+          {...swipeHandlers}
+        >
           <motion.div
             className="flex will-change-transform"
             style={{
@@ -224,6 +233,12 @@ function PinnedRecipeScenes({
   const totalSlots = count + EXTRA * 2;
   const stripX = useGhostStripX(xMotion, EXTRA);
 
+  const swipeHandlers = useMobileCardSwipe({
+    activeIndex,
+    count,
+    onIndex: goToIndex
+  });
+
   if (count <= 0) return null;
 
   return (
@@ -232,14 +247,17 @@ function PinnedRecipeScenes({
       className="relative"
       style={{height: `${Math.max(count, 1) * 100}svh`}}
     >
-      <div className="sticky top-0 z-10 flex h-svh touch-none select-none flex-col items-center overflow-hidden overscroll-contain px-4 pb-8 pt-[104px] sm:touch-auto sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
+      <div className="sticky top-0 z-10 flex h-svh touch-pan-y select-none flex-col items-center overflow-hidden px-4 pb-8 pt-[104px] sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
         <ShowcaseHeading
           eyebrow={copy.recipesEyebrow}
           title={copy.recipesTitle}
           sceneProgress={sceneProgress}
         />
 
-        <div className="relative w-screen overflow-visible">
+        <div
+          className="relative w-screen touch-pan-y overflow-visible"
+          {...swipeHandlers}
+        >
           <motion.div
             className="flex will-change-transform"
             style={{
@@ -330,9 +348,6 @@ function useWheelSceneController({
   const activeIndexRef = useRef(0);
   const isSceneActiveRef = useRef(false);
   const lockRef = useRef(false);
-  const touchStartYRef = useRef<number | null>(null);
-  const touchLastYRef = useRef<number | null>(null);
-  const touchConsumedRef = useRef(false);
   const hasEnteredSceneRef = useRef(false);
   const isReleasingRef = useRef(false);
 
@@ -391,7 +406,7 @@ function useWheelSceneController({
   );
 
   const goToIndex = useCallback(
-    (index: number) => {
+    (index: number, syncScroll = true) => {
       if (count <= 0) return;
 
       isReleasingRef.current = false;
@@ -401,7 +416,10 @@ function useWheelSceneController({
       setSceneActive(true);
       hasEnteredSceneRef.current = true;
       setActive(clamped);
-      scrollToIndex(clamped, "smooth");
+
+      if (syncScroll && window.innerWidth >= DESKTOP_MIN_WIDTH) {
+        scrollToIndex(clamped, "smooth");
+      }
     },
     [count, scrollToIndex, setActive, setSceneActive]
   );
@@ -411,7 +429,6 @@ function useWheelSceneController({
     if (!section || count <= 0) return;
 
     const isDesktop = () => window.innerWidth >= DESKTOP_MIN_WIDTH;
-    const isTouchSceneDevice = () => window.innerWidth < DESKTOP_MIN_WIDTH;
 
     const getSectionState = () => {
       const rect = section.getBoundingClientRect();
@@ -450,37 +467,24 @@ function useWheelSceneController({
 
       isReleasingRef.current = true;
       hasEnteredSceneRef.current = false;
-      touchConsumedRef.current = true;
       deactivateScene();
 
       window.scrollTo({
-        top: direction > 0 ? state.exitY + 12 : state.sectionTop - 12,
+        top: direction > 0 ? state.exitY + 16 : state.sectionTop - 16,
         behavior: "smooth"
       });
 
       window.setTimeout(() => {
-        const nextState = getSectionState();
-
-        if (!nextState.pinned) {
-          isReleasingRef.current = false;
-        }
-      }, SCENE_LOCK_MS + 260);
+        isReleasingRef.current = false;
+      }, SCENE_LOCK_MS + 360);
     };
 
-    const handleDirection = (
-      direction: 1 | -1,
-      source: "wheel" | "touch"
-    ): boolean => {
-      if (source === "wheel" && !isDesktop()) return false;
-      if (source === "touch" && !isTouchSceneDevice()) return false;
+    const handleDirection = (direction: 1 | -1): boolean => {
+      if (!isDesktop()) return false;
 
       const state = getSectionState();
 
       if (isReleasingRef.current) {
-        if (!state.pinned) {
-          isReleasingRef.current = false;
-        }
-
         return false;
       }
 
@@ -537,88 +541,21 @@ function useWheelSceneController({
 
       const direction = event.deltaY > 0 ? 1 : -1;
 
-      if (handleDirection(direction, "wheel")) {
+      if (handleDirection(direction)) {
         event.preventDefault();
       }
-    };
-
-    const onTouchStart = (event: TouchEvent) => {
-      if (!isTouchSceneDevice()) return;
-      if (event.touches.length !== 1) return;
-
-      const y = event.touches[0].clientY;
-
-      touchStartYRef.current = y;
-      touchLastYRef.current = y;
-      touchConsumedRef.current = false;
-    };
-
-    const onTouchMove = (event: TouchEvent) => {
-      if (!isTouchSceneDevice()) return;
-      if (event.touches.length !== 1) return;
-
-      const state = getSectionState();
-
-      if (!state.pinned && !isSceneActiveRef.current) return;
-
-      if (event.cancelable) {
-        event.preventDefault();
-      }
-
-      const startY = touchStartYRef.current;
-      const currentY = event.touches[0].clientY;
-
-      if (startY === null) {
-        touchStartYRef.current = currentY;
-        touchLastYRef.current = currentY;
-        return;
-      }
-
-      if (touchConsumedRef.current || lockRef.current) {
-        touchLastYRef.current = currentY;
-        return;
-      }
-
-      const delta = startY - currentY;
-
-      if (Math.abs(delta) < TOUCH_THRESHOLD) {
-        touchLastYRef.current = currentY;
-        return;
-      }
-
-      const direction = delta > 0 ? 1 : -1;
-
-      if (handleDirection(direction, "touch")) {
-        touchConsumedRef.current = true;
-        touchStartYRef.current = currentY;
-        touchLastYRef.current = currentY;
-
-        window.setTimeout(() => {
-          touchConsumedRef.current = false;
-        }, SCENE_LOCK_MS);
-      }
-    };
-
-    const onTouchEnd = () => {
-      touchStartYRef.current = null;
-      touchLastYRef.current = null;
-      touchConsumedRef.current = false;
     };
 
     const onScroll = () => {
       const state = getSectionState();
 
       if (isReleasingRef.current) {
-        if (!state.pinned) {
-          isReleasingRef.current = false;
-        }
-
         xMotion.set(computeX(activeMotion.get()));
         return;
       }
 
       if (state.pinned) {
-        if (!isSceneActiveRef.current && !isReleasingRef.current) {
+        if (!isSceneActiveRef.current && window.innerWidth >= DESKTOP_MIN_WIDTH) {
           setSceneActive(true);
         }
       } else if (isSceneActiveRef.current) {
@@ -630,19 +567,11 @@ function useWheelSceneController({
     };
 
     window.addEventListener("wheel", onWheel, {passive: false});
-    section.addEventListener("touchstart", onTouchStart, {passive: false});
-    section.addEventListener("touchmove", onTouchMove, {passive: false});
-    section.addEventListener("touchend", onTouchEnd, {passive: false});
-    section.addEventListener("touchcancel", onTouchEnd, {passive: false});
     window.addEventListener("scroll", onScroll, {passive: true});
     window.addEventListener("resize", onScroll);
 
     return () => {
       window.removeEventListener("wheel", onWheel);
-      section.removeEventListener("touchstart", onTouchStart);
-      section.removeEventListener("touchmove", onTouchMove);
-      section.removeEventListener("touchend", onTouchEnd);
-      section.removeEventListener("touchcancel", onTouchEnd);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -667,6 +596,71 @@ function useWheelSceneController({
     goToIndex
   };
 }
+
+// ---------------------------------------------------------------------------
+// useMobileCardSwipe
+// ---------------------------------------------------------------------------
+
+function useMobileCardSwipe({
+  activeIndex,
+  count,
+  onIndex
+}: {
+  activeIndex: number;
+  count: number;
+  onIndex: (index: number, syncScroll?: boolean) => void;
+}) {
+  const pointerStartXRef = useRef<number | null>(null);
+  const pointerStartYRef = useRef<number | null>(null);
+
+  const onPointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    if (window.innerWidth >= DESKTOP_MIN_WIDTH) return;
+
+    pointerStartXRef.current = event.clientX;
+    pointerStartYRef.current = event.clientY;
+  }, []);
+
+  const onPointerUp = useCallback(
+    (event: PointerEvent<HTMLDivElement>) => {
+      if (window.innerWidth >= DESKTOP_MIN_WIDTH) return;
+
+      const startX = pointerStartXRef.current;
+      const startY = pointerStartYRef.current;
+
+      pointerStartXRef.current = null;
+      pointerStartYRef.current = null;
+
+      if (startX === null || startY === null) return;
+
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+
+      const isHorizontalSwipe =
+        Math.abs(deltaX) > 42 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25;
+
+      if (!isHorizontalSwipe) return;
+
+      if (deltaX < 0) {
+        onIndex(clamp(activeIndex + 1, 0, Math.max(0, count - 1)), false);
+      } else {
+        onIndex(clamp(activeIndex - 1, 0, Math.max(0, count - 1)), false);
+      }
+    },
+    [activeIndex, count, onIndex]
+  );
+
+  const onPointerCancel = useCallback(() => {
+    pointerStartXRef.current = null;
+    pointerStartYRef.current = null;
+  }, []);
+
+  return {
+    onPointerDown,
+    onPointerUp,
+    onPointerCancel
+  };
+}
+
 // ---------------------------------------------------------------------------
 // computeX
 // ---------------------------------------------------------------------------
