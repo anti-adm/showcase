@@ -244,6 +244,7 @@ export function IntroTextLayer({
                     content={renderContent}
                     progress={renderProgress}
                     manualControls={manualControls}
+                    isIntroScene={renderStep === 0}
                     isProductScene={renderStep >= 3}
                     disableInitialAnimation={disableInitialAnimation}
                   />
@@ -546,9 +547,10 @@ function PlainTextScene({
   content,
   progress,
   manualControls,
+  isIntroScene,
   isProductScene,
   disableInitialAnimation = false,
-}: SceneProps & { isProductScene: boolean }) {
+}: SceneProps & { isIntroScene?: boolean; isProductScene: boolean }) {
   const phases = isProductScene ? TEXT_REVEAL_PHASES.productPlain : TEXT_REVEAL_PHASES.intro;
   const eyebrowIn = getPhaseProgress(phases.eyebrow, progress);
   const titleIn = getPhaseProgress(phases.title, progress);
@@ -556,7 +558,9 @@ function PlainTextScene({
   const accentIn = getPhaseProgress(phases.accent, progress);
 
   const titleMaxWidth = manualControls.titleMaxWidth ?? TEXT_LAYER_EDITOR.plain.titleMaxWidth;
-  const titleFontSize = manualControls.titleFontSize ?? TEXT_LAYER_EDITOR.plain.titleFontSize;
+ const titleFontSize = isIntroScene
+  ? "clamp(2.6rem, 4.6vw, 5.4rem)"
+  : manualControls.titleFontSize ?? TEXT_LAYER_EDITOR.plain.titleFontSize;
   const titleLineHeight = manualControls.titleLineHeight ?? TEXT_LAYER_EDITOR.plain.titleLineHeight;
   const titleLetterSpacing =
     manualControls.titleLetterSpacing ?? TEXT_LAYER_EDITOR.plain.titleLetterSpacing;
