@@ -7,8 +7,8 @@ import {useEffect, useState} from 'react';
 const PRELOAD_ASSETS = [
   '/images/hero/hero1.png',
   '/images/hero/hero2.jpeg',
-  '/images/products.png',
-  '/images/products-m.png',
+  '/images/products.webp',
+  '/images/products-m.webp',
   '/images/brand/pack-line.jpg',
   '/logo/sofin-logo.png'
 ];

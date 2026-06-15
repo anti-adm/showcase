@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import {Link} from "@/i18n/navigation";
 import {getProductImage, type ProductItem} from "@/components/products/products-data";
+import {getProductDisplayTitle} from "@/components/products/product-title";
 import type {RecipeItem} from "@/components/recipes/recipes-data";
 
 // ---------------------------------------------------------------------------
@@ -112,6 +113,26 @@ export function HomeScrollShowcase({
 // ---------------------------------------------------------------------------
 
 function PinnedProductScenes({
+  copy,
+  locale,
+  products
+}: {
+  copy: HomeScrollCopy;
+  locale: Locale;
+  products: ProductItem[];
+}) {
+  const isDesktop = useIsDesktop();
+
+  if (products.length <= 0) return null;
+
+  return isDesktop ? (
+    <DesktopProductScenes copy={copy} locale={locale} products={products} />
+  ) : (
+    <MobileProductShowcase copy={copy} locale={locale} products={products} />
+  );
+}
+
+function DesktopProductScenes({
   copy,
   locale,
   products
@@ -217,6 +238,26 @@ function PinnedRecipeScenes({
   locale: Locale;
   recipes: RecipeItem[];
 }) {
+  const isDesktop = useIsDesktop();
+
+  if (recipes.length <= 0) return null;
+
+  return isDesktop ? (
+    <DesktopRecipeScenes copy={copy} locale={locale} recipes={recipes} />
+  ) : (
+    <MobileRecipeShowcase copy={copy} locale={locale} recipes={recipes} />
+  );
+}
+
+function DesktopRecipeScenes({
+  copy,
+  locale,
+  recipes
+}: {
+  copy: HomeScrollCopy;
+  locale: Locale;
+  recipes: RecipeItem[];
+}) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const count = recipes.length;
 
@@ -302,14 +343,149 @@ function PinnedRecipeScenes({
 }
 
 // ---------------------------------------------------------------------------
+// MobileShowcases
+// ---------------------------------------------------------------------------
+
+function MobileProductShowcase({
+  copy,
+  locale,
+  products
+}: {
+  copy: HomeScrollCopy;
+  locale: Locale;
+  products: ProductItem[];
+}) {
+  return (
+    <section className="relative overflow-hidden px-4 py-14 sm:px-6">
+      <MobileShowcaseHeading eyebrow={copy.productsEyebrow} title={copy.productsTitle} />
+
+      <div className="-mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
+        <div className="flex w-max gap-4">
+          {products.map((product) => {
+            const title = getProductDisplayTitle(product.title[locale]);
+
+            return (
+              <Link
+                key={product.slug}
+                href={`/products/${product.slug}`}
+                className="group relative flex h-[430px] w-[82vw] max-w-[330px] shrink-0 snap-center flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_20px_54px_rgba(15,42,76,0.16)]"
+              >
+                <div className="relative flex flex-1 items-center justify-center bg-[#f6f8fb]">
+                  <Image
+                    src={getProductImage(product)}
+                    alt={title}
+                    fill
+                    sizes="82vw"
+                    className="scale-[1.08] object-contain p-7 transition-transform duration-700 group-hover:scale-[1.13]"
+                  />
+                </div>
+
+                <div className="relative min-h-[168px] border-t border-slate-100 p-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#7b8da5]">
+                    SOFIN
+                  </p>
+                  <h3 className="mt-2 line-clamp-2 text-[1.35rem] font-semibold leading-[1.02] text-slate-950">
+                    {title}
+                  </h3>
+                  <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">
+                    {product.subtitle[locale]}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileRecipeShowcase({
+  copy,
+  locale,
+  recipes
+}: {
+  copy: HomeScrollCopy;
+  locale: Locale;
+  recipes: RecipeItem[];
+}) {
+  return (
+    <section className="relative overflow-hidden px-4 py-14 sm:px-6">
+      <MobileShowcaseHeading eyebrow={copy.recipesEyebrow} title={copy.recipesTitle} />
+
+      <div className="-mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
+        <div className="flex w-max gap-4">
+          {recipes.map((recipe) => (
+            <Link
+              key={recipe.slug}
+              href={`/recipes/${recipe.slug}`}
+              className="group relative h-[430px] w-[82vw] max-w-[330px] shrink-0 snap-center overflow-hidden rounded-[22px] bg-slate-950 shadow-[0_20px_54px_rgba(38,30,24,0.18)]"
+            >
+              <Image
+                src={recipe.image}
+                alt={recipe.title[locale]}
+                fill
+                sizes="82vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,8,4,0.04),rgba(12,8,4,0.25)_52%,rgba(12,8,4,0.82))]" />
+              <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/62">
+                  {recipe.prepTime[locale]}
+                </p>
+                <h3 className="mt-2 line-clamp-2 text-[1.45rem] font-black uppercase leading-[0.96]">
+                  {recipe.title[locale]}
+                </h3>
+                <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/80">
+                  {recipe.subtitle[locale]}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileShowcaseHeading({eyebrow, title}: {eyebrow: string; title: string}) {
+  return (
+    <div className="mx-auto max-w-[620px] text-center">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-500/80">
+        {eyebrow}
+      </p>
+      <h2 className="mx-auto mt-2 text-balance text-[clamp(2rem,10vw,3.4rem)] font-semibold leading-[0.98] text-[var(--brand-primary)]">
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Hook: useGhostStripX
 // ---------------------------------------------------------------------------
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const media = window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`);
+    const update = () => setIsDesktop(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return isDesktop ?? false;
+}
 
 function useGhostStripX(
   base: MotionValue<number>,
   extraSlots: number
 ): MotionValue<number> {
-  const out = useMotionValue(base.get() - extraSlots * getCardStepPx());
+  const out = useMotionValue(-extraSlots * (DESKTOP_CARD_WIDTH_PX + CARD_GAP_PX));
 
   useEffect(() => {
     const sync = (value = base.get()) => {
@@ -357,9 +533,11 @@ function useWheelSceneController({
   const rawSceneProgress = useMotionValue(0);
   const sceneProgress = useSpring(rawSceneProgress, SCENE_SPRING);
 
-  const xMotion = useMotionValue(computeX(0));
+  const xMotion = useMotionValue(0);
 
   useEffect(() => {
+    xMotion.set(computeX(activeMotion.get()));
+
     return activeMotion.on("change", (value) => {
       xMotion.set(computeX(value));
     });
@@ -757,11 +935,6 @@ function ScenePagination({
   const activeColor = tone === "blue" ? "#2563eb" : "#d97706";
   const y = useTransform(sceneProgress, [0, 1], [10, 0]);
   const opacity = useTransform(sceneProgress, [0, 1], [0, 1]);
-  const filter = useTransform(sceneProgress, (value) => {
-    const blur = lerp(8, 0, value);
-
-    return `blur(${blur.toFixed(2)}px)`;
-  });
 
   return (
     <motion.div
@@ -769,7 +942,6 @@ function ScenePagination({
       style={{
         opacity,
         y,
-        filter,
         pointerEvents: isSceneActive ? "auto" : "none"
       }}
     >
@@ -827,6 +999,7 @@ function ProductSceneCard({
   const activity = useCardActivity(activeMotion, slotIndex);
   const visual = useSceneCardVisuals({activity, sceneProgress});
   const isActive = realIndex === activeIndex && slotIndex === activeIndex;
+  const title = getProductDisplayTitle(product.title[locale]);
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!isSceneActive || !isActive) {
@@ -841,7 +1014,10 @@ function ProductSceneCard({
       style={{
         opacity: visual.opacity,
         scale: visual.scale,
-        y: visual.y
+        y: visual.y,
+        rotate: visual.rotate,
+        transformOrigin: "center bottom",
+        zIndex: isActive ? 30 : Math.max(1, 18 - Math.abs(slotIndex - activeIndex) * 3)
       }}
     >
       <ActiveCardGlow visual={visual} tone="blue" />
@@ -851,17 +1027,17 @@ function ProductSceneCard({
         onClick={handleClick}
         className="group relative block h-full overflow-hidden rounded-[22px] shadow-[0_20px_60px_rgba(15,23,42,0.20),0_4px_14px_rgba(15,23,42,0.10)]"
       >
-        <motion.div className="absolute inset-0" style={{filter: visual.filter}}>
+        <motion.div className="absolute inset-0 bg-white">
           <Image
             src={getProductImage(product, realIndex)}
-            alt={product.title[locale]}
+            alt={title}
             fill
             sizes="(min-width: 900px) 420px, (min-width: 640px) 46vw, 84vw"
-            className="object-cover transition duration-700 group-hover:scale-[1.04]"
+            className="object-contain p-8 transition duration-700 group-hover:scale-[1.04]"
           />
         </motion.div>
 
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,16,32,0.16)_0%,rgba(8,16,32,0.04)_38%,rgba(8,16,32,0.38)_68%,rgba(8,16,32,0.78)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,16,32,0.02)_0%,rgba(8,16,32,0)_40%,rgba(8,16,32,0.40)_68%,rgba(8,16,32,0.82)_100%)]" />
 
         <ActiveCardSheen activity={activity} visual={visual} />
 
@@ -874,7 +1050,7 @@ function ProductSceneCard({
           </p>
 
           <h3 className="max-w-[94%] text-[clamp(1.35rem,2.3vw,2.1rem)] font-black uppercase leading-[0.97] tracking-[-0.035em]">
-            {product.title[locale]}
+            {title}
           </h3>
 
           <p className="mt-3 line-clamp-2 max-w-[90%] text-[13px] font-medium leading-relaxed text-white/80">
@@ -957,7 +1133,10 @@ function RecipeSceneCard({
       style={{
         opacity: visual.opacity,
         scale: visual.scale,
-        y: visual.y
+        y: visual.y,
+        rotate: visual.rotate,
+        transformOrigin: "center bottom",
+        zIndex: isActive ? 30 : Math.max(1, 18 - Math.abs(slotIndex - activeIndex) * 3)
       }}
     >
       <ActiveCardGlow visual={visual} tone="warm" />
@@ -967,7 +1146,7 @@ function RecipeSceneCard({
         onClick={handleClick}
         className="group relative block h-full overflow-hidden rounded-[22px] shadow-[0_20px_60px_rgba(15,23,42,0.20),0_4px_14px_rgba(15,23,42,0.10)]"
       >
-        <motion.div className="absolute inset-0" style={{filter: visual.filter}}>
+        <motion.div className="absolute inset-0">
           <Image
             src={recipe.image}
             alt={recipe.title[locale]}
@@ -1048,7 +1227,7 @@ function ActiveCardGlow({
   return (
     <motion.div
       aria-hidden="true"
-      className="pointer-events-none absolute -inset-5 rounded-[30px] blur-3xl"
+      className="pointer-events-none absolute -inset-4 rounded-[30px] blur-2xl"
       style={{background: bg, opacity: visual.glowOpacity}}
     />
   );
@@ -1108,6 +1287,15 @@ function useSceneCardVisuals({
       const [activeY, scene] = values as [number, number];
 
       return lerp(0, activeY, scene);
+    }
+  );
+
+  const rotate = useTransform(
+    [activity.rotate, sceneProgress] as MotionValue<number>[],
+    (values) => {
+      const [activeRotate, scene] = values as [number, number];
+
+      return lerp(0, activeRotate, scene);
     }
   );
 
@@ -1211,6 +1399,7 @@ function useSceneCardVisuals({
     opacity,
     scale,
     y,
+    rotate,
     filter,
     glowOpacity,
     ringOpacity,
@@ -1226,16 +1415,18 @@ function useSceneCardVisuals({
 // ---------------------------------------------------------------------------
 
 function useCardActivity(activeMotion: MotionValue<number>, slotIndex: number) {
-  const input = [slotIndex - 0.75, slotIndex, slotIndex + 0.75];
-  const focus = useTransform(activeMotion, input, [0, 1, 0]);
+  const offset = useTransform(activeMotion, (value) => slotIndex - value);
+  const distance = useTransform(offset, (value) => Math.min(Math.abs(value), 2.25));
+  const focus = useTransform(distance, [0, 1, 2.25], [1, 0.34, 0]);
 
-  const opacity = useTransform(focus, [0, 1], [0.58, 1]);
-  const scale = useTransform(focus, [0, 1], [0.94, 1.04]);
-  const y = useTransform(focus, [0, 1], [26, -10]);
+  const opacity = useTransform(distance, [0, 1, 2.25], [1, 0.68, 0.38]);
+  const scale = useTransform(distance, [0, 1, 2.25], [1.06, 0.84, 0.74]);
+  const y = useTransform(distance, [0, 1, 2.25], [-18, 44, 82]);
+  const rotate = useTransform(offset, [-2.25, -1, 0, 1, 2.25], [-6, -2.6, 0, 2.6, 6]);
 
-  const blur = useTransform(focus, [0, 1], [1.15, 0]);
-  const brightness = useTransform(focus, [0, 1], [0.82, 1]);
-  const saturate = useTransform(focus, [0, 1], [0.86, 1.05]);
+  const blur = useTransform(distance, [0, 1, 2.25], [0, 0.4, 1.1]);
+  const brightness = useTransform(distance, [0, 1, 2.25], [1, 0.88, 0.78]);
+  const saturate = useTransform(distance, [0, 1, 2.25], [1.05, 0.92, 0.84]);
 
   const ringOpacity = useTransform(focus, [0.42, 1], [0, 1]);
   const glowOpacity = useTransform(focus, [0, 0.52, 1], [0, 0.24, 0.86]);
@@ -1251,6 +1442,7 @@ function useCardActivity(activeMotion: MotionValue<number>, slotIndex: number) {
     opacity,
     scale,
     y,
+    rotate,
     blur,
     brightness,
     saturate,

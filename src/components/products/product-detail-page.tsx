@@ -1,7 +1,13 @@
 "use client";
 
-import {useMemo, useState} from "react";
-import {AnimatePresence, motion} from "framer-motion";
+import {useEffect, useMemo, useRef, useState} from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring
+} from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -18,15 +24,32 @@ import {
 import {useLocale, useTranslations} from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import {getProductGallery, products} from "./products-data";
+import {getProductGallery, listedProducts} from "./products-data";
+import {getProductDisplayTitle} from "./product-title";
 
 type Locale = "uz" | "ru" | "en";
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
 
 export default function ProductDetailPage({slug}: {slug: string}) {
   const t = useTranslations("ProductsPage");
   const locale = useLocale() as Locale;
+  const reducedMotion = useReducedMotion() ?? false;
+  const detailGridRef = useRef<HTMLDivElement | null>(null);
+  const infoRef = useRef<HTMLDivElement | null>(null);
+  const photoRailRef = useRef<HTMLElement | null>(null);
+  const photoStackRef = useRef<HTMLDivElement | null>(null);
+  const rawPhotoRailY = useMotionValue(0);
+  const photoRailY = useSpring(rawPhotoRailY, {
+    stiffness: 92,
+    damping: 26,
+    mass: 0.68
+  });
 
-  const product = products.find((item) => item.slug === slug) ?? products[0];
+  const product = listedProducts.find((item) => item.slug === slug) ?? listedProducts[0];
+  const displayTitle = getProductDisplayTitle(product.title[locale]);
 
   const gallery = useMemo(
     () =>
@@ -34,17 +57,85 @@ export default function ProductDetailPage({slug}: {slug: string}) {
         src,
         alt:
           index === 0
-            ? `${product.title[locale]} 1`
-            : `${product.title[locale]} ${index + 1}`
+            ? `${displayTitle} 1`
+            : `${displayTitle} ${index + 1}`
       })),
-    [product, locale]
+    [product, displayTitle]
   );
 
   const [imageState, setImageState] = useState({slug, activeImage: 0});
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [desktopPhotoRail, setDesktopPhotoRail] = useState(false);
 
   const activeImage =
     imageState.slug === slug ? Math.min(imageState.activeImage, gallery.length - 1) : 0;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const updateDesktopRail = () => setDesktopPhotoRail(mediaQuery.matches);
+
+    updateDesktopRail();
+    mediaQuery.addEventListener("change", updateDesktopRail);
+
+    return () => mediaQuery.removeEventListener("change", updateDesktopRail);
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      rawPhotoRailY.set(0);
+      return;
+    }
+
+    const updateRail = () => {
+      const grid = detailGridRef.current;
+      const info = infoRef.current;
+      const rail = photoRailRef.current;
+      const stack = photoStackRef.current;
+
+      if (!grid || !info || !rail || !stack || window.innerWidth < 1024) {
+        rawPhotoRailY.set(0);
+        return;
+      }
+
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      const railStyles = window.getComputedStyle(rail);
+      const stickyTop = Number.parseFloat(railStyles.top) || 132;
+      const gridTop = scrollY + grid.getBoundingClientRect().top;
+      const infoBottom = scrollY + info.getBoundingClientRect().bottom;
+      const stackHeight = stack.getBoundingClientRect().height;
+      const viewportHeight = window.innerHeight;
+      const infoTravel = Math.max(0, info.getBoundingClientRect().height - stackHeight);
+      const maxTravel = clamp(infoTravel * 1.42, 420, 1040);
+      const startY = Math.max(0, gridTop - stickyTop);
+      const endY = Math.max(startY + 1, infoBottom - viewportHeight + stickyTop + 96);
+      const progress = clamp((scrollY - startY) / (endY - startY), 0, 1);
+
+      rawPhotoRailY.set(maxTravel * progress);
+    };
+
+    let frame = 0;
+
+    const tick = () => {
+      updateRail();
+      frame = window.requestAnimationFrame(tick);
+    };
+
+    const resizeObserver = new ResizeObserver(updateRail);
+
+    [detailGridRef.current, infoRef.current, photoRailRef.current, photoStackRef.current]
+      .filter(Boolean)
+      .forEach((element) => resizeObserver.observe(element as Element));
+
+    frame = window.requestAnimationFrame(tick);
+
+    window.addEventListener("resize", updateRail);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateRail);
+    };
+  }, [rawPhotoRailY, reducedMotion, slug]);
 
   const nutrition = [
     {
@@ -106,30 +197,32 @@ export default function ProductDetailPage({slug}: {slug: string}) {
   };
 
   return (
-    <main className="relative overflow-hidden pt-28 sm:pt-32">
+    <main className="relative overflow-x-hidden bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)] pt-28 sm:pt-32">
       <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)]" />
       <div className="absolute inset-0 -z-20 hidden sm:block">
         <Image
-          src="/images/products.png"
+          src="/images/products.webp"
           alt=""
           fill
           priority
-          className="object-cover object-center opacity-36"
+          sizes="100vw"
+          className="object-cover object-center opacity-38"
         />
       </div>
       <div className="absolute inset-0 -z-20 sm:hidden">
         <Image
-          src="/images/products-m.png"
+          src="/images/products-m.webp"
           alt=""
           fill
           priority
+          sizes="100vw"
           className="object-cover object-center opacity-34"
         />
       </div>
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.36)_0%,rgba(218,231,246,0.48)_52%,rgba(207,222,239,0.62)_100%)] backdrop-blur-[4px]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.34)_0%,rgba(218,231,246,0.48)_52%,rgba(207,222,239,0.64)_100%)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.58),transparent_30%),radial-gradient(circle_at_86%_4%,rgba(192,218,255,0.22),transparent_34%),radial-gradient(circle_at_50%_100%,rgba(44,78,120,0.08),transparent_42%)]" />
 
-      <section className="mx-auto max-w-[1420px] px-5 pb-32 sm:px-8 lg:px-10">
+      <section className="relative mx-auto max-w-[1420px] px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-[#776b60]">
           <Link href={`/${locale}`} className="transition hover:text-[#2e241f]">
             {t("breadcrumbs.home")}
@@ -142,120 +235,154 @@ export default function ProductDetailPage({slug}: {slug: string}) {
             {t("breadcrumbs.catalog")}
           </Link>
           <span>/</span>
-          <span className="font-medium text-[#2e241f]">{product.title[locale]}</span>
+          <span className="font-medium text-[#2e241f]">{displayTitle}</span>
         </div>
 
-        <div className="grid items-start gap-7 lg:grid-cols-[minmax(300px,0.82fr)_minmax(0,1.18fr)] lg:gap-10">
-          <motion.aside
-            initial={{opacity: 0, x: -20, filter: "blur(10px)"}}
-            animate={{opacity: 1, x: 0, filter: "blur(0px)"}}
-            transition={{duration: 0.68, ease: [0.22, 1, 0.36, 1]}}
-            className="lg:sticky lg:top-32"
+        <div
+          ref={detailGridRef}
+          className="grid items-start gap-7 lg:grid-cols-[minmax(300px,0.82fr)_minmax(0,1.18fr)] lg:gap-10 lg:pb-[420px]"
+        >
+          <aside
+            ref={photoRailRef}
+            className="lg:sticky lg:top-[220px] lg:h-0 lg:self-start"
           >
-            <div className="relative overflow-hidden rounded-[34px] border border-white/48 bg-white/18 p-3 shadow-[0_24px_78px_rgba(44,78,120,0.10)] backdrop-blur-[18px] sm:p-4">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.66),transparent_34%),radial-gradient(circle_at_86%_90%,rgba(162,196,238,0.16),transparent_36%)]" />
-
-              <button
-                type="button"
-                onClick={() => setLightboxOpen(true)}
-                className="relative flex min-h-[300px] w-full items-center justify-center overflow-hidden rounded-[26px] bg-[linear-gradient(180deg,rgba(255,255,255,0.68),rgba(228,237,248,0.48))] px-3 py-6 text-left sm:min-h-[430px] lg:min-h-[calc(100vh-250px)] lg:max-h-[660px]"
-                aria-label={t("gallery.open")}
+            <motion.div
+              ref={photoStackRef}
+              data-product-photo-stack
+              style={{y: reducedMotion ? 0 : photoRailY}}
+              className="will-change-transform"
+            >
+              <motion.div
+                initial={
+                  reducedMotion
+                    ? false
+                    : {opacity: 0, x: "28vw", scale: 0.76}
+                }
+                animate={reducedMotion ? undefined : {opacity: 1, x: "0vw", scale: 1}}
+                transition={{
+                  duration: 1.08,
+                  ease: [0.16, 1, 0.3, 1],
+                  opacity: {duration: 0.34},
+                  scale: {duration: 1.08}
+                }}
               >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.9),transparent_35%),radial-gradient(circle_at_50%_100%,rgba(79,60,42,0.12),transparent_36%)]" />
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={gallery[activeImage].src}
-                    initial={{opacity: 0, y: 16, scale: 0.965, filter: "blur(10px)"}}
-                    animate={{opacity: 1, y: 0, scale: 1, filter: "blur(0px)"}}
-                    exit={{opacity: 0, y: -8, scale: 0.985, filter: "blur(7px)"}}
-                    transition={{duration: 0.46, ease: [0.22, 1, 0.36, 1]}}
-                    className="relative aspect-square w-full max-w-[540px] overflow-hidden rounded-[24px]"
-                  >
-                    <Image
-                      src={gallery[activeImage].src}
-                      alt={gallery[activeImage].alt}
-                      fill
-                      sizes="(min-width: 1024px) 44vw, 92vw"
-                      className="scale-[1.06] rounded-[24px] object-cover drop-shadow-[0_30px_34px_rgba(44,78,120,0.14)]"
-                      priority
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setLightboxOpen(true)}
-                className="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/62 bg-white/62 text-[var(--brand-primary)] shadow-[0_14px_30px_rgba(44,78,120,0.1)] backdrop-blur-xl transition hover:bg-white"
-                aria-label={t("gallery.open")}
+              <motion.div
+                initial={reducedMotion ? false : {borderRadius: "999px"}}
+                animate={reducedMotion ? undefined : {borderRadius: "34px"}}
+                transition={{duration: 1.02, ease: [0.16, 1, 0.3, 1]}}
+                style={{marginTop: desktopPhotoRail ? -176 : undefined}}
+                className="relative overflow-hidden rounded-[34px] border border-white/86 bg-white/80 p-3 shadow-[0_26px_70px_rgba(15,42,76,0.13),inset_0_1px_0_rgba(255,255,255,0.95)] sm:p-4"
               >
-                <Expand className="h-4 w-4" />
-              </button>
-            </div>
-
-            <div className="mt-4 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={prevImage}
-                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/58 bg-white/52 text-[#2e241f] backdrop-blur-xl transition hover:bg-white"
-                aria-label={t("gallery.prev")}
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-
-              <div className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-3">
-                {gallery.map((item, index) => {
-                  const active = index === activeImage;
-
-                  return (
-                    <button
-                      key={item.src}
-                      type="button"
-                      onClick={() => setImageState({slug, activeImage: index})}
-                      className={`overflow-hidden rounded-[22px] border p-2 transition duration-300 ${
-                        active
-                          ? "border-[#2e241f]/28 bg-white/72 shadow-[0_14px_32px_rgba(67,54,39,0.12)]"
-                          : "border-white/42 bg-white/36 hover:bg-white/58"
-                      }`}
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_12%,rgba(255,255,255,0.92),transparent_32%),radial-gradient(circle_at_84%_100%,rgba(183,213,247,0.22),transparent_36%)]" />
+                <button
+                  type="button"
+                  onClick={() => setLightboxOpen(true)}
+                  className="relative flex min-h-[300px] w-full items-center justify-center overflow-hidden rounded-[26px] bg-white px-3 py-6 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.96)] sm:min-h-[430px] lg:h-[min(46svh,500px)] lg:min-h-[360px]"
+                  aria-label={t("gallery.open")}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(247,250,253,0.86),transparent_38%)]" />
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={gallery[activeImage].src}
+                      initial={reducedMotion ? false : {opacity: 0, y: 18, scale: 0.9}}
+                      animate={reducedMotion ? undefined : {opacity: 1, y: 0, scale: 1}}
+                      exit={reducedMotion ? undefined : {opacity: 0, y: -8, scale: 0.99}}
+                      transition={{duration: 0.62, delay: 0.12, ease: [0.22, 1, 0.36, 1]}}
+                      className="relative aspect-square w-full max-w-[540px] overflow-hidden rounded-[24px] bg-white"
                     >
-                      <div className="relative h-[88px] overflow-hidden rounded-[16px] bg-[linear-gradient(180deg,rgba(255,255,255,0.74),rgba(244,236,225,0.56))]">
-                        <Image
-                          src={item.src}
-                          alt={item.alt}
-                          fill
-                          sizes="120px"
-                          className="object-cover"
-                        />
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+                      <Image
+                        src={gallery[activeImage].src}
+                        alt={gallery[activeImage].alt}
+                        fill
+                        sizes="(min-width: 1024px) 44vw, 92vw"
+                        className="object-contain p-3 sm:p-5"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </button>
 
-              <button
-                type="button"
-                onClick={nextImage}
-                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/58 bg-white/52 text-[#2e241f] backdrop-blur-xl transition hover:bg-white"
-                aria-label={t("gallery.next")}
+                <button
+                  type="button"
+                  onClick={() => setLightboxOpen(true)}
+                  className="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/80 bg-white/90 text-[var(--brand-primary)] shadow-[0_14px_30px_rgba(15,42,76,0.12)] transition hover:border-[#aac0d6]"
+                  aria-label={t("gallery.open")}
+                >
+                  <Expand className="h-4 w-4" />
+                </button>
+              </motion.div>
+
+              <motion.div
+                initial={reducedMotion ? false : {opacity: 0, y: 12}}
+                animate={reducedMotion ? undefined : {opacity: 1, y: 0}}
+                transition={{duration: 0.56, delay: 0.62, ease: [0.22, 1, 0.36, 1]}}
+                className="mt-3 flex items-center gap-3"
               >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-          </motion.aside>
+                <button
+                  type="button"
+                  onClick={prevImage}
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-[#2e241f] shadow-sm transition hover:border-[#aac0d6]"
+                  aria-label={t("gallery.prev")}
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+
+                <div className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-3">
+                  {gallery.map((item, index) => {
+                    const active = index === activeImage;
+
+                    return (
+                      <button
+                        key={item.src}
+                        type="button"
+                        onClick={() => setImageState({slug, activeImage: index})}
+                        className={`overflow-hidden rounded-lg border p-2 transition duration-300 ${
+                          active
+                            ? "border-[var(--brand-primary)] bg-white shadow-[0_12px_26px_rgba(15,42,76,0.1)]"
+                            : "border-slate-200 bg-white hover:border-[#aac0d6]"
+                        }`}
+                      >
+                        <div className="relative h-[72px] overflow-hidden rounded-md bg-white lg:h-[64px]">
+                          <Image
+                            src={item.src}
+                            alt={item.alt}
+                            fill
+                            sizes="120px"
+                            className="object-contain p-1"
+                          />
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={nextImage}
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-[#2e241f] shadow-sm transition hover:border-[#aac0d6]"
+                  aria-label={t("gallery.next")}
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </motion.div>
+              </motion.div>
+            </motion.div>
+          </aside>
 
           <motion.div
-            initial={{opacity: 0, x: 20, filter: "blur(10px)"}}
-            animate={{opacity: 1, x: 0, filter: "blur(0px)"}}
-            transition={{duration: 0.68, delay: 0.04, ease: [0.22, 1, 0.36, 1]}}
+            ref={infoRef}
+            initial={reducedMotion ? false : {opacity: 0, x: 52}}
+            animate={reducedMotion ? undefined : {opacity: 1, x: 0}}
+            transition={{duration: 0.82, delay: 0.58, ease: [0.16, 1, 0.3, 1]}}
             className="space-y-5"
           >
-            <section className="rounded-[34px] border border-white/42 bg-white/20 p-6 shadow-[0_22px_70px_rgba(44,78,120,0.08)] backdrop-blur-[16px] sm:p-8 lg:p-10">
-              <div className="mb-4 inline-flex rounded-full border border-white/60 bg-white/58 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#6e6258]">
+            <section className="rounded-[30px] border border-white/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(248,251,255,0.86))] p-6 shadow-[0_26px_72px_rgba(15,42,76,0.12),inset_0_1px_0_rgba(255,255,255,0.96)] sm:p-8 lg:p-10">
+              <div className="mb-4 inline-flex rounded-full border border-[#dce7f2] bg-white/82 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#60708a] shadow-[0_10px_22px_rgba(15,42,76,0.05)]">
                 {t("product.badge")}
               </div>
 
-              <h1 className="text-balance text-3xl font-semibold tracking-[-0.055em] text-[var(--brand-primary)] sm:text-5xl lg:text-[4rem]">
-                {product.title[locale]}
+              <h1 className="text-balance text-3xl font-semibold text-[var(--brand-primary)] sm:text-5xl lg:text-[4rem]">
+                {displayTitle}
               </h1>
 
               <p className="mt-4 max-w-[720px] text-sm uppercase tracking-[0.2em] text-[#8b7d70] sm:text-base">
@@ -270,10 +397,10 @@ export default function ProductDetailPage({slug}: {slug: string}) {
                 return (
                   <div
                     key={item.label}
-                    className="rounded-[24px] border border-white/54 bg-white/36 p-4 shadow-[0_16px_44px_rgba(67,54,39,0.06)] backdrop-blur-[18px] sm:p-5"
+                    className="rounded-[22px] border border-white/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(248,251,255,0.82))] p-4 shadow-[0_16px_42px_rgba(15,42,76,0.10),inset_0_1px_0_rgba(255,255,255,0.94)] sm:p-5"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2e241f]/[0.06] text-[#2e241f]">
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#edf6ef] text-[#47735b] shadow-[inset_0_1px_0_rgba(255,255,255,0.88)]">
                         <Icon className="h-5 w-5" />
                       </div>
 
@@ -289,7 +416,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
               })}
             </section>
 
-            <section className="rounded-[30px] border border-white/54 bg-white/34 p-5 shadow-[0_18px_54px_rgba(67,54,39,0.06)] backdrop-blur-[18px] sm:p-6">
+            <section className="rounded-[26px] border border-white/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(248,251,255,0.84))] p-5 shadow-[0_20px_56px_rgba(15,42,76,0.10),inset_0_1px_0_rgba(255,255,255,0.94)] sm:p-6">
               <div className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-[#8a7b6d]">
                 {t("product.nutrition.per100g")}
               </div>
@@ -299,8 +426,11 @@ export default function ProductDetailPage({slug}: {slug: string}) {
                   const Icon = item.icon;
 
                   return (
-                    <div key={item.title} className="rounded-[22px] bg-white/42 p-4">
-                      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#2e241f]/[0.06] text-[#2e241f]">
+                    <div
+                      key={item.title}
+                      className="rounded-[20px] border border-white/80 bg-white/68 p-4 shadow-[0_12px_32px_rgba(15,42,76,0.07),inset_0_1px_0_rgba(255,255,255,0.92)]"
+                    >
+                      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#eef7f0] text-[#47735b]">
                         <Icon className="h-5 w-5" />
                       </div>
                       <div className="text-sm text-[#7d7065]">{item.title}</div>
@@ -317,7 +447,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
                   {product.nutrition.extra.map((item) => (
                     <div
                       key={`${item.label[locale]}-${item.value}`}
-                      className="rounded-[20px] bg-white/42 px-4 py-3"
+                      className="rounded-[18px] border border-white/80 bg-white/68 px-4 py-3 shadow-[0_10px_26px_rgba(15,42,76,0.06),inset_0_1px_0_rgba(255,255,255,0.92)]"
                     >
                       <div className="text-sm text-[#7d7065]">{item.label[locale]}</div>
                       <div className="mt-1 text-lg font-semibold text-[#302823]">
@@ -329,8 +459,11 @@ export default function ProductDetailPage({slug}: {slug: string}) {
               ) : null}
             </section>
 
-            <section className="rounded-[32px] border border-white/54 bg-white/34 p-5 shadow-[0_24px_70px_rgba(67,54,39,0.07)] backdrop-blur-[20px] sm:p-8">
-              <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[#2e241f] sm:text-4xl">
+            <section
+              id="product-composition"
+              className="scroll-mt-32 rounded-[30px] border border-white/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(248,251,255,0.84))] p-5 shadow-[0_24px_66px_rgba(15,42,76,0.12),inset_0_1px_0_rgba(255,255,255,0.95)] sm:p-8"
+            >
+              <h2 className="text-2xl font-semibold text-[#2e241f] sm:text-4xl">
                 {product.compositionTitle[locale]}
               </h2>
 
@@ -345,7 +478,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
                 ].map((text) => (
                   <p
                     key={text}
-                    className="rounded-[22px] border border-white/44 bg-white/36 px-5 py-4"
+                    className="rounded-[18px] border border-white/86 bg-white/70 px-5 py-4 shadow-[0_12px_32px_rgba(15,42,76,0.07),inset_0_1px_0_rgba(255,255,255,0.92)]"
                   >
                     {text}
                   </p>
@@ -359,10 +492,10 @@ export default function ProductDetailPage({slug}: {slug: string}) {
       <AnimatePresence>
         {lightboxOpen ? (
           <motion.div
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#17110d]/86 p-4 backdrop-blur-md"
+            initial={reducedMotion ? false : {opacity: 0}}
+            animate={reducedMotion ? undefined : {opacity: 1}}
+            exit={reducedMotion ? undefined : {opacity: 0}}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#17110d]/90 p-4"
             onClick={() => setLightboxOpen(false)}
           >
             <button
@@ -388,9 +521,9 @@ export default function ProductDetailPage({slug}: {slug: string}) {
 
             <motion.div
               key={gallery[activeImage].src}
-              initial={{opacity: 0, scale: 0.97, filter: "blur(8px)"}}
-              animate={{opacity: 1, scale: 1, filter: "blur(0px)"}}
-              exit={{opacity: 0, scale: 0.985, filter: "blur(6px)"}}
+              initial={reducedMotion ? false : {opacity: 0, scale: 0.98}}
+              animate={reducedMotion ? undefined : {opacity: 1, scale: 1}}
+              exit={reducedMotion ? undefined : {opacity: 0, scale: 0.99}}
               transition={{duration: 0.35, ease: [0.22, 1, 0.36, 1]}}
               className="relative flex h-[82vh] w-full max-w-[1100px] items-center justify-center"
               onClick={(event) => event.stopPropagation()}

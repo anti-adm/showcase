@@ -1,3 +1,5 @@
+import {assetUrl} from "@/lib/assets";
+
 export type ProductCategory =
   | "all"
   | "milk"
@@ -7,7 +9,8 @@ export type ProductCategory =
   | "cream"
   | "ayran"
   | "qatiq"
-  | "tvorog";
+  | "tvorog"
+  | "Qaymaq";
 
 export type LocalizedText = {
   uz: string;
@@ -69,13 +72,13 @@ const address = {
 
 export const products: ProductItem[] = [
   {
-    slug: "yogurt-cherry-270",
+    slug: "yogurt-cherry",
     badge: "01",
     category: "yogurt",
     title: {
-      uz: "Yogurt. Olcha ta’mi bilan 270 g",
-      ru: "Йогурт со вкусом вишни 270 г",
-      en: "Cherry Yogurt 270 g"
+      uz: "Yogurt. Olcha ta’mi bilan",
+      ru: "Йогурт со вкусом вишни",
+      en: "Cherry Yogurt"
     },
     subtitle: {
       uz: "1,5% yog‘li mevali yogurt",
@@ -87,8 +90,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/yogurt-cherry-270.jpg",
-    gallery: ["/images/products/yogurt-cherry-270.jpg"],
+    image: "/images/products/YOGURT_BOTTLE_OLCHA.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_OLCHA.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "270 g",
@@ -160,8 +163,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 120 g",
       en: "Net weight: 120 g"
     },
-    image: "/images/products/yogurt-cherry-120.jpg",
-    gallery: ["/images/products/yogurt-cherry-120.jpg"],
+    image: "/images/products/yogurt120/olcha.webp",
+    gallery: ["/images/products/yogurt120/olcha.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "120 g",
@@ -182,9 +185,9 @@ export const products: ProductItem[] = [
     badge: "03",
     category: "yogurt",
     title: {
-      uz: "Yogurt. O‘rmon mevalari ta’mi bilan 270 g",
-      ru: "Йогурт со вкусом лесных ягод 270 г",
-      en: "Forest Berries Yogurt 270 g"
+      uz: "Yogurt. O‘rmon mevalari ta’mi bilan",
+      ru: "Йогурт со вкусом лесных ягод",
+      en: "Forest Berries Yogurt"
     },
     subtitle: {
       uz: "1,5% yog‘li mevali yogurt",
@@ -196,8 +199,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/yogurt-forest-270.jpg",
-    gallery: ["/images/products/yogurt-forest-270.jpg"],
+    image: "/images/products/yogurt/YOGURT_BOTTLE_ORMON_MEVA.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_ORMON_MEVA.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "270 g",
@@ -232,8 +235,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 120 g",
       en: "Net weight: 120 g"
     },
-    image: "/images/products/yogurt-forest-120.jpg",
-    gallery: ["/images/products/yogurt-forest-120.jpg"],
+    image: "/images/products/yogurt120/ormon-meva120.webp",
+    gallery: ["/images/products/yogurt120/ormon-meva120.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "120 g",
@@ -268,8 +271,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/yogurt-peach-270.jpg",
-    gallery: ["/images/products/yogurt-peach-270.jpg"],
+    image: "/images/products/yogurt/YOGURT_BOTTLE_SHAFTOLI.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_SHAFTOLI.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "270 g",
@@ -304,8 +307,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 120 g",
       en: "Net weight: 120 g"
     },
-    image: "/images/products/yogurt-peach-120.jpg",
-    gallery: ["/images/products/yogurt-peach-120.jpg"],
+    image: "/images/products/yogurt120/shaftoli120.webp",
+    gallery: ["/images/products/yogurt120/shaftoli120.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "120 g",
@@ -340,8 +343,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/yogurt-strawberry-270.jpg",
-    gallery: ["/images/products/yogurt-strawberry-270.jpg"],
+    image: "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "270 g",
@@ -376,8 +379,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 120 g",
       en: "Net weight: 120 g"
     },
-    image: "/images/products/yogurt-strawberry-120.jpg",
-    gallery: ["/images/products/yogurt-strawberry-120.jpg"],
+    image: "/images/products/yogurt120/qulupnay120.webp",
+    gallery: ["/images/products/yogurt120/qulupnay120.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "120 g",
@@ -412,8 +415,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/yogurt-raspberry-270.jpg",
-    gallery: ["/images/products/yogurt-raspberry-270.jpg"],
+    image: "/images/products/yogurt/YOGURT_BOTTLE_MALINA.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_MALINA.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "270 g",
@@ -448,8 +451,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 120 g",
       en: "Net weight: 120 g"
     },
-    image: "/images/products/yogurt-raspberry-120.jpg",
-    gallery: ["/images/products/yogurt-raspberry-120.jpg"],
+    image: "/images/products/yogurt120/malina120.webp",
+    gallery: ["/images/products/yogurt120/malina120.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "120 g",
@@ -471,7 +474,7 @@ export const products: ProductItem[] = [
     category: "yogurt",
     title: {
       uz: "Yogurt. Banan ta’mi bilan 270 g",
-      ru: "Йогурт со вкусом банана 270 г",
+      ru: "Йогурт со вкусом банана",
       en: "Banana Yogurt 270 g"
     },
     subtitle: {
@@ -484,8 +487,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/yogurt-banana-270.jpg",
-    gallery: ["/images/products/yogurt-banana-270.jpg"],
+    image: "/images/products/yogurt/YOGURT_BOTTLE_BANAN.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_BANAN.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "270 g",
@@ -520,8 +523,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 120 g",
       en: "Net weight: 120 g"
     },
-    image: "/images/products/yogurt-banana-120.jpg",
-    gallery: ["/images/products/yogurt-banana-120.jpg"],
+    image: "/images/products/yogurt120/banan120.webp",
+    gallery: ["/images/products/yogurt120/banan120.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "120 g",
@@ -556,8 +559,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/yogurt-pineapple-270.jpg",
-    gallery: ["/images/products/yogurt-pineapple-270.jpg"],
+    image: "/images/products/yogurt/YOGURT_BOTTLE_ANANAS.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_ANANAS.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "270 g",
@@ -592,8 +595,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 120 g",
       en: "Net weight: 120 g"
     },
-    image: "/images/products/yogurt-pineapple-120.jpg",
-    gallery: ["/images/products/yogurt-pineapple-120.jpg"],
+    image: "/images/products/yogurt120/ananas120.webp",
+    gallery: ["/images/products/yogurt120/ananas120.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
     netWeight: "120 g",
@@ -609,6 +612,168 @@ export const products: ProductItem[] = [
     address,
     openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
   },
+  {
+  slug: "kefir-bio-25-450",
+  badge: "17",
+  category: "kefir",
+  title: {
+    uz: "Bio Kefir 2,5% — 450 g",
+    ru: "Био кефир 2,5% — 450 г",
+    en: "Bio Kefir 2.5% — 450 g"
+  },
+  subtitle: {
+    uz: "Tabiiy bio kefir",
+    ru: "Натуральный био кефир",
+    en: "Natural bio kefir"
+  },
+  weight: {
+    uz: "Sof massa: 450 g",
+    ru: "Масса нетто: 450 g",
+    en: "Net weight: 450 g"
+  },
+  image: "/images/products/alone/kefirBIO.webp",
+  gallery: ["/images/products/alone/kefirBIO.webp"],
+  accent: "from-[#edf8e7] to-[#72c84d]",
+
+  fatPercent: "2,5%",
+  netWeight: "450 g",
+
+  storageValue: {
+    uz: "72 soat",
+    ru: "72 часа",
+    en: "72 hours"
+  },
+  packagingValue: {
+    uz: "450 g butilka",
+    ru: "Бутылка 450 g",
+    en: "450 g bottle"
+  },
+  formatValue: {
+    uz: "Bio kefir 2,5%",
+    ru: "Био кефир 2,5%",
+    en: "Bio kefir 2.5%"
+  },
+
+  nutrition: {
+    energy: "—",
+    fat: "2,5 g",
+    protein: "—",
+    carbs: "—"
+  },
+
+  compositionTitle: {
+    uz: "Tarkibi",
+    ru: "Состав",
+    en: "Composition"
+  },
+  composition: {
+    uz: "Pasterizatsiyalangan, me’yorlashtirilgan sut, achitqi.",
+    ru: "Пастеризованное нормализованное молоко, закваска.",
+    en: "Pasteurized normalized milk, starter culture."
+  },
+
+  storageText: {
+    uz: "Saqlash muddati: 72 soat. Saqlash sharoiti qadoqda ko‘rsatilgan.",
+    ru: "Срок годности: 72 часа. Условия хранения указаны на упаковке.",
+    en: "Shelf life: 72 hours. Storage conditions are indicated on the package."
+  },
+
+  productionDateText: {
+    uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
+    ru: "Дата производства и срок годности указаны на упаковке.",
+    en: "Production date and expiry date are indicated on the package."
+  },
+
+  manufacturer,
+  address,
+
+  openedText: {
+    uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
+    ru: "После открытия употребить в течение 24 часов.",
+    en: "Consume within 24 hours after opening."
+  }
+},
+  {
+  slug: "kefir-32-450",
+  badge: "16",
+  category: "kefir",
+  title: {
+    uz: "Kefir 3,2% — 450 g",
+    ru: "Кефир 3,2% — 450 г",
+    en: "Kefir 3.2% — 450 g"
+  },
+  subtitle: {
+    uz: "Tabiiy kefir",
+    ru: "Натуральный кефир",
+    en: "Natural kefir"
+  },
+  weight: {
+    uz: "Sof massa: 450 g",
+    ru: "Масса нетто: 450 g",
+    en: "Net weight: 450 g"
+  },
+  image: "/images/products/alone/kefir32.webp",
+  gallery: ["/images/products/alone/kefir32.webp"],
+  accent: "from-[#fff2bf] to-[#f4b325]",
+
+  fatPercent: "3,2%",
+  netWeight: "450 g",
+
+  storageValue: {
+    uz: "72 soat",
+    ru: "72 часа",
+    en: "72 hours"
+  },
+  packagingValue: {
+    uz: "450 g butilka",
+    ru: "Бутылка 450 g",
+    en: "450 g bottle"
+  },
+  formatValue: {
+    uz: "Kefir 3,2%",
+    ru: "Кефир 3,2%",
+    en: "Kefir 3.2%"
+  },
+
+  nutrition: {
+    energy: "239–247 KJ / 57–59 Kkal",
+    fat: "3,2 g",
+    protein: "2,8–2,9 g",
+    carbs: "4,0–4,1 g"
+  },
+
+  compositionTitle: {
+    uz: "Tarkibi",
+    ru: "Состав",
+    en: "Composition"
+  },
+  composition: {
+    uz: "Pasterizatsiyalangan, me’yorlashtirilgan sut, achitqi.",
+    ru: "Пастеризованное нормализованное молоко, закваска.",
+    en: "Pasteurized normalized milk, starter culture."
+  },
+
+  storageText: {
+    uz: "Saqlash muddati: 72 soat.",
+    ru: "Срок годности: 72 часа.",
+    en: "Shelf life: 72 hours."
+  },
+
+  productionDateText: {
+    uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
+    ru: "Дата производства и срок годности указаны на упаковке.",
+    en: "Production date and expiry date are indicated on the package."
+  },
+
+  manufacturer,
+  address,
+
+  openedText: {
+    uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
+    ru: "После открытия употребить в течение 24 часов.",
+    en: "Consume within 24 hours after opening."
+  }
+},
   {
     slug: "kefir-25-450",
     badge: "15",
@@ -628,8 +793,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 450 g",
       en: "Net weight: 450 g"
     },
-    image: "/images/products/kefir-25-450.jpg",
-    gallery: ["/images/products/kefir-25-450.jpg"],
+    image: "/images/products/alone/kefir25.webp",
+    gallery: ["/images/products/alone/kefir25.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     fatPercent: "2,5%",
     netWeight: "450 g",
@@ -646,44 +811,65 @@ export const products: ProductItem[] = [
     openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
   },
   {
-    slug: "kefir-25-900",
-    badge: "16",
-    category: "kefir",
+    slug: "ayran-basil-900",
+    badge: "21",
+    category: "ayran",
     title: {
-      uz: "Kefir 2,5% — 900 g",
-      ru: "Кефир 2,5% — 900 г",
-      en: "Kefir 2.5% — 900 g"
+      uz: "Rayhonli ayran — 900 g",
+      ru: "Айран со вкусом базилика — 900 г",
+      en: "Basil Ayran — 900 g"
     },
     subtitle: {
-      uz: "Tabiiy kefir",
-      ru: "Натуральный кефир",
-      en: "Natural kefir"
+      uz: "1% yog‘li ayran",
+      ru: "Айран 1%",
+      en: "Ayran 1%"
     },
     weight: {
       uz: "Sof massa: 900 g",
       ru: "Масса нетто: 900 g",
       en: "Net weight: 900 g"
     },
-    image: "/images/products/kefir-25-900.jpg",
-    gallery: ["/images/products/kefir-25-900.jpg", "/images/products/kefir-25-900-2.jpg"],
-    accent: "from-[#edf4fa] to-[#e1ebf6]",
-    fatPercent: "2,5%",
+    image: "/images/products/ayran-basil-900.jpg",
+    gallery: ["/images/products/ayran-basil-900.jpg"],
+    accent: "from-[#eef2fa] to-[#e7edf8]",
+    fatPercent: "1%",
     netWeight: "900 g",
     storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
     packagingValue: {uz: "900 g butilka", ru: "Бутылка 900 g", en: "900 g bottle"},
-    formatValue: {uz: "Kefir 2,5%", ru: "Кефир 2,5%", en: "Kefir 2.5%"},
-    nutrition: {energy: "—", fat: "2,5 g", protein: "—", carbs: "—"},
+    formatValue: {uz: "Rayhonli ayran", ru: "Айран с базиликом", en: "Ayran with basil"},
+    nutrition: {
+      energy: "24 kkal",
+      fat: "1 g",
+      protein: "1,1 g",
+      carbs: "1,4 g"
+    },
     compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {uz: "Kefir, yog‘ massasi 2,5%.", ru: "Кефир с массовой долей жира 2,5%.", en: "Kefir with 2.5% fat content."},
-    storageText: {uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.", ru: "Условия хранения: хранить при температуре 4 ± 2°C.", en: "Storage conditions: keep at 4 ± 2°C."},
-    productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
+    composition: {
+      uz: "Me’yorlashtirilgan sut, yodlangan osh tuzi, ichimlik suvi, achitqi.",
+      ru: "Нормализованное молоко, йодированная соль, питьевая вода, закваска.",
+      en: "Standardized milk, iodized salt, drinking water, starter culture."
+    },
+    storageText: {
+      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
+      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
+      en: "Storage conditions: keep at 4 ± 2°C."
+    },
+    productionDateText: {
+      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
+      ru: "Дата производства и срок годности указаны на упаковке.",
+      en: "Production date and expiry date are indicated on the package."
+    },
     manufacturer,
     address,
-    openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
+    openedText: {
+      uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
+      ru: "После открытия употребить в течение 24 часов.",
+      en: "Consume within 24 hours after opening."
+    }
   },
   {
     slug: "kefir-1-450",
-    badge: "17",
+    badge: "15",
     category: "kefir",
     title: {
       uz: "Kefir 1% — 450 g",
@@ -700,8 +886,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 450 g",
       en: "Net weight: 450 g"
     },
-    image: "/images/products/kefir-1-450.jpg",
-    gallery: ["/images/products/kefir-1-450.jpg"],
+    image: "/images/products/alone/kefir1.webp",
+    gallery: ["/images/products/alone/kefir1.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     fatPercent: "1%",
     netWeight: "450 g",
@@ -711,114 +897,6 @@ export const products: ProductItem[] = [
     nutrition: {energy: "—", fat: "1 g", protein: "—", carbs: "—"},
     compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
     composition: {uz: "Kefir, yog‘ massasi 1%.", ru: "Кефир с массовой долей жира 1%.", en: "Kefir with 1% fat content."},
-    storageText: {uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.", ru: "Условия хранения: хранить при температуре 4 ± 2°C.", en: "Storage conditions: keep at 4 ± 2°C."},
-    productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
-    manufacturer,
-    address,
-    openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
-  },
-  {
-    slug: "kefir-1-900",
-    badge: "18",
-    category: "kefir",
-    title: {
-      uz: "Kefir 1% — 900 g",
-      ru: "Кефир 1% — 900 г",
-      en: "Kefir 1% — 900 g"
-    },
-    subtitle: {
-      uz: "Tabiiy kefir",
-      ru: "Натуральный кефир",
-      en: "Natural kefir"
-    },
-    weight: {
-      uz: "Sof massa: 900 g",
-      ru: "Масса нетто: 900 g",
-      en: "Net weight: 900 g"
-    },
-    image: "/images/products/kefir-1-900.jpg",
-    gallery: ["/images/products/kefir-1-900.jpg"],
-    accent: "from-[#edf4fa] to-[#e1ebf6]",
-    fatPercent: "1%",
-    netWeight: "900 g",
-    storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "900 g butilka", ru: "Бутылка 900 g", en: "900 g bottle"},
-    formatValue: {uz: "Kefir 1%", ru: "Кефир 1%", en: "Kefir 1%"},
-    nutrition: {energy: "—", fat: "1 g", protein: "—", carbs: "—"},
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {uz: "Kefir, yog‘ massasi 1%.", ru: "Кефир с массовой долей жира 1%.", en: "Kefir with 1% fat content."},
-    storageText: {uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.", ru: "Условия хранения: хранить при температуре 4 ± 2°C.", en: "Storage conditions: keep at 4 ± 2°C."},
-    productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
-    manufacturer,
-    address,
-    openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
-  },
-  {
-    slug: "kefir-32-450",
-    badge: "19",
-    category: "kefir",
-    title: {
-      uz: "Kefir 3,2% — 450 g",
-      ru: "Кефир 3,2% — 450 г",
-      en: "Kefir 3.2% — 450 g"
-    },
-    subtitle: {
-      uz: "Tabiiy kefir",
-      ru: "Натуральный кефир",
-      en: "Natural kefir"
-    },
-    weight: {
-      uz: "Sof massa: 450 g",
-      ru: "Масса нетто: 450 g",
-      en: "Net weight: 450 g"
-    },
-    image: "/images/products/kefir-32-450.jpg",
-    gallery: ["/images/products/kefir-32-450.jpg"],
-    accent: "from-[#edf4fa] to-[#e1ebf6]",
-    fatPercent: "3,2%",
-    netWeight: "450 g",
-    storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "450 g butilka", ru: "Бутылка 450 g", en: "450 g bottle"},
-    formatValue: {uz: "Kefir 3,2%", ru: "Кефир 3,2%", en: "Kefir 3.2%"},
-    nutrition: {energy: "—", fat: "3,2 g", protein: "—", carbs: "—"},
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {uz: "Kefir, yog‘ massasi 3,2%.", ru: "Кефир с массовой долей жира 3,2%.", en: "Kefir with 3.2% fat content."},
-    storageText: {uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.", ru: "Условия хранения: хранить при температуре 4 ± 2°C.", en: "Storage conditions: keep at 4 ± 2°C."},
-    productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
-    manufacturer,
-    address,
-    openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
-  },
-  {
-    slug: "kefir-32-900",
-    badge: "20",
-    category: "kefir",
-    title: {
-      uz: "Kefir 3,2% — 900 g",
-      ru: "Кефир 3,2% — 900 г",
-      en: "Kefir 3.2% — 900 g"
-    },
-    subtitle: {
-      uz: "Tabiiy kefir",
-      ru: "Натуральный кефир",
-      en: "Natural kefir"
-    },
-    weight: {
-      uz: "Sof massa: 900 g",
-      ru: "Масса нетто: 900 g",
-      en: "Net weight: 900 g"
-    },
-    image: "/images/products/kefir-32-900.jpg",
-    gallery: ["/images/products/kefir-32-900.jpg"],
-    accent: "from-[#edf4fa] to-[#e1ebf6]",
-    fatPercent: "3,2%",
-    netWeight: "900 g",
-    storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "900 g butilka", ru: "Бутылка 900 g", en: "900 g bottle"},
-    formatValue: {uz: "Kefir 3,2%", ru: "Кефир 3,2%", en: "Kefir 3.2%"},
-    nutrition: {energy: "—", fat: "3,2 g", protein: "—", carbs: "—"},
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {uz: "Kefir, yog‘ massasi 3,2%.", ru: "Кефир с массовой долей жира 3,2%.", en: "Kefir with 3.2% fat content."},
     storageText: {uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.", ru: "Условия хранения: хранить при температуре 4 ± 2°C.", en: "Storage conditions: keep at 4 ± 2°C."},
     productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
     manufacturer,
@@ -1215,8 +1293,8 @@ export const products: ProductItem[] = [
       ru: "Объем: уточняется",
       en: "Pack size: to be specified"
     },
-    image: "/images/products/qaymaq.jpg",
-    gallery: ["/images/products/qaymaq.jpg"],
+    image: "/images/products/alone/qaymaq.webp",
+    gallery: ["/images/products/alone/qaymaq.webp"],
     accent: "from-[#f1f5fa] to-[#e8edf5]",
     storageValue: {
       uz: "21 kun",
@@ -1268,135 +1346,26 @@ export const products: ProductItem[] = [
     }
   },
   {
-    slug: "mozzarella-big",
-    badge: "28",
+    slug: "mozzarella",
+    badge: "29",
     category: "cheese",
     title: {
-      uz: "Mozzarella 1–2 kg",
-      ru: "Mozzarella 1–2 кг",
-      en: "Mozzarella 1–2 kg"
-    },
-    subtitle: {
-      uz: "Mozzarella pishlog‘i",
-      ru: "Сыр Mozzarella",
-      en: "Mozzarella cheese"
-    },
-    weight: {
-      uz: "Sof massa: 1–2 kg",
-      ru: "Масса нетто: 1–2 kg",
-      en: "Net weight: 1–2 kg"
-    },
-    image: "/images/products/mozzarella-big.jpg",
-    gallery: ["/images/products/mozzarella-big.jpg"],
-    accent: "from-[#edf4fa] to-[#e1ebf6]",
-    storageValue: {
-      uz: "Qadoqda ko‘rsatilgan",
-      ru: "Указан на упаковке",
-      en: "Indicated on package"
-    },
-    packagingValue: {
-      uz: "Yirik qadoq",
-      ru: "Крупная упаковка",
-      en: "Large pack"
-    },
-    formatValue: {
       uz: "Mozzarella",
       ru: "Mozzarella",
       en: "Mozzarella"
     },
-    nutrition: {
-      energy: "1284 K / 308 Kkal",
-      fat: "21,7 g",
-      protein: "26,3 g",
-      carbs: "2,0 g",
-      extra: [
-        {
-          label: {
-            uz: "To‘yingan yog‘",
-            ru: "Насыщенные жиры",
-            en: "Saturated fat"
-          },
-          value: "14,1 g"
-        },
-        {
-          label: {
-            uz: "Shakar",
-            ru: "Сахара",
-            en: "Sugars"
-          },
-          value: "2,0 g"
-        },
-        {
-          label: {
-            uz: "Tuz",
-            ru: "Соль",
-            en: "Salt"
-          },
-          value: "1,1 g"
-        },
-        {
-          label: {
-            uz: "Kalsiy",
-            ru: "Кальций",
-            en: "Calcium"
-          },
-          value: "580 mg"
-        }
-      ]
-    },
-    compositionTitle: {
-      uz: "Tarkibi",
-      ru: "Состав",
-      en: "Composition"
-    },
-    composition: {
-      uz: "Pasterizatsiyalangan sigir suti, pishloq kulturasi, tuz va emulsiya qiluvchi tuzlar, stabilizator, konservant, rang beruvchi modda.",
-      ru: "Пастеризованное коровье молоко, сырная культура, соль, эмульгирующие соли, стабилизатор, консервант, краситель.",
-      en: "Pasteurized cow milk, cheese culture, salt, emulsifying salts, stabilizer, preservative and coloring agent."
-    },
-    storageText: {
-      uz: "Saqlash sharoiti: +2°C dan +4°C gacha.",
-      ru: "Условия хранения: от +2°C до +4°C.",
-      en: "Storage conditions: from +2°C to +4°C."
-    },
-    productionDateText: {
-      uz: "Yaroqlilik muddati va lot raqami qadoqda ko‘rsatilgan.",
-      ru: "Срок годности и номер партии указаны на упаковке.",
-      en: "Expiry date and lot number are indicated on the package."
-    },
-    manufacturer: {
-      uz: "Ishlab chiqaruvchi: “YANGI ASR” FERMER XOʻJALIGI MAHSULOTI.",
-      ru: "Производитель: «YANGI ASR» FERMER XOʻJALIGI MAHSULOTI.",
-      en: "Manufacturer: “YANGI ASR” FERMER XOʻJALIGI MAHSULOTI."
-    },
-    address,
-    openedText: {
-      uz: "Quruq moddada sut yog‘i nisbati kamida 45% ni tashkil qiladi.",
-      ru: "Массовая доля жира в сухом веществе не менее 45%.",
-      en: "Milk fat in dry matter is at least 45%."
-    }
-  },
-  {
-    slug: "mozzarella-400",
-    badge: "29",
-    category: "cheese",
-    title: {
-      uz: "Mozzarella 250–400 g",
-      ru: "Mozzarella 250–400 г",
-      en: "Mozzarella 250–400 g"
-    },
     subtitle: {
       uz: "Mozzarella pishlog‘i",
-      ru: "Сыр Mozzarella",
+      ru: "Сыр Моцарелла",
       en: "Mozzarella cheese"
     },
     weight: {
-      uz: "Sof massa: 250–400 g",
-      ru: "Масса нетто: 250–400 g",
-      en: "Net weight: 250–400 g"
+      uz: "Sof massa: 250–400-1000 g",
+      ru: "Масса нетто: 250–400-1000 g",
+      en: "Net weight: 250–400-1000 g"
     },
-    image: "/images/products/mozzarella-400.jpg",
-    gallery: ["/images/products/mozzarella-400.jpg"],
+    image: "/images/products/alone/mozarella-al.webp",
+    gallery: ["/images/products/alone/mozarella-al.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     storageValue: {
       uz: "Qadoqda ko‘rsatilgan",
@@ -1452,12 +1421,127 @@ export const products: ProductItem[] = [
     }
   },
   {
+  slug: "tvorog-soft-5",
+  badge: "32",
+  category: "tvorog",
+  title: {
+    uz: "Yumshoq tvorog pishloq 5%",
+    ru: "Мягкий творожный сыр 5%",
+    en: "Soft Curd Cheese 5%"
+  },
+  subtitle: {
+    uz: "Tvorog pishloq",
+    ru: "Творожный сыр",
+    en: "Curd cheese"
+  },
+  weight: {
+    uz: "Sof massa: 400 g",
+    ru: "Масса нетто: 400 g",
+    en: "Net weight: 400 g"
+  },
+  image: "/images/products/tvorog/tvorog.webp",
+  gallery: ["/images/products/tvorog/tvorog.webp"],
+  accent: "from-[#eef7c7] to-[#b7cf62]",
+
+  fatPercent: "5%",
+  netWeight: "400 g",
+
+  storageValue: {
+    uz: "+2 °C dan +4 °C gacha",
+    ru: "От +2 °C до +4 °C",
+    en: "From +2 °C to +4 °C"
+  },
+  packagingValue: {
+    uz: "400 g qadoq",
+    ru: "Упаковка 400 g",
+    en: "400 g pack"
+  },
+  formatValue: {
+    uz: "Yumshoq tvorog pishloq",
+    ru: "Мягкий творожный сыр",
+    en: "Soft curd cheese"
+  },
+
+  nutrition: {
+    energy: "118,3 K / 308 Kkal",
+    fat: "5,0 g",
+    protein: "18 g",
+    carbs: "3,0 g",
+    extra: [
+      {
+        label: {
+          uz: "To‘yingan yog‘",
+          ru: "Насыщенные жиры",
+          en: "Saturated fat"
+        },
+        value: "3,0 g"
+      },
+      {
+        label: {
+          uz: "Shakar",
+          ru: "Сахара",
+          en: "Sugars"
+        },
+        value: "3,1 g"
+      },
+      {
+        label: {
+          uz: "Tuz",
+          ru: "Соль",
+          en: "Salt"
+        },
+        value: "1,1 g"
+      },
+      {
+        label: {
+          uz: "Kalsiy",
+          ru: "Кальций",
+          en: "Calcium"
+        },
+        value: "150 mg"
+      }
+    ]
+  },
+
+  compositionTitle: {
+    uz: "Tarkibi",
+    ru: "Состав",
+    en: "Composition"
+  },
+  composition: {
+    uz: "Pasterizatsiyalangan sut, achitqi.",
+    ru: "Пастеризованное молоко, закваска.",
+    en: "Pasteurized milk, starter culture."
+  },
+
+  storageText: {
+    uz: "+2 °C dan +4 °C haroratda va havoning nisbiy namligi 70% bo‘lgan holda saqlansin.",
+    ru: "Хранить при температуре от +2 °C до +4 °C и относительной влажности воздуха 70%.",
+    en: "Store at a temperature from +2 °C to +4 °C and relative air humidity of 70%."
+  },
+
+  productionDateText: {
+    uz: "Ishlab chiqarilgan sana, yaroqlilik muddati va lot raqami qadoqda ko‘rsatilgan.",
+    ru: "Дата производства, срок годности и номер партии указаны на упаковке.",
+    en: "Production date, expiry date and batch number are indicated on the package."
+  },
+
+  manufacturer,
+  address,
+
+  openedText: {
+    uz: "Ochilgandan so‘ng qisqa muddat ichida iste’mol qilinsin.",
+    ru: "После открытия употребить в короткий срок.",
+    en: "Consume shortly after opening."
+  }
+},
+  {
     slug: "tvorog-soft",
     badge: "30",
     category: "tvorog",
     title: {
-      uz: "Yumshoq tvorog",
-      ru: "Мягкий творог",
+      uz: "Yumshoq tvorog 5%",
+      ru: "Мягкий творог 5%",
       en: "Soft Cottage Cheese"
     },
     subtitle: {
@@ -1470,8 +1554,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 200 g",
       en: "Net weight: 200 g"
     },
-    image: "/images/products/tvorog-soft.jpg",
-    gallery: ["/images/products/tvorog-soft.jpg"],
+    image: "/images/products/tvorog/tvorog5.webp",
+    gallery: ["/images/products/tvorog/tvorog5.webp"],
     accent: "from-[#eef3f9] to-[#e5edf6]",
     storageValue: {
       uz: "Qadoqda ko‘rsatilgan",
@@ -1479,9 +1563,9 @@ export const products: ProductItem[] = [
       en: "Indicated on package"
     },
     packagingValue: {
-      uz: "200 g qadoq",
-      ru: "Упаковка 200 g",
-      en: "200 g pack"
+      uz: "400 g qadoq",
+      ru: "Упаковка 400 g",
+      en: "400 g pack"
     },
     formatValue: {
       uz: "Tvorog",
@@ -1556,6 +1640,121 @@ export const products: ProductItem[] = [
       en: "Consume shortly after opening."
     }
   },
+  {
+  slug: "tvorog-soft-9",
+  badge: "31",
+  category: "tvorog",
+  title: {
+    uz: "Yumshoq tvorog 9%",
+    ru: "Мягкий творог 9%",
+    en: "Soft Cottage Cheese 9%"
+  },
+  subtitle: {
+    uz: "Tvorog mahsuloti",
+    ru: "Творожный продукт",
+    en: "Cottage cheese product"
+  },
+  weight: {
+    uz: "Sof massa: 400 g",
+    ru: "Масса нетто: 400 g",
+    en: "Net weight: 400 g"
+  },
+  image: "/images/products/tvorog/tvorog9.webp",
+  gallery: ["/images/products/tvorog/tvorog9.webp"],
+  accent: "from-[#f4e0a7] to-[#d4a33a]",
+
+  fatPercent: "9%",
+  netWeight: "400 g",
+
+  storageValue: {
+    uz: "+2 °C dan +4 °C gacha",
+    ru: "От +2 °C до +4 °C",
+    en: "From +2 °C to +4 °C"
+  },
+  packagingValue: {
+    uz: "400 g qadoq",
+    ru: "Упаковка 400 g",
+    en: "400 g pack"
+  },
+  formatValue: {
+    uz: "Yumshoq tvorog",
+    ru: "Мягкий творог",
+    en: "Soft cottage cheese"
+  },
+
+  nutrition: {
+    energy: "118,3 K / 308 Kkal",
+    fat: "9,0 g",
+    protein: "18 g",
+    carbs: "3,0 g",
+    extra: [
+      {
+        label: {
+          uz: "To‘yingan yog‘",
+          ru: "Насыщенные жиры",
+          en: "Saturated fat"
+        },
+        value: "5,0 g"
+      },
+      {
+        label: {
+          uz: "Shakar",
+          ru: "Сахара",
+          en: "Sugars"
+        },
+        value: "3,2 g"
+      },
+      {
+        label: {
+          uz: "Tuz",
+          ru: "Соль",
+          en: "Salt"
+        },
+        value: "1,1 g"
+      },
+      {
+        label: {
+          uz: "Kalsiy",
+          ru: "Кальций",
+          en: "Calcium"
+        },
+        value: "150 mg"
+      }
+    ]
+  },
+
+  compositionTitle: {
+    uz: "Tarkibi",
+    ru: "Состав",
+    en: "Composition"
+  },
+  composition: {
+    uz: "Pasterizatsiyalangan sut, achitqi.",
+    ru: "Пастеризованное молоко, закваска.",
+    en: "Pasteurized milk, starter culture."
+  },
+
+  storageText: {
+    uz: "+2 °C dan +4 °C haroratda va havoning nisbiy namligi 70% bo‘lgan holda saqlansin.",
+    ru: "Хранить при температуре от +2 °C до +4 °C и относительной влажности воздуха 70%.",
+    en: "Store at a temperature from +2 °C to +4 °C and relative air humidity of 70%."
+  },
+
+  productionDateText: {
+    uz: "Ishlab chiqarilgan sana, yaroqlilik muddati va lot raqami qadoqda ko‘rsatilgan.",
+    ru: "Дата производства, срок годности и номер партии указаны на упаковке.",
+    en: "Production date, expiry date and batch number are indicated on the package."
+  },
+
+  manufacturer,
+  address,
+
+  openedText: {
+    uz: "Ochilgandan so‘ng qisqa muddat ichida iste’mol qilinsin.",
+    ru: "После открытия употребить в короткий срок.",
+    en: "Consume shortly after opening."
+  }
+},
   {
     slug: "oxotnichiy-cheese",
     badge: "31",
@@ -1741,37 +1940,61 @@ const availableProductImages = new Set([
   "/images/products/kefir-32-450.jpg",
   "/images/products/kefir-32-900.jpg",
   "/images/products/yogurt-cherry-120.jpg",
-  "/images/products/yogurt-cherry-270.jpg",
   "/images/products/yogurt-peach-120.jpg",
-  "/images/products/yogurt-peach-270.jpg",
   "/images/products/yogurt-pineapple-120.jpg",
-  "/images/products/yogurt-pineapple-270.jpg",
   "/images/products/yogurt-raspberry-120.jpg",
-  "/images/products/yogurt-raspberry-270.jpg",
   "/images/products/yogurt-strawberry-120.jpg",
-  "/images/products/yogurt-strawberry-270.jpg"
+  "/images/products/yogurt-strawberry-270.jpg",
+  "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_MALINA.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_BANAN.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_ANANAS.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY_BANAN.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_SHAFTOLI.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_ORMON_MEVA.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_OLCHA.webp",
+  "/images/products/yogurt120/ananas120.webp",
+  "/images/products/yogurt120/banan120.webp",
+  "/images/products/yogurt120/malina120.webp",
+  "/images/products/yogurt120/olcha.webp",
+  "/images/products/yogurt120/ormon-meva120.webp",
+  "/images/products/yogurt120/qulupnay-banan120.webp",
+  "/images/products/yogurt120/shaftoli120.webp",
+  "/images/products/yogurt120/strawberry120.webp",
+  "/images/products/yogurt120/qulupnay120.webp",
+  "/images/products/alone/qaymaq.webp",
+  "/images/products/alone/mozzarella.webp",
+  "/images/products/alone/mozzarella-al.webp",
+  "/images/products/alone/mozarella-al.webp",
+  "/images/products/alone/kefir1.webp",
+  "/images/products/alone/kefir32.webp",
+  "/images/products/alone/kefir25.webp",
+  "/images/products/tvorog/tvorog5.webp",
+  "/images/products/tvorog/tvorog9.webp",
+  "/images/products/tvorog/tvorog.webp",
+  "/images/products/alone/kefirBIO.webp"
 ]);
 
 const productImageAliases: Record<string, string> = {
   "/images/products/kefir-1-900.jpg": "/images/products/kefir-1-900.jp.JPG",
   "/images/products/kefir-25-900-2.jpg": "/images/products/kefir-25-900.jpg",
-  "/images/products/yogurt-forest-270.jpg": "/images/products/yogurt-raspberry-270.jpg",
-  "/images/products/yogurt-forest-120.jpg": "/images/products/yogurt-raspberry-120.jpg",
-  "/images/products/yogurt-banana-270.jpg": "/images/products/yogurt-pineapple-270.jpg",
-  "/images/products/yogurt-banana-120.jpg": "/images/products/yogurt-pineapple-120.jpg",
+  "/images/products/yogurt-cherry-120.jpg": "/images/products/yogurt120/olcha.webp",
+  "/images/products/yogurt-peach-120.jpg": "/images/products/yogurt120/shaftoli120.webp",
+  "/images/products/yogurt-pineapple-120.jpg": "/images/products/yogurt120/ananas120.webp",
+  "/images/products/yogurt-raspberry-120.jpg": "/images/products/yogurt120/malina120.webp",
+  "/images/products/yogurt-strawberry-120.jpg": "/images/products/yogurt120/qulupnay120.webp",
+  "/images/products/yogurt-strawberry-270.jpg": "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
+  "/images/products/yogurt-forest-120.jpg": "/images/products/yogurt120/ormon-meva120.webp",
+  "/images/products/yogurt-banana-120.jpg": "/images/products/yogurt120/banan120.webp",
   "/images/products/ayran-basil-900.jpg": "/images/products/ayran-basil-1000.jpg",
   "/images/products/ayran-1-1000.jpg": "/images/products/ayran-basil-1000.jpg"
 };
 
 const fallbackProductImages = [
-  "/images/products/yogurt-strawberry-270.jpg",
-  "/images/products/yogurt-raspberry-270.jpg",
-  "/images/products/yogurt-pineapple-270.jpg",
-  "/images/products/yogurt-cherry-270.jpg",
-  "/images/products/yogurt-peach-270.jpg",
+  "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
   "/images/products/kefir-25-900.jpg",
-  "/images/products/kefir-32-900.jpg",
-  "/images/products/ayran-basil-1000.jpg"
+  "/images/products/alone/qaymaq.webp",
+  "/images/products/alone/mozzarella.webp"
 ];
 
 function hashText(value: string) {
@@ -1788,18 +2011,24 @@ export function getProductImage(product: ProductItem, index = 0) {
   const source = product.gallery[index] ?? product.image;
   const aliased = productImageAliases[source] ?? source;
 
-  if (availableProductImages.has(aliased)) return aliased;
+  if (availableProductImages.has(aliased)) return assetUrl(aliased);
 
   if (product.category === "yogurt") {
-    return product.netWeight === "120 g"
-      ? "/images/products/yogurt-strawberry-120.jpg"
-      : "/images/products/yogurt-strawberry-270.jpg";
+    return assetUrl(product.netWeight === "120 g"
+      ? "/images/products/yogurt120/qulupnay120.webp"
+      : "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp");
   }
 
-  if (product.category === "kefir") return "/images/products/kefir-25-900.jpg";
-  if (product.category === "ayran") return "/images/products/ayran-basil-1000.jpg";
+  if (product.category === "kefir") return assetUrl("/images/products/kefir-25-900.jpg");
+  if (product.category === "cheese") return assetUrl("/images/products/alone/mozzarella.webp");
+  if (product.category === "cream" || product.category === "Qaymaq") {
+    return assetUrl("/images/products/alone/qaymaq.webp");
+  }
+  if (product.category === "tvorog") return assetUrl("/images/products/tvorog/tvorog.webp");
+  if (product.category === "qatiq") return assetUrl("/images/products/alone/kefir32.webp");
+  if (product.category === "ayran") return assetUrl("/images/products/alone/kefir25.webp");
 
-  return fallbackProductImages[hashText(product.slug) % fallbackProductImages.length];
+  return assetUrl(fallbackProductImages[hashText(product.slug) % fallbackProductImages.length]);
 }
 
 export function getProductGallery(product: ProductItem) {
@@ -1808,3 +2037,5 @@ export function getProductGallery(product: ProductItem) {
 
   return gallery.length ? gallery : [getProductImage(product)];
 }
+
+export const listedProducts = products.filter((product) => product.category !== "ayran");

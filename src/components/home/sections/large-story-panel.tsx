@@ -22,7 +22,7 @@ export async function LargeStoryPanel({
   const chips = panel === 'brand'
     ? [t('stat1'), t('stat2'), t('stat3')]
     : panel === 'categories'
-      ? [t('milk'), t('kefir'), t('yogurt'), t('cheese'), t('ayran')]
+      ? [t('milk'), t('kefir'), t('yogurt'), t('cheese')]
       : panel === 'quality'
         ? [t('point1'), t('point2'), t('point3'), t('point4')]
         : [t('card1'), t('card2'), t('card3')];

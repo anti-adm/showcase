@@ -1,6 +1,6 @@
 import HeroStory from "@/components/home/sections/hero-story";
 import {HomeScrollShowcase} from "@/components/home/home-scroll-showcase";
-import {products} from "@/components/products/products-data";
+import {listedProducts} from "@/components/products/products-data";
 import {recipes} from "@/components/recipes/recipes-data";
 
 type Locale = "uz" | "ru" | "en";
@@ -12,7 +12,7 @@ type Props = {
 export default async function HomePage({params}: Props) {
   const {locale: rawLocale} = await params;
   const locale = normalizeLocale(rawLocale);
-  const featuredProducts = products.slice(0, 6);
+  const featuredProducts = listedProducts.slice(0, 6);
   const featuredRecipes = recipes;
 
   return (

@@ -13,6 +13,8 @@
   --muted: #5b6f92;
   --accent: #174d9e;
   --accent-2: #89b6ff;
+  --brand: #0c3a6a;
+  --brand-primary: #0c3a6a;
   --shadow: 0 22px 70px rgba(10, 32, 71, 0.16);
   --shadow-soft: 0 12px 30px rgba(10, 32, 71, 0.08);
   --radius-xl: 32px;
@@ -81,6 +83,19 @@ img {
 
 main {
   position: relative;
+}
+
+.product-card-shell {
+  content-visibility: auto;
+  contain-intrinsic-size: 340px;
+}
+
+.product-filter-scroll {
+  scrollbar-width: none;
+}
+
+.product-filter-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .glass {

@@ -15,24 +15,11 @@ const WHEEL_THRESHOLD = 18;
 const TOUCH_THRESHOLD = 46;
 const MOBILE_QUERY = "(max-width: 640px)";
 const COLLECTION_SLIDE_COUNT = 8;
-const COLLECTION_OUTRO_STAGE = COLLECTION_SLIDE_COUNT + 2;
+const COLLECTION_LAST_STAGE = COLLECTION_SLIDE_COUNT + 1;
 const COLLECTION_NAVIGATION_LOCK_MS = 720;
 const SHOWCASE_UNMOUNT_AFTER_COLLECTION_MS = 1120;
 
 type Locale = "uz" | "ru" | "en";
-
-const COLLECTION_FINAL_TEXT_CONTROLS = {
-  desktop: {
-    x: "0px",
-    y: "72px",
-    maxWidth: "1600px",
-  },
-  mobile: {
-    x: "0px",
-    y: "64px",
-    maxWidth: "330px",
-  },
-} as const;
 
 const collectionSerif = Playfair_Display({
   subsets: ["latin", "cyrillic"],
@@ -372,7 +359,7 @@ export function YogurtsShowcasePage() {
         }
 
         if (intent === "next") {
-          const nextStage = Math.min(COLLECTION_OUTRO_STAGE, currentCollectionStage + 1);
+          const nextStage = Math.min(COLLECTION_LAST_STAGE, currentCollectionStage + 1);
           if (nextStage === currentCollectionStage) return;
 
           collectionStageRef.current = nextStage;
@@ -816,7 +803,6 @@ function getPreviousStep(currentStep: ShowcaseStep, isMobile: boolean): Showcase
 type CollectionCopy = {
   heading: string;
   subheading: string;
-  finalText: string;
   slides: Array<{eyebrow: string; title: string; text: string}>;
 };
 
@@ -830,7 +816,6 @@ const YOGURTS_PAGE_TRANSLATIONS: Record<
     collection: {
       heading: "SOFIN",
       subheading: "Наша коллекция натуральных йогуртов собственного производства",
-      finalText: "Попробуйте наши йогурты от компании SOFIN",
       slides: [
         {eyebrow: "01 / Натуральная основа", title: "Мягкий вкус на каждый день", text: "Йогурты SOFIN созданы для спокойного, чистого десертного настроения без лишней тяжести."},
         {eyebrow: "02 / Фруктовая линия", title: "Яркие вкусы фруктов", text: "Ананас, банан, ягоды и персик раскрываются мягко, с деликатной сливочной базой."},
@@ -849,7 +834,6 @@ const YOGURTS_PAGE_TRANSLATIONS: Record<
     collection: {
       heading: "SOFIN",
       subheading: "O‘z ishlab chiqarishimizdagi tabiiy yogurtlar kolleksiyasi",
-      finalText: "SOFIN kompaniyasining yogurtlarini tatib ko‘ring",
       slides: [
         {eyebrow: "01 / Tabiiy asos", title: "Har kun uchun mayin ta’m", text: "SOFIN yogurtlari osoyishta, toza desert kayfiyati uchun yaratilgan."},
         {eyebrow: "02 / Mevali yo‘nalish", title: "Yorqin meva ta’mlari", text: "Ananas, banan, rezavorlar va shaftoli nozik qaymoqli asosda yumshoq ochiladi."},
@@ -868,7 +852,6 @@ const YOGURTS_PAGE_TRANSLATIONS: Record<
     collection: {
       heading: "SOFIN",
       subheading: "Our collection of natural yogurts made in-house",
-      finalText: "Try SOFIN yogurts from our company",
       slides: [
         {eyebrow: "01 / Natural base", title: "Soft taste for every day", text: "SOFIN yogurts are made for a calm, clean dessert mood without heaviness."},
         {eyebrow: "02 / Fruit line", title: "Bright fruit flavors", text: "Pineapple, banana, berries and peach open softly over a delicate creamy base."},
@@ -893,14 +876,10 @@ function CollectionExperience({
   copy: CollectionCopy;
 }) {
   const active = stage > 0;
-  const outroVisible = stage >= COLLECTION_OUTRO_STAGE;
-  const headingVisible = active && !outroVisible;
+  const headingVisible = active;
   const slideStage = Math.max(0, Math.min(COLLECTION_SLIDE_COUNT - 1, stage - 2));
-  const finalTextControls = isMobile
-    ? COLLECTION_FINAL_TEXT_CONTROLS.mobile
-    : COLLECTION_FINAL_TEXT_CONTROLS.desktop;
   const imageShift = active
-    ? Math.min(100, stage <= 1 ? 0 : stage >= COLLECTION_OUTRO_STAGE ? 100 : 10 + slideStage * 10.5)
+    ? Math.min(100, stage <= 1 ? 0 : 10 + slideStage * 10.5)
     : 0;
   const carouselShift = stage <= 1 ? 0 : -slideStage * 24;
 
@@ -971,17 +950,7 @@ function CollectionExperience({
             ))}
           </div>
 
-          <div className="mt-auto flex min-h-[70vh] items-center justify-center px-2 py-16 text-center">
-            <h2
-              className={`${collectionSerif.className} text-[clamp(2.05rem,10vw,3.8rem)] font-semibold leading-[1.07] text-[#251b17] drop-shadow-[0_16px_48px_rgba(255,255,255,0.4)]`}
-              style={{
-                maxWidth: finalTextControls.maxWidth,
-                transform: `translate3d(${finalTextControls.x}, ${finalTextControls.y}, 0)`,
-              }}
-            >
-              <TypingText text={copy.finalText} active={active} />
-            </h2>
-          </div>
+          <div className="min-h-[20vh]" />
         </div>
       </section>
     );
@@ -1029,9 +998,9 @@ function CollectionExperience({
       <div
         className="absolute bottom-[4vh] left-0 z-20 flex gap-[clamp(1rem,2vw,2rem)] px-[clamp(1rem,5vw,4.5rem)] transition-[transform,opacity,filter] duration-620"
         style={{
-          transform: `translate3d(${carouselShift}vw, ${outroVisible ? "12vh" : "0"}, 0)`,
-          opacity: outroVisible ? 0 : 1,
-          filter: outroVisible ? "blur(12px)" : "blur(0px)",
+          transform: `translate3d(${carouselShift}vw, 0, 0)`,
+          opacity: 1,
+          filter: "blur(0px)",
           transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
@@ -1069,59 +1038,7 @@ function CollectionExperience({
           );
         })}
       </div>
-
-      <div
-        className="absolute inset-x-0 top-1/2 z-30 flex -translate-y-1/2 justify-center px-6 text-center transition-[opacity,transform,filter] duration-760"
-        style={{
-          opacity: outroVisible ? 1 : 0,
-          transform: outroVisible
-            ? `translate3d(${finalTextControls.x}, calc(-50% + ${finalTextControls.y}), 0)`
-            : `translate3d(${finalTextControls.x}, calc(-38% + ${finalTextControls.y}), 0)`,
-          filter: outroVisible ? "blur(0px)" : "blur(16px)",
-          transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-        }}
-      >
-        <h2
-          className={`${collectionSerif.className} max-w-235 text-center text-[clamp(2.05rem,4.7vw,4.45rem)] font-semibold leading-[1.05] text-[#251b17] drop-shadow-[0_16px_50px_rgba(255,255,255,0.45)]`}
-          style={{ maxWidth: finalTextControls.maxWidth }}
-        >
-          <TypingText text={copy.finalText} active={outroVisible} />
-        </h2>
-      </div>
     </section>
-  );
-}
-
-function TypingText({text, active}: {text: string; active: boolean}) {
-  return (
-    <span
-      className="inline-block"
-      aria-label={text}
-    >
-      {Array.from(text).map((char, index) => (
-        <span
-          key={`${char}-${index}`}
-          aria-hidden="true"
-          className="inline-block opacity-0"
-          style={{
-            animation: active
-              ? `sofinTypingGlyph 36ms ${Math.min(index * 34, 1800)}ms linear forwards`
-              : "none",
-          }}
-        >
-          {char === " " ? "\u00a0" : char}
-        </span>
-      ))}
-      <span
-        aria-hidden="true"
-        className="ml-1 inline-block h-[0.78em] w-[0.045em] translate-y-[0.08em] bg-current align-middle"
-        style={{
-          animation: active
-            ? "sofinTypingCursor 820ms steps(1,end) infinite"
-            : "none",
-        }}
-      />
-    </span>
   );
 }
 
