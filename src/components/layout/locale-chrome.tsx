@@ -12,17 +12,18 @@ export default function LocaleChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const isYogurtsPage = pathname === "/yogurts" || pathname.endsWith("/yogurts");
   const isShowcasePage =
     pathname === "/showcase" ||
     pathname.endsWith("/showcase") ||
-    pathname === "/yogurts" ||
-    pathname.endsWith("/yogurts");
+    isYogurtsPage;
 
   if (isShowcasePage) {
     return (
       <>
         <SiteHeader />
         {children}
+        {isYogurtsPage ? <SiteFooter /> : null}
       </>
     );
   }

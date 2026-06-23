@@ -12,6 +12,7 @@ import {
   Sprout,
   Users
 } from "lucide-react";
+import {assetUrl} from "@/lib/assets";
 
 const easeCurve = [0.22, 1, 0.36, 1] as const;
 
@@ -63,7 +64,10 @@ export default function CompanyPage() {
     <main className="relative min-h-screen overflow-hidden pt-28 sm:pt-32">
       <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)]" />
 
-      <div className="absolute inset-0 -z-20 bg-[url('/images/company.png')] bg-cover bg-center bg-no-repeat opacity-45" />
+      <div
+        className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat opacity-45"
+        style={{backgroundImage: `url("${assetUrl("/images/company.webp")}")`}}
+      />
 
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.16)_0%,rgba(218,231,246,0.24)_52%,rgba(207,222,239,0.34)_100%)] backdrop-blur-[4px]" />
 

@@ -4,6 +4,7 @@ import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { Environment, Html, PerspectiveCamera, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import {assetUrl} from "@/lib/assets";
 import {
   SHOWCASE_MODEL_TIMING,
   getIdleTime,
@@ -60,7 +61,7 @@ type TransformTarget = {
 
 type MotionOffsets = TransformTarget;
 
-const BASE_MODEL_PATH = "/models/products/base-cup.glb";
+const BASE_MODEL_PATH = assetUrl("/models/products/base-cup.glb");
 const PRODUCT_TEXTURE_FLAVORS: FlavorKey[] = [
   "ananas",
   "banan",
@@ -72,8 +73,8 @@ const PRODUCT_TEXTURE_FLAVORS: FlavorKey[] = [
   "shaftoli",
 ];
 const PRODUCT_TEXTURE_URLS = PRODUCT_TEXTURE_FLAVORS.flatMap((flavor) => [
-  `/textures/products/${flavor}-side.jpg`,
-  `/textures/products/${flavor}-lid.jpg`,
+  assetUrl(`/textures/products/${flavor}-side.webp`),
+  assetUrl(`/textures/products/${flavor}-lid.webp`),
 ]);
 
 const cups: CupConfig[] = [
@@ -1357,8 +1358,8 @@ function Cup({
 function useCupModel(flavor: FlavorKey) {
   const { scene } = useGLTF(BASE_MODEL_PATH);
 
-  const sideTexture = useLoader(THREE.TextureLoader, `/textures/products/${flavor}-side.jpg`);
-  const lidTexture = useLoader(THREE.TextureLoader, `/textures/products/${flavor}-lid.jpg`);
+  const sideTexture = useLoader(THREE.TextureLoader, assetUrl(`/textures/products/${flavor}-side.webp`));
+  const lidTexture = useLoader(THREE.TextureLoader, assetUrl(`/textures/products/${flavor}-lid.webp`));
 
   const model = useMemo(() => {
     const cloned = scene.clone(true);

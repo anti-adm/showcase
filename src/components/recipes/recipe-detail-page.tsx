@@ -16,6 +16,7 @@ import {
   Sparkles,
   Wheat
 } from "lucide-react";
+import {assetUrl} from "@/lib/assets";
 import {recipes} from "./recipes-data";
 
 const easeCurve = [0.22, 1, 0.36, 1] as const;
@@ -71,7 +72,7 @@ export default function RecipeDetailPage({slug}: {slug: string}) {
 
       <div className="absolute inset-0 -z-20">
         <Image
-          src="/images/recipes/recipes-bg.jpg"
+          src={assetUrl("/images/recipes/recipes-bg.webp")}
           alt=""
           fill
           priority
@@ -108,7 +109,7 @@ export default function RecipeDetailPage({slug}: {slug: string}) {
               <div className="relative overflow-hidden rounded-[28px] border border-white/45 bg-white/72 shadow-[0_14px_34px_rgba(10,32,71,0.08)]">
                 <div className="relative aspect-[4/5] w-full">
                   <Image
-                    src={recipe.image}
+                    src={assetUrl(recipe.image)}
                     alt={recipe.title[locale]}
                     fill
                     className="object-cover"

@@ -5,6 +5,7 @@ import { Playfair_Display } from "next/font/google";
 import { useLocale } from "next-intl";
 import { IntroClusterStage } from "@/components/intro-cluster-stage";
 import { IntroTextLayer } from "@/components/intro-text-layer";
+import {assetUrl} from "@/lib/assets";
 import {
   SLIDE_BACKGROUND_CONTROLS,
   getStepDurationMs,
@@ -66,16 +67,16 @@ const PRELOAD_TEXTURE_FLAVORS = [
   "shaftoli",
 ] as const;
 const PRELOAD_IMAGE_ASSETS = [
-  "/media/logotip.png",
-  "/media/down.png",
-  "/media/slide1.png",
+  "/media/logotip.webp",
+  "/media/down.webp",
+  "/media/slide1.webp",
   ...SLIDE_BACKGROUND_CONTROLS.layers.flatMap((layer) => [
     layer.src,
     layer.src.replace(/(\.[a-z]+)$/i, "-m$1"),
   ]),
   ...PRELOAD_TEXTURE_FLAVORS.flatMap((flavor) => [
-    `/textures/products/${flavor}-side.jpg`,
-    `/textures/products/${flavor}-lid.jpg`,
+    `/textures/products/${flavor}-side.webp`,
+    `/textures/products/${flavor}-lid.webp`,
   ]),
 ];
 const PRELOAD_FETCH_ASSETS = ["/models/products/base-cup.glb"];
@@ -131,8 +132,8 @@ export function YogurtsShowcasePage() {
     const preloadAll = async () => {
       const minIntro = wait(1450);
       const tasks = [
-        ...imageAssets.map((src) => preloadImage(src).finally(markDone)),
-        ...fetchAssets.map((src) => preloadFetch(src).finally(markDone)),
+        ...imageAssets.map((src) => preloadImage(assetUrl(src)).finally(markDone)),
+        ...fetchAssets.map((src) => preloadFetch(assetUrl(src)).finally(markDone)),
       ];
 
       await Promise.allSettled([...tasks, minIntro]);
@@ -633,7 +634,7 @@ export function YogurtsShowcasePage() {
 
     return {
       ...layer,
-      src: getResponsiveBackgroundSrc(layer.src, isMobile),
+      src: assetUrl(getResponsiveBackgroundSrc(layer.src, isMobile)),
       presence,
       opacity: presence * (layer.maxOpacity ?? backgroundTransition.maxOpacity),
       scale: lerp(
@@ -899,7 +900,7 @@ function CollectionExperience({
         <div
           className="pointer-events-none absolute inset-0 bg-cover bg-top"
           style={{
-            backgroundImage: 'url("/media/down.png")',
+            backgroundImage: `url("${assetUrl("/media/down.webp")}")`,
             transform: active ? "scale(1.006)" : "scale(1.025)",
           }}
         />
@@ -932,7 +933,7 @@ function CollectionExperience({
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: 'url("/media/slide1.png")' }}
+                  style={{ backgroundImage: `url("${assetUrl("/media/slide1.webp")}")` }}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,24,19,0.72),rgba(34,24,19,0.22)_54%,rgba(34,24,19,0.06)),linear-gradient(180deg,transparent_42%,rgba(242,138,39,0.72))]" />
                 <div className="absolute bottom-6 left-5 max-w-[82%] text-left text-white">
@@ -967,7 +968,7 @@ function CollectionExperience({
       <div
         className="absolute inset-0 bg-cover bg-center transition-[background-position,transform] duration-820"
         style={{
-          backgroundImage: 'url("/media/down.png")',
+          backgroundImage: `url("${assetUrl("/media/down.webp")}")`,
           backgroundPosition: `center ${imageShift}%`,
           transform: active ? "scale(1.006)" : "scale(1.025)",
           transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -1020,7 +1021,7 @@ function CollectionExperience({
             >
               <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: 'url("/media/slide1.png")' }}
+                style={{ backgroundImage: `url("${assetUrl("/media/slide1.webp")}")` }}
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,24,19,0.74),rgba(34,24,19,0.28)_44%,rgba(34,24,19,0.08)),linear-gradient(180deg,transparent_45%,rgba(242,138,39,0.72))]" />
               <div className="absolute bottom-7 left-6 max-w-[78%] text-left text-white">
@@ -1065,7 +1066,7 @@ function SofinPreloader({
       <div
         className="absolute inset-0 scale-[1.04] bg-cover bg-center"
         style={{
-          backgroundImage: 'url("/backgrounds/main-background.png")',
+          backgroundImage: `url("${assetUrl("/backgrounds/main-background.webp")}")`,
         }}
       />
 
@@ -1078,7 +1079,7 @@ function SofinPreloader({
           <div
             className="sofin-loader-logo relative h-[74%] w-[74%] bg-contain bg-center bg-no-repeat opacity-95 drop-shadow-[0_18px_30px_rgba(54,36,25,0.22)]"
             style={{
-              backgroundImage: 'url("/media/logotip.png")',
+              backgroundImage: `url("${assetUrl("/media/logotip.webp")}")`,
             }}
           />
         </div>

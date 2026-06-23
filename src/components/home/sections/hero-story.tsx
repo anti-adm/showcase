@@ -8,6 +8,7 @@ import Image from "next/image";
 import {useLocale} from "next-intl";
 
 import {getHeroScenes, type HeroScene} from "@/data/home/hero-scenes";
+import {assetUrl} from "@/lib/assets";
 import {cn} from "@/lib/utils";
 import HeroSnapController from "./hero-snap-controller";
 
@@ -36,11 +37,11 @@ export default function HeroStory() {
 
   const backgroundByScene = useMemo(
     () => [
-      "/images/hero/hero1.png",
-      "/images/hero/hero1.png",
-      "/images/hero/hero1.png",
-      "/images/hero/hero2.jpeg",
-      "/images/hero/hero2.jpeg"
+      "/images/hero/hero1.webp",
+      "/images/hero/hero1.webp",
+      "/images/hero/hero1.webp",
+      "/images/hero/hero2.webp",
+      "/images/hero/hero2.webp"
     ],
     []
   );
@@ -83,7 +84,7 @@ export default function HeroStory() {
     });
   };
 
-  const currentBg = backgroundByScene[activeScene];
+  const currentBg = assetUrl(backgroundByScene[activeScene]);
 
   return (
     <section id="hero-story-root" className="relative bg-[#07192d]">
@@ -339,7 +340,7 @@ function YogurtsPreviewCard() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.34),transparent_28%),radial-gradient(circle_at_78%_78%,rgba(255,220,184,0.18),transparent_32%)]" />
       <div className="relative h-[380px] overflow-hidden rounded-[26px] border border-white/22 bg-white/18">
         <Image
-          src="/backgrounds/main-background.png"
+          src={assetUrl("/backgrounds/main-background.webp")}
           alt=""
           fill
           sizes="520px"

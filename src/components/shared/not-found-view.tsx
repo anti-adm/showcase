@@ -2,6 +2,7 @@
 
 import {motion} from "framer-motion";
 import Link from "next/link";
+import {assetUrl} from "@/lib/assets";
 
 type Locale = "uz" | "ru" | "en";
 
@@ -41,7 +42,7 @@ export function NotFoundView({locale}: NotFoundViewProps) {
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-28 text-center">
       <div
         className="absolute inset-0 scale-[1.04] bg-cover bg-center"
-        style={{backgroundImage: 'url("/backgrounds/main-background.png")'}}
+        style={{backgroundImage: `url("${assetUrl("/backgrounds/main-background.webp")}")`}}
       />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(255,255,255,0.52),rgba(255,244,230,0.68)_42%,rgba(246,226,210,0.88)_100%)]" />
       <div className="absolute inset-0 backdrop-blur-[3px]" />
@@ -61,7 +62,10 @@ export function NotFoundView({locale}: NotFoundViewProps) {
             animate={{rotate: 360}}
             transition={{duration: 5.2, ease: "linear", repeat: Infinity}}
           />
-          <div className="relative h-[68%] w-[68%] bg-[url('/media/logotip.png')] bg-contain bg-center bg-no-repeat drop-shadow-[0_14px_24px_rgba(54,36,25,0.22)]" />
+          <div
+            className="relative h-[68%] w-[68%] bg-contain bg-center bg-no-repeat drop-shadow-[0_14px_24px_rgba(54,36,25,0.22)]"
+            style={{backgroundImage: `url("${assetUrl("/media/logotip.webp")}")`}}
+          />
         </div>
 
         <motion.p

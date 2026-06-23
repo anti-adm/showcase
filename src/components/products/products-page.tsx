@@ -4,6 +4,7 @@ import {useMemo, useState} from "react";
 import {useLocale, useTranslations} from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import {assetUrl} from "@/lib/assets";
 import {
   ChevronLeft,
   ChevronRight,
@@ -36,11 +37,11 @@ export default function ProductsPage() {
   const gallery = useMemo<GalleryImage[]>(
     () => [
       {
-        src: "/images/products/mozarella1.jpg",
+        src: assetUrl("/images/products/alone/mozzarella.webp"),
         alt: t("product.gallery.alt1")
       },
       {
-        src: "/images/products/mozarella2.jpg",
+        src: assetUrl("/images/products/alone/mozarella-al.webp"),
         alt: t("product.gallery.alt2")
       }
     ],
@@ -84,7 +85,10 @@ export default function ProductsPage() {
   return (
     <main className="relative overflow-hidden pt-28 sm:pt-32">
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.34),transparent_28%),linear-gradient(180deg,#edf4fc_0%,#dae7f6_52%,#cfdeef_100%)]" />
-      <div className="absolute inset-0 -z-10 bg-[url('/images/hero/hero2.jpeg')] bg-cover bg-center opacity-[0.12]" />
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center opacity-[0.12]"
+        style={{backgroundImage: `url("${assetUrl("/images/hero/hero2.webp")}")`}}
+      />
       <div className="absolute inset-0 -z-10 backdrop-blur-[24px]" />
 
       <section className="mx-auto max-w-[1380px] px-5 pb-10 sm:px-8 lg:px-10">

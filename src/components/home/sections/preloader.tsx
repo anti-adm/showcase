@@ -3,14 +3,15 @@
 import {AnimatePresence, motion} from 'framer-motion';
 import Image from 'next/image';
 import {useEffect, useState} from 'react';
+import {assetUrl} from '@/lib/assets';
 
 const PRELOAD_ASSETS = [
-  '/images/hero/hero1.png',
-  '/images/hero/hero2.jpeg',
+  '/images/hero/hero1.webp',
+  '/images/hero/hero2.webp',
   '/images/products.webp',
   '/images/products-m.webp',
-  '/images/brand/pack-line.jpg',
-  '/logo/sofin-logo.png'
+  '/images/brand/pack-line.webp',
+  '/logo/sofin-logo.webp'
 ];
 
 export function Preloader({disabled = false}: {disabled?: boolean}) {
@@ -35,7 +36,7 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
         const image = new window.Image();
         image.onload = () => resolve();
         image.onerror = () => resolve();
-        image.src = src;
+        image.src = assetUrl(src);
       }).finally(markDone);
 
     const minIntro = new Promise<void>((resolve) => window.setTimeout(resolve, 1150));
@@ -64,7 +65,7 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
         >
           <div className="absolute inset-0">
             <Image
-              src="/images/hero/hero1.png"
+              src={assetUrl("/images/hero/hero1.webp")}
               alt=""
               fill
               priority
@@ -88,7 +89,7 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
               />
               <div className="relative h-24 w-24 overflow-hidden rounded-[1.25rem] sm:h-28 sm:w-28">
                 <Image
-                  src="/logo/sofin-logo.png"
+                  src={assetUrl("/logo/sofin-logo.webp")}
                   alt="SOFIN"
                   width={112}
                   height={112}
@@ -101,7 +102,7 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
                   transition={{duration: 0.28, ease: [0.22, 1, 0.36, 1]}}
                 >
                   <Image
-                    src="/logo/sofin-logo.png"
+                    src={assetUrl("/logo/sofin-logo.webp")}
                     alt=""
                     width={112}
                     height={112}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import {Mail, Phone, Send} from "lucide-react";
 import {useLocale, useTranslations} from "next-intl";
 import {usePathname} from "next/navigation";
+import {assetUrl} from "@/lib/assets";
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
@@ -30,7 +31,10 @@ export function SiteFooter() {
     <footer className={`relative overflow-hidden ${isHome ? "bg-[#15253a] pb-8 pt-32 sm:pt-40" : "container-shell pb-6 pt-8 sm:pb-8 sm:pt-10"}`}>
       {isHome ? (
         <>
-          <div className="absolute inset-x-0 top-0 h-28 bg-[url('/images/milk-wave.svg')] bg-[length:100%_100%] bg-top bg-no-repeat sm:h-36" />
+          <div
+            className="absolute inset-x-0 top-0 h-28 bg-[length:100%_100%] bg-top bg-no-repeat sm:h-36"
+            style={{backgroundImage: `url("${assetUrl("/images/milk-wave.svg")}")`}}
+          />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(168,215,255,0.22),transparent_30%),radial-gradient(circle_at_84%_0%,rgba(255,255,255,0.16),transparent_34%)]" />
         </>
       ) : null}
@@ -41,7 +45,7 @@ export function SiteFooter() {
             <div className="flex items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]">
                 <Image
-                  src="/logo/sofin-logo.png"
+                  src={assetUrl("/logo/sofin-logo.webp")}
                   alt="SOFIN"
                   width={40}
                   height={40}

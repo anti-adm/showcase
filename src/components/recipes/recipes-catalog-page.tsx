@@ -5,6 +5,7 @@ import {useLocale, useTranslations} from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import {ArrowRight, ChefHat, Clock3, Flame, Sparkles} from "lucide-react";
+import {assetUrl} from "@/lib/assets";
 import {recipes} from "./recipes-data";
 
 const easeCurve = [0.22, 1, 0.36, 1] as const;
@@ -19,7 +20,7 @@ export default function RecipesCatalogPage() {
 
       <div className="absolute inset-0 -z-20">
         <Image
-          src="/images/recipes/recipes-bg.jpg"
+          src={assetUrl("/images/recipes/recipes-bg.webp")}
           alt=""
           fill
           priority
@@ -74,7 +75,7 @@ export default function RecipesCatalogPage() {
                   <div className="relative overflow-hidden rounded-[24px] border border-white/40 bg-white/30">
                     <div className="relative aspect-[4/3] w-full">
                       <Image
-                        src={recipe.image}
+                        src={assetUrl(recipe.image)}
                         alt={recipe.title[locale]}
                         fill
                         className="object-cover transition duration-700 group-hover:scale-[1.04]"

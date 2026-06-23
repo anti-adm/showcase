@@ -24,6 +24,7 @@ import {
 import {useLocale, useTranslations} from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import {assetUrl} from "@/lib/assets";
 import {getProductGallery, listedProducts} from "./products-data";
 import {getProductDisplayTitle} from "./product-title";
 
@@ -201,7 +202,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
       <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)]" />
       <div className="absolute inset-0 -z-20 hidden sm:block">
         <Image
-          src="/images/products.webp"
+          src={assetUrl("/images/products.webp")}
           alt=""
           fill
           priority
@@ -211,7 +212,7 @@ export default function ProductDetailPage({slug}: {slug: string}) {
       </div>
       <div className="absolute inset-0 -z-20 sm:hidden">
         <Image
-          src="/images/products-m.webp"
+          src={assetUrl("/images/products-m.webp")}
           alt=""
           fill
           priority

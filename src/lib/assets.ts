@@ -1,6 +1,8 @@
 const rawAssetBaseUrl = process.env.NEXT_PUBLIC_ASSET_BASE_URL?.trim();
+const useRemoteAssetsInDev = process.env.NEXT_PUBLIC_USE_REMOTE_ASSETS === "true";
+const shouldUseRemoteAssets = process.env.NODE_ENV === "production" || useRemoteAssetsInDev;
 
-export const assetBaseUrl = rawAssetBaseUrl
+export const assetBaseUrl = rawAssetBaseUrl && shouldUseRemoteAssets
   ? rawAssetBaseUrl.replace(/\/+$/, "")
   : "";
 

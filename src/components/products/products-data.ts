@@ -90,7 +90,7 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 270 g",
       en: "Net weight: 270 g"
     },
-    image: "/images/products/YOGURT_BOTTLE_OLCHA.webp",
+    image: "/images/products/yogurt/YOGURT_BOTTLE_OLCHA.webp",
     gallery: ["/images/products/yogurt/YOGURT_BOTTLE_OLCHA.webp"],
     accent: "from-[#eef4fa] to-[#e4edf7]",
     fatPercent: "1,5%",
@@ -829,8 +829,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 900 g",
       en: "Net weight: 900 g"
     },
-    image: "/images/products/ayran-basil-900.jpg",
-    gallery: ["/images/products/ayran-basil-900.jpg"],
+    image: "/images/products/ayran-basil-1000.webp",
+    gallery: ["/images/products/ayran-basil-1000.webp"],
     accent: "from-[#eef2fa] to-[#e7edf8]",
     fatPercent: "1%",
     netWeight: "900 g",
@@ -922,8 +922,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 900 g",
       en: "Net weight: 900 g"
     },
-    image: "/images/products/ayran-basil-900.jpg",
-    gallery: ["/images/products/ayran-basil-900.jpg"],
+    image: "/images/products/ayran-basil-1000.webp",
+    gallery: ["/images/products/ayran-basil-1000.webp"],
     accent: "from-[#eef2fa] to-[#e7edf8]",
     fatPercent: "1%",
     netWeight: "900 g",
@@ -979,8 +979,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 450 g",
       en: "Net weight: 450 g"
     },
-    image: "/images/products/ayran-basil-450.jpg",
-    gallery: ["/images/products/ayran-basil-450.jpg"],
+    image: "/images/products/ayran-basil-450.webp",
+    gallery: ["/images/products/ayran-basil-450.webp"],
     accent: "from-[#eef2fa] to-[#e7edf8]",
     fatPercent: "1%",
     netWeight: "450 g",
@@ -1036,8 +1036,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 1 l",
       en: "Net weight: 1 l"
     },
-    image: "/images/products/ayran-basil-1000.jpg",
-    gallery: ["/images/products/ayran-basil-1000.jpg"],
+    image: "/images/products/ayran-basil-1000.webp",
+    gallery: ["/images/products/ayran-basil-1000.webp"],
     accent: "from-[#eef2fa] to-[#e7edf8]",
     fatPercent: "1%",
     netWeight: "1 l",
@@ -1093,8 +1093,8 @@ export const products: ProductItem[] = [
       ru: "Масса нетто: 1 l",
       en: "Net weight: 1 l"
     },
-    image: "/images/products/ayran-1-1000.jpg",
-    gallery: ["/images/products/ayran-1-1000.jpg"],
+    image: "/images/products/ayran-basil-1000.webp",
+    gallery: ["/images/products/ayran-basil-1000.webp"],
     accent: "from-[#eef2fa] to-[#e7edf8]",
     fatPercent: "1%",
     netWeight: "1 l",
@@ -1150,8 +1150,8 @@ export const products: ProductItem[] = [
       ru: "Объем: уточняется",
       en: "Pack size: to be specified"
     },
-    image: "/images/products/qatiq-3.jpg",
-    gallery: ["/images/products/qatiq-3.jpg"],
+    image: "/images/products/alone/kefir32.webp",
+    gallery: ["/images/products/alone/kefir32.webp"],
     accent: "from-[#eef4fa] to-[#e5edf6]",
     fatPercent: "3%",
     storageValue: {
@@ -1222,8 +1222,8 @@ export const products: ProductItem[] = [
       ru: "Объем: уточняется",
       en: "Pack size: to be specified"
     },
-    image: "/images/products/smetana.jpg",
-    gallery: ["/images/products/smetana.jpg"],
+    image: "/images/products/alone/qaymaq.webp",
+    gallery: ["/images/products/alone/qaymaq.webp"],
     accent: "from-[#f1f5fa] to-[#e8edf5]",
     storageValue: {
       uz: "21 kun",
@@ -1774,8 +1774,8 @@ export const products: ProductItem[] = [
       ru: "Жирность: 50%",
       en: "Fat content: 50%"
     },
-    image: "/images/products/oxotnichiy-cheese.jpg",
-    gallery: ["/images/products/oxotnichiy-cheese.jpg"],
+    image: "/images/products/alone/mozzarella.webp",
+    gallery: ["/images/products/alone/mozzarella.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     storageValue: {
       uz: "Qadoqda ko‘rsatilgan",
@@ -1879,8 +1879,8 @@ export const products: ProductItem[] = [
       ru: "Жирность: 50%",
       en: "Fat content: 50%"
     },
-    image: "/images/products/qiziltepa-cheese-1.jpg",
-    gallery: ["/images/products/qiziltepa-cheese-1.jpg"],
+    image: "/images/products/alone/mozzarella.webp",
+    gallery: ["/images/products/alone/mozzarella.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     storageValue: {uz: "Qadoqda ko‘rsatilgan", ru: "Указан на упаковке", en: "Indicated on package"},
     packagingValue: {uz: "Mahsulot kartasiga qo‘shiladi", ru: "Будет добавлено в карточку", en: "Will be added to the card"},
@@ -1913,8 +1913,8 @@ export const products: ProductItem[] = [
       ru: "Жирность: 50%",
       en: "Fat content: 50%"
     },
-    image: "/images/products/qiziltepa-cheese-2.jpg",
-    gallery: ["/images/products/qiziltepa-cheese-2.jpg"],
+    image: "/images/products/alone/mozarella-al.webp",
+    gallery: ["/images/products/alone/mozarella-al.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     storageValue: {uz: "Qadoqda ko‘rsatilgan", ru: "Указан на упаковке", en: "Indicated on package"},
     packagingValue: {uz: "Mahsulot kartasiga qo‘shiladi", ru: "Будет добавлено в карточку", en: "Will be added to the card"},
@@ -1931,20 +1931,20 @@ export const products: ProductItem[] = [
 ];
 
 const availableProductImages = new Set([
-  "/images/products/ayran-basil-1000.jpg",
-  "/images/products/ayran-basil-450.jpg",
-  "/images/products/kefir-1-450.jpg",
-  "/images/products/kefir-1-900.jp.JPG",
-  "/images/products/kefir-25-450.jpg",
-  "/images/products/kefir-25-900.jpg",
-  "/images/products/kefir-32-450.jpg",
-  "/images/products/kefir-32-900.jpg",
-  "/images/products/yogurt-cherry-120.jpg",
-  "/images/products/yogurt-peach-120.jpg",
-  "/images/products/yogurt-pineapple-120.jpg",
-  "/images/products/yogurt-raspberry-120.jpg",
-  "/images/products/yogurt-strawberry-120.jpg",
-  "/images/products/yogurt-strawberry-270.jpg",
+  "/images/products/ayran-basil-1000.webp",
+  "/images/products/ayran-basil-450.webp",
+  "/images/products/kefir-1-450.webp",
+  "/images/products/kefir-1-900.jp.webp",
+  "/images/products/kefir-25-450.webp",
+  "/images/products/kefir-25-900.webp",
+  "/images/products/kefir-32-450.webp",
+  "/images/products/kefir-32-900.webp",
+  "/images/products/yogurt120/olcha.webp",
+  "/images/products/yogurt120/shaftoli120.webp",
+  "/images/products/yogurt120/ananas120.webp",
+  "/images/products/yogurt120/malina120.webp",
+  "/images/products/yogurt120/qulupnay120.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
   "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
   "/images/products/yogurt/YOGURT_BOTTLE_MALINA.webp",
   "/images/products/yogurt/YOGURT_BOTTLE_BANAN.webp",
@@ -1960,11 +1960,11 @@ const availableProductImages = new Set([
   "/images/products/yogurt120/ormon-meva120.webp",
   "/images/products/yogurt120/qulupnay-banan120.webp",
   "/images/products/yogurt120/shaftoli120.webp",
-  "/images/products/yogurt120/strawberry120.webp",
+  "/images/products/yogurt120/qulupnay120.webp",
   "/images/products/yogurt120/qulupnay120.webp",
   "/images/products/alone/qaymaq.webp",
   "/images/products/alone/mozzarella.webp",
-  "/images/products/alone/mozzarella-al.webp",
+  "/images/products/alone/mozarella-al.webp",
   "/images/products/alone/mozarella-al.webp",
   "/images/products/alone/kefir1.webp",
   "/images/products/alone/kefir32.webp",
@@ -1976,23 +1976,22 @@ const availableProductImages = new Set([
 ]);
 
 const productImageAliases: Record<string, string> = {
-  "/images/products/kefir-1-900.jpg": "/images/products/kefir-1-900.jp.JPG",
-  "/images/products/kefir-25-900-2.jpg": "/images/products/kefir-25-900.jpg",
-  "/images/products/yogurt-cherry-120.jpg": "/images/products/yogurt120/olcha.webp",
-  "/images/products/yogurt-peach-120.jpg": "/images/products/yogurt120/shaftoli120.webp",
-  "/images/products/yogurt-pineapple-120.jpg": "/images/products/yogurt120/ananas120.webp",
-  "/images/products/yogurt-raspberry-120.jpg": "/images/products/yogurt120/malina120.webp",
-  "/images/products/yogurt-strawberry-120.jpg": "/images/products/yogurt120/qulupnay120.webp",
-  "/images/products/yogurt-strawberry-270.jpg": "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
-  "/images/products/yogurt-forest-120.jpg": "/images/products/yogurt120/ormon-meva120.webp",
-  "/images/products/yogurt-banana-120.jpg": "/images/products/yogurt120/banan120.webp",
-  "/images/products/ayran-basil-900.jpg": "/images/products/ayran-basil-1000.jpg",
-  "/images/products/ayran-1-1000.jpg": "/images/products/ayran-basil-1000.jpg"
+  "/images/products/kefir-1-900.jp.webp": "/images/products/kefir-1-900.jp.webp",
+  "/images/products/kefir-25-900.webp": "/images/products/kefir-25-900.webp",
+  "/images/products/yogurt120/olcha.webp": "/images/products/yogurt120/olcha.webp",
+  "/images/products/yogurt120/shaftoli120.webp": "/images/products/yogurt120/shaftoli120.webp",
+  "/images/products/yogurt120/ananas120.webp": "/images/products/yogurt120/ananas120.webp",
+  "/images/products/yogurt120/malina120.webp": "/images/products/yogurt120/malina120.webp",
+  "/images/products/yogurt120/qulupnay120.webp": "/images/products/yogurt120/qulupnay120.webp",
+  "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp": "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
+  "/images/products/yogurt120/ormon-meva120.webp": "/images/products/yogurt120/ormon-meva120.webp",
+  "/images/products/yogurt120/banan120.webp": "/images/products/yogurt120/banan120.webp",
+  "/images/products/ayran-basil-1000.webp": "/images/products/ayran-basil-1000.webp"
 };
 
 const fallbackProductImages = [
   "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
-  "/images/products/kefir-25-900.jpg",
+  "/images/products/kefir-25-900.webp",
   "/images/products/alone/qaymaq.webp",
   "/images/products/alone/mozzarella.webp"
 ];
@@ -2019,7 +2018,7 @@ export function getProductImage(product: ProductItem, index = 0) {
       : "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp");
   }
 
-  if (product.category === "kefir") return assetUrl("/images/products/kefir-25-900.jpg");
+  if (product.category === "kefir") return assetUrl("/images/products/kefir-25-900.webp");
   if (product.category === "cheese") return assetUrl("/images/products/alone/mozzarella.webp");
   if (product.category === "cream" || product.category === "Qaymaq") {
     return assetUrl("/images/products/alone/qaymaq.webp");

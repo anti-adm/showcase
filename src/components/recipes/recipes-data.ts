@@ -21,7 +21,7 @@ export type RecipeItem = {
 export const recipes: RecipeItem[] = [
   {
     slug: "syrniki",
-    image: "/images/recipes/syrniki.jpg",
+    image: "/images/recipes/syrniki.webp",
     badge: "01",
     title: {
       uz: "Syrniki",
@@ -109,7 +109,7 @@ export const recipes: RecipeItem[] = [
   },
   {
     slug: "oladya",
-    image: "/images/recipes/oladya.jpg",
+    image: "/images/recipes/oladya.webp",
     badge: "02",
     title: {
       uz: "Sutli o‘ladya",
@@ -203,7 +203,7 @@ export const recipes: RecipeItem[] = [
   },
   {
     slug: "bliny",
-    image: "/images/recipes/bliny.jpg",
+    image: "/images/recipes/bliny.webp",
     badge: "03",
     title: {
       uz: "Yupqa blinlar",
@@ -291,7 +291,7 @@ export const recipes: RecipeItem[] = [
   },
   {
     slug: "cheesecake-cups",
-    image: "/images/recipes/cheesecake-cups.jpg",
+    image: "/images/recipes/cheesecake-cups.webp",
     badge: "04",
     title: {
       uz: "Tvorogli mini desert",
@@ -379,7 +379,7 @@ export const recipes: RecipeItem[] = [
   },
   {
     slug: "fruit-milkshake",
-    image: "/images/recipes/fruit-milkshake.jpg",
+    image: "/images/recipes/fruit-milkshake.webp",
     badge: "05",
     title: {
       uz: "Mevali milkshake",

@@ -1,5 +1,5 @@
-import {YogurtsShowcasePage} from "@/components/yogurts/yogurts-showcase-page";
+import {YogurtsHubPage} from "@/components/yogurts/yogurts-hub-page";
 
 export default function YogurtsPage() {
-  return <YogurtsShowcasePage />;
+  return <YogurtsHubPage />;
 }

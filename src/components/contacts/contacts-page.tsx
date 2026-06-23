@@ -4,6 +4,7 @@ import {useState} from "react";
 import {useTranslations} from "next-intl";
 import {motion, type Variants} from "framer-motion";
 import {Send, Mail, Phone, MapPin, Instagram} from "lucide-react";
+import {assetUrl} from "@/lib/assets";
 
 type FormState = {
   name: string;
@@ -96,7 +97,10 @@ export default function ContactsPage() {
   return (
     <main className="relative overflow-hidden pt-28 sm:pt-32">
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.34),transparent_28%),linear-gradient(180deg,#edf4fc_0%,#dae7f6_52%,#cfdeef_100%)]" />
-      <div className="absolute inset-0 -z-10 bg-[url('/images/Carta.png')] bg-cover bg-center opacity-[0.10]" />
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center opacity-[0.10]"
+        style={{backgroundImage: `url("${assetUrl("/images/Carta.webp")}")`}}
+      />
       <div className="absolute inset-0 -z-10 backdrop-blur-[18px]" />
 
       <section className="mx-auto max-w-[1380px] px-5 pb-14 sm:px-8 lg:px-10">

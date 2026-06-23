@@ -40,7 +40,7 @@ sofin-site/
 │   │   ├── products/
 │   │   └── recipes/
 │   └── logo/
-│       └── sofin-logo.png
+│       └── sofin-logo.webp
 ├── src/
 │   ├── app/
 │   │   ├── [locale]/
@@ -201,7 +201,7 @@ Current integrated files are already placed inside `public/`.
 ### Logo
 
 ```text
-/public/logo/sofin-logo.png
+/public/logo/sofin-logo.webp
 ```
 
 If you receive better photos later, replace files with the same names to avoid changing code.

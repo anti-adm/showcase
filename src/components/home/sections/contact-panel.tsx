@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
 import {Link} from '@/i18n/navigation';
+import {assetUrl} from '@/lib/assets';
 
 export async function ContactPanel() {
   const t = await getTranslations('Panels.contact');
@@ -9,7 +10,7 @@ export async function ContactPanel() {
     <section className="container-shell pb-4 pt-4 sm:pb-6 sm:pt-6">
       <div className="glass relative min-h-[92svh] overflow-hidden rounded-[40px] px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
         <div className="absolute inset-0">
-          <Image alt="SOFIN closing background" className="object-cover" fill sizes="100vw" src="/images/hero/hero1.png" />
+          <Image alt="SOFIN closing background" className="object-cover" fill sizes="100vw" src={assetUrl("/images/hero/hero1.webp")} />
           <div className="panel-overlay absolute inset-0" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,18,43,0.38),rgba(10,24,54,0.22)_32%,rgba(240,247,255,0.16)_100%)]" />
         </div>
@@ -28,7 +29,7 @@ export async function ContactPanel() {
 
             <div className="soft-card rounded-[34px] p-4">
               <div className="relative aspect-[4/4.8] overflow-hidden rounded-[26px]">
-                <Image alt="SOFIN package visual" className="object-cover" fill sizes="400px" src="/logo/sofin-logo.png" />
+                <Image alt="SOFIN package visual" className="object-cover" fill sizes="400px" src={assetUrl("/logo/sofin-logo.webp")} />
               </div>
             </div>
           </div>

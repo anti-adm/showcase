@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
+import {assetUrl} from '@/lib/assets';
 
 export async function PageShell({page}: {page: 'products' | 'company' | 'recipes' | 'contacts'}) {
   const t = await getTranslations(`FuturePages.${page}`);
@@ -8,7 +9,7 @@ export async function PageShell({page}: {page: 'products' | 'company' | 'recipes
     <main className="container-shell pb-12 pt-32 sm:pt-36">
       <section className="glass relative overflow-hidden rounded-[40px] px-6 py-16 sm:px-10 sm:py-20 lg:px-14 lg:py-24">
         <div className="absolute inset-0">
-          <Image alt="SOFIN background" className="object-cover opacity-25" fill sizes="100vw" src="/images/hero/hero3.jpeg" />
+          <Image alt="SOFIN background" className="object-cover opacity-25" fill sizes="100vw" src={assetUrl("/images/hero/hero3.webp")} />
           <div className="panel-overlay absolute inset-0" />
         </div>
         <div className="relative max-w-3xl">

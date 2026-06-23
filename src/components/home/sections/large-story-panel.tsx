@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
 import {Link} from '@/i18n/navigation';
+import {assetUrl} from '@/lib/assets';
 
 type PanelKey = 'brand' | 'categories' | 'quality' | 'recipes';
 
@@ -33,7 +34,7 @@ export async function LargeStoryPanel({
     <section className="container-shell py-4 sm:py-6">
       <div className="glass relative min-h-[100svh] overflow-hidden rounded-[40px] px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
         <div className="absolute inset-0">
-          <Image alt="SOFIN section background" className="object-cover" fill sizes="100vw" src={image} />
+          <Image alt="SOFIN section background" className="object-cover" fill sizes="100vw" src={assetUrl(image)} />
           <div className="panel-overlay absolute inset-0" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,18,43,0.36),rgba(8,22,48,0.16)_24%,rgba(244,248,255,0.08)_100%)]" />
         </div>
@@ -57,7 +58,7 @@ export async function LargeStoryPanel({
             <div className="grid gap-4 lg:justify-end">
               <div className="soft-card relative overflow-hidden rounded-[32px] p-3 sm:p-4">
                 <div className="relative aspect-[4/4.8] overflow-hidden rounded-[24px] bg-white/30">
-                  <Image alt="SOFIN visual asset" className="object-cover" fill sizes="(max-width: 1024px) 100vw, 420px" src={accentImage} />
+                  <Image alt="SOFIN visual asset" className="object-cover" fill sizes="(max-width: 1024px) 100vw, 420px" src={assetUrl(accentImage)} />
                 </div>
               </div>
 
@@ -65,12 +66,12 @@ export async function LargeStoryPanel({
                 <div className="grid grid-cols-2 gap-4">
                   <div className="soft-card relative overflow-hidden rounded-[28px] p-3">
                     <div className="relative aspect-[1/1] overflow-hidden rounded-[20px]">
-                      <Image alt="SOFIN secondary visual" className="object-cover" fill sizes="240px" src={secondaryImage} />
+                      <Image alt="SOFIN secondary visual" className="object-cover" fill sizes="240px" src={assetUrl(secondaryImage)} />
                     </div>
                   </div>
                   <div className="soft-card relative overflow-hidden rounded-[28px] p-3">
                     <div className="relative aspect-[1/1] overflow-hidden rounded-[20px] bg-white/40">
-                      <Image alt="SOFIN tertiary visual" className="object-cover" fill sizes="240px" src={tertiaryImage ?? accentImage} />
+                      <Image alt="SOFIN tertiary visual" className="object-cover" fill sizes="240px" src={assetUrl(tertiaryImage ?? accentImage)} />
                     </div>
                   </div>
                 </div>
