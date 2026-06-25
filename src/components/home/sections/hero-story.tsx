@@ -112,6 +112,9 @@ export default function HeroStory() {
                 alt=""
                 fill
                 priority
+                unoptimized
+                quality={100}
+                sizes="100vw"
                 className="object-cover"
               />
             </div>

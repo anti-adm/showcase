@@ -69,6 +69,8 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
               alt=""
               fill
               priority
+              unoptimized
+              quality={100}
               sizes="100vw"
               className="object-cover opacity-70"
             />

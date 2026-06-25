@@ -106,6 +106,8 @@ export function HomeScrollShowcase({
           src={assetUrl("/images/hero/hero-products.webp")}
           alt=""
           fill
+          unoptimized
+          quality={100}
           sizes="100vw"
           className="object-cover opacity-42"
         />

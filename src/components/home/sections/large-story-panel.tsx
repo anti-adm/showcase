@@ -34,7 +34,7 @@ export async function LargeStoryPanel({
     <section className="container-shell py-4 sm:py-6">
       <div className="glass relative min-h-[100svh] overflow-hidden rounded-[40px] px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
         <div className="absolute inset-0">
-          <Image alt="SOFIN section background" className="object-cover" fill sizes="100vw" src={assetUrl(image)} />
+          <Image alt="SOFIN section background" className="object-cover" fill unoptimized quality={100} sizes="100vw" src={assetUrl(image)} />
           <div className="panel-overlay absolute inset-0" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,18,43,0.36),rgba(8,22,48,0.16)_24%,rgba(244,248,255,0.08)_100%)]" />
         </div>
