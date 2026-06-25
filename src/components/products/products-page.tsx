@@ -87,7 +87,7 @@ export default function ProductsPage() {
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.34),transparent_28%),linear-gradient(180deg,#edf4fc_0%,#dae7f6_52%,#cfdeef_100%)]" />
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center opacity-[0.12]"
-        style={{backgroundImage: `url("${assetUrl("/images/hero/hero2.webp")}")`}}
+        style={{backgroundImage: `url("${assetUrl("/images/hero/hero-products.webp")}")`}}
       />
       <div className="absolute inset-0 -z-10 backdrop-blur-[24px]" />
 

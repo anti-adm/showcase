@@ -37,11 +37,11 @@ export default function HeroStory() {
 
   const backgroundByScene = useMemo(
     () => [
-      "/images/hero/hero1.webp",
-      "/images/hero/hero1.webp",
-      "/backgrounds/main-background.webp",
-      "/images/hero/hero5.webp",
-      "/images/hero/hero5.webp"
+      "/images/hero/main-hero.webp",
+      "/images/hero/main-hero.webp",
+      "/images/hero/main-hero.webp",
+      "/images/hero/hero-second.webp",
+      "/images/hero/hero-second.webp"
     ],
     []
   );

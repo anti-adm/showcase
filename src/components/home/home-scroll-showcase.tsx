@@ -21,6 +21,7 @@ import {Link} from "@/i18n/navigation";
 import {getProductImage, type ProductItem} from "@/components/products/products-data";
 import {getProductDisplayTitle} from "@/components/products/product-title";
 import type {RecipeItem} from "@/components/recipes/recipes-data";
+import {assetUrl} from "@/lib/assets";
 
 // ---------------------------------------------------------------------------
 // Types & copy
@@ -100,7 +101,16 @@ export function HomeScrollShowcase({
 
   return (
     <main className="relative z-20 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_48%,#d1dcea_100%)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.66),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(185,214,255,0.26),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.36),rgba(255,255,255,0)_38%,rgba(255,255,255,0.18))]" />
+      <div className="pointer-events-none absolute inset-0">
+        <Image
+          src={assetUrl("/images/hero/hero-products.webp")}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-42"
+        />
+      </div>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.70),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(185,214,255,0.30),transparent_34%),linear-gradient(180deg,rgba(226,237,249,0.78),rgba(226,237,249,0.50)_38%,rgba(217,228,242,0.76))]" />
 
       <PinnedProductScenes copy={copy} locale={locale} products={products} />
       <PinnedRecipeScenes copy={copy} locale={locale} recipes={recipes} />
