@@ -4,7 +4,7 @@ import {motion} from "framer-motion";
 import {useLocale, useTranslations} from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import {ArrowRight, ChefHat, Clock3, Flame, Sparkles} from "lucide-react";
+import {ArrowRight, Clock3, Flame} from "lucide-react";
 import {assetUrl} from "@/lib/assets";
 import {recipes} from "./recipes-data";
 
@@ -38,12 +38,7 @@ export default function RecipesCatalogPage() {
             transition={{duration: 0.8, ease: easeCurve}}
             className="mx-auto max-w-[900px] text-center"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(12,58,106,0.14)] bg-white/72 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.28em] text-[var(--brand-primary)]">
-              <Sparkles className="h-3.5 w-3.5" />
-              {t("catalog.badge")}
-            </div>
-
-            <h1 className="mt-5 text-balance text-4xl font-semibold tracking-[-0.05em] text-[var(--brand-primary)] drop-shadow-[0_1px_0_rgba(255,255,255,0.55)] sm:text-5xl lg:text-6xl">
+            <h1 className="text-balance text-4xl font-semibold tracking-[-0.05em] text-[var(--brand-primary)] drop-shadow-[0_1px_0_rgba(255,255,255,0.55)] sm:text-5xl lg:text-6xl">
               {t("catalog.title")}
             </h1>
 
@@ -67,11 +62,6 @@ export default function RecipesCatalogPage() {
                 className="group overflow-hidden rounded-[30px] border border-white/40 bg-white/[0.18] shadow-[0_18px_60px_rgba(44,78,120,0.10)] backdrop-blur-[12px]"
               >
                 <div className="p-4 sm:p-5">
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/78 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-[var(--brand-primary)]">
-                    <ChefHat className="h-3.5 w-3.5" />
-                    {t("catalog.cardBadge")}
-                  </div>
-
                   <div className="relative overflow-hidden rounded-[24px] border border-white/40 bg-white/30">
                     <div className="relative aspect-[4/3] w-full">
                       <Image

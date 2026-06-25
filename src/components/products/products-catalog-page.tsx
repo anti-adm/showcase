@@ -87,16 +87,13 @@ function ProductCard({locale, product, index, reducedMotion}: ProductCardProps) 
         </div>
 
         <div className="relative mt-2 flex min-h-[118px] flex-col rounded-[18px] border border-white/58 bg-white/58 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.80)] sm:min-h-[132px] sm:rounded-[20px] sm:p-3">
-          <div className="mb-2 flex items-center justify-between gap-2 sm:mb-3">
-            <span className="rounded-full bg-[#2b211c]/[0.06] px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.18em] text-[#6f6257] sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
-              SOFIN
-            </span>
-            {product.fatPercent ? (
+          {product.fatPercent ? (
+            <div className="mb-2 flex justify-end sm:mb-3">
               <span className="shrink-0 rounded-full bg-[#eef5ef] px-2 py-1 text-[9px] font-semibold text-[#47735b] sm:text-[10px]">
                 {product.fatPercent}
               </span>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
 
           <h2 className="line-clamp-2 min-h-[2.35rem] text-[13px] font-semibold leading-[1.3] text-slate-950 sm:min-h-[2.45rem] sm:text-[14px] sm:leading-[1.32]">
             {title}

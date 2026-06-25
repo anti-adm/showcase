@@ -45,23 +45,23 @@ const HOME_SCROLL_COPY: Record<
   }
 > = {
   ru: {
-    productsEyebrow: "SOFIN / Products",
-    productsTitle: "Продукты SOFIN для спокойного ежедневного выбора",
-    recipesEyebrow: "SOFIN / Recipes",
+    productsEyebrow: "",
+    productsTitle: "Продукты для спокойного ежедневного выбора",
+    recipesEyebrow: "",
     recipesTitle: "Идеи для завтрака, десертов и мягких семейных пауз",
     openCard: "Подробнее"
   },
   uz: {
-    productsEyebrow: "SOFIN / Mahsulotlar",
-    productsTitle: "Har kungi sokin tanlov uchun SOFIN mahsulotlari",
-    recipesEyebrow: "SOFIN / Retseptlar",
+    productsEyebrow: "",
+    productsTitle: "Har kungi sokin tanlov uchun mahsulotlar",
+    recipesEyebrow: "",
     recipesTitle: "Nonushta, desert va oilaviy lahzalar uchun g'oyalar",
     openCard: "Batafsil"
   },
   en: {
-    productsEyebrow: "SOFIN / Products",
-    productsTitle: "SOFIN products for calm everyday choice",
-    recipesEyebrow: "SOFIN / Recipes",
+    productsEyebrow: "",
+    productsTitle: "Products for calm everyday choice",
+    recipesEyebrow: "",
     recipesTitle: "Ideas for breakfast, desserts and soft family pauses",
     openCard: "Learn more"
   }
@@ -179,7 +179,7 @@ function DesktopProductScenes({
         />
 
         <div
-          className="relative w-screen touch-pan-y overflow-visible"
+          className="relative mt-8 w-screen touch-pan-y overflow-visible lg:mt-10"
           {...swipeHandlers}
         >
           <motion.div
@@ -296,7 +296,7 @@ function DesktopRecipeScenes({
         />
 
         <div
-          className="relative w-screen touch-pan-y overflow-visible"
+          className="relative mt-8 w-screen touch-pan-y overflow-visible lg:mt-10"
           {...swipeHandlers}
         >
           <motion.div
@@ -381,10 +381,7 @@ function MobileProductShowcase({
                 </div>
 
                 <div className="relative min-h-[168px] border-t border-slate-100 p-5">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#7b8da5]">
-                    SOFIN
-                  </p>
-                  <h3 className="mt-2 line-clamp-2 text-[1.35rem] font-semibold leading-[1.02] text-slate-950">
+                  <h3 className="line-clamp-2 text-[1.35rem] font-semibold leading-[1.02] text-slate-950">
                     {title}
                   </h3>
                   <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">
@@ -451,9 +448,11 @@ function MobileRecipeShowcase({
 function MobileShowcaseHeading({eyebrow, title}: {eyebrow: string; title: string}) {
   return (
     <div className="mx-auto max-w-[620px] text-center">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-500/80">
-        {eyebrow}
-      </p>
+      {eyebrow ? (
+        <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-500/80">
+          {eyebrow}
+        </p>
+      ) : null}
       <h2 className="mx-auto mt-2 text-balance text-[clamp(2rem,10vw,3.4rem)] font-semibold leading-[0.98] text-[var(--brand-primary)]">
         {title}
       </h2>
@@ -899,12 +898,14 @@ function ShowcaseHeading({
         opacity
       }}
     >
-      <p className="text-[10.5px] font-semibold uppercase tracking-[0.40em] text-slate-500/80">
-        {eyebrow}
-      </p>
+      {eyebrow ? (
+        <p className="text-[10.5px] font-semibold uppercase tracking-[0.40em] text-slate-500/80">
+          {eyebrow}
+        </p>
+      ) : null}
 
       <h2
-        className="mx-auto mt-2 text-balance text-[clamp(2rem,4vw,4rem)] font-semibold leading-[0.98] tracking-[-0.055em]"
+        className="mx-auto mt-2 text-balance text-[clamp(2rem,3.45vw,3.45rem)] font-semibold leading-[0.98] tracking-[-0.045em]"
         style={{maxWidth: "960px", color: "var(--brand-primary)"}}
       >
         {title}
@@ -1045,10 +1046,6 @@ function ProductSceneCard({
           className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-7"
           style={{y: visual.contentY}}
         >
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em] text-white/60">
-            SOFIN
-          </p>
-
           <h3 className="max-w-[94%] text-[clamp(1.35rem,2.3vw,2.1rem)] font-black uppercase leading-[0.97] tracking-[-0.035em]">
             {title}
           </h3>

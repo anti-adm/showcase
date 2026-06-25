@@ -28,11 +28,11 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className={`relative overflow-hidden ${isHome ? "bg-[#15253a] pb-8 pt-32 sm:pt-40" : "container-shell pb-6 pt-8 sm:pb-8 sm:pt-10"}`}>
+    <footer className={`relative overflow-hidden ${isHome ? "bg-[#15253a] pb-8 pt-20 sm:pt-24" : "container-shell pb-6 pt-8 sm:pb-8 sm:pt-10"}`}>
       {isHome ? (
         <>
           <div
-            className="absolute inset-x-0 top-0 h-28 bg-[length:100%_100%] bg-top bg-no-repeat sm:h-36"
+            className="absolute inset-x-0 top-0 h-16 bg-[length:100%_100%] bg-top bg-no-repeat sm:h-20"
             style={{backgroundImage: `url("${assetUrl("/images/milk-wave.svg")}")`}}
           />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(168,215,255,0.22),transparent_30%),radial-gradient(circle_at_84%_0%,rgba(255,255,255,0.16),transparent_34%)]" />
@@ -40,8 +40,8 @@ export function SiteFooter() {
       ) : null}
       <div className={isHome ? "container-shell relative z-10" : ""}>
       <div className="rounded-[30px] border border-white/44 bg-[#e8f1fb]/72 px-5 py-6 shadow-[0_22px_70px_rgba(10,32,71,0.10)] backdrop-blur-2xl sm:px-7 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[0.92fr_1.12fr_0.86fr] lg:items-start">
-          <div className="space-y-5">
+        <div className="grid gap-6 lg:grid-cols-[0.92fr_1.12fr_0.86fr] lg:items-stretch">
+          <div className="flex h-full flex-col gap-5">
             <div className="flex items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]">
                 <Image
@@ -63,7 +63,7 @@ export function SiteFooter() {
               </div>
             </div>
 
-            <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="grid gap-2 sm:grid-cols-3 lg:mt-auto lg:grid-cols-1">
               {contactItems.map((item) => {
                 const Icon = item.icon;
 
@@ -85,12 +85,12 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="rounded-[26px] border border-white/34 bg-white/24 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.56)] backdrop-blur-xl">
+          <div className="flex h-full flex-col rounded-[26px] border border-white/34 bg-white/24 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.56)] backdrop-blur-xl">
             <div className="text-xs uppercase tracking-[0.34em] text-[var(--muted)]">
               {t("navigation")}
             </div>
 
-            <nav className="mt-7 grid grid-cols-2 gap-x-8 gap-y-5 rounded-[24px] bg-white/12 px-4 py-4 text-sm font-semibold text-[var(--text-soft)] sm:grid-cols-3 sm:px-6">
+            <nav className="mt-auto grid grid-cols-2 gap-x-8 gap-y-5 rounded-[24px] bg-white/12 px-4 py-4 text-sm font-semibold text-[var(--text-soft)] sm:grid-cols-3 sm:px-6">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -103,12 +103,12 @@ export function SiteFooter() {
             </nav>
           </div>
 
-          <div className="rounded-[26px] border border-white/34 bg-white/24 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.56)] backdrop-blur-xl">
+          <div className="flex h-full flex-col rounded-[26px] border border-white/34 bg-white/24 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.56)] backdrop-blur-xl">
             <div className="text-xs uppercase tracking-[0.34em] text-[var(--muted)]">
               {t("contacts")}
             </div>
 
-            <div className="mt-4 space-y-2 text-sm leading-7 text-[var(--text-soft)]">
+            <div className="mt-auto space-y-2 text-sm leading-7 text-[var(--text-soft)]">
               <p>{t("address")}</p>
               <p>{t("phone")}</p>
               <p>{t("email")}</p>

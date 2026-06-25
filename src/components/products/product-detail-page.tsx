@@ -378,10 +378,6 @@ export default function ProductDetailPage({slug}: {slug: string}) {
             className="space-y-5"
           >
             <section className="rounded-[30px] border border-white/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(248,251,255,0.86))] p-6 shadow-[0_26px_72px_rgba(15,42,76,0.12),inset_0_1px_0_rgba(255,255,255,0.96)] sm:p-8 lg:p-10">
-              <div className="mb-4 inline-flex rounded-full border border-[#dce7f2] bg-white/82 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#60708a] shadow-[0_10px_22px_rgba(15,42,76,0.05)]">
-                {t("product.badge")}
-              </div>
-
               <h1 className="text-balance text-3xl font-semibold text-[var(--brand-primary)] sm:text-5xl lg:text-[4rem]">
                 {displayTitle}
               </h1>

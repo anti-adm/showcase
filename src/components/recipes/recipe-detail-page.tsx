@@ -13,7 +13,6 @@ import {
   Flame,
   Salad,
   Scale,
-  Sparkles,
   Wheat
 } from "lucide-react";
 import {assetUrl} from "@/lib/assets";
@@ -152,12 +151,7 @@ export default function RecipeDetailPage({slug}: {slug: string}) {
                 transition={{duration: 0.8, delay: 0.1, ease: easeCurve}}
                 className="rounded-[32px] border border-white/42 bg-white/[0.20] p-6 shadow-[0_20px_60px_rgba(44,78,120,0.10)] backdrop-blur-[12px] sm:p-7"
               >
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/82 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-[var(--brand-primary)] shadow-[0_8px_20px_rgba(10,32,71,0.05)]">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  {t("detail.badge")}
-                </div>
-
-                <h1 className="mt-5 text-balance text-4xl font-semibold tracking-[-0.05em] text-[var(--brand-primary)] sm:text-5xl lg:text-6xl">
+                <h1 className="text-balance text-4xl font-semibold tracking-[-0.05em] text-[var(--brand-primary)] sm:text-5xl lg:text-6xl">
                   {recipe.title[locale]}
                 </h1>
 

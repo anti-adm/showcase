@@ -1,6 +1,7 @@
 "use client";
 
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
 import {useLocale} from "next-intl";
 import {usePathname, useRouter} from "next/navigation";
 import {BottleShowcasePage} from "@/components/yogurts/bottle-showcase-page";
@@ -25,23 +26,61 @@ const HUB_COPY: Record<Locale, Record<ShowcaseMode, string>> = {
   }
 };
 
+const HUB_INTRO_COPY: Record<Locale, {title: string; subtitle: string}> = {
+  uz: {
+    title: "Yangi yogurtchalar",
+    subtitle: "Ichishga qulay format, yangi ta'mlar va silliq 3D sahna."
+  },
+  ru: {
+    title: "Новые йогуртчалар",
+    subtitle: "Питьевой формат, новые вкусы и плавная 3D-сцена."
+  },
+  en: {
+    title: "New yogurtchalar",
+    subtitle: "A drinkable format, new flavors and a smooth 3D scene."
+  }
+};
+
 export function YogurtsHubPage() {
   const locale = normalizeLocale(useLocale());
   const router = useRouter();
   const pathname = usePathname();
   const [mode, setMode] = useState<ShowcaseMode>("cups");
+  const [introVisible, setIntroVisible] = useState(false);
+  const introTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setMode(params.get("showcase") === "bottles" ? "bottles" : "cups");
   }, []);
 
+  useEffect(() => () => {
+    if (introTimerRef.current) {
+      window.clearTimeout(introTimerRef.current);
+    }
+  }, []);
+
   const selectMode = useCallback((nextMode: ShowcaseMode) => {
+    const changed = nextMode !== mode;
+
     setMode(nextMode);
 
     const nextHref = nextMode === "bottles" ? `${pathname}?showcase=bottles` : pathname;
     router.replace(nextHref, {scroll: false});
-  }, [pathname, router]);
+
+    if (changed && nextMode === "bottles") {
+      setIntroVisible(true);
+
+      if (introTimerRef.current) {
+        window.clearTimeout(introTimerRef.current);
+      }
+
+      introTimerRef.current = window.setTimeout(() => {
+        setIntroVisible(false);
+        introTimerRef.current = null;
+      }, 1450);
+    }
+  }, [mode, pathname, router]);
 
   return (
     <div className="relative min-h-dvh overflow-hidden bg-[#f5eadb]">
@@ -71,6 +110,34 @@ export function YogurtsHubPage() {
       </div>
 
       {mode === "cups" ? <YogurtsShowcasePage /> : <BottleShowcasePage />}
+
+      <AnimatePresence>
+        {introVisible ? (
+          <motion.div
+            className="pointer-events-none fixed inset-0 z-[70] flex items-center justify-center bg-[radial-gradient(circle_at_50%_42%,rgba(255,255,255,0.24),transparent_36%),linear-gradient(180deg,rgba(15,42,76,0.78),rgba(12,28,48,0.88))] px-6 text-center text-white backdrop-blur-md"
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.36, ease: [0.22, 1, 0.36, 1]}}
+          >
+            <motion.div
+              initial={{opacity: 0, y: 24, scale: 0.98, filter: "blur(12px)"}}
+              animate={{opacity: 1, y: 0, scale: 1, filter: "blur(0px)"}}
+              exit={{opacity: 0, y: -14, scale: 0.99, filter: "blur(10px)"}}
+              transition={{duration: 0.72, ease: [0.16, 1, 0.3, 1]}}
+              className="max-w-[780px]"
+            >
+              <div className="mx-auto mb-5 h-px w-32 bg-white/42" />
+              <h2 className="text-balance text-[clamp(2.6rem,8vw,5.8rem)] font-semibold leading-[0.92] tracking-[-0.055em]">
+                {HUB_INTRO_COPY[locale].title}
+              </h2>
+              <p className="mx-auto mt-5 max-w-[560px] text-pretty text-base font-medium leading-7 text-white/78 sm:text-xl sm:leading-8">
+                {HUB_INTRO_COPY[locale].subtitle}
+              </p>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }
