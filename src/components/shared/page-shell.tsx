@@ -9,7 +9,7 @@ export async function PageShell({page}: {page: 'products' | 'company' | 'recipes
     <main className="container-shell pb-12 pt-32 sm:pt-36">
       <section className="glass relative overflow-hidden rounded-[40px] px-6 py-16 sm:px-10 sm:py-20 lg:px-14 lg:py-24">
         <div className="absolute inset-0">
-          <Image alt="SOFIN background" className="object-cover opacity-25" fill unoptimized quality={100} sizes="100vw" src={assetUrl("/images/hero/main-hero.webp")} />
+          <Image alt="SOFIN background" className="object-cover opacity-25" fill unoptimized quality={100} sizes="100vw" src={assetUrl("/images/hero/main-hero.png")} />
           <div className="panel-overlay absolute inset-0" />
         </div>
         <div className="relative max-w-3xl">

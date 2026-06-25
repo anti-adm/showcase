@@ -6,8 +6,8 @@ import {useEffect, useState} from 'react';
 import {assetUrl} from '@/lib/assets';
 
 const PRELOAD_ASSETS = [
-  '/images/hero/main-hero.webp',
-  '/images/hero/hero-second.webp',
+  '/images/hero/main-hero.png',
+  '/images/hero/hero-second.png',
   '/images/hero/hero-products.webp',
   '/images/products.webp',
   '/images/brand/pack-line.webp',
@@ -65,7 +65,7 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
         >
           <div className="absolute inset-0">
             <Image
-              src={assetUrl("/images/hero/main-hero.webp")}
+              src={assetUrl("/images/hero/main-hero.png")}
               alt=""
               fill
               priority

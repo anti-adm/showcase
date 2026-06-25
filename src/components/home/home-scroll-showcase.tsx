@@ -109,10 +109,10 @@ export function HomeScrollShowcase({
           unoptimized
           quality={100}
           sizes="100vw"
-          className="object-cover opacity-42"
+          className="object-cover opacity-70"
         />
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.70),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(185,214,255,0.30),transparent_34%),linear-gradient(180deg,rgba(226,237,249,0.78),rgba(226,237,249,0.50)_38%,rgba(217,228,242,0.76))]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.42),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(185,214,255,0.18),transparent_34%),linear-gradient(180deg,rgba(226,237,249,0.42),rgba(226,237,249,0.24)_38%,rgba(217,228,242,0.48))]" />
 
       <PinnedProductScenes copy={copy} locale={locale} products={products} />
       <PinnedRecipeScenes copy={copy} locale={locale} recipes={recipes} />

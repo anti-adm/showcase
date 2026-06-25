@@ -86,10 +86,10 @@ export default function ProductsPage() {
     <main className="relative overflow-hidden pt-28 sm:pt-32">
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.34),transparent_28%),linear-gradient(180deg,#edf4fc_0%,#dae7f6_52%,#cfdeef_100%)]" />
       <div
-        className="absolute inset-0 -z-10 bg-cover bg-center opacity-[0.12]"
+        className="absolute inset-0 -z-10 bg-cover bg-center opacity-[0.42]"
         style={{backgroundImage: `url("${assetUrl("/images/hero/hero-products.webp")}")`}}
       />
-      <div className="absolute inset-0 -z-10 backdrop-blur-[24px]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.44),rgba(218,231,246,0.38)_52%,rgba(207,222,239,0.50))]" />
 
       <section className="mx-auto max-w-[1380px] px-5 pb-10 sm:px-8 lg:px-10">
         <div className="rounded-[34px] border border-white/35 bg-white/32 p-5 shadow-[0_24px_80px_rgba(44,78,120,0.10)] backdrop-blur-[24px] sm:p-7 lg:p-8">
