@@ -11,13 +11,11 @@ import {
   Citrus,
   Droplet,
   Grape,
-  Languages,
   Leaf,
   Milk,
   ShieldCheck,
   type LucideIcon
 } from "lucide-react";
-import NextImage from "next/image";
 import {useLocale} from "next-intl";
 import * as THREE from "three";
 import styles from "./bottle-showcase.module.css";
@@ -185,15 +183,6 @@ const ENDING_SLIDES = [
   }
 ] satisfies EndingSlide[];
 const ENDING_LAST_STAGE = ENDING_SLIDES.length + 1;
-
-const HERO_NAV_ITEMS = [
-  {href: "/", label: "Bosh sahifa"},
-  {href: "/products", label: "Mahsulotlar"},
-  {href: "/yogurts", label: "Yogurtlar"},
-  {href: "/company", label: "Kompaniya"},
-  {href: "/recipes", label: "Retseptlar"},
-  {href: "/contacts", label: "Kontaktlar"}
-] satisfies Array<{href: string; label: string}>;
 
 const HERO_CATEGORY_ITEMS = [
   {label: "Barcha yogurtlar", icon: Milk, active: true},
@@ -636,22 +625,13 @@ export function BottleShowcasePage() {
       : transition.placement === "overview"
         ? 1
         : 0;
-  const introChromeActive = introHeroOpacity > 0.08 && !endingActive;
-
-  useEffect(() => {
-    document.body.classList.toggle("sofin-bottle-hero-active", introChromeActive);
-
-    return () => {
-      document.body.classList.remove("sofin-bottle-hero-active");
-    };
-  }, [introChromeActive]);
 
   return (
     <main className={styles.page}>
       <div className={`${styles.showcaseScene} ${endingActive ? styles.showcaseScene_ending : ""}`}>
         <BottleBackground from={fromFlavor} progress={easedProgress} to={toFlavor} transition={transition} />
         <BottleStage transition={transition} />
-        <BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} />
+        <BottleIntroHero onExplore={() => goTo(1)} opacity={introHeroOpacity} />
         <BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} />
       </div>
       <BottleEndingExperience locale={locale} stage={endingStage} />
@@ -660,17 +640,14 @@ export function BottleShowcasePage() {
 }
 
 function BottleIntroHero({
-  locale,
   onExplore,
   opacity
 }: {
-  locale: Locale;
   onExplore: () => void;
   opacity: number;
 }) {
   const normalizedOpacity = Math.max(0, Math.min(1, opacity));
   const hidden = normalizedOpacity <= 0.01;
-  const localePrefix = `/${locale}`;
 
   return (
     <section
@@ -682,49 +659,6 @@ function BottleIntroHero({
         transform: `translate3d(0, ${lerp(0, -12, 1 - normalizedOpacity).toFixed(2)}px, 0)`
       }}
     >
-      <div className={styles.introHeader}>
-        <a aria-label="SOFIN home" className={styles.introLogo} href={localePrefix}>
-          <NextImage
-            alt=""
-            className={styles.introLogoMark}
-            height={76}
-            priority
-            src="/logo/sofin-logo.webp"
-            width={76}
-          />
-          <span className={styles.introLogoText}>
-            <strong>SOFIN</strong>
-            <span>FROM FARM TO SHELF</span>
-          </span>
-        </a>
-
-        <nav aria-label="SOFIN yogurt navigation" className={styles.introNav}>
-          {HERO_NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              className={item.href === "/yogurts" ? styles.introNavActive : undefined}
-              href={`${localePrefix}${item.href === "/" ? "" : item.href}`}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <div aria-label="Language selector" className={styles.introLanguages}>
-          <Languages aria-hidden="true" size={18} strokeWidth={2.4} />
-          {(["uz", "en", "ru"] as const).map((item) => (
-            <a
-              key={item}
-              aria-current={locale === item ? "true" : undefined}
-              className={locale === item ? styles.introLanguageActive : undefined}
-              href={`/${item}/yogurts?showcase=bottles`}
-            >
-              {item.toUpperCase()}
-            </a>
-          ))}
-        </div>
-      </div>
-
       <div className={styles.introCopy}>
         <div className={styles.introEyebrow}>
           <Leaf aria-hidden="true" size={20} />
@@ -1264,13 +1198,13 @@ type BottlePose = {
 };
 
 const DESKTOP_OVERVIEW_POSES: BottlePose[] = [
-  {x: 0.56, y: 0.07, z: 0.3, rx: BOTTLE_FRONT_RX, ry: 0.12, rz: 0.01, s: 0.84},
-  {x: 0.15, y: -0.14, z: 0.04, rx: 0.04, ry: 0.13, rz: -0.01, s: 0.62},
-  {x: 1.15, y: -0.14, z: 0.02, rx: 0.04, ry: 0.12, rz: 0.012, s: 0.62},
-  {x: -0.2, y: -0.18, z: -0.02, rx: 0.04, ry: 0.14, rz: -0.012, s: 0.56},
-  {x: 1.98, y: -0.2, z: -0.08, rx: 0.05, ry: 0.12, rz: 0.014, s: 0.52},
+  {x: 0.64, y: -0.02, z: 0.3, rx: BOTTLE_FRONT_RX, ry: 0.12, rz: 0.01, s: 0.76},
+  {x: 0.24, y: -0.22, z: 0.04, rx: 0.04, ry: 0.13, rz: -0.01, s: 0.54},
+  {x: 1.16, y: -0.22, z: 0.02, rx: 0.04, ry: 0.12, rz: 0.012, s: 0.54},
+  {x: -0.12, y: -0.25, z: -0.02, rx: 0.04, ry: 0.14, rz: -0.012, s: 0.5},
+  {x: 1.88, y: -0.27, z: -0.08, rx: 0.05, ry: 0.12, rz: 0.014, s: 0.46},
   {x: -3.2, y: -0.34, z: -0.18, rx: 0.05, ry: 0.15, rz: -0.018, s: 0.46},
-  {x: 1.52, y: -0.18, z: -0.05, rx: 0.05, ry: 0.12, rz: -0.01, s: 0.54},
+  {x: 1.5, y: -0.25, z: -0.05, rx: 0.05, ry: 0.12, rz: -0.01, s: 0.48},
   {x: 3.15, y: -0.34, z: -0.18, rx: 0.06, ry: 0.12, rz: 0.016, s: 0.42}
 ];
 

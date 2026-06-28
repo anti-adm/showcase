@@ -1,6 +1,6 @@
 "use client";
 
-import {usePathname, useSearchParams} from "next/navigation";
+import {usePathname} from "next/navigation";
 import {SiteHeader} from "@/components/layout/site-header";
 import {SiteFooter} from "@/components/layout/site-footer";
 import {BackToTop} from "@/components/shared/back-to-top";
@@ -12,9 +12,7 @@ export default function LocaleChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const isYogurtsPage = pathname === "/yogurts" || pathname.endsWith("/yogurts");
-  const isBottleShowcase = isYogurtsPage && searchParams.get("showcase") === "bottles";
   const isShowcasePage =
     pathname === "/showcase" ||
     pathname.endsWith("/showcase") ||
@@ -23,7 +21,7 @@ export default function LocaleChrome({
   if (isShowcasePage) {
     return (
       <>
-        {isBottleShowcase ? null : <SiteHeader />}
+        <SiteHeader />
         {children}
         {isYogurtsPage ? <SiteFooter /> : null}
       </>

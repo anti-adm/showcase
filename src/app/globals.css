@@ -72,12 +72,6 @@ body::before {
   opacity: 0.22;
 }
 
-body.sofin-bottle-hero-active header {
-  opacity: 0;
-  pointer-events: none;
-  transform: translate3d(0, -14px, 0);
-}
-
 ::selection {
   background: rgba(23, 77, 158, 0.16);
 }

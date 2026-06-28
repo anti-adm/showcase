@@ -45,7 +45,7 @@ export function SiteFooter() {
             <div className="flex items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]">
                 <Image
-                  src={assetUrl("/logo/sofin-logo.webp")}
+                  src="/logo/sofin-logo.webp"
                   alt="SOFIN"
                   width={40}
                   height={40}

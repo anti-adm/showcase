@@ -245,18 +245,18 @@
 .introCopy {
   position: absolute;
   z-index: 7;
-  top: clamp(150px, 17.4vh, 220px);
+  top: clamp(132px, 16.2vh, 176px);
   left: clamp(32px, 6.1vw, 126px);
-  width: min(48vw, 760px);
+  width: min(39vw, 560px);
 }
 
 .introEyebrow {
   display: inline-flex;
-  min-height: 54px;
+  min-height: 44px;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   border-radius: 999px;
-  padding: 0 0 0 26px;
+  padding: 0 0 0 20px;
   color: #516078;
   background: rgba(255, 255, 255, 0.68);
   box-shadow:
@@ -269,17 +269,17 @@
 }
 
 .introEyebrow span {
-  font-size: clamp(12px, 0.9vw, 17px);
-  font-weight: 950;
+  font-size: clamp(11px, 0.78vw, 15px);
+  font-weight: 780;
   letter-spacing: 0.1em;
   line-height: 1;
 }
 
 .introEyebrow i {
   display: block;
-  width: 54px;
-  height: 54px;
-  margin-left: 8px;
+  width: 44px;
+  height: 44px;
+  margin-left: 6px;
   border-radius: 999px;
   background:
     radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.92), transparent 34%),
@@ -290,12 +290,12 @@
 }
 
 .introCopy h1 {
-  margin: clamp(26px, 2.1vw, 38px) 0 0;
+  margin: clamp(22px, 1.7vw, 30px) 0 0;
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(70px, 5.28vw, 110px);
+  font-size: clamp(56px, 4.45vw, 88px);
   font-weight: 700;
   letter-spacing: 0;
-  line-height: 0.91;
+  line-height: 0.94;
 }
 
 .introCopy h1 span {
@@ -311,34 +311,34 @@
 }
 
 .introCopy p {
-  max-width: 520px;
-  margin: clamp(24px, 2vw, 40px) 0 0;
-  color: rgba(44, 67, 88, 0.68);
-  font-size: clamp(16px, 1.1vw, 22px);
-  font-weight: 800;
+  max-width: 455px;
+  margin: clamp(18px, 1.35vw, 26px) 0 0;
+  color: rgba(44, 67, 88, 0.72);
+  font-size: clamp(14px, 0.92vw, 18px);
+  font-weight: 620;
   letter-spacing: 0;
-  line-height: 1.55;
+  line-height: 1.48;
 }
 
 .introActions {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(14px, 1.1vw, 22px);
-  margin-top: clamp(26px, 2.3vw, 42px);
+  gap: clamp(12px, 0.95vw, 18px);
+  margin-top: clamp(18px, 1.55vw, 30px);
 }
 
 .introActions button {
   display: inline-flex;
-  min-height: clamp(50px, 3.3vw, 60px);
+  min-height: clamp(42px, 2.8vw, 52px);
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  gap: 14px;
   border: 0;
   border-radius: 999px;
-  padding: 0 clamp(24px, 2vw, 34px);
+  padding: 0 clamp(20px, 1.55vw, 28px);
   font: inherit;
-  font-size: clamp(14px, 0.92vw, 18px);
-  font-weight: 900;
+  font-size: clamp(13px, 0.82vw, 16px);
+  font-weight: 720;
   cursor: pointer;
   transition:
     transform 240ms ease,
@@ -365,11 +365,11 @@
 }
 
 .introCategories {
-  width: min(100%, 500px);
-  margin-top: clamp(26px, 2.2vw, 42px);
+  width: min(100%, 470px);
+  margin-top: clamp(22px, 1.8vw, 34px);
   border: 1px solid rgba(255, 255, 255, 0.68);
   border-radius: 26px;
-  padding: clamp(18px, 1.45vw, 24px);
+  padding: clamp(15px, 1.18vw, 20px);
   background: rgba(255, 255, 255, 0.62);
   box-shadow:
     0 22px 62px rgba(120, 87, 31, 0.12),
@@ -379,10 +379,10 @@
 }
 
 .introCategories h2 {
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   color: #283d57;
-  font-size: clamp(18px, 1.2vw, 24px);
-  font-weight: 950;
+  font-size: clamp(16px, 1.02vw, 21px);
+  font-weight: 760;
   letter-spacing: 0;
 }
 
@@ -395,7 +395,7 @@
 .introCategories button {
   display: grid;
   min-width: 0;
-  min-height: 92px;
+  min-height: 76px;
   place-items: center;
   gap: 8px;
   border: 0;
@@ -413,8 +413,8 @@
 
 .introCategories button span {
   max-width: 10ch;
-  font-size: clamp(12px, 0.82vw, 15px);
-  font-weight: 900;
+  font-size: clamp(11px, 0.72vw, 13px);
+  font-weight: 680;
   line-height: 1.16;
   text-align: center;
 }
@@ -432,11 +432,11 @@
 .introBadge {
   position: absolute;
   z-index: 7;
-  top: clamp(250px, 27vh, 340px);
+  top: clamp(235px, 27vh, 310px);
   left: min(71vw, 1420px);
   display: grid;
-  width: clamp(104px, 6.7vw, 138px);
-  height: clamp(104px, 6.7vw, 138px);
+  width: clamp(92px, 5.8vw, 118px);
+  height: clamp(92px, 5.8vw, 118px);
   place-items: center;
   align-content: center;
   border: 3px solid rgba(255, 255, 255, 0.76);
@@ -452,7 +452,7 @@
 
 .introBadge strong {
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(29px, 2vw, 42px);
+  font-size: clamp(25px, 1.7vw, 34px);
   line-height: 0.92;
 }
 
@@ -489,7 +489,7 @@
   position: absolute;
   z-index: 7;
   right: clamp(24px, 6.2vw, 126px);
-  bottom: clamp(16px, 2.4vw, 42px);
+  bottom: clamp(22px, 2.4vw, 42px);
   left: clamp(24px, 6.2vw, 126px);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -498,12 +498,12 @@
 
 .introFeatures article {
   display: flex;
-  min-height: clamp(94px, 6.5vw, 126px);
+  min-height: clamp(78px, 5.4vw, 104px);
   align-items: center;
-  gap: clamp(16px, 1.45vw, 30px);
+  gap: clamp(12px, 1.1vw, 22px);
   border: 1px solid rgba(255, 255, 255, 0.68);
   border-radius: 26px;
-  padding: clamp(16px, 1.7vw, 28px);
+  padding: clamp(12px, 1.25vw, 22px);
   background: rgba(255, 255, 255, 0.58);
   box-shadow:
     0 20px 58px rgba(121, 87, 29, 0.11),
@@ -514,8 +514,8 @@
 
 .introFeatures article > span {
   display: inline-flex;
-  width: clamp(60px, 4.2vw, 82px);
-  height: clamp(60px, 4.2vw, 82px);
+  width: clamp(48px, 3.4vw, 66px);
+  height: clamp(48px, 3.4vw, 66px);
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
@@ -530,18 +530,18 @@
 .introFeatures h3 {
   margin: 0;
   color: #2a3e55;
-  font-size: clamp(15px, 1vw, 20px);
-  font-weight: 950;
+  font-size: clamp(13px, 0.86vw, 17px);
+  font-weight: 760;
   letter-spacing: 0;
   line-height: 1.1;
 }
 
 .introFeatures p {
-  margin: 10px 0 0;
+  margin: 7px 0 0;
   color: rgba(47, 67, 86, 0.64);
-  font-size: clamp(12px, 0.82vw, 15px);
-  font-weight: 850;
-  line-height: 1.55;
+  font-size: clamp(11px, 0.72vw, 13px);
+  font-weight: 560;
+  line-height: 1.4;
 }
 
 .ending {
@@ -820,7 +820,7 @@
   margin: 0;
   color: #143861;
   font-size: clamp(40px, 4.2vw, 68px);
-  font-weight: 900;
+  font-weight: 760;
   letter-spacing: 0;
   line-height: 0.94;
   text-wrap: balance;
@@ -832,7 +832,7 @@
   margin: 18px 0 0;
   color: #173a5f;
   font-size: clamp(21px, 2.1vw, 34px);
-  font-weight: 850;
+  font-weight: 700;
   letter-spacing: 0;
   line-height: 1.05;
   text-wrap: balance;
@@ -843,7 +843,7 @@
   margin: 14px 0 0;
   color: rgba(19, 48, 80, 0.86);
   font-size: clamp(15px, 1.1vw, 17px);
-  font-weight: 650;
+  font-weight: 520;
   letter-spacing: 0;
   line-height: 1.55;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
