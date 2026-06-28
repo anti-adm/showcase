@@ -3,9 +3,23 @@
 import {Suspense, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {Environment, PerspectiveCamera, useGLTF} from "@react-three/drei";
+import {
+  ArrowRight,
+  Baby,
+  Cherry,
+  CirclePlay,
+  Citrus,
+  Droplet,
+  Grape,
+  Languages,
+  Leaf,
+  Milk,
+  ShieldCheck,
+  type LucideIcon
+} from "lucide-react";
+import NextImage from "next/image";
 import {useLocale} from "next-intl";
 import * as THREE from "three";
-import {assetUrl} from "@/lib/assets";
 import styles from "./bottle-showcase.module.css";
 
 type Locale = "uz" | "ru" | "en";
@@ -41,7 +55,8 @@ type EndingSlide = {
   text: string;
 };
 
-const MODEL_PATH = assetUrl("/models/New product/yogurtchalar yangi2.glb");
+const MODEL_PATH = "/models/New product/yogurtchalar yangi2.glb";
+const HERO_BACKGROUND = "/sofin-yogur-pics/background-bottles.png";
 const INTRO_TRANSITION_MS = 2200;
 const FLAVOR_TRANSITION_MS = 2200;
 const WHEEL_THRESHOLD = 18;
@@ -170,6 +185,46 @@ const ENDING_SLIDES = [
   }
 ] satisfies EndingSlide[];
 const ENDING_LAST_STAGE = ENDING_SLIDES.length + 1;
+
+const HERO_NAV_ITEMS = [
+  {href: "/", label: "Bosh sahifa"},
+  {href: "/products", label: "Mahsulotlar"},
+  {href: "/yogurts", label: "Yogurtlar"},
+  {href: "/company", label: "Kompaniya"},
+  {href: "/recipes", label: "Retseptlar"},
+  {href: "/contacts", label: "Kontaktlar"}
+] satisfies Array<{href: string; label: string}>;
+
+const HERO_CATEGORY_ITEMS = [
+  {label: "Barcha yogurtlar", icon: Milk, active: true},
+  {label: "Mevali yogurtlar", icon: Cherry},
+  {label: "Bio yogurtlar", icon: Leaf},
+  {label: "Ichimlik yogurtlar", icon: Milk},
+  {label: "Bolalar uchun", icon: Baby}
+] satisfies Array<{label: string; icon: LucideIcon; active?: boolean}>;
+
+const HERO_FEATURES = [
+  {
+    title: "Tabiiy ingredientlar",
+    text: "Faqat eng sifatli sut va tabiiy mevalar.",
+    icon: Leaf
+  },
+  {
+    title: "Foydali va yengil",
+    text: "Teri uchun foydali probiotiklar va past yog' miqdori.",
+    icon: ShieldCheck
+  },
+  {
+    title: "Sifat kafolati",
+    text: "Zamonaviy texnologiya va qat'iy nazorat.",
+    icon: Droplet
+  },
+  {
+    title: "Har kuni uchun",
+    text: "Mazali ta'm va qulay qadoqlash.",
+    icon: Milk
+  }
+] satisfies Array<{title: string; text: string; icon: LucideIcon}>;
 
 const BOTTLE_FLAVOR_TRANSLATIONS: Record<Locale, Record<FlavorKey, BottleCopy>> = {
   uz: {
@@ -401,16 +456,16 @@ export function BottleShowcasePage() {
   }, []);
 
   useEffect(() => {
-    [ENDING_BACKGROUND, ...ENDING_SLIDES.map((slide) => slide.src)].forEach((src) => {
+    [HERO_BACKGROUND, ENDING_BACKGROUND, ...ENDING_SLIDES.map((slide) => slide.src)].forEach((src) => {
       const image = new Image();
       image.decoding = "async";
-      image.src = assetUrl(src);
+      image.src = src;
     });
 
     BOTTLE_FLAVORS.forEach((flavor) => {
       const image = new Image();
       image.decoding = "async";
-      image.src = assetUrl(flavor.background);
+      image.src = flavor.background;
     });
   }, []);
 
@@ -575,16 +630,180 @@ export function BottleShowcasePage() {
   const toFlavor = BOTTLE_FLAVORS[transition.to];
   const easedProgress = easeInOutCubic(transition.progress);
   const endingActive = endingStage > 0;
+  const introHeroOpacity =
+    transition.kind === "intro"
+      ? 1 - smoothstep(0.08, 0.64, easedProgress)
+      : transition.placement === "overview"
+        ? 1
+        : 0;
+  const introChromeActive = introHeroOpacity > 0.08 && !endingActive;
+
+  useEffect(() => {
+    document.body.classList.toggle("sofin-bottle-hero-active", introChromeActive);
+
+    return () => {
+      document.body.classList.remove("sofin-bottle-hero-active");
+    };
+  }, [introChromeActive]);
 
   return (
     <main className={styles.page}>
       <div className={`${styles.showcaseScene} ${endingActive ? styles.showcaseScene_ending : ""}`}>
-        <BottleBackground from={fromFlavor} progress={easedProgress} to={toFlavor} />
+        <BottleBackground from={fromFlavor} progress={easedProgress} to={toFlavor} transition={transition} />
         <BottleStage transition={transition} />
+        <BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} />
         <BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} />
       </div>
       <BottleEndingExperience locale={locale} stage={endingStage} />
     </main>
+  );
+}
+
+function BottleIntroHero({
+  locale,
+  onExplore,
+  opacity
+}: {
+  locale: Locale;
+  onExplore: () => void;
+  opacity: number;
+}) {
+  const normalizedOpacity = Math.max(0, Math.min(1, opacity));
+  const hidden = normalizedOpacity <= 0.01;
+  const localePrefix = `/${locale}`;
+
+  return (
+    <section
+      aria-hidden={hidden}
+      className={styles.introHero}
+      style={{
+        opacity: normalizedOpacity,
+        pointerEvents: hidden ? "none" : "auto",
+        transform: `translate3d(0, ${lerp(0, -12, 1 - normalizedOpacity).toFixed(2)}px, 0)`
+      }}
+    >
+      <div className={styles.introHeader}>
+        <a aria-label="SOFIN home" className={styles.introLogo} href={localePrefix}>
+          <NextImage
+            alt=""
+            className={styles.introLogoMark}
+            height={76}
+            priority
+            src="/logo/sofin-logo.webp"
+            width={76}
+          />
+          <span className={styles.introLogoText}>
+            <strong>SOFIN</strong>
+            <span>FROM FARM TO SHELF</span>
+          </span>
+        </a>
+
+        <nav aria-label="SOFIN yogurt navigation" className={styles.introNav}>
+          {HERO_NAV_ITEMS.map((item) => (
+            <a
+              key={item.href}
+              className={item.href === "/yogurts" ? styles.introNavActive : undefined}
+              href={`${localePrefix}${item.href === "/" ? "" : item.href}`}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div aria-label="Language selector" className={styles.introLanguages}>
+          <Languages aria-hidden="true" size={18} strokeWidth={2.4} />
+          {(["uz", "en", "ru"] as const).map((item) => (
+            <a
+              key={item}
+              aria-current={locale === item ? "true" : undefined}
+              className={locale === item ? styles.introLanguageActive : undefined}
+              href={`/${item}/yogurts?showcase=bottles`}
+            >
+              {item.toUpperCase()}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.introCopy}>
+        <div className={styles.introEyebrow}>
+          <Leaf aria-hidden="true" size={20} />
+          <span>TABIATDAN - SIZ UCHUN</span>
+          <i aria-hidden="true" />
+        </div>
+
+        <h1>
+          <span>Sof ta&apos;m.</span>
+          <span>Tabiiy foyda.</span>
+        </h1>
+
+        <p>
+          SOFIN yogurtlari - tabiiy mevalar, sifatli sut va yog&apos;urt madaniyati uyg&apos;unligidan yaratilgan.
+          Har kuni uchun mazali va foydali tanlov.
+        </p>
+
+        <div className={styles.introActions}>
+          <button className={styles.introPrimaryAction} type="button" onClick={onExplore}>
+            <span>Mahsulotlarni ko&apos;rish</span>
+            <ArrowRight aria-hidden="true" size={20} strokeWidth={2.6} />
+          </button>
+          <button className={styles.introSecondaryAction} type="button" onClick={onExplore}>
+            <span>Ko&apos;proq bilish</span>
+            <CirclePlay aria-hidden="true" size={19} strokeWidth={2.4} />
+          </button>
+        </div>
+
+        <div className={styles.introCategories}>
+          <h2>Yogurt turlari</h2>
+          <div>
+            {HERO_CATEGORY_ITEMS.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <button
+                  key={item.label}
+                  aria-pressed={item.active ? "true" : "false"}
+                  className={item.active ? styles.introCategoryActive : undefined}
+                  type="button"
+                >
+                  <Icon aria-hidden="true" size={32} strokeWidth={1.8} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.introBadge}>
+        <strong>100%</strong>
+        <span>TABIIY TARKIB</span>
+        <Leaf aria-hidden="true" size={20} strokeWidth={2.2} />
+      </div>
+
+      <div className={styles.introFruitIcons}>
+        <Citrus aria-hidden="true" />
+        <Grape aria-hidden="true" />
+      </div>
+
+      <div className={styles.introFeatures}>
+        {HERO_FEATURES.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <article key={item.title}>
+              <span>
+                <Icon aria-hidden="true" size={42} strokeWidth={1.8} />
+              </span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
@@ -604,7 +823,7 @@ function BottleEndingExperience({locale, stage}: {locale: Locale; stage: number}
       <div
         className={styles.endingBackground}
         style={{
-          backgroundImage: `url("${assetUrl(ENDING_BACKGROUND)}")`,
+          backgroundImage: `url("${ENDING_BACKGROUND}")`,
           backgroundPosition: `center ${imageShift}%`
         }}
       />
@@ -646,7 +865,7 @@ function BottleEndingExperience({locale, stage}: {locale: Locale; stage: number}
             >
               <div
                 className={styles.endingSlideImage}
-                style={{backgroundImage: `url("${assetUrl(slide.src)}")`}}
+                style={{backgroundImage: `url("${slide.src}")`}}
               />
               <div className={styles.endingSlideShade} />
               <div className={styles.endingSlideCopy}>
@@ -760,14 +979,23 @@ function BottleBackground({
   from,
   progress,
   to,
+  transition,
 }: {
   from: BottleFlavor;
   to: BottleFlavor;
   progress: number;
+  transition: TransitionState;
 }) {
   const tint = mixHex(from.tint, to.tint, progress);
   const eased = smoothstep(0, 1, progress);
   const sameBackground = from.background === to.background;
+  const heroBackgroundOpacity =
+    transition.kind === "intro"
+      ? 1 - smoothstep(0.2, 0.92, progress)
+      : transition.placement === "overview"
+        ? 1
+        : 0;
+  const flavorBackgroundOpacity = transition.kind === "intro" ? smoothstep(0.18, 1, progress) : 1;
   const backgroundLayers = sameBackground
     ? [{src: to.background, opacity: 1, scale: 1.012, shiftX: 0, shiftY: 0}]
     : [
@@ -783,16 +1011,25 @@ function BottleBackground({
           background: `radial-gradient(circle at 48% 38%, rgba(255,255,255,0.3), transparent 32%), radial-gradient(circle at 56% 80%, ${hexToRgba(tint, 0.24)}, transparent 38%), linear-gradient(180deg, #f8e8d9 0%, #f0d4ba 100%)`
         }}
       />
+      <div
+        className={`${styles.backgroundLayer} ${styles.heroBackgroundLayer}`}
+        style={{
+          zIndex: 4,
+          backgroundImage: `url("${HERO_BACKGROUND}")`,
+          opacity: heroBackgroundOpacity,
+          transform: `scale(${lerp(1, 1.018, 1 - heroBackgroundOpacity)})`
+        }}
+      />
       {backgroundLayers.map((layer, index) => (
         <div
           key={layer.src}
           className={styles.backgroundLayer}
           style={{
             zIndex: index + 1,
-            backgroundImage: `url("${assetUrl(layer.src)}")`,
+            backgroundImage: `url("${layer.src}")`,
             backgroundPosition: "center center",
             backgroundSize: "cover",
-            opacity: layer.opacity,
+            opacity: layer.opacity * flavorBackgroundOpacity,
             transform: `translate3d(${layer.shiftX}vw, ${layer.shiftY}vh, 0) scale(${layer.scale})`
           }}
         />
@@ -1027,14 +1264,14 @@ type BottlePose = {
 };
 
 const DESKTOP_OVERVIEW_POSES: BottlePose[] = [
-  {x: 0, y: 0.78, z: 0.24, rx: BOTTLE_FRONT_RX, ry: BOTTLE_FRONT_ROTATION, rz: 0, s: 0.72},
-  {x: -1.55, y: 0.42, z: -0.08, rx: 0.12, ry: 0.52, rz: -0.1, s: 0.5},
-  {x: 1.45, y: 0.38, z: -0.02, rx: 0.08, ry: -0.34, rz: 0.08, s: 0.5},
-  {x: -2.08, y: -0.48, z: -0.16, rx: 0.18, ry: 0.78, rz: -0.14, s: 0.46},
-  {x: 2.05, y: -0.5, z: -0.14, rx: 0.16, ry: -0.7, rz: 0.13, s: 0.46},
-  {x: -0.82, y: -0.92, z: -0.08, rx: 0.1, ry: 0.32, rz: 0.08, s: 0.48},
-  {x: 0.82, y: -0.9, z: -0.08, rx: 0.1, ry: -0.3, rz: -0.08, s: 0.48},
-  {x: 0, y: -1.16, z: -0.18, rx: 0.14, ry: BOTTLE_FRONT_ROTATION, rz: 0, s: 0.44}
+  {x: 0.56, y: 0.07, z: 0.3, rx: BOTTLE_FRONT_RX, ry: 0.12, rz: 0.01, s: 0.84},
+  {x: 0.15, y: -0.14, z: 0.04, rx: 0.04, ry: 0.13, rz: -0.01, s: 0.62},
+  {x: 1.15, y: -0.14, z: 0.02, rx: 0.04, ry: 0.12, rz: 0.012, s: 0.62},
+  {x: -0.2, y: -0.18, z: -0.02, rx: 0.04, ry: 0.14, rz: -0.012, s: 0.56},
+  {x: 1.98, y: -0.2, z: -0.08, rx: 0.05, ry: 0.12, rz: 0.014, s: 0.52},
+  {x: -3.2, y: -0.34, z: -0.18, rx: 0.05, ry: 0.15, rz: -0.018, s: 0.46},
+  {x: 1.52, y: -0.18, z: -0.05, rx: 0.05, ry: 0.12, rz: -0.01, s: 0.54},
+  {x: 3.15, y: -0.34, z: -0.18, rx: 0.06, ry: 0.12, rz: 0.016, s: 0.42}
 ];
 
 const MOBILE_OVERVIEW_POSES: BottlePose[] = [
@@ -1271,6 +1508,8 @@ function getCopyPlacement(placement: ActiveBottlePlacement): CopyPlacement {
 }
 
 function getOverviewBottleOpacity(index: number, transition: TransitionState, progress: number) {
+  if (index === 5 || index === 7) return 0;
+
   if (transition.kind !== "intro") {
     return transition.placement === "overview" ? 1 : 0;
   }
@@ -1473,7 +1712,7 @@ function BottleModel({flavor, opacity}: {flavor: BottleFlavor; opacity: number})
 
 function useBottleModel(flavor: BottleFlavor) {
   const {scene} = useGLTF(MODEL_PATH);
-  const labelTexture = useLoader(THREE.TextureLoader, assetUrl(flavor.texture));
+  const labelTexture = useLoader(THREE.TextureLoader, flavor.texture);
 
   return useMemo(() => {
     const cloned = scene.clone(true);
@@ -1650,5 +1889,5 @@ function Fallback() {
 
 useGLTF.preload(MODEL_PATH);
 BOTTLE_FLAVORS.forEach((flavor) => {
-  useLoader.preload(THREE.TextureLoader, assetUrl(flavor.texture));
+  useLoader.preload(THREE.TextureLoader, flavor.texture);
 });
