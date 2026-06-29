@@ -101,8 +101,13 @@ export function HomeScrollShowcase({
 
   return (
     <main className="relative z-20 bg-[#d3dfeb]">
-      <PinnedProductScenes copy={copy} locale={locale} products={products} />
-      <PinnedRecipeScenes copy={copy} locale={locale} recipes={recipes} />
+      <div className="sticky top-0 z-0 h-svh overflow-hidden">
+        <SceneBackdrop />
+      </div>
+      <div className="relative z-10 -mt-[100svh]">
+        <PinnedProductScenes copy={copy} locale={locale} products={products} />
+        <PinnedRecipeScenes copy={copy} locale={locale} recipes={recipes} />
+      </div>
     </main>
   );
 }
@@ -171,7 +176,6 @@ function DesktopProductScenes({
       style={{height: `${Math.max(count, 1) * 100}svh`}}
     >
       <div className="sticky top-0 z-10 flex h-svh touch-pan-y select-none flex-col items-center overflow-hidden px-4 pb-8 pt-[104px] sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
-        <SceneBackdrop tone="blue" />
         <ShowcaseHeading
           eyebrow={copy.productsEyebrow}
           title={copy.productsTitle}
@@ -289,7 +293,6 @@ function DesktopRecipeScenes({
       style={{height: `${Math.max(count, 1) * 100}svh`}}
     >
       <div className="sticky top-0 z-10 flex h-svh touch-pan-y select-none flex-col items-center overflow-hidden px-4 pb-8 pt-[104px] sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
-        <SceneBackdrop tone="warm" />
         <ShowcaseHeading
           eyebrow={copy.recipesEyebrow}
           title={copy.recipesTitle}
@@ -358,7 +361,6 @@ function MobileProductShowcase({
 }) {
   return (
     <section className="relative overflow-hidden px-4 py-14 sm:px-6">
-      <SceneBackdrop tone="blue" />
       <MobileShowcaseHeading eyebrow={copy.productsEyebrow} title={copy.productsTitle} />
 
       <div className="relative z-10 -mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
@@ -410,7 +412,6 @@ function MobileRecipeShowcase({
 }) {
   return (
     <section className="relative overflow-hidden px-4 py-14 sm:px-6">
-      <SceneBackdrop tone="warm" />
       <MobileShowcaseHeading eyebrow={copy.recipesEyebrow} title={copy.recipesTitle} />
 
       <div className="relative z-10 -mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
@@ -463,12 +464,7 @@ function MobileShowcaseHeading({eyebrow, title}: {eyebrow: string; title: string
   );
 }
 
-function SceneBackdrop({tone}: {tone: "blue" | "warm"}) {
-  const veil =
-    tone === "blue"
-      ? "bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.26),transparent_28%),radial-gradient(circle_at_76%_16%,rgba(91,141,207,0.16),transparent_36%),linear-gradient(180deg,rgba(226,236,247,0.18),rgba(211,224,238,0.1)_42%,rgba(195,211,229,0.2))]"
-      : "bg-[radial-gradient(circle_at_18%_0%,rgba(255,245,230,0.24),transparent_30%),radial-gradient(circle_at_82%_18%,rgba(225,148,54,0.15),transparent_35%),linear-gradient(180deg,rgba(232,220,203,0.14),rgba(215,226,236,0.08)_42%,rgba(206,215,226,0.2))]";
-
+function SceneBackdrop() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#cfdce8]">
       <Image
@@ -479,7 +475,7 @@ function SceneBackdrop({tone}: {tone: "blue" | "warm"}) {
         sizes="100vw"
         className="object-cover opacity-95 saturate-[1.08] contrast-[1.05]"
       />
-      <div className={`absolute inset-0 ${veil}`} />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(91,141,207,0.14),transparent_36%),linear-gradient(180deg,rgba(226,236,247,0.2),rgba(211,224,238,0.1)_42%,rgba(195,211,229,0.2))]" />
       <div className="absolute inset-x-0 bottom-0 h-[32vh] bg-[linear-gradient(180deg,transparent,rgba(210,222,235,0.2)_54%,rgba(207,220,232,0.38))]" />
     </div>
   );

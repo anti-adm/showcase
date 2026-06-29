@@ -7,7 +7,6 @@ import {
   ArrowRight,
   Baby,
   Cherry,
-  CirclePlay,
   Citrus,
   Droplet,
   Grape,
@@ -37,6 +36,7 @@ type BottleFlavor = {
   texture: string;
   tint: string;
   background: string;
+  mobileBackground: string;
   title: string;
   headline: string;
   description: string;
@@ -53,7 +53,6 @@ type HeroIntroCopy = {
   title: [string, string];
   description: string;
   primaryCta: string;
-  secondaryCta: string;
   badgeLabel: string;
   categories: string[];
   features: Array<{title: string; text: string}>;
@@ -67,6 +66,7 @@ type EndingSlide = {
 
 const MODEL_PATH = "/models/New product/yogurtchalar yangi2.glb";
 const HERO_BACKGROUND = "/sofin-yogur-pics/background-bottles.png";
+const HERO_BACKGROUND_MOBILE = "/sofin-yogur-pics/background-bottles-m.png";
 const INTRO_TRANSITION_MS = 2200;
 const FLAVOR_TRANSITION_MS = 2200;
 const WHEEL_THRESHOLD = 18;
@@ -92,6 +92,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_ANANAS.webp",
     tint: "#f7dc8f",
     background: "/backgrounds2/pineapple.webp",
+    mobileBackground: "/backgrounds2/ananas-m.webp",
     title: "Ananas",
     headline: "Tropik yumshoqlik",
     description: "Quyoshli ananas ta'mi va mayin yogurt teksturasi har kuni yengil, toza va yorqin kayfiyat beradi."
@@ -101,6 +102,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_BANAN.webp",
     tint: "#f3d779",
     background: "/backgrounds2/banan.webp",
+    mobileBackground: "/backgrounds2/banan-m.webp",
     title: "Banan",
     headline: "Mayin va kremli",
     description: "Banan ta'mi silliq yogurt asosida ochiladi: shirinligi sokin, tuzilishi esa yumshoq va ichimlikka qulay."
@@ -110,6 +112,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_ORMON_MEVA.webp",
     tint: "#bda0d9",
     background: "/backgrounds2/ormov-meva.webp",
+    mobileBackground: "/backgrounds2/ormon-meva-m.webp",
     title: "O'rmon meva",
     headline: "Mevali assortiment",
     description: "O'rmon mevalari aralashmasi yogurtga chuqurroq, salqin va boy ta'm beradi."
@@ -119,6 +122,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_MALINA.webp",
     tint: "#ef9fbd",
     background: "/backgrounds2/malina.webp",
+    mobileBackground: "/backgrounds2/malina-m.webp",
     title: "Malina",
     headline: "Berry fresh",
     description: "Malinaning nozik nordon-shirin ohangi yogurtga tiniq mevali xarakter va jonli rang beradi."
@@ -128,6 +132,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_OLCHA.webp",
     tint: "#f19aae",
     background: "/backgrounds2/olcha.webp",
+    mobileBackground: "/backgrounds2/olcha-m.webp",
     title: "Olcha",
     headline: "Yorqin mevali ta'm",
     description: "Olchaning to'yingan ta'mi silliq sutli asos bilan balansda turadi: aniq, shirali va esda qoladigan."
@@ -137,6 +142,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_SHAFTOLI.webp",
     tint: "#efb089",
     background: "/backgrounds2/peach.webp",
+    mobileBackground: "/backgrounds2/peach-m.webp",
     title: "Shaftoli",
     headline: "Iliq mevali kayfiyat",
     description: "Shaftoli ta'mi ichimlikka iliq, baxmaldek yumshoq va tabiiy mevali ohang beradi."
@@ -146,6 +152,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_QULUPNAY_BANAN.webp",
     tint: "#f0c891",
     background: "/backgrounds2/strawberry-banan.webp",
+    mobileBackground: "/backgrounds2/strawberry-banan-m.webp",
     title: "Qulupnay banan",
     headline: "Ikki ta'm balansi",
     description: "Qulupnayning yorqinligi va bananning kremli yumshoqligi bitta sokin, shirin duetga yig'iladi."
@@ -155,6 +162,7 @@ const BOTTLE_FLAVORS = [
     texture: "/textures/products2/YOGURT_BOTTLE_QULUPNAY.webp",
     tint: "#f3a2bd",
     background: "/backgrounds2/strawberry.webp",
+    mobileBackground: "/backgrounds2/strawberry-m.webp",
     title: "Qulupnay",
     headline: "Klassik shirinlik",
     description: "Qulupnayli yogurt - tanish, yumshoq va ishonchli ta'm: silliq ichiladi, tez yoqadi."
@@ -229,7 +237,6 @@ const HERO_INTRO_TRANSLATIONS: Record<Locale, HeroIntroCopy> = {
     description:
       "SOFIN yogurtlari - tabiiy mevalar, sifatli sut va yog'urt madaniyati uyg'unligidan yaratilgan. Har kuni uchun mazali va foydali tanlov.",
     primaryCta: "Mahsulotlarni ko'rish",
-    secondaryCta: "Ko'proq bilish",
     badgeLabel: "TABIIY TARKIB",
     categories: ["Barcha yogurtlar", "Mevali yogurtlar", "Bio yogurtlar", "Ichimlik yogurtlar", "Bolalar uchun"],
     features: [
@@ -245,7 +252,6 @@ const HERO_INTRO_TRANSLATIONS: Record<Locale, HeroIntroCopy> = {
     description:
       "Йогурты SOFIN созданы из натуральных фруктов, качественного молока и живой йогуртовой культуры. Вкусный и полезный выбор на каждый день.",
     primaryCta: "Смотреть продукты",
-    secondaryCta: "Узнать больше",
     badgeLabel: "НАТУРАЛЬНЫЙ СОСТАВ",
     categories: ["Все йогурты", "Фруктовые йогурты", "Bio йогурты", "Питьевые йогурты", "Для детей"],
     features: [
@@ -261,7 +267,6 @@ const HERO_INTRO_TRANSLATIONS: Record<Locale, HeroIntroCopy> = {
     description:
       "SOFIN yogurts are made with natural fruit, quality milk and live yogurt cultures. A tasty and wholesome choice for every day.",
     primaryCta: "View products",
-    secondaryCta: "Learn more",
     badgeLabel: "NATURAL INGREDIENTS",
     categories: ["All yogurts", "Fruit yogurts", "Bio yogurts", "Drinkable yogurts", "For kids"],
     features: [
@@ -468,6 +473,7 @@ type CopyPlacement = "intro" | "left" | "right" | "lowerLeft";
 
 export function BottleShowcasePage() {
   const locale = normalizeLocale(useLocale());
+  const mobileViewport = useIsMobileViewport();
   const [transition, setTransition] = useState<TransitionState>({
     kind: "none",
     from: 0,
@@ -515,16 +521,16 @@ export function BottleShowcasePage() {
   }, [releasedToFooter]);
 
   useEffect(() => {
-    [HERO_BACKGROUND, ENDING_BACKGROUND, ...ENDING_SLIDES.map((slide) => slide.src)].forEach((src) => {
-      const image = new Image();
+    [
+      HERO_BACKGROUND,
+      HERO_BACKGROUND_MOBILE,
+      ENDING_BACKGROUND,
+      ...ENDING_SLIDES.map((slide) => slide.src),
+      ...BOTTLE_FLAVORS.flatMap((flavor) => [flavor.background, flavor.mobileBackground])
+    ].forEach((src) => {
+      const image = new window.Image();
       image.decoding = "async";
       image.src = src;
-    });
-
-    BOTTLE_FLAVORS.forEach((flavor) => {
-      const image = new Image();
-      image.decoding = "async";
-      image.src = flavor.background;
     });
   }, []);
 
@@ -773,24 +779,30 @@ export function BottleShowcasePage() {
       : transition.placement === "overview"
         ? 1
         : 0;
+  const showScrollHint = transition.placement === "overview" && !endingActive && !releasedToFooter;
 
   return (
     <main className={`${styles.page} ${releasedToFooter ? styles.page_released : ""}`}>
       <div className={`${styles.showcaseScene} ${endingActive ? styles.showcaseScene_ending : ""}`}>
-        <BottleBackground from={fromFlavor} progress={easedProgress} to={toFlavor} transition={transition} />
+        <BottleBackground
+          from={fromFlavor}
+          isMobile={mobileViewport}
+          progress={easedProgress}
+          to={toFlavor}
+          transition={transition}
+        />
         <BottleStage transition={transition} />
         <BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} />
         <BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} />
       </div>
       <BottleEndingExperience locale={locale} stage={endingStage} />
-      <button
-        aria-label={locale === "ru" ? "Вернуться к первой сцене" : locale === "en" ? "Back to first scene" : "Birinchi sahnaga qaytish"}
-        className={`${styles.quickReturn} ${styles.quickReturn_visible}`}
-        type="button"
-        onClick={returnToOverview}
+      <div
+        aria-hidden="true"
+        className={`${styles.scrollHint} ${showScrollHint ? "" : styles.scrollHint_hidden}`}
       >
-        <ArrowRight aria-hidden="true" size={20} strokeWidth={2.5} />
-      </button>
+        <span />
+        <em>scroll</em>
+      </div>
     </main>
   );
 }
@@ -837,10 +849,6 @@ function BottleIntroHero({
           <button className={styles.introPrimaryAction} type="button" onClick={onExplore}>
             <span>{copy.primaryCta}</span>
             <ArrowRight aria-hidden="true" size={20} strokeWidth={2.6} />
-          </button>
-          <button className={styles.introSecondaryAction} type="button" onClick={onExplore}>
-            <span>{copy.secondaryCta}</span>
-            <CirclePlay aria-hidden="true" size={19} strokeWidth={2.4} />
           </button>
         </div>
 
@@ -1090,20 +1098,50 @@ function GlassCopyCard({
   );
 }
 
+function useIsMobileViewport() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 900px)");
+    const update = () => {
+      setIsMobile(window.innerWidth / Math.max(1, window.innerHeight) < MOBILE_ASPECT_MAX);
+    };
+
+    update();
+    media.addEventListener("change", update);
+    window.addEventListener("resize", update, {passive: true});
+
+    return () => {
+      media.removeEventListener("change", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return isMobile;
+}
+
+function getFlavorBackground(flavor: BottleFlavor, isMobile: boolean) {
+  return isMobile ? flavor.mobileBackground : flavor.background;
+}
+
 function BottleBackground({
   from,
+  isMobile,
   progress,
   to,
   transition,
 }: {
   from: BottleFlavor;
+  isMobile: boolean;
   to: BottleFlavor;
   progress: number;
   transition: TransitionState;
 }) {
   const tint = mixHex(from.tint, to.tint, progress);
   const eased = smoothstep(0, 1, progress);
-  const sameBackground = from.background === to.background;
+  const fromBackground = getFlavorBackground(from, isMobile);
+  const toBackground = getFlavorBackground(to, isMobile);
+  const sameBackground = fromBackground === toBackground;
   const introFlavorProgress = getIntroFlavorProgress(transition, progress);
   const heroBackgroundOpacity =
     transition.kind === "intro"
@@ -1113,10 +1151,10 @@ function BottleBackground({
         : 0;
   const flavorBackgroundOpacity = transition.kind === "intro" ? smoothstep(0.18, 1, introFlavorProgress) : 1;
   const backgroundLayers = sameBackground
-    ? [{src: to.background, opacity: 1, scale: 1.012, shiftX: 0, shiftY: 0}]
+    ? [{src: toBackground, opacity: 1, scale: 1.012, shiftX: 0, shiftY: 0}]
     : [
-        {src: from.background, opacity: 1 - eased, scale: lerp(1.018, 1.03, eased), shiftX: lerp(0, -1.2, eased), shiftY: lerp(0, -0.6, eased)},
-        {src: to.background, opacity: eased, scale: lerp(1.035, 1.012, eased), shiftX: lerp(1.2, 0, eased), shiftY: lerp(0.8, 0, eased)}
+        {src: fromBackground, opacity: 1 - eased, scale: lerp(1.018, 1.03, eased), shiftX: lerp(0, -1.2, eased), shiftY: lerp(0, -0.6, eased)},
+        {src: toBackground, opacity: eased, scale: lerp(1.035, 1.012, eased), shiftX: lerp(1.2, 0, eased), shiftY: lerp(0.8, 0, eased)}
       ];
 
   return (
@@ -1131,7 +1169,7 @@ function BottleBackground({
         className={`${styles.backgroundLayer} ${styles.heroBackgroundLayer}`}
         style={{
           zIndex: 4,
-          backgroundImage: `url("${HERO_BACKGROUND}")`,
+          backgroundImage: `url("${isMobile ? HERO_BACKGROUND_MOBILE : HERO_BACKGROUND}")`,
           opacity: heroBackgroundOpacity,
           transform: `scale(${lerp(1, 1.018, 1 - heroBackgroundOpacity)})`
         }}
@@ -1281,7 +1319,7 @@ function AnimatedBottle({transition}: {transition: TransitionState}) {
   const heroRefs = useRef<Array<THREE.Group | null>>([]);
   const {size} = useThree();
   const renderMobileOverview = size.width / Math.max(1, size.height) < MOBILE_ASPECT_MAX;
-  const overviewFlavors = renderMobileOverview ? BOTTLE_FLAVORS.slice(0, 1) : BOTTLE_FLAVORS;
+  const overviewFlavors = renderMobileOverview ? [] : BOTTLE_FLAVORS;
 
   const eased = easeInOutCubic(transition.progress);
   const introFlavorProgress = getIntroFlavorProgress(transition, eased);
@@ -1431,12 +1469,12 @@ function getBottleSceneMetrics(aspect: number): BottleSceneMetrics {
   if (aspect < MOBILE_ASPECT_MAX) {
     return {
       centerX: 0,
-      centerY: -0.16,
+      centerY: 0.28,
       centerZ: 0,
       leftX: 0,
       rightX: 0,
-      highY: -0.16,
-      lowY: -0.16
+      highY: 0.28,
+      lowY: 0.28
     };
   }
 

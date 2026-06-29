@@ -5,7 +5,6 @@ import Link from "next/link";
 import {Mail, Phone, Send} from "lucide-react";
 import {useLocale, useTranslations} from "next-intl";
 import {usePathname} from "next/navigation";
-import {assetUrl} from "@/lib/assets";
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
@@ -30,13 +29,7 @@ export function SiteFooter() {
   return (
     <footer className={`relative overflow-hidden ${isHome ? "bg-[#15253a] pb-8 pt-20 sm:pt-24" : "container-shell pb-6 pt-8 sm:pb-8 sm:pt-10"}`}>
       {isHome ? (
-        <>
-          <div
-            className="absolute inset-x-0 top-0 h-16 bg-[length:100%_100%] bg-top bg-no-repeat sm:h-20"
-            style={{backgroundImage: `url("${assetUrl("/images/milk-wave.svg")}")`}}
-          />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(168,215,255,0.22),transparent_30%),radial-gradient(circle_at_84%_0%,rgba(255,255,255,0.16),transparent_34%)]" />
-        </>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(168,215,255,0.22),transparent_30%),radial-gradient(circle_at_84%_0%,rgba(255,255,255,0.16),transparent_34%)]" />
       ) : null}
       <div className={isHome ? "container-shell relative z-10" : ""}>
       <div className="rounded-[30px] border border-white/44 bg-[#e8f1fb]/72 px-5 py-6 shadow-[0_22px_70px_rgba(10,32,71,0.10)] backdrop-blur-2xl sm:px-7 lg:px-8">

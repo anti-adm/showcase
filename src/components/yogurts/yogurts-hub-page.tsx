@@ -3,7 +3,7 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import {useLocale} from "next-intl";
-import {usePathname, useRouter} from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {BottleShowcasePage} from "@/components/yogurts/bottle-showcase-page";
 import {YogurtsShowcasePage} from "@/components/yogurts/yogurts-showcase-page";
 import {cn} from "@/lib/utils";
@@ -45,14 +45,15 @@ export function YogurtsHubPage() {
   const locale = normalizeLocale(useLocale());
   const router = useRouter();
   const pathname = usePathname();
-  const [mode, setMode] = useState<ShowcaseMode>("cups");
+  const searchParams = useSearchParams();
+  const routeMode = searchParams.get("showcase") === "bottles" ? "bottles" : "cups";
+  const [mode, setMode] = useState<ShowcaseMode>(routeMode);
   const [introVisible, setIntroVisible] = useState(false);
   const introTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setMode(params.get("showcase") === "bottles" ? "bottles" : "cups");
-  }, []);
+    setMode(routeMode);
+  }, [routeMode]);
 
   useEffect(() => () => {
     if (introTimerRef.current) {

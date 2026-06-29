@@ -188,7 +188,7 @@ export default function ProductsCatalogPage() {
               </p>
             ) : null}
 
-            <div className="product-filter-scroll -mx-4 mt-8 flex snap-x items-center gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:justify-center sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0">
+            <div className="mx-auto mt-8 grid max-w-[680px] grid-cols-2 gap-2 min-[420px]:grid-cols-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-3">
               {categories.map((category) => {
                 const active = activeCategory === category.key;
 
@@ -198,7 +198,7 @@ export default function ProductsCatalogPage() {
                     type="button"
                     aria-pressed={active}
                     onClick={() => setActiveCategory(category.key)}
-                    className={`shrink-0 rounded-full border px-4 py-2.5 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-[background-color,border-color,color,box-shadow,transform] duration-300 sm:px-5 ${
+                    className={`w-full rounded-full border px-3 py-2.5 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-[background-color,border-color,color,box-shadow,transform] duration-300 sm:w-auto sm:px-5 ${
                       active
                         ? "border-[var(--brand-primary)] bg-[var(--brand-primary)] text-white shadow-[0_16px_34px_rgba(12,58,106,0.16)]"
                         : "border-white/54 bg-white/58 text-slate-700 hover:-translate-y-0.5 hover:bg-white/76 hover:text-[var(--brand-primary)]"
