@@ -70,7 +70,7 @@ const INTRO_TRANSITION_MS = 2200;
 const FLAVOR_TRANSITION_MS = 2200;
 const WHEEL_THRESHOLD = 18;
 const TOUCH_THRESHOLD = 44;
-const ENDING_NAVIGATION_LOCK_MS = 1500;
+const ENDING_NAVIGATION_LOCK_MS = 560;
 const BOTTLE_FRONT_ROTATION = 0.18;
 const BOTTLE_FRONT_RX = 0.02;
 const MOBILE_ASPECT_MAX = 0.72;
@@ -396,13 +396,13 @@ const BOTTLE_ENDING_TRANSLATIONS: Record<Locale, {
   slides: Array<{title: string; text: string}>;
 }> = {
   uz: {
-    title: "Yogurtchalar kolleksiyasi",
-    subtitle: "3D sahnadan keyin ta'mlar fotosuratlarda davom etadi.",
+    title: "SOFIN",
+    subtitle: "Fermer xo'jaligidan javongacha",
     slides: ENDING_SLIDES.map((slide) => ({title: slide.title, text: slide.text}))
   },
   ru: {
-    title: "Коллекция йогуртчалар",
-    subtitle: "После 3D-сцены вкусы продолжаются в фотографиях.",
+    title: "SOFIN",
+    subtitle: "От фермы до полки",
     slides: [
       {title: "Каждый вкус в своей сцене", text: "Фруктовая линия соединяется с мягкой молочной основой и дает легкое натуральное настроение."},
       {title: "Удобный питьевой формат", text: "Йогуртчалар созданы для быстрой, чистой и спокойной паузы в течение дня."},
@@ -413,8 +413,8 @@ const BOTTLE_ENDING_TRANSLATIONS: Record<Locale, {
     ]
   },
   en: {
-    title: "Yogurtchalar collection",
-    subtitle: "After the 3D scene, the flavors continue through product photography.",
+    title: "SOFIN",
+    subtitle: "From farm to shelf",
     slides: [
       {title: "Each flavor has its own scene", text: "The fruit line meets a soft dairy base for a light, natural mood."},
       {title: "Easy drinkable format", text: "Yogurtchalar are made for a quick, clean and calm pause during the day."},
@@ -424,6 +424,12 @@ const BOTTLE_ENDING_TRANSLATIONS: Record<Locale, {
       {title: "New yogurtchalar", text: "After the 3D scene, product photos bring the collection to a polished close."}
     ]
   }
+};
+
+const ENDING_FOOTER_EXIT_LABELS: Record<Locale, string> = {
+  uz: "Pastki navigatsiyaga",
+  ru: "К нижней навигации",
+  en: "To footer navigation"
 };
 
 type TransitionState = {
@@ -462,9 +468,11 @@ export function BottleShowcasePage() {
 
   const transitionRef = useRef(transition);
   const endingStageRef = useRef(0);
+  const releasedToFooterRef = useRef(false);
   const endingNavigationLockedRef = useRef(false);
   const endingNavigationTimerRef = useRef<number | null>(null);
   const [endingStage, setEndingStage] = useState(0);
+  const [releasedToFooter, setReleasedToFooter] = useState(false);
   const rafRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
 
@@ -477,9 +485,13 @@ export function BottleShowcasePage() {
   }, [endingStage]);
 
   useEffect(() => {
-    document.documentElement.style.overscrollBehavior = "none";
-    document.body.style.overscrollBehavior = "none";
-    document.body.style.overflow = "hidden";
+    releasedToFooterRef.current = releasedToFooter;
+  }, [releasedToFooter]);
+
+  useEffect(() => {
+    document.documentElement.style.overscrollBehavior = releasedToFooter ? "" : "none";
+    document.body.style.overscrollBehavior = releasedToFooter ? "" : "none";
+    document.body.style.overflow = releasedToFooter ? "" : "hidden";
 
     return () => {
       document.documentElement.style.overscrollBehavior = "";
@@ -488,7 +500,7 @@ export function BottleShowcasePage() {
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
       if (endingNavigationTimerRef.current) window.clearTimeout(endingNavigationTimerRef.current);
     };
-  }, []);
+  }, [releasedToFooter]);
 
   useEffect(() => {
     [HERO_BACKGROUND, ENDING_BACKGROUND, ...ENDING_SLIDES.map((slide) => slide.src)].forEach((src) => {
@@ -523,7 +535,56 @@ export function BottleShowcasePage() {
     lockEndingNavigation();
   }, [lockEndingNavigation]);
 
+  const returnToOverview = useCallback(() => {
+    if (rafRef.current) {
+      window.cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+
+    releasedToFooterRef.current = false;
+    setReleasedToFooter(false);
+    endingStageRef.current = 0;
+    setEndingStage(0);
+
+    const next: TransitionState = {
+      kind: "none",
+      from: 0,
+      placement: "overview",
+      to: 0,
+      progress: 1,
+      direction: -1,
+      running: false
+    };
+
+    transitionRef.current = next;
+    setTransition(next);
+    lockEndingNavigation();
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({top: 0, behavior: "smooth"});
+    });
+  }, [lockEndingNavigation]);
+
+  const releaseToFooter = useCallback(() => {
+    releasedToFooterRef.current = true;
+    setReleasedToFooter(true);
+    endingStageRef.current = 0;
+    setEndingStage(0);
+    lockEndingNavigation();
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({top: window.innerHeight, behavior: "smooth"});
+    });
+  }, [lockEndingNavigation]);
+
   const goTo = useCallback((direction: 1 | -1) => {
+    if (releasedToFooterRef.current) {
+      if (direction < 0 && window.scrollY <= 8) {
+        returnToOverview();
+      }
+      return;
+    }
+
     const current = transitionRef.current;
     if (current.running) return;
 
@@ -532,6 +593,11 @@ export function BottleShowcasePage() {
       if (endingNavigationLockedRef.current) return;
 
       if (direction > 0) {
+        if (currentEndingStage >= ENDING_LAST_STAGE) {
+          releaseToFooter();
+          return;
+        }
+
         const nextStage = Math.min(ENDING_LAST_STAGE, currentEndingStage + 1);
         setEndingStageLocked(nextStage);
         return;
@@ -612,11 +678,18 @@ export function BottleShowcasePage() {
     };
 
     rafRef.current = window.requestAnimationFrame(tick);
-  }, [setEndingStageLocked]);
+  }, [releaseToFooter, returnToOverview, setEndingStageLocked]);
 
   useEffect(() => {
     const onWheel = (event: WheelEvent) => {
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
+      if (releasedToFooterRef.current) {
+        if (event.deltaY < 0 && window.scrollY <= 8) {
+          event.preventDefault();
+          returnToOverview();
+        }
+        return;
+      }
       event.preventDefault();
       goTo(event.deltaY > 0 ? 1 : -1);
     };
@@ -636,12 +709,27 @@ export function BottleShowcasePage() {
       const deltaY = startY - endY;
       if (Math.abs(deltaY) < TOUCH_THRESHOLD) return;
 
+      if (releasedToFooterRef.current) {
+        if (deltaY < 0 && window.scrollY <= 8) {
+          event.preventDefault();
+          returnToOverview();
+        }
+        return;
+      }
+
       event.preventDefault();
       goTo(deltaY > 0 ? 1 : -1);
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented) return;
+      if (releasedToFooterRef.current) {
+        if ((event.key === "ArrowUp" || event.key === "PageUp") && window.scrollY <= 8) {
+          event.preventDefault();
+          returnToOverview();
+        }
+        return;
+      }
 
       if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ") {
         event.preventDefault();
@@ -666,7 +754,7 @@ export function BottleShowcasePage() {
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [goTo]);
+  }, [goTo, returnToOverview]);
 
   const fromFlavor = BOTTLE_FLAVORS[transition.from];
   const toFlavor = BOTTLE_FLAVORS[transition.to];
@@ -681,14 +769,22 @@ export function BottleShowcasePage() {
         : 0;
 
   return (
-    <main className={styles.page}>
+    <main className={`${styles.page} ${releasedToFooter ? styles.page_released : ""}`}>
       <div className={`${styles.showcaseScene} ${endingActive ? styles.showcaseScene_ending : ""}`}>
         <BottleBackground from={fromFlavor} progress={easedProgress} to={toFlavor} transition={transition} />
         <BottleStage transition={transition} />
         <BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} />
         <BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} />
       </div>
-      <BottleEndingExperience locale={locale} stage={endingStage} />
+      <BottleEndingExperience locale={locale} onExitFooter={releaseToFooter} stage={endingStage} />
+      <button
+        aria-label={locale === "ru" ? "Вернуться к первой сцене" : locale === "en" ? "Back to first scene" : "Birinchi sahnaga qaytish"}
+        className={`${styles.quickReturn} ${endingActive || releasedToFooter ? styles.quickReturn_visible : ""}`}
+        type="button"
+        onClick={returnToOverview}
+      >
+        <ArrowRight aria-hidden="true" size={20} strokeWidth={2.5} />
+      </button>
     </main>
   );
 }
@@ -710,6 +806,7 @@ function BottleIntroHero({
     <section
       aria-hidden={hidden}
       className={styles.introHero}
+      data-locale={locale}
       style={{
         opacity: normalizedOpacity,
         pointerEvents: hidden ? "none" : "auto",
@@ -797,7 +894,15 @@ function BottleIntroHero({
   );
 }
 
-function BottleEndingExperience({locale, stage}: {locale: Locale; stage: number}) {
+function BottleEndingExperience({
+  locale,
+  onExitFooter,
+  stage
+}: {
+  locale: Locale;
+  onExitFooter: () => void;
+  stage: number;
+}) {
   const active = stage > 0;
   const copy = BOTTLE_ENDING_TRANSLATIONS[locale];
   const slideStage = Math.max(0, Math.min(ENDING_SLIDES.length - 1, stage - 2));
@@ -866,6 +971,15 @@ function BottleEndingExperience({locale, stage}: {locale: Locale; stage: number}
           );
         })}
       </div>
+
+      <button
+        className={`${styles.endingFooterExit} ${stage >= ENDING_LAST_STAGE ? styles.endingFooterExit_visible : ""}`}
+        onClick={onExitFooter}
+        type="button"
+      >
+        <span>{ENDING_FOOTER_EXIT_LABELS[locale]}</span>
+        <ArrowRight aria-hidden="true" size={18} strokeWidth={2.4} />
+      </button>
     </section>
   );
 }
