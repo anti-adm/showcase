@@ -361,6 +361,42 @@ export const products: ProductItem[] = [
     openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
   },
   {
+    slug: "yogurt-strawberry-banana-270",
+    badge: "08",
+    category: "yogurt",
+    title: {
+      uz: "Yogurt. Qulupnay va banan ta’mi bilan 270 g",
+      ru: "Йогурт со вкусом клубники и банана 270 г",
+      en: "Strawberry Banana Yogurt 270 g"
+    },
+    subtitle: {
+      uz: "1,5% yog‘li mevali yogurt",
+      ru: "Фруктовый йогурт 1,5%",
+      en: "Fruit yogurt 1.5%"
+    },
+    weight: {
+      uz: "Sof massa: 270 g",
+      ru: "Масса нетто: 270 g",
+      en: "Net weight: 270 g"
+    },
+    image: "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY_BANAN.webp",
+    gallery: ["/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY_BANAN.webp"],
+    accent: "from-[#fff0de] to-[#f7c98f]",
+    fatPercent: "1,5%",
+    netWeight: "270 g",
+    storageValue: {uz: "21 kun", ru: "21 день", en: "21 days"},
+    packagingValue: {uz: "270 g butilka", ru: "Бутылка 270 g", en: "270 g bottle"},
+    formatValue: {uz: "Qulupnay-bananli yogurt", ru: "Йогурт клубника-банан", en: "Strawberry banana yogurt"},
+    nutrition: {energy: "—", fat: "1,5 g", protein: "—", carbs: "—"},
+    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
+    composition: {uz: "Mevali yogurt, qulupnay va banan ta’mi bilan.", ru: "Йогурт со вкусом клубники и банана.", en: "Yogurt with strawberry and banana flavor."},
+    storageText: {uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.", ru: "Условия хранения: хранить при температуре 4 ± 2°C.", en: "Storage conditions: keep at 4 ± 2°C."},
+    productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
+    manufacturer,
+    address,
+    openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
+  },
+  {
     slug: "yogurt-strawberry-120",
     badge: "08",
     category: "yogurt",

@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   type LucideIcon
 } from "lucide-react";
+import Link from "next/link";
 import {useLocale} from "next-intl";
 import * as THREE from "three";
 import styles from "./bottle-showcase.module.css";
@@ -159,6 +160,17 @@ const BOTTLE_FLAVORS = [
     description: "Qulupnayli yogurt - tanish, yumshoq va ishonchli ta'm: silliq ichiladi, tez yoqadi."
   }
 ] satisfies BottleFlavor[];
+
+const FLAVOR_PRODUCT_SLUGS: Record<FlavorKey, string> = {
+  ananas: "yogurt-pineapple-270",
+  banan: "yogurt-banana-270",
+  "ormon-meva": "yogurt-forest-270",
+  malina: "yogurt-raspberry-270",
+  olcha: "yogurt-cherry",
+  shaftoli: "yogurt-peach-270",
+  "qulupnay-banan": "yogurt-strawberry-banana-270",
+  qulupnay: "yogurt-strawberry-270"
+};
 
 const ENDING_BACKGROUND = "/sofin-yogur-pics/back-yogurt.webp";
 const ENDING_SLIDES = [
@@ -426,10 +438,10 @@ const BOTTLE_ENDING_TRANSLATIONS: Record<Locale, {
   }
 };
 
-const ENDING_FOOTER_EXIT_LABELS: Record<Locale, string> = {
-  uz: "Pastki navigatsiyaga",
-  ru: "К нижней навигации",
-  en: "To footer navigation"
+const PRODUCT_CTA_LABELS: Record<Locale, string> = {
+  uz: "Mahsulot kartasi",
+  ru: "Перейти к товару",
+  en: "View product"
 };
 
 type TransitionState = {
@@ -568,13 +580,7 @@ export function BottleShowcasePage() {
   const releaseToFooter = useCallback(() => {
     releasedToFooterRef.current = true;
     setReleasedToFooter(true);
-    endingStageRef.current = 0;
-    setEndingStage(0);
     lockEndingNavigation();
-
-    window.requestAnimationFrame(() => {
-      window.scrollTo({top: window.innerHeight, behavior: "smooth"});
-    });
   }, [lockEndingNavigation]);
 
   const goTo = useCallback((direction: 1 | -1) => {
@@ -776,10 +782,10 @@ export function BottleShowcasePage() {
         <BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} />
         <BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} />
       </div>
-      <BottleEndingExperience locale={locale} onExitFooter={releaseToFooter} stage={endingStage} />
+      <BottleEndingExperience locale={locale} stage={endingStage} />
       <button
         aria-label={locale === "ru" ? "Вернуться к первой сцене" : locale === "en" ? "Back to first scene" : "Birinchi sahnaga qaytish"}
-        className={`${styles.quickReturn} ${endingActive || releasedToFooter ? styles.quickReturn_visible : ""}`}
+        className={`${styles.quickReturn} ${styles.quickReturn_visible}`}
         type="button"
         onClick={returnToOverview}
       >
@@ -839,7 +845,7 @@ function BottleIntroHero({
         </div>
 
         <div className={styles.introCategories}>
-          <h2>{locale === "ru" ? "Виды йогуртов" : locale === "en" ? "Yogurt types" : "Yogurt turlari"}</h2>
+          <h2>{locale === "en" ? "Yogurt types" : "Виды йогуртов"}</h2>
           <div>
             {HERO_CATEGORY_ITEMS.map((item, index) => {
               const Icon = item.icon;
@@ -896,11 +902,9 @@ function BottleIntroHero({
 
 function BottleEndingExperience({
   locale,
-  onExitFooter,
   stage
 }: {
   locale: Locale;
-  onExitFooter: () => void;
   stage: number;
 }) {
   const active = stage > 0;
@@ -972,14 +976,6 @@ function BottleEndingExperience({
         })}
       </div>
 
-      <button
-        className={`${styles.endingFooterExit} ${stage >= ENDING_LAST_STAGE ? styles.endingFooterExit_visible : ""}`}
-        onClick={onExitFooter}
-        type="button"
-      >
-        <span>{ENDING_FOOTER_EXIT_LABELS[locale]}</span>
-        <ArrowRight aria-hidden="true" size={18} strokeWidth={2.4} />
-      </button>
     </section>
   );
 }
@@ -1012,6 +1008,8 @@ function BottleCopyOverlay({
         <GlassCopyCard
           active={introFlavorOpacity > 0.5}
           copy={getFlavorCopy(toFlavor, locale)}
+          productHref={getFlavorProductHref(toFlavor, locale)}
+          productLabel={PRODUCT_CTA_LABELS[locale]}
           opacity={introFlavorOpacity}
           tint={toFlavor.tint}
         />
@@ -1023,6 +1021,8 @@ function BottleCopyOverlay({
             <GlassCopyCard
               active={flavorOutOpacity > 0.5}
               copy={getFlavorCopy(fromFlavor, locale)}
+              productHref={getFlavorProductHref(fromFlavor, locale)}
+              productLabel={PRODUCT_CTA_LABELS[locale]}
               opacity={flavorOutOpacity}
               tint={fromFlavor.tint}
             />
@@ -1032,6 +1032,8 @@ function BottleCopyOverlay({
             <GlassCopyCard
               active={flavorInOpacity > 0.5}
               copy={getFlavorCopy(toFlavor, locale)}
+              productHref={getFlavorProductHref(toFlavor, locale)}
+              productLabel={PRODUCT_CTA_LABELS[locale]}
               opacity={flavorInOpacity}
               tint={toFlavor.tint}
             />
@@ -1056,11 +1058,15 @@ function GlassCopyCard({
   active,
   copy,
   opacity,
+  productHref,
+  productLabel,
   tint,
 }: {
   active: boolean;
   copy: BottleCopy;
   opacity: number;
+  productHref: string;
+  productLabel: string;
   tint: string;
 }) {
   const safeOpacity = Math.max(0, Math.min(1, opacity));
@@ -1076,6 +1082,10 @@ function GlassCopyCard({
       <h1 className={styles.copyTitle}>{copy.title}</h1>
       <p className={styles.copyHeadline}>{copy.headline}</p>
       <p className={styles.copyDescription}>{copy.description}</p>
+      <Link className={styles.copyProductLink} href={productHref} tabIndex={active ? 0 : -1}>
+        <span>{productLabel}</span>
+        <ArrowRight aria-hidden="true" size={17} strokeWidth={2.5} />
+      </Link>
     </article>
   );
 }
@@ -1582,6 +1592,10 @@ function getFlavorCopy(flavor: BottleFlavor, locale: Locale): BottleCopy {
     headline: flavor.headline,
     description: flavor.description
   };
+}
+
+function getFlavorProductHref(flavor: BottleFlavor, locale: Locale) {
+  return `/${locale}/products/${FLAVOR_PRODUCT_SLUGS[flavor.key]}`;
 }
 
 function getIntroFlavorProgress(transition: TransitionState, progress: number) {

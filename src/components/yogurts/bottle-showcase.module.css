@@ -29,11 +29,22 @@
   transform: translate3d(0, -108vh, 0) scale(0.985);
 }
 
-.page_released .showcaseScene,
-.page_released .ending {
+.page_released .showcaseScene {
   pointer-events: none;
   opacity: 0;
   filter: blur(8px);
+}
+
+.page_released .ending {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  opacity: 1;
+  pointer-events: auto;
+  filter: blur(0);
 }
 
 .backdrop {
@@ -735,49 +746,6 @@
   line-height: 1.5;
 }
 
-.endingFooterExit {
-  position: absolute;
-  z-index: 8;
-  right: clamp(22px, 4.6vw, 88px);
-  bottom: clamp(22px, 3.6vh, 46px);
-  display: inline-flex;
-  min-height: 48px;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.68);
-  border-radius: 999px;
-  padding: 0 18px 0 22px;
-  color: #15385f;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow:
-    0 18px 42px rgba(20, 47, 82, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92);
-  font: inherit;
-  font-size: 14px;
-  font-weight: 760;
-  opacity: 0;
-  pointer-events: none;
-  cursor: pointer;
-  transform: translate3d(0, 16px, 0);
-  transition:
-    opacity 260ms ease,
-    transform 260ms ease,
-    background 220ms ease;
-  backdrop-filter: blur(18px) saturate(1.14);
-  -webkit-backdrop-filter: blur(18px) saturate(1.14);
-}
-
-.endingFooterExit:hover {
-  background: rgba(255, 255, 255, 0.86);
-  transform: translate3d(0, 12px, 0);
-}
-
-.endingFooterExit_visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate3d(0, 0, 0);
-}
-
 .quickReturn {
   position: fixed;
   z-index: 70;
@@ -865,6 +833,7 @@
   border: 1px solid rgba(255, 255, 255, 0.52);
   border-radius: 30px;
   color: #173a5f;
+  pointer-events: auto;
   background:
     radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.42), transparent 34%),
     radial-gradient(circle at 88% 94%, rgba(var(--flavor-rgb), 0.2), transparent 38%),
@@ -945,6 +914,44 @@
   letter-spacing: 0;
   line-height: 1.55;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.copyProductLink {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  margin-top: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  padding: 0 15px 0 18px;
+  color: #fff;
+  background: #123d6c;
+  box-shadow:
+    0 14px 28px rgba(19, 55, 96, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  font-size: 13px;
+  font-weight: 740;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.copyProductLink:hover {
+  background: #0b3159;
+  box-shadow:
+    0 18px 34px rgba(19, 55, 96, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transform: translate3d(0, -2px, 0);
+}
+
+.copyProductLink:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 3px;
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -1192,15 +1199,6 @@
     font-size: 13px;
   }
 
-  .endingFooterExit {
-    right: 18px;
-    bottom: 18px;
-    min-height: 44px;
-    max-width: calc(100vw - 36px);
-    padding: 0 14px 0 16px;
-    font-size: 12px;
-  }
-
   .quickReturn {
     top: 94px;
     right: 16px;
@@ -1246,5 +1244,12 @@
     margin-top: 9px;
     font-size: 13px;
     line-height: 1.42;
+  }
+
+  .copyProductLink {
+    min-height: 38px;
+    margin-top: 13px;
+    padding: 0 13px 0 15px;
+    font-size: 12px;
   }
 }
