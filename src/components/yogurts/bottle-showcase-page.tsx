@@ -47,6 +47,17 @@ type BottleCopy = {
   description: string;
 };
 
+type HeroIntroCopy = {
+  eyebrow: string;
+  title: [string, string];
+  description: string;
+  primaryCta: string;
+  secondaryCta: string;
+  badgeLabel: string;
+  categories: string[];
+  features: Array<{title: string; text: string}>;
+};
+
 type EndingSlide = {
   src: string;
   title: string;
@@ -185,35 +196,70 @@ const ENDING_SLIDES = [
 const ENDING_LAST_STAGE = ENDING_SLIDES.length + 1;
 
 const HERO_CATEGORY_ITEMS = [
-  {label: "Barcha yogurtlar", icon: Milk, active: true},
-  {label: "Mevali yogurtlar", icon: Cherry},
-  {label: "Bio yogurtlar", icon: Leaf},
-  {label: "Ichimlik yogurtlar", icon: Milk},
-  {label: "Bolalar uchun", icon: Baby}
-] satisfies Array<{label: string; icon: LucideIcon; active?: boolean}>;
+  {icon: Milk, active: true},
+  {icon: Cherry},
+  {icon: Leaf},
+  {icon: Milk},
+  {icon: Baby}
+] satisfies Array<{icon: LucideIcon; active?: boolean}>;
 
 const HERO_FEATURES = [
-  {
-    title: "Tabiiy ingredientlar",
-    text: "Faqat eng sifatli sut va tabiiy mevalar.",
-    icon: Leaf
+  {icon: Leaf},
+  {icon: ShieldCheck},
+  {icon: Droplet},
+  {icon: Milk}
+] satisfies Array<{icon: LucideIcon}>;
+
+const HERO_INTRO_TRANSLATIONS: Record<Locale, HeroIntroCopy> = {
+  uz: {
+    eyebrow: "TABIATDAN - SIZ UCHUN",
+    title: ["Sof ta'm.", "Tabiiy foyda."],
+    description:
+      "SOFIN yogurtlari - tabiiy mevalar, sifatli sut va yog'urt madaniyati uyg'unligidan yaratilgan. Har kuni uchun mazali va foydali tanlov.",
+    primaryCta: "Mahsulotlarni ko'rish",
+    secondaryCta: "Ko'proq bilish",
+    badgeLabel: "TABIIY TARKIB",
+    categories: ["Barcha yogurtlar", "Mevali yogurtlar", "Bio yogurtlar", "Ichimlik yogurtlar", "Bolalar uchun"],
+    features: [
+      {title: "Tabiiy ingredientlar", text: "Faqat eng sifatli sut va tabiiy mevalar."},
+      {title: "Foydali va yengil", text: "Teri uchun foydali probiotiklar va past yog' miqdori."},
+      {title: "Sifat kafolati", text: "Zamonaviy texnologiya va qat'iy nazorat."},
+      {title: "Har kuni uchun", text: "Mazali ta'm va qulay qadoqlash."}
+    ]
   },
-  {
-    title: "Foydali va yengil",
-    text: "Teri uchun foydali probiotiklar va past yog' miqdori.",
-    icon: ShieldCheck
+  ru: {
+    eyebrow: "ОТ ПРИРОДЫ - ДЛЯ ВАС",
+    title: ["Чистый вкус.", "Натуральная польза."],
+    description:
+      "Йогурты SOFIN созданы из натуральных фруктов, качественного молока и живой йогуртовой культуры. Вкусный и полезный выбор на каждый день.",
+    primaryCta: "Смотреть продукты",
+    secondaryCta: "Узнать больше",
+    badgeLabel: "НАТУРАЛЬНЫЙ СОСТАВ",
+    categories: ["Все йогурты", "Фруктовые йогурты", "Bio йогурты", "Питьевые йогурты", "Для детей"],
+    features: [
+      {title: "Натуральные ингредиенты", text: "Только качественное молоко и натуральные фрукты."},
+      {title: "Легкий и полезный", text: "Пробиотики и мягкий вкус на каждый день."},
+      {title: "Гарантия качества", text: "Современная технология и строгий контроль."},
+      {title: "На каждый день", text: "Удобная упаковка и приятный вкус."}
+    ]
   },
-  {
-    title: "Sifat kafolati",
-    text: "Zamonaviy texnologiya va qat'iy nazorat.",
-    icon: Droplet
-  },
-  {
-    title: "Har kuni uchun",
-    text: "Mazali ta'm va qulay qadoqlash.",
-    icon: Milk
+  en: {
+    eyebrow: "FROM NATURE - FOR YOU",
+    title: ["Pure taste.", "Natural benefit."],
+    description:
+      "SOFIN yogurts are made with natural fruit, quality milk and live yogurt cultures. A tasty and wholesome choice for every day.",
+    primaryCta: "View products",
+    secondaryCta: "Learn more",
+    badgeLabel: "NATURAL INGREDIENTS",
+    categories: ["All yogurts", "Fruit yogurts", "Bio yogurts", "Drinkable yogurts", "For kids"],
+    features: [
+      {title: "Natural ingredients", text: "Only quality milk and natural fruit."},
+      {title: "Light and wholesome", text: "Probiotics and a gentle everyday taste."},
+      {title: "Quality guarantee", text: "Modern technology and strict control."},
+      {title: "For every day", text: "Convenient packaging and a pleasant taste."}
+    ]
   }
-] satisfies Array<{title: string; text: string; icon: LucideIcon}>;
+};
 
 const BOTTLE_FLAVOR_TRANSLATIONS: Record<Locale, Record<FlavorKey, BottleCopy>> = {
   uz: {
@@ -501,8 +547,13 @@ export function BottleShowcasePage() {
       return;
     }
 
-    const kind = current.placement === "overview" ? "intro" : "flavor";
-    if (kind === "intro" && direction < 0) return;
+    const isReturningToOverview =
+      current.placement !== "overview" &&
+      current.to === 0 &&
+      direction < 0;
+    const kind = current.placement === "overview" || isReturningToOverview ? "intro" : "flavor";
+
+    if (current.placement === "overview" && direction < 0) return;
 
     const isLastFlavor =
       current.placement !== "overview" &&
@@ -539,7 +590,9 @@ export function BottleShowcasePage() {
         placement: running
           ? current.placement
           : kind === "intro"
-            ? "center"
+            ? direction > 0
+              ? "center"
+              : "overview"
             : getFlavorPlacement(to),
         to,
         progress: running ? progress : 1,
@@ -619,9 +672,10 @@ export function BottleShowcasePage() {
   const toFlavor = BOTTLE_FLAVORS[transition.to];
   const easedProgress = easeInOutCubic(transition.progress);
   const endingActive = endingStage > 0;
+  const introFlavorProgress = getIntroFlavorProgress(transition, easedProgress);
   const introHeroOpacity =
     transition.kind === "intro"
-      ? 1 - smoothstep(0.08, 0.64, easedProgress)
+      ? 1 - smoothstep(0.08, 0.64, introFlavorProgress)
       : transition.placement === "overview"
         ? 1
         : 0;
@@ -631,7 +685,7 @@ export function BottleShowcasePage() {
       <div className={`${styles.showcaseScene} ${endingActive ? styles.showcaseScene_ending : ""}`}>
         <BottleBackground from={fromFlavor} progress={easedProgress} to={toFlavor} transition={transition} />
         <BottleStage transition={transition} />
-        <BottleIntroHero onExplore={() => goTo(1)} opacity={introHeroOpacity} />
+        <BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} />
         <BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} />
       </div>
       <BottleEndingExperience locale={locale} stage={endingStage} />
@@ -640,14 +694,17 @@ export function BottleShowcasePage() {
 }
 
 function BottleIntroHero({
+  locale,
   onExplore,
   opacity
 }: {
+  locale: Locale;
   onExplore: () => void;
   opacity: number;
 }) {
   const normalizedOpacity = Math.max(0, Math.min(1, opacity));
   const hidden = normalizedOpacity <= 0.01;
+  const copy = HERO_INTRO_TRANSLATIONS[locale];
 
   return (
     <section
@@ -662,46 +719,44 @@ function BottleIntroHero({
       <div className={styles.introCopy}>
         <div className={styles.introEyebrow}>
           <Leaf aria-hidden="true" size={20} />
-          <span>TABIATDAN - SIZ UCHUN</span>
+          <span>{copy.eyebrow}</span>
           <i aria-hidden="true" />
         </div>
 
         <h1>
-          <span>Sof ta&apos;m.</span>
-          <span>Tabiiy foyda.</span>
+          <span>{copy.title[0]}</span>
+          <span>{copy.title[1]}</span>
         </h1>
 
-        <p>
-          SOFIN yogurtlari - tabiiy mevalar, sifatli sut va yog&apos;urt madaniyati uyg&apos;unligidan yaratilgan.
-          Har kuni uchun mazali va foydali tanlov.
-        </p>
+        <p>{copy.description}</p>
 
         <div className={styles.introActions}>
           <button className={styles.introPrimaryAction} type="button" onClick={onExplore}>
-            <span>Mahsulotlarni ko&apos;rish</span>
+            <span>{copy.primaryCta}</span>
             <ArrowRight aria-hidden="true" size={20} strokeWidth={2.6} />
           </button>
           <button className={styles.introSecondaryAction} type="button" onClick={onExplore}>
-            <span>Ko&apos;proq bilish</span>
+            <span>{copy.secondaryCta}</span>
             <CirclePlay aria-hidden="true" size={19} strokeWidth={2.4} />
           </button>
         </div>
 
         <div className={styles.introCategories}>
-          <h2>Yogurt turlari</h2>
+          <h2>{locale === "ru" ? "Виды йогуртов" : locale === "en" ? "Yogurt types" : "Yogurt turlari"}</h2>
           <div>
-            {HERO_CATEGORY_ITEMS.map((item) => {
+            {HERO_CATEGORY_ITEMS.map((item, index) => {
               const Icon = item.icon;
+              const label = copy.categories[index] ?? copy.categories[0];
 
               return (
                 <button
-                  key={item.label}
+                  key={label}
                   aria-pressed={item.active ? "true" : "false"}
                   className={item.active ? styles.introCategoryActive : undefined}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={32} strokeWidth={1.8} />
-                  <span>{item.label}</span>
+                  <span>{label}</span>
                 </button>
               );
             })}
@@ -711,7 +766,7 @@ function BottleIntroHero({
 
       <div className={styles.introBadge}>
         <strong>100%</strong>
-        <span>TABIIY TARKIB</span>
+        <span>{copy.badgeLabel}</span>
         <Leaf aria-hidden="true" size={20} strokeWidth={2.2} />
       </div>
 
@@ -721,17 +776,18 @@ function BottleIntroHero({
       </div>
 
       <div className={styles.introFeatures}>
-        {HERO_FEATURES.map((item) => {
+        {HERO_FEATURES.map((item, index) => {
           const Icon = item.icon;
+          const feature = copy.features[index] ?? copy.features[0];
 
           return (
-            <article key={item.title}>
+            <article key={feature.title}>
               <span>
                 <Icon aria-hidden="true" size={42} strokeWidth={1.8} />
               </span>
               <div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
+                <h3>{feature.title}</h3>
+                <p>{feature.text}</p>
               </div>
             </article>
           );
@@ -826,12 +882,13 @@ function BottleCopyOverlay({
   const isOverview = transition.placement === "overview" && transition.kind !== "intro";
   const fromFlavor = BOTTLE_FLAVORS[transition.from];
   const toFlavor = BOTTLE_FLAVORS[transition.to];
+  const introFlavorProgress = getIntroFlavorProgress(transition, progress);
   const fromCopyPlacement = getCopyPlacement(getActivePlacement(transition.placement));
   const toCopyPlacement = getCopyPlacement(getFlavorPlacement(transition.to));
   const stableCopyPlacement =
     transition.kind === "intro" ? getCopyPlacement("center") : getCopyPlacement(getActivePlacement(transition.placement));
   const introFlavorOpacity =
-    transition.kind === "intro" ? smoothstep(0.62, 0.96, progress) : transition.kind === "none" && !isOverview ? 1 : 0;
+    transition.kind === "intro" ? smoothstep(0.62, 0.96, introFlavorProgress) : transition.kind === "none" && !isOverview ? 1 : 0;
   const flavorOutOpacity = transition.kind === "flavor" ? 1 - smoothstep(0.18, 0.5, progress) : 0;
   const flavorInOpacity = transition.kind === "flavor" ? smoothstep(0.54, 0.92, progress) : 0;
 
@@ -923,13 +980,14 @@ function BottleBackground({
   const tint = mixHex(from.tint, to.tint, progress);
   const eased = smoothstep(0, 1, progress);
   const sameBackground = from.background === to.background;
+  const introFlavorProgress = getIntroFlavorProgress(transition, progress);
   const heroBackgroundOpacity =
     transition.kind === "intro"
-      ? 1 - smoothstep(0.2, 0.92, progress)
+      ? 1 - smoothstep(0.2, 0.92, introFlavorProgress)
       : transition.placement === "overview"
         ? 1
         : 0;
-  const flavorBackgroundOpacity = transition.kind === "intro" ? smoothstep(0.18, 1, progress) : 1;
+  const flavorBackgroundOpacity = transition.kind === "intro" ? smoothstep(0.18, 1, introFlavorProgress) : 1;
   const backgroundLayers = sameBackground
     ? [{src: to.background, opacity: 1, scale: 1.012, shiftX: 0, shiftY: 0}]
     : [
@@ -1096,27 +1154,15 @@ function AnimatedBottleLights({transition}: {transition: TransitionState}) {
 function AnimatedBottle({transition}: {transition: TransitionState}) {
   const groupRef = useRef<THREE.Group>(null);
   const overviewRefs = useRef<Array<THREE.Group | null>>([]);
-  const fromRef = useRef<THREE.Group>(null);
-  const toRef = useRef<THREE.Group>(null);
+  const heroRefs = useRef<Array<THREE.Group | null>>([]);
   const {size} = useThree();
   const renderMobileOverview = size.width / Math.max(1, size.height) < MOBILE_ASPECT_MAX;
   const overviewFlavors = renderMobileOverview ? BOTTLE_FLAVORS.slice(0, 1) : BOTTLE_FLAVORS;
 
-  const fromFlavor = BOTTLE_FLAVORS[transition.from];
-  const toFlavor = BOTTLE_FLAVORS[transition.to];
   const eased = easeInOutCubic(transition.progress);
+  const introFlavorProgress = getIntroFlavorProgress(transition, eased);
   const overviewVisible = transition.placement === "overview" || transition.kind === "intro";
-  const heroVisible = transition.placement !== "overview" || transition.kind === "intro";
-  const flavorSwap = transition.kind === "flavor" ? smoothstep(0.46, 0.54, eased) : 0;
-  const heroFromOpacity = transition.kind === "flavor" ? 1 - flavorSwap : 0;
-  const heroToOpacity =
-    transition.kind === "flavor"
-      ? flavorSwap
-      : heroVisible
-        ? transition.kind === "intro"
-          ? smoothstep(0.78, 1, eased)
-          : 1
-        : 0;
+  const heroOpacities = BOTTLE_FLAVORS.map((_, index) => getHeroBottleOpacity(index, transition, eased, introFlavorProgress));
 
   useFrame((state, delta) => {
     const group = groupRef.current;
@@ -1142,26 +1188,28 @@ function AnimatedBottle({transition}: {transition: TransitionState}) {
         aspect,
         breathTime,
         index,
-        progress: transition.kind === "intro" ? eased : 0,
+        progress: transition.kind === "intro" ? introFlavorProgress : 0,
         visible: overviewVisible
       });
     });
 
-    applyHeroBottlePose(fromRef.current, {
-      delta,
-      breathTime,
-      metrics,
-      mobileScene,
-      progress: eased,
-      transition
-    });
-    applyHeroBottlePose(toRef.current, {
-      delta,
-      breathTime,
-      metrics,
-      mobileScene,
-      progress: eased,
-      transition
+    heroRefs.current.forEach((bottle, index) => {
+      if (!bottle) return;
+
+      const opacity = getHeroBottleOpacity(index, transition, eased, introFlavorProgress);
+      if (opacity <= 0.001) {
+        bottle.visible = false;
+        return;
+      }
+
+      applyHeroBottlePose(bottle, {
+        delta,
+        breathTime,
+        metrics,
+        mobileScene,
+        progress: transition.kind === "intro" ? introFlavorProgress : eased,
+        transition
+      });
     });
   });
 
@@ -1174,15 +1222,19 @@ function AnimatedBottle({transition}: {transition: TransitionState}) {
             overviewRefs.current[index] = node;
           }}
         >
-          <BottleModel flavor={flavor} opacity={getOverviewBottleOpacity(index, transition, eased)} />
+          <BottleModel flavor={flavor} opacity={getOverviewBottleOpacity(index, transition, introFlavorProgress)} />
         </group>
       ))}
-      <group ref={fromRef}>
-        <BottleModel flavor={fromFlavor} opacity={heroFromOpacity} />
-      </group>
-      <group ref={toRef}>
-        <BottleModel flavor={toFlavor} opacity={heroToOpacity} />
-      </group>
+      {BOTTLE_FLAVORS.map((flavor, index) => (
+        <group
+          key={`hero-${flavor.key}`}
+          ref={(node) => {
+            heroRefs.current[index] = node;
+          }}
+        >
+          <BottleModel flavor={flavor} opacity={heroOpacities[index] ?? 0} />
+        </group>
+      ))}
     </group>
   );
 }
@@ -1418,6 +1470,11 @@ function getFlavorCopy(flavor: BottleFlavor, locale: Locale): BottleCopy {
   };
 }
 
+function getIntroFlavorProgress(transition: TransitionState, progress: number) {
+  if (transition.kind !== "intro") return progress;
+  return transition.direction > 0 ? progress : 1 - progress;
+}
+
 function normalizeLocale(locale: string): Locale {
   if (locale === "uz" || locale === "ru" || locale === "en") return locale;
   return "ru";
@@ -1451,6 +1508,30 @@ function getOverviewBottleOpacity(index: number, transition: TransitionState, pr
   if (index === 0) return 1 - smoothstep(0.84, 1, progress);
 
   return 1 - smoothstep(0.38, 0.86, progress);
+}
+
+function getHeroBottleOpacity(
+  index: number,
+  transition: TransitionState,
+  progress: number,
+  introFlavorProgress: number
+) {
+  if (transition.kind === "flavor") {
+    const flavorSwap = smoothstep(0.46, 0.54, progress);
+
+    if (index === transition.from) return 1 - flavorSwap;
+    if (index === transition.to) return flavorSwap;
+    return 0;
+  }
+
+  if (transition.kind === "intro") {
+    if (index !== transition.to) return 0;
+    return smoothstep(0.78, 1, introFlavorProgress);
+  }
+
+  if (transition.placement !== "overview" && index === transition.to) return 1;
+
+  return 0;
 }
 
 function applyOverviewBottlePose(
@@ -1821,7 +1902,9 @@ function Fallback() {
   return null;
 }
 
-useGLTF.preload(MODEL_PATH);
-BOTTLE_FLAVORS.forEach((flavor) => {
-  useLoader.preload(THREE.TextureLoader, flavor.texture);
-});
+if (typeof window !== "undefined") {
+  useGLTF.preload(MODEL_PATH);
+  BOTTLE_FLAVORS.forEach((flavor) => {
+    useLoader.preload(THREE.TextureLoader, flavor.texture);
+  });
+}
