@@ -100,20 +100,7 @@ export function HomeScrollShowcase({
   const copy = HOME_SCROLL_COPY[locale];
 
   return (
-    <main className="relative z-20 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_48%,#d1dcea_100%)]">
-      <div className="pointer-events-none absolute inset-0">
-        <Image
-          src={assetUrl("/images/hero/hero-products.webp")}
-          alt=""
-          fill
-          unoptimized
-          quality={100}
-          sizes="100vw"
-          className="object-cover opacity-70"
-        />
-      </div>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.42),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(185,214,255,0.18),transparent_34%),linear-gradient(180deg,rgba(226,237,249,0.42),rgba(226,237,249,0.24)_38%,rgba(217,228,242,0.48))]" />
-
+    <main className="relative z-20 bg-[#d3dfeb]">
       <PinnedProductScenes copy={copy} locale={locale} products={products} />
       <PinnedRecipeScenes copy={copy} locale={locale} recipes={recipes} />
     </main>
@@ -184,6 +171,7 @@ function DesktopProductScenes({
       style={{height: `${Math.max(count, 1) * 100}svh`}}
     >
       <div className="sticky top-0 z-10 flex h-svh touch-pan-y select-none flex-col items-center overflow-hidden px-4 pb-8 pt-[104px] sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
+        <SceneBackdrop tone="blue" />
         <ShowcaseHeading
           eyebrow={copy.productsEyebrow}
           title={copy.productsTitle}
@@ -191,7 +179,7 @@ function DesktopProductScenes({
         />
 
         <div
-          className="relative mt-8 w-screen touch-pan-y overflow-visible lg:mt-10"
+          className="relative z-10 mt-8 w-screen touch-pan-y overflow-visible lg:mt-10"
           {...swipeHandlers}
         >
           <motion.div
@@ -301,6 +289,7 @@ function DesktopRecipeScenes({
       style={{height: `${Math.max(count, 1) * 100}svh`}}
     >
       <div className="sticky top-0 z-10 flex h-svh touch-pan-y select-none flex-col items-center overflow-hidden px-4 pb-8 pt-[104px] sm:px-8 sm:pb-10 sm:pt-[112px] lg:px-10 lg:pt-[116px]">
+        <SceneBackdrop tone="warm" />
         <ShowcaseHeading
           eyebrow={copy.recipesEyebrow}
           title={copy.recipesTitle}
@@ -308,7 +297,7 @@ function DesktopRecipeScenes({
         />
 
         <div
-          className="relative mt-8 w-screen touch-pan-y overflow-visible lg:mt-10"
+          className="relative z-10 mt-8 w-screen touch-pan-y overflow-visible lg:mt-10"
           {...swipeHandlers}
         >
           <motion.div
@@ -369,9 +358,10 @@ function MobileProductShowcase({
 }) {
   return (
     <section className="relative overflow-hidden px-4 py-14 sm:px-6">
+      <SceneBackdrop tone="blue" />
       <MobileShowcaseHeading eyebrow={copy.productsEyebrow} title={copy.productsTitle} />
 
-      <div className="-mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
+      <div className="relative z-10 -mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
         <div className="flex w-max gap-4">
           {products.map((product) => {
             const title = getProductDisplayTitle(product.title[locale]);
@@ -420,9 +410,10 @@ function MobileRecipeShowcase({
 }) {
   return (
     <section className="relative overflow-hidden px-4 py-14 sm:px-6">
+      <SceneBackdrop tone="warm" />
       <MobileShowcaseHeading eyebrow={copy.recipesEyebrow} title={copy.recipesTitle} />
 
-      <div className="-mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
+      <div className="relative z-10 -mx-4 mt-7 snap-x snap-mandatory overflow-x-auto px-4 pb-4 product-filter-scroll">
         <div className="flex w-max gap-4">
           {recipes.map((recipe) => (
             <Link
@@ -459,7 +450,7 @@ function MobileRecipeShowcase({
 
 function MobileShowcaseHeading({eyebrow, title}: {eyebrow: string; title: string}) {
   return (
-    <div className="mx-auto max-w-[620px] text-center">
+    <div className="relative z-10 mx-auto max-w-[620px] text-center">
       {eyebrow ? (
         <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-500/80">
           {eyebrow}
@@ -468,6 +459,28 @@ function MobileShowcaseHeading({eyebrow, title}: {eyebrow: string; title: string
       <h2 className="mx-auto mt-2 text-balance text-[clamp(2rem,10vw,3.4rem)] font-semibold leading-[0.98] text-[var(--brand-primary)]">
         {title}
       </h2>
+    </div>
+  );
+}
+
+function SceneBackdrop({tone}: {tone: "blue" | "warm"}) {
+  const veil =
+    tone === "blue"
+      ? "bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.26),transparent_28%),radial-gradient(circle_at_76%_16%,rgba(91,141,207,0.16),transparent_36%),linear-gradient(180deg,rgba(226,236,247,0.18),rgba(211,224,238,0.1)_42%,rgba(195,211,229,0.2))]"
+      : "bg-[radial-gradient(circle_at_18%_0%,rgba(255,245,230,0.24),transparent_30%),radial-gradient(circle_at_82%_18%,rgba(225,148,54,0.15),transparent_35%),linear-gradient(180deg,rgba(232,220,203,0.14),rgba(215,226,236,0.08)_42%,rgba(206,215,226,0.2))]";
+
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#cfdce8]">
+      <Image
+        src={assetUrl("/images/hero/hero-products.webp")}
+        alt=""
+        fill
+        unoptimized
+        sizes="100vw"
+        className="object-cover opacity-95 saturate-[1.08] contrast-[1.05]"
+      />
+      <div className={`absolute inset-0 ${veil}`} />
+      <div className="absolute inset-x-0 bottom-0 h-[32vh] bg-[linear-gradient(180deg,transparent,rgba(210,222,235,0.2)_54%,rgba(207,220,232,0.38))]" />
     </div>
   );
 }
@@ -902,7 +915,7 @@ function ShowcaseHeading({
 
   return (
     <motion.div
-      className="mx-auto mb-5 w-full text-center will-change-transform sm:mb-7"
+      className="relative z-10 mx-auto mb-5 w-full text-center will-change-transform sm:mb-7"
       style={{
         maxWidth: "1480px",
         y,
@@ -951,7 +964,7 @@ function ScenePagination({
 
   return (
     <motion.div
-      className="mt-6 flex items-center justify-center gap-[10px] sm:mt-7"
+      className="relative z-10 mt-6 flex items-center justify-center gap-[10px] sm:mt-7"
       style={{
         opacity,
         y,
@@ -1023,12 +1036,11 @@ function ProductSceneCard({
 
   return (
     <motion.article
-      className={`relative h-[min(50vh,470px)] ${CARD_WIDTH_CLASS} shrink-0 will-change-transform sm:h-[min(54vh,510px)] lg:h-[min(56vh,540px)]`}
+      className={`relative h-[min(50vh,470px)] ${CARD_WIDTH_CLASS} shrink-0 transform-gpu will-change-transform sm:h-[min(54vh,510px)] lg:h-[min(56vh,540px)]`}
       style={{
         opacity: visual.opacity,
         scale: visual.scale,
         y: visual.y,
-        rotate: visual.rotate,
         transformOrigin: "center bottom",
         zIndex: isActive ? 30 : Math.max(1, 18 - Math.abs(slotIndex - activeIndex) * 3)
       }}
@@ -1038,21 +1050,20 @@ function ProductSceneCard({
       <Link
         href={`/products/${product.slug}`}
         onClick={handleClick}
-        className="group relative block h-full overflow-hidden rounded-[22px] shadow-[0_20px_60px_rgba(15,23,42,0.20),0_4px_14px_rgba(15,23,42,0.10)]"
+        className="group relative block h-full overflow-hidden rounded-[24px] bg-white/92 shadow-[0_26px_70px_rgba(15,32,56,0.18),0_6px_18px_rgba(15,23,42,0.10)] [backface-visibility:hidden] [transform:translateZ(0)]"
+        style={{clipPath: "inset(0 round 24px)"}}
       >
-        <motion.div className="absolute inset-0 bg-white">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fc_48%,#e6edf5_100%)]">
           <Image
             src={getProductImage(product, realIndex)}
             alt={title}
             fill
             sizes="(min-width: 900px) 420px, (min-width: 640px) 46vw, 84vw"
-            className="object-contain p-8 transition duration-700 group-hover:scale-[1.04]"
+            className="object-contain p-9 transition duration-700 group-hover:scale-[1.04]"
           />
-        </motion.div>
+        </div>
 
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,16,32,0.02)_0%,rgba(8,16,32,0)_40%,rgba(8,16,32,0.40)_68%,rgba(8,16,32,0.82)_100%)]" />
-
-        <ActiveCardSheen activity={activity} visual={visual} />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,19,34,0)_0%,rgba(10,19,34,0)_38%,rgba(10,19,34,0.26)_66%,rgba(10,19,34,0.82)_100%)]" />
 
         <motion.div
           className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-7"
@@ -1090,7 +1101,7 @@ function ProductSceneCard({
 
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[22px] ring-[1.5px] ring-white/50"
+          className="pointer-events-none absolute inset-0 rounded-[24px] ring-[1.5px] ring-white/58"
           style={{opacity: visual.ringOpacity}}
         />
       </Link>
@@ -1138,12 +1149,11 @@ function RecipeSceneCard({
 
   return (
     <motion.article
-      className={`relative h-[min(50vh,470px)] ${CARD_WIDTH_CLASS} shrink-0 will-change-transform sm:h-[min(54vh,510px)] lg:h-[min(56vh,540px)]`}
+      className={`relative h-[min(50vh,470px)] ${CARD_WIDTH_CLASS} shrink-0 transform-gpu will-change-transform sm:h-[min(54vh,510px)] lg:h-[min(56vh,540px)]`}
       style={{
         opacity: visual.opacity,
         scale: visual.scale,
         y: visual.y,
-        rotate: visual.rotate,
         transformOrigin: "center bottom",
         zIndex: isActive ? 30 : Math.max(1, 18 - Math.abs(slotIndex - activeIndex) * 3)
       }}
@@ -1153,9 +1163,10 @@ function RecipeSceneCard({
       <Link
         href={`/recipes/${recipe.slug}`}
         onClick={handleClick}
-        className="group relative block h-full overflow-hidden rounded-[22px] shadow-[0_20px_60px_rgba(15,23,42,0.20),0_4px_14px_rgba(15,23,42,0.10)]"
+        className="group relative block h-full overflow-hidden rounded-[24px] bg-slate-950 shadow-[0_26px_70px_rgba(35,24,16,0.2),0_6px_18px_rgba(15,23,42,0.10)] [backface-visibility:hidden] [transform:translateZ(0)]"
+        style={{clipPath: "inset(0 round 24px)"}}
       >
-        <motion.div className="absolute inset-0">
+        <div className="absolute inset-0">
           <Image
             src={recipe.image}
             alt={recipe.title[locale]}
@@ -1163,11 +1174,9 @@ function RecipeSceneCard({
             sizes="(min-width: 900px) 420px, (min-width: 640px) 46vw, 84vw"
             className="object-cover transition duration-700 group-hover:scale-[1.04]"
           />
-        </motion.div>
+        </div>
 
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(12,8,4,0.14)_0%,rgba(12,8,4,0.04)_38%,rgba(12,8,4,0.36)_68%,rgba(12,8,4,0.76)_100%)]" />
-
-        <ActiveCardSheen activity={activity} visual={visual} />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(12,8,4,0.06)_0%,rgba(12,8,4,0.12)_44%,rgba(12,8,4,0.38)_68%,rgba(12,8,4,0.82)_100%)]" />
 
         <motion.div
           className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-7"
@@ -1209,7 +1218,7 @@ function RecipeSceneCard({
 
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[22px] ring-[1.5px] ring-white/50"
+          className="pointer-events-none absolute inset-0 rounded-[24px] ring-[1.5px] ring-white/50"
           style={{opacity: visual.ringOpacity}}
         />
       </Link>
@@ -1241,29 +1250,6 @@ function ActiveCardGlow({
     />
   );
 }
-
-function ActiveCardSheen({
-  activity,
-  visual
-}: {
-  activity: ReturnType<typeof useCardActivity>;
-  visual: ReturnType<typeof useSceneCardVisuals>;
-}) {
-  return (
-    <motion.div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 bg-[linear-gradient(118deg,transparent_12%,rgba(255,255,255,0.12)_38%,transparent_62%)]"
-      style={{
-        opacity: visual.sheenOpacity,
-        x: activity.sheenX
-      }}
-    />
-  );
-}
-
-// ---------------------------------------------------------------------------
-// useSceneCardVisuals
-// ---------------------------------------------------------------------------
 
 function useSceneCardVisuals({
   activity,
@@ -1299,57 +1285,6 @@ function useSceneCardVisuals({
     }
   );
 
-  const rotate = useTransform(
-    [activity.rotate, sceneProgress] as MotionValue<number>[],
-    (values) => {
-      const [activeRotate, scene] = values as [number, number];
-
-      return lerp(0, activeRotate, scene);
-    }
-  );
-
-  const blur = useTransform(
-    [activity.blur, sceneProgress] as MotionValue<number>[],
-    (values) => {
-      const [activeBlur, scene] = values as [number, number];
-
-      return lerp(0, activeBlur, scene);
-    }
-  );
-
-  const brightness = useTransform(
-    [activity.brightness, sceneProgress] as MotionValue<number>[],
-    (values) => {
-      const [activeBrightness, scene] = values as [number, number];
-
-      return lerp(1, activeBrightness, scene);
-    }
-  );
-
-  const saturate = useTransform(
-    [activity.saturate, sceneProgress] as MotionValue<number>[],
-    (values) => {
-      const [activeSaturate, scene] = values as [number, number];
-
-      return lerp(1, activeSaturate, scene);
-    }
-  );
-
-  const filter = useTransform(
-    [blur, brightness, saturate] as MotionValue<number>[],
-    (values) => {
-      const [blurValue, brightnessValue, saturateValue] = values as [
-        number,
-        number,
-        number
-      ];
-
-      return `blur(${blurValue.toFixed(2)}px) brightness(${brightnessValue.toFixed(
-        3
-      )}) saturate(${saturateValue.toFixed(3)})`;
-    }
-  );
-
   const glowOpacity = useTransform(
     [activity.glowOpacity, sceneProgress] as MotionValue<number>[],
     (values) => {
@@ -1365,15 +1300,6 @@ function useSceneCardVisuals({
       const [activeRing, scene] = values as [number, number];
 
       return activeRing * scene;
-    }
-  );
-
-  const sheenOpacity = useTransform(
-    [activity.sheenOpacity, sceneProgress] as MotionValue<number>[],
-    (values) => {
-      const [activeSheen, scene] = values as [number, number];
-
-      return activeSheen * scene;
     }
   );
 
@@ -1408,11 +1334,8 @@ function useSceneCardVisuals({
     opacity,
     scale,
     y,
-    rotate,
-    filter,
     glowOpacity,
     ringOpacity,
-    sheenOpacity,
     ctaOpacity,
     ctaY,
     contentY
@@ -1429,18 +1352,11 @@ function useCardActivity(activeMotion: MotionValue<number>, slotIndex: number) {
   const focus = useTransform(distance, [0, 1, 2.25], [1, 0.34, 0]);
 
   const opacity = useTransform(distance, [0, 1, 2.25], [1, 0.68, 0.38]);
-  const scale = useTransform(distance, [0, 1, 2.25], [1.06, 0.84, 0.74]);
-  const y = useTransform(distance, [0, 1, 2.25], [-18, 44, 82]);
-  const rotate = useTransform(offset, [-2.25, -1, 0, 1, 2.25], [-6, -2.6, 0, 2.6, 6]);
-
-  const blur = useTransform(distance, [0, 1, 2.25], [0, 0.4, 1.1]);
-  const brightness = useTransform(distance, [0, 1, 2.25], [1, 0.88, 0.78]);
-  const saturate = useTransform(distance, [0, 1, 2.25], [1.05, 0.92, 0.84]);
+  const scale = useTransform(distance, [0, 1, 2.25], [1.04, 0.88, 0.78]);
+  const y = useTransform(distance, [0, 1, 2.25], [-12, 34, 68]);
 
   const ringOpacity = useTransform(focus, [0.42, 1], [0, 1]);
-  const glowOpacity = useTransform(focus, [0, 0.52, 1], [0, 0.24, 0.86]);
-  const sheenOpacity = useTransform(focus, [0.5, 1], [0, 0.62]);
-  const sheenX = useTransform(focus, [0, 1], ["-55%", "45%"]);
+  const glowOpacity = useTransform(focus, [0, 0.52, 1], [0, 0.18, 0.58]);
 
   const contentY = useTransform(focus, [0, 1], [4, 0]);
 
@@ -1451,14 +1367,8 @@ function useCardActivity(activeMotion: MotionValue<number>, slotIndex: number) {
     opacity,
     scale,
     y,
-    rotate,
-    blur,
-    brightness,
-    saturate,
     ringOpacity,
     glowOpacity,
-    sheenOpacity,
-    sheenX,
     contentY,
     ctaOpacity,
     ctaY
