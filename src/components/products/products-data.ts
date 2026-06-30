@@ -897,13 +897,13 @@ export const products: ProductItem[] = [
     openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
   },
   {
-    slug: "ayran-basil-900",
+    slug: "ayron-plain",
     badge: "21",
     category: "ayran",
     title: {
-      uz: "Rayhonli ayran — 900 g",
-      ru: "Айран со вкусом базилика — 900 г",
-      en: "Basil Ayran — 900 g"
+      uz: "Ayron 1%",
+      ru: "Айран 1%",
+      en: "Ayran 1%"
     },
     subtitle: {
       uz: "1% yog‘li ayran",
@@ -911,18 +911,18 @@ export const products: ProductItem[] = [
       en: "Ayran 1%"
     },
     weight: {
-      uz: "Sof massa: 900 g",
-      ru: "Масса нетто: 900 g",
-      en: "Net weight: 900 g"
+      uz: "Hajmi: 900 ml",
+      ru: "Объем: 900 ml",
+      en: "Volume: 900 ml"
     },
-    image: "/images/products/ayran-basil-1000.webp",
-    gallery: ["/images/products/ayran-basil-1000.webp"],
+    image: "/images/products/alone/ayron-green.webp",
+    gallery: ["/images/products/alone/ayron-green.webp"],
     accent: "from-[#eef2fa] to-[#e7edf8]",
     fatPercent: "1%",
-    netWeight: "900 g",
+    netWeight: "900 ml",
     storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "900 g butilka", ru: "Бутылка 900 g", en: "900 g bottle"},
-    formatValue: {uz: "Rayhonli ayran", ru: "Айран с базиликом", en: "Ayran with basil"},
+    packagingValue: {uz: "900 ml butilka", ru: "Бутылка 900 ml", en: "900 ml bottle"},
+    formatValue: {uz: "Ayron", ru: "Айран", en: "Ayran"},
     nutrition: {
       energy: "24 kkal",
       fat: "1 g",
@@ -936,9 +936,9 @@ export const products: ProductItem[] = [
       en: "Standardized milk, iodized salt, drinking water, starter culture."
     },
     storageText: {
-      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
-      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
-      en: "Storage conditions: keep at 4 ± 2°C."
+      uz: "Saqlash sharoiti: 4 ± 2°C haroratda va havoning nisbiy namligi 70% bo‘lgan sharoitda saqlansin.",
+      ru: "Условия хранения: хранить при температуре 4 ± 2°C и относительной влажности воздуха 70%.",
+      en: "Storage conditions: keep at 4 ± 2°C and 70% relative humidity."
     },
     productionDateText: {
       uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
@@ -990,89 +990,32 @@ export const products: ProductItem[] = [
     openedText: {uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.", ru: "После открытия употребить в течение 24 часов.", en: "Consume within 24 hours after opening."}
   },
   {
-    slug: "ayran-basil-900",
-    badge: "21",
-    category: "ayran",
-    title: {
-      uz: "Rayhonli ayran — 900 g",
-      ru: "Айран со вкусом базилика — 900 г",
-      en: "Basil Ayran — 900 g"
-    },
-    subtitle: {
-      uz: "1% yog‘li ayran",
-      ru: "Айран 1%",
-      en: "Ayran 1%"
-    },
-    weight: {
-      uz: "Sof massa: 900 g",
-      ru: "Масса нетто: 900 g",
-      en: "Net weight: 900 g"
-    },
-    image: "/images/products/ayran-basil-1000.webp",
-    gallery: ["/images/products/ayran-basil-1000.webp"],
-    accent: "from-[#eef2fa] to-[#e7edf8]",
-    fatPercent: "1%",
-    netWeight: "900 g",
-    storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "900 g butilka", ru: "Бутылка 900 g", en: "900 g bottle"},
-    formatValue: {uz: "Rayhonli ayran", ru: "Айран с базиликом", en: "Ayran with basil"},
-    nutrition: {
-      energy: "24 kkal",
-      fat: "1 g",
-      protein: "1,1 g",
-      carbs: "1,4 g"
-    },
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {
-      uz: "Me’yorlashtirilgan sut, yodlangan osh tuzi, ichimlik suvi, achitqi.",
-      ru: "Нормализованное молоко, йодированная соль, питьевая вода, закваска.",
-      en: "Standardized milk, iodized salt, drinking water, starter culture."
-    },
-    storageText: {
-      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
-      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
-      en: "Storage conditions: keep at 4 ± 2°C."
-    },
-    productionDateText: {
-      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
-      ru: "Дата производства и срок годности указаны на упаковке.",
-      en: "Production date and expiry date are indicated on the package."
-    },
-    manufacturer,
-    address,
-    openedText: {
-      uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
-      ru: "После открытия употребить в течение 24 часов.",
-      en: "Consume within 24 hours after opening."
-    }
-  },
-  {
-    slug: "ayran-basil-450",
+    slug: "ayron-rayhonli",
     badge: "22",
     category: "ayran",
     title: {
-      uz: "Rayhonli ayran — 450 g",
-      ru: "Айран со вкусом базилика — 450 г",
-      en: "Basil Ayran — 450 g"
+      uz: "Rayhonli ayron 1%",
+      ru: "Айран с базиликом 1%",
+      en: "Basil Ayran 1%"
     },
     subtitle: {
-      uz: "1% yog‘li ayran",
-      ru: "Айран 1%",
-      en: "Ayran 1%"
+      uz: "Rayhonli 1% yog‘li ayron",
+      ru: "Айран 1% с базиликом",
+      en: "1% ayran with basil"
     },
     weight: {
-      uz: "Sof massa: 450 g",
-      ru: "Масса нетто: 450 g",
-      en: "Net weight: 450 g"
+      uz: "Hajmi: 900 ml",
+      ru: "Объем: 900 ml",
+      en: "Volume: 900 ml"
     },
-    image: "/images/products/ayran-basil-450.webp",
-    gallery: ["/images/products/ayran-basil-450.webp"],
-    accent: "from-[#eef2fa] to-[#e7edf8]",
+    image: "/images/products/alone/ayron-pink.webp",
+    gallery: ["/images/products/alone/ayron-pink.webp"],
+    accent: "from-[#fff0f7] to-[#f7dbe9]",
     fatPercent: "1%",
-    netWeight: "450 g",
+    netWeight: "900 ml",
     storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "450 g butilka", ru: "Бутылка 450 g", en: "450 g bottle"},
-    formatValue: {uz: "Rayhonli ayran", ru: "Айран с базиликом", en: "Ayran with basil"},
+    packagingValue: {uz: "900 ml butilka", ru: "Бутылка 900 ml", en: "900 ml bottle"},
+    formatValue: {uz: "Rayhonli ayron", ru: "Айран с базиликом", en: "Ayran with basil"},
     nutrition: {
       energy: "24 kkal",
       fat: "1 g",
@@ -1086,9 +1029,9 @@ export const products: ProductItem[] = [
       en: "Standardized milk, iodized salt, drinking water, starter culture."
     },
     storageText: {
-      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
-      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
-      en: "Storage conditions: keep at 4 ± 2°C."
+      uz: "Saqlash sharoiti: 4 ± 2°C haroratda va havoning nisbiy namligi 70% bo‘lgan sharoitda saqlansin.",
+      ru: "Условия хранения: хранить при температуре 4 ± 2°C и относительной влажности воздуха 70%.",
+      en: "Storage conditions: keep at 4 ± 2°C and 70% relative humidity."
     },
     productionDateText: {
       uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
@@ -1098,123 +1041,9 @@ export const products: ProductItem[] = [
     manufacturer,
     address,
     openedText: {
-      uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
-      ru: "После открытия употребить в течение 24 часов.",
-      en: "Consume within 24 hours after opening."
-    }
-  },
-  {
-    slug: "ayran-basil-1000",
-    badge: "23",
-    category: "ayran",
-    title: {
-      uz: "Rayhonli ayran — 1 l",
-      ru: "Айран со вкусом базилика — 1 л",
-      en: "Basil Ayran — 1 l"
-    },
-    subtitle: {
-      uz: "1% yog‘li ayran",
-      ru: "Айран 1%",
-      en: "Ayran 1%"
-    },
-    weight: {
-      uz: "Sof massa: 1 l",
-      ru: "Масса нетто: 1 l",
-      en: "Net weight: 1 l"
-    },
-    image: "/images/products/ayran-basil-1000.webp",
-    gallery: ["/images/products/ayran-basil-1000.webp"],
-    accent: "from-[#eef2fa] to-[#e7edf8]",
-    fatPercent: "1%",
-    netWeight: "1 l",
-    storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "1 l butilka", ru: "Бутылка 1 l", en: "1 l bottle"},
-    formatValue: {uz: "Rayhonli ayran", ru: "Айран с базиликом", en: "Ayran with basil"},
-    nutrition: {
-      energy: "24 kkal",
-      fat: "1 g",
-      protein: "1,1 g",
-      carbs: "1,4 g"
-    },
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {
-      uz: "Me’yorlashtirilgan sut, yodlangan osh tuzi, ichimlik suvi, achitqi.",
-      ru: "Нормализованное молоко, йодированная соль, питьевая вода, закваска.",
-      en: "Standardized milk, iodized salt, drinking water, starter culture."
-    },
-    storageText: {
-      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
-      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
-      en: "Storage conditions: keep at 4 ± 2°C."
-    },
-    productionDateText: {
-      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
-      ru: "Дата производства и срок годности указаны на упаковке.",
-      en: "Production date and expiry date are indicated on the package."
-    },
-    manufacturer,
-    address,
-    openedText: {
-      uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
-      ru: "После открытия употребить в течение 24 часов.",
-      en: "Consume within 24 hours after opening."
-    }
-  },
-  {
-    slug: "ayran-plain-1000",
-    badge: "24",
-    category: "ayran",
-    title: {
-      uz: "Ayran — 1 l",
-      ru: "Айран — 1 л",
-      en: "Ayran — 1 l"
-    },
-    subtitle: {
-      uz: "1% yog‘li ayran",
-      ru: "Айран 1%",
-      en: "Ayran 1%"
-    },
-    weight: {
-      uz: "Sof massa: 1 l",
-      ru: "Масса нетто: 1 l",
-      en: "Net weight: 1 l"
-    },
-    image: "/images/products/ayran-basil-1000.webp",
-    gallery: ["/images/products/ayran-basil-1000.webp"],
-    accent: "from-[#eef2fa] to-[#e7edf8]",
-    fatPercent: "1%",
-    netWeight: "1 l",
-    storageValue: {uz: "20 kun", ru: "20 дней", en: "20 days"},
-    packagingValue: {uz: "1 l butilka", ru: "Бутылка 1 l", en: "1 l bottle"},
-    formatValue: {uz: "Ayran", ru: "Айран", en: "Ayran"},
-    nutrition: {
-      energy: "24 kkal",
-      fat: "1 g",
-      protein: "1,1 g",
-      carbs: "1,4 g"
-    },
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {
-      uz: "Me’yorlashtirilgan sut, yodlangan osh tuzi, ichimlik suvi, achitqi.",
-      ru: "Нормализованное молоко, йодированная соль, питьевая вода, закваска.",
-      en: "Standardized milk, iodized salt, drinking water, starter culture."
-    },
-    storageText: {
-      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
-      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
-      en: "Storage conditions: keep at 4 ± 2°C."
-    },
-    productionDateText: {
-      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.",
-      ru: "Дата производства и срок годности указаны на упаковке.",
-      en: "Production date and expiry date are indicated on the package."
-    },
-    manufacturer,
-    address,
-    openedText: {
-      uz: "Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
-      ru: "После открытия употребить в течение 24 часов.",
-      en: "Consume within 24 hours after opening."
+      uz: "Saqlash muddati 20 kun. Ochilgandan so‘ng 24 soat davomida iste’mol qilinsin.",
+      ru: "Срок хранения 20 дней. После открытия употребить в течение 24 часов.",
+      en: "Shelf life is 20 days. Consume within 24 hours after opening."
     }
   },
   {
@@ -1232,23 +1061,24 @@ export const products: ProductItem[] = [
       en: "Fermented dairy product"
     },
     weight: {
-      uz: "Qadoq hajmi: ko‘rsatiladi",
-      ru: "Объем: уточняется",
-      en: "Pack size: to be specified"
+      uz: "Hajmi: 900 ml",
+      ru: "Объем: 900 ml",
+      en: "Volume: 900 ml"
     },
-    image: "/images/products/alone/kefir32.webp",
-    gallery: ["/images/products/alone/kefir32.webp"],
+    image: "/images/products/alone/qatiq1.webp",
+    gallery: ["/images/products/alone/qatiq1.webp", "/images/products/alone/qatiq3.webp"],
     accent: "from-[#eef4fa] to-[#e5edf6]",
     fatPercent: "3%",
+    netWeight: "900 ml",
     storageValue: {
       uz: "20 kun",
       ru: "20 дней",
       en: "20 days"
     },
     packagingValue: {
-      uz: "Mahsulot kartasiga qo‘shiladi",
-      ru: "Будет добавлено в карточку",
-      en: "Will be added to the card"
+      uz: "900 ml qadoq",
+      ru: "Упаковка 900 ml",
+      en: "900 ml pack"
     },
     formatValue: {
       uz: "Qatiq",
@@ -1304,24 +1134,24 @@ export const products: ProductItem[] = [
       en: "Sour cream 20%"
     },
     weight: {
-      uz: "Sof massa: 180 g",
-      ru: "Масса нетто: 180 g",
-      en: "Net weight: 180 g"
+      uz: "Sof massa: 180 g / 350 g",
+      ru: "Масса нетто: 180 g / 350 g",
+      en: "Net weight: 180 g / 350 g"
     },
     image: "/images/products/alone/smetana-180g.webp",
-    gallery: ["/images/products/alone/smetana-180g.webp"],
+    gallery: ["/images/products/alone/smetana-180g.webp", "/images/products/alone/smetana-350g.webp"],
     accent: "from-[#f1f5fa] to-[#e8edf5]",
     fatPercent: "20%",
-    netWeight: "180 g",
+    netWeight: "180/350 g",
     storageValue: {
       uz: "21 kun",
       ru: "21 день",
       en: "21 days"
     },
     packagingValue: {
-      uz: "180 g stakan",
-      ru: "Стакан 180 g",
-      en: "180 g cup"
+      uz: "180 g va 350 g stakan",
+      ru: "Стакан 180 g и 350 g",
+      en: "180 g and 350 g cup"
     },
     formatValue: {
       uz: "Smetana",
@@ -1377,24 +1207,24 @@ export const products: ProductItem[] = [
       en: "Milk cream 45%"
     },
     weight: {
-      uz: "Sof massa: 200 g",
-      ru: "Масса нетто: 200 g",
-      en: "Net weight: 200 g"
+      uz: "Sof massa: 200 g / 350 g",
+      ru: "Масса нетто: 200 g / 350 g",
+      en: "Net weight: 200 g / 350 g"
     },
     image: "/images/products/alone/qaymaq-180g.webp",
-    gallery: ["/images/products/alone/qaymaq-180g.webp"],
+    gallery: ["/images/products/alone/qaymaq-180g.webp", "/images/products/alone/qaymaq-350g.webp"],
     accent: "from-[#f1f5fa] to-[#e8edf5]",
     fatPercent: "45%",
-    netWeight: "200 g",
+    netWeight: "200/350 g",
     storageValue: {
       uz: "21 kun",
       ru: "21 день",
       en: "21 days"
     },
     packagingValue: {
-      uz: "200 g stakan",
-      ru: "Стакан 200 g",
-      en: "200 g cup"
+      uz: "200 g va 350 g stakan",
+      ru: "Стакан 200 g и 350 g",
+      en: "200 g and 350 g cup"
     },
     formatValue: {
       uz: "Qaymaq",
@@ -1412,120 +1242,6 @@ export const products: ProductItem[] = [
       ru: "Состав",
       en: "Composition"
     },
-    composition: {
-      uz: "Me’yorlashtirilgan qaymoq.",
-      ru: "Нормализованные сливки.",
-      en: "Standardized cream."
-    },
-    storageText: {
-      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
-      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
-      en: "Storage conditions: keep at 4 ± 2°C."
-    },
-    productionDateText: {
-      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati idishda ko‘rsatilgan.",
-      ru: "Дата производства и срок годности указаны на упаковке.",
-      en: "Production date and expiry date are indicated on the package."
-    },
-    manufacturer,
-    address,
-    openedText: {
-      uz: "Saqlash muddati 21 kun. Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
-      ru: "Срок хранения 21 день. После открытия употребить в течение 24 часов.",
-      en: "Shelf life is 21 days. Consume within 24 hours after opening."
-    }
-  },
-  {
-    slug: "smetana-350g",
-    badge: "28",
-    category: "cream",
-    title: {
-      uz: "Smetana 350 g",
-      ru: "Сметана 350 g",
-      en: "Smetana 350 g"
-    },
-    subtitle: {
-      uz: "20% yog‘li smetana",
-      ru: "Сметана 20%",
-      en: "Sour cream 20%"
-    },
-    weight: {
-      uz: "Sof massa: 350 g",
-      ru: "Масса нетто: 350 g",
-      en: "Net weight: 350 g"
-    },
-    image: "/images/products/alone/smetana-350g.webp",
-    gallery: ["/images/products/alone/smetana-350g.webp"],
-    accent: "from-[#f1f5fa] to-[#e8edf5]",
-    fatPercent: "20%",
-    netWeight: "350 g",
-    storageValue: {uz: "21 kun", ru: "21 день", en: "21 days"},
-    packagingValue: {uz: "350 g stakan", ru: "Стакан 350 g", en: "350 g cup"},
-    formatValue: {uz: "Smetana", ru: "Сметана", en: "Smetana"},
-    nutrition: {
-      energy: "204 K / 854 Kkal",
-      fat: "20 g",
-      protein: "2,8 g",
-      carbs: "3,2 g"
-    },
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {
-      uz: "Me’yorlashtirilgan qaymoq, achitqi.",
-      ru: "Нормализованные сливки, закваска.",
-      en: "Standardized cream, starter culture."
-    },
-    storageText: {
-      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
-      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
-      en: "Storage conditions: keep at 4 ± 2°C."
-    },
-    productionDateText: {
-      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati idishda ko‘rsatilgan.",
-      ru: "Дата производства и срок годности указаны на упаковке.",
-      en: "Production date and expiry date are indicated on the package."
-    },
-    manufacturer,
-    address,
-    openedText: {
-      uz: "Saqlash muddati 21 kun. Ochilgandan so‘ng 24 soat davomida iste’mol qilinsin.",
-      ru: "Срок хранения 21 день. После открытия употребить в течение 24 часов.",
-      en: "Shelf life is 21 days. Consume within 24 hours after opening."
-    }
-  },
-  {
-    slug: "qaymaq-350g",
-    badge: "29",
-    category: "cream",
-    title: {
-      uz: "Qaymaq 350 g",
-      ru: "Каймак 350 g",
-      en: "Milk Cream 350 g"
-    },
-    subtitle: {
-      uz: "45% yog‘li qaymaq",
-      ru: "Каймак 45%",
-      en: "Milk cream 45%"
-    },
-    weight: {
-      uz: "Sof massa: 350 g",
-      ru: "Масса нетто: 350 g",
-      en: "Net weight: 350 g"
-    },
-    image: "/images/products/alone/qaymaq-350g.webp",
-    gallery: ["/images/products/alone/qaymaq-350g.webp"],
-    accent: "from-[#f1f5fa] to-[#e8edf5]",
-    fatPercent: "45%",
-    netWeight: "350 g",
-    storageValue: {uz: "21 kun", ru: "21 день", en: "21 days"},
-    packagingValue: {uz: "350 g stakan", ru: "Стакан 350 g", en: "350 g cup"},
-    formatValue: {uz: "Qaymaq", ru: "Каймак", en: "Cream"},
-    nutrition: {
-      energy: "425,8 K / 1782 Kkal",
-      fat: "45 g",
-      protein: "2,3 g",
-      carbs: "2,9 g"
-    },
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
     composition: {
       uz: "Me’yorlashtirilgan qaymoq.",
       ru: "Нормализованные сливки.",
@@ -1569,7 +1285,7 @@ export const products: ProductItem[] = [
       en: "Net weight: 250–400-1000 g"
     },
     image: "/images/products/alone/mozarella-al.webp",
-    gallery: ["/images/products/alone/mozarella-al.webp"],
+    gallery: ["/images/products/alone/mozarella-al.webp", "/images/products/alone/mozzarella.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     storageValue: {
       uz: "Qadoqda ko‘rsatilgan",
@@ -1625,13 +1341,13 @@ export const products: ProductItem[] = [
     }
   },
   {
-    slug: "gouda-cheese-wheel",
+    slug: "gouda-cheese",
     badge: "31",
     category: "cheese",
     title: {
-      uz: "Gouda pishloq 5 kg",
-      ru: "Сыр Gouda 5 kg",
-      en: "Gouda Cheese 5 kg"
+      uz: "Gouda pishloq",
+      ru: "Сыр Gouda",
+      en: "Gouda Cheese"
     },
     subtitle: {
       uz: "50% yog‘li Gouda pishloq",
@@ -1639,17 +1355,17 @@ export const products: ProductItem[] = [
       en: "Gouda cheese 50% fat"
     },
     weight: {
-      uz: "Sof massa: 5 kg",
-      ru: "Масса нетто: 5 kg",
-      en: "Net weight: 5 kg"
+      uz: "Sof massa: 5 kg / dilim qadoq",
+      ru: "Масса нетто: 5 kg / кусок в упаковке",
+      en: "Net weight: 5 kg / packed slice"
     },
     image: "/images/products/alone/gouda-buyuk-poset-etiket.webp",
     gallery: ["/images/products/alone/gouda-buyuk-poset-etiket.webp", "/images/products/alone/gouda-balta-dilim.webp"],
     accent: "from-[#eef8dd] to-[#d8edb9]",
     fatPercent: "50%",
-    netWeight: "5 kg",
+    netWeight: "5 kg / dilim",
     storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
-    packagingValue: {uz: "5 kg pishloq g‘ildiragi", ru: "Головка сыра 5 kg", en: "5 kg cheese wheel"},
+    packagingValue: {uz: "5 kg g‘ildirak va dilim qadoq", ru: "Головка 5 kg и кусок в упаковке", en: "5 kg wheel and packed slice"},
     formatValue: {uz: "Gouda pishloq", ru: "Сыр Gouda", en: "Gouda cheese"},
     nutrition: goudaNutrition,
     compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
@@ -1661,49 +1377,13 @@ export const products: ProductItem[] = [
     openedText: hardCheeseOpenedText
   },
   {
-    slug: "gouda-cheese-slice",
+    slug: "gollandiya-cheese",
     badge: "32",
     category: "cheese",
     title: {
-      uz: "Gouda pishloq dilim",
-      ru: "Сыр Gouda, кусок",
-      en: "Gouda Cheese Slice"
-    },
-    subtitle: {
-      uz: "50% yog‘li Gouda pishloq",
-      ru: "Сыр Gouda 50%",
-      en: "Gouda cheese 50% fat"
-    },
-    weight: {
-      uz: "Sof massa qadoqda ko‘rsatilgan",
-      ru: "Масса нетто указана на упаковке",
-      en: "Net weight is indicated on package"
-    },
-    image: "/images/products/alone/gouda-balta-dilim.webp",
-    gallery: ["/images/products/alone/gouda-balta-dilim.webp", "/images/products/alone/gouda-buyuk-poset-etiket.webp"],
-    accent: "from-[#eef8dd] to-[#d8edb9]",
-    fatPercent: "50%",
-    netWeight: "Dilim",
-    storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
-    packagingValue: {uz: "Dilim qadoq", ru: "Кусок в упаковке", en: "Packed slice"},
-    formatValue: {uz: "Gouda pishloq", ru: "Сыр Gouda", en: "Gouda cheese"},
-    nutrition: goudaNutrition,
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: hardCheeseComposition,
-    storageText: hardCheeseStorageText,
-    productionDateText: hardCheeseProductionDateText,
-    manufacturer,
-    address,
-    openedText: hardCheeseOpenedText
-  },
-  {
-    slug: "gollandiya-cheese-wheel",
-    badge: "33",
-    category: "cheese",
-    title: {
-      uz: "Gollandiya pishloq 5 kg",
-      ru: "Сыр Gollandiya 5 kg",
-      en: "Gollandiya Cheese 5 kg"
+      uz: "Gollandiya pishloq",
+      ru: "Сыр Gollandiya",
+      en: "Gollandiya Cheese"
     },
     subtitle: {
       uz: "50% yog‘li Gollandiya pishloq",
@@ -1711,53 +1391,17 @@ export const products: ProductItem[] = [
       en: "Gollandiya cheese 50% fat"
     },
     weight: {
-      uz: "Sof massa: 5 kg",
-      ru: "Масса нетто: 5 kg",
-      en: "Net weight: 5 kg"
+      uz: "Sof massa: 5 kg / dilim qadoq",
+      ru: "Масса нетто: 5 kg / кусок в упаковке",
+      en: "Net weight: 5 kg / packed slice"
     },
     image: "/images/products/alone/gollandiya-buyuk-poset-etiket.webp",
     gallery: ["/images/products/alone/gollandiya-buyuk-poset-etiket.webp", "/images/products/alone/gollandiya-balta-dilim.webp"],
     accent: "from-[#eef4fb] to-[#dce8f6]",
     fatPercent: "50%",
-    netWeight: "5 kg",
+    netWeight: "5 kg / dilim",
     storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
-    packagingValue: {uz: "5 kg pishloq g‘ildiragi", ru: "Головка сыра 5 kg", en: "5 kg cheese wheel"},
-    formatValue: {uz: "Gollandiya pishloq", ru: "Сыр Gollandiya", en: "Gollandiya cheese"},
-    nutrition: gollandiyaNutrition,
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: hardCheeseComposition,
-    storageText: hardCheeseStorageText,
-    productionDateText: hardCheeseProductionDateText,
-    manufacturer,
-    address,
-    openedText: hardCheeseOpenedText
-  },
-  {
-    slug: "gollandiya-cheese-slice",
-    badge: "34",
-    category: "cheese",
-    title: {
-      uz: "Gollandiya pishloq dilim",
-      ru: "Сыр Gollandiya, кусок",
-      en: "Gollandiya Cheese Slice"
-    },
-    subtitle: {
-      uz: "50% yog‘li Gollandiya pishloq",
-      ru: "Сыр Gollandiya 50%",
-      en: "Gollandiya cheese 50% fat"
-    },
-    weight: {
-      uz: "Sof massa qadoqda ko‘rsatilgan",
-      ru: "Масса нетто указана на упаковке",
-      en: "Net weight is indicated on package"
-    },
-    image: "/images/products/alone/gollandiya-balta-dilim.webp",
-    gallery: ["/images/products/alone/gollandiya-balta-dilim.webp", "/images/products/alone/gollandiya-buyuk-poset-etiket.webp"],
-    accent: "from-[#eef4fb] to-[#dce8f6]",
-    fatPercent: "50%",
-    netWeight: "Dilim",
-    storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
-    packagingValue: {uz: "Dilim qadoq", ru: "Кусок в упаковке", en: "Packed slice"},
+    packagingValue: {uz: "5 kg g‘ildirak va dilim qadoq", ru: "Головка 5 kg и кусок в упаковке", en: "5 kg wheel and packed slice"},
     formatValue: {uz: "Gollandiya pishloq", ru: "Сыр Gollandiya", en: "Gollandiya cheese"},
     nutrition: gollandiyaNutrition,
     compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
@@ -2122,8 +1766,8 @@ export const products: ProductItem[] = [
       ru: "Жирность: 50%",
       en: "Fat content: 50%"
     },
-    image: "/images/products/alone/mozzarella.webp",
-    gallery: ["/images/products/alone/mozzarella.webp"],
+    image: "/images/products/alone/oxotnichiy-cheese.webp",
+    gallery: ["/images/products/alone/oxotnichiy-cheese.webp"],
     accent: "from-[#edf4fa] to-[#e1ebf6]",
     storageValue: {
       uz: "Qadoqda ko‘rsatilgan",
@@ -2131,9 +1775,9 @@ export const products: ProductItem[] = [
       en: "Indicated on package"
     },
     packagingValue: {
-      uz: "Mahsulot kartasiga qo‘shiladi",
-      ru: "Будет добавлено в карточку",
-      en: "Will be added to the card"
+      uz: "Qadoqdagi pishloq",
+      ru: "Сыр в упаковке",
+      en: "Packed cheese"
     },
     formatValue: {
       uz: "Qattiq pishloq",
@@ -2207,80 +1851,15 @@ export const products: ProductItem[] = [
       ru: "Жирность молока: 50%.",
       en: "Milk fat content: 50%."
     }
-  },
-  {
-    slug: "qiziltepa-cheese-1",
-    badge: "32",
-    category: "cheese",
-    title: {
-      uz: "Qiziltepa pishloq",
-      ru: "Сыр QIZILTEPA",
-      en: "QIZILTEPA Cheese"
-    },
-    subtitle: {
-      uz: "50% yog‘li pishloq",
-      ru: "Сыр 50% жирности",
-      en: "Cheese 50% fat"
-    },
-    weight: {
-      uz: "Yog‘lik darajasi: 50%",
-      ru: "Жирность: 50%",
-      en: "Fat content: 50%"
-    },
-    image: "/images/products/alone/mozzarella.webp",
-    gallery: ["/images/products/alone/mozzarella.webp"],
-    accent: "from-[#edf4fa] to-[#e1ebf6]",
-    storageValue: {uz: "Qadoqda ko‘rsatilgan", ru: "Указан на упаковке", en: "Indicated on package"},
-    packagingValue: {uz: "Mahsulot kartasiga qo‘shiladi", ru: "Будет добавлено в карточку", en: "Will be added to the card"},
-    formatValue: {uz: "Pishloq", ru: "Сыр", en: "Cheese"},
-    nutrition: {energy: "—", fat: "50%", protein: "—", carbs: "—"},
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {uz: "Qiziltepa pishlog‘i, 50% yog‘lik darajasi bilan.", ru: "Сыр QIZILTEPA с жирностью 50%.", en: "QIZILTEPA cheese with 50% fat content."},
-    storageText: {uz: "Saqlash sharoiti qadoqda ko‘rsatilgan.", ru: "Условия хранения указаны на упаковке.", en: "Storage conditions are indicated on the package."},
-    productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
-    manufacturer,
-    address,
-    openedText: {uz: "Mahsulot tafsilotlari keyinroq to‘ldiriladi.", ru: "Подробности по продукту будут добавлены позже.", en: "Detailed product information will be added later."}
-  },
-  {
-    slug: "qiziltepa-cheese-2",
-    badge: "33",
-    category: "cheese",
-    title: {
-      uz: "Qiziltepa pishloq",
-      ru: "Сыр QIZILTEPA",
-      en: "QIZILTEPA Cheese"
-    },
-    subtitle: {
-      uz: "50% yog‘li pishloq",
-      ru: "Сыр 50% жирности",
-      en: "Cheese 50% fat"
-    },
-    weight: {
-      uz: "Yog‘lik darajasi: 50%",
-      ru: "Жирность: 50%",
-      en: "Fat content: 50%"
-    },
-    image: "/images/products/alone/mozarella-al.webp",
-    gallery: ["/images/products/alone/mozarella-al.webp"],
-    accent: "from-[#edf4fa] to-[#e1ebf6]",
-    storageValue: {uz: "Qadoqda ko‘rsatilgan", ru: "Указан на упаковке", en: "Indicated on package"},
-    packagingValue: {uz: "Mahsulot kartasiga qo‘shiladi", ru: "Будет добавлено в карточку", en: "Will be added to the card"},
-    formatValue: {uz: "Pishloq", ru: "Сыр", en: "Cheese"},
-    nutrition: {energy: "—", fat: "50%", protein: "—", carbs: "—"},
-    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
-    composition: {uz: "Qiziltepa pishlog‘i, 50% yog‘lik darajasi bilan.", ru: "Сыр QIZILTEPA с жирностью 50%.", en: "QIZILTEPA cheese with 50% fat content."},
-    storageText: {uz: "Saqlash sharoiti qadoqda ko‘rsatilgan.", ru: "Условия хранения указаны на упаковке.", en: "Storage conditions are indicated on the package."},
-    productionDateText: {uz: "Ishlab chiqarilgan sana va yaroqlilik muddati qadoqda ko‘rsatilgan.", ru: "Дата производства и срок годности указаны на упаковке.", en: "Production date and expiry date are indicated on the package."},
-    manufacturer,
-    address,
-    openedText: {uz: "Mahsulot tafsilotlari keyinroq to‘ldiriladi.", ru: "Подробности по продукту будут добавлены позже.", en: "Detailed product information will be added later."}
   }
 ];
 
 const availableProductImages = new Set([
-  "/images/products/ayran-basil-1000.webp",
-  "/images/products/ayran-basil-450.webp",
+  "/images/products/alone/ayron-green.webp",
+  "/images/products/alone/ayron-pink.webp",
+  "/images/products/alone/qatiq1.webp",
+  "/images/products/alone/qatiq3.webp",
+  "/images/products/alone/oxotnichiy-cheese.webp",
   "/images/products/kefir-1-450.webp",
   "/images/products/kefir-1-900.jp.webp",
   "/images/products/kefir-25-450.webp",
@@ -2321,7 +1900,6 @@ const availableProductImages = new Set([
   "/images/products/alone/gollandiya-buyuk-poset-etiket.webp",
   "/images/products/alone/mozzarella.webp",
   "/images/products/alone/mozarella-al.webp",
-  "/images/products/alone/mozarella-al.webp",
   "/images/products/alone/kefir1.webp",
   "/images/products/alone/kefir32.webp",
   "/images/products/alone/kefir25.webp",
@@ -2341,8 +1919,7 @@ const productImageAliases: Record<string, string> = {
   "/images/products/yogurt120/qulupnay120.webp": "/images/products/yogurt120/qulupnay120.webp",
   "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp": "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
   "/images/products/yogurt120/ormon-meva120.webp": "/images/products/yogurt120/ormon-meva120.webp",
-  "/images/products/yogurt120/banan120.webp": "/images/products/yogurt120/banan120.webp",
-  "/images/products/ayran-basil-1000.webp": "/images/products/ayran-basil-1000.webp"
+  "/images/products/yogurt120/banan120.webp": "/images/products/yogurt120/banan120.webp"
 };
 
 const fallbackProductImages = [
@@ -2380,8 +1957,8 @@ export function getProductImage(product: ProductItem, index = 0) {
     return assetUrl("/images/products/alone/qaymaq.webp");
   }
   if (product.category === "tvorog") return assetUrl("/images/products/tvorog/tvorog.webp");
-  if (product.category === "qatiq") return assetUrl("/images/products/alone/kefir32.webp");
-  if (product.category === "ayran") return assetUrl("/images/products/alone/kefir25.webp");
+  if (product.category === "qatiq") return assetUrl("/images/products/alone/qatiq1.webp");
+  if (product.category === "ayran") return assetUrl("/images/products/alone/ayron-green.webp");
 
   return assetUrl(fallbackProductImages[hashText(product.slug) % fallbackProductImages.length]);
 }
@@ -2393,4 +1970,4 @@ export function getProductGallery(product: ProductItem) {
   return gallery.length ? gallery : [getProductImage(product)];
 }
 
-export const listedProducts = products.filter((product) => product.category !== "ayran");
+export const listedProducts = products;

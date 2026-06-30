@@ -28,6 +28,7 @@ const categoryOrder: ProductCategory[] = [
   "all",
   "milk",
   "kefir",
+  "ayran",
   "yogurt",
   "qatiq",
   "cream",
