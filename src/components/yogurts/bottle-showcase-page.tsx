@@ -72,7 +72,7 @@ const FLAVOR_TRANSITION_MS = 2200;
 const WHEEL_THRESHOLD = 18;
 const TOUCH_THRESHOLD = 44;
 const ENDING_NAVIGATION_LOCK_MS = 560;
-const BOTTLE_FRONT_ROTATION = 0.18;
+const BOTTLE_FRONT_ROTATION = -0.04;
 const BOTTLE_FRONT_RX = 0.02;
 const MOBILE_ASPECT_MAX = 0.72;
 const DESKTOP_FLAVOR_PLACEMENTS = [
@@ -1412,14 +1412,14 @@ type BottlePose = {
 };
 
 const DESKTOP_OVERVIEW_POSES: BottlePose[] = [
-  {x: 0.64, y: -0.02, z: 0.3, rx: BOTTLE_FRONT_RX, ry: 0.12, rz: 0.01, s: 0.76},
-  {x: 0.24, y: -0.22, z: 0.04, rx: 0.04, ry: 0.13, rz: -0.01, s: 0.54},
-  {x: 1.16, y: -0.22, z: 0.02, rx: 0.04, ry: 0.12, rz: 0.012, s: 0.54},
-  {x: -0.12, y: -0.25, z: -0.02, rx: 0.04, ry: 0.14, rz: -0.012, s: 0.5},
-  {x: 1.88, y: -0.27, z: -0.08, rx: 0.05, ry: 0.12, rz: 0.014, s: 0.46},
-  {x: -3.2, y: -0.34, z: -0.18, rx: 0.05, ry: 0.15, rz: -0.018, s: 0.46},
-  {x: 1.5, y: -0.25, z: -0.05, rx: 0.05, ry: 0.12, rz: -0.01, s: 0.48},
-  {x: 3.15, y: -0.34, z: -0.18, rx: 0.06, ry: 0.12, rz: 0.016, s: 0.42}
+  {x: 0.64, y: -0.02, z: 0.3, rx: BOTTLE_FRONT_RX, ry: BOTTLE_FRONT_ROTATION, rz: 0.01, s: 0.76},
+  {x: 0.24, y: -0.22, z: 0.04, rx: 0.04, ry: BOTTLE_FRONT_ROTATION, rz: -0.01, s: 0.54},
+  {x: 1.16, y: -0.22, z: 0.02, rx: 0.04, ry: BOTTLE_FRONT_ROTATION, rz: 0.012, s: 0.54},
+  {x: -0.12, y: -0.25, z: -0.02, rx: 0.04, ry: BOTTLE_FRONT_ROTATION, rz: -0.012, s: 0.5},
+  {x: 1.88, y: -0.27, z: -0.08, rx: 0.05, ry: BOTTLE_FRONT_ROTATION, rz: 0.014, s: 0.46},
+  {x: -3.2, y: -0.34, z: -0.18, rx: 0.05, ry: BOTTLE_FRONT_ROTATION, rz: -0.018, s: 0.46},
+  {x: 1.5, y: -0.25, z: -0.05, rx: 0.05, ry: BOTTLE_FRONT_ROTATION, rz: -0.01, s: 0.48},
+  {x: 3.15, y: -0.34, z: -0.18, rx: 0.06, ry: BOTTLE_FRONT_ROTATION, rz: 0.016, s: 0.42}
 ];
 
 const MOBILE_OVERVIEW_POSES: BottlePose[] = [
