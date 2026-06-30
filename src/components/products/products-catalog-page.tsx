@@ -65,36 +65,36 @@ function ProductCard({locale, product, index, reducedMotion}: ProductCardProps) 
     >
       <Link
         href={`/${locale}/products/${product.slug}`}
-        className="group relative flex h-full min-h-[252px] flex-col overflow-hidden rounded-[22px] border border-white/60 bg-white/38 p-2 shadow-[0_18px_54px_rgba(44,78,120,0.09)] transition-[background-color,border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/90 hover:bg-white/54 hover:shadow-[0_24px_70px_rgba(44,78,120,0.14)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[315px] sm:rounded-[24px]"
+        className="group relative flex h-full min-h-[408px] flex-col overflow-hidden rounded-[22px] border border-white/60 bg-white/38 p-2 shadow-[0_18px_54px_rgba(44,78,120,0.09)] transition-[background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-white/90 hover:bg-white/54 hover:shadow-[0_24px_70px_rgba(44,78,120,0.14)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[490px] sm:rounded-[24px]"
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.92),transparent_34%),radial-gradient(circle_at_92%_0%,rgba(255,225,188,0.30),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.36),transparent_58%)]" />
         <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-white/76" />
 
-        <div className="relative flex flex-1 items-center justify-center overflow-hidden rounded-[18px] border border-white/70 bg-white/86 shadow-[inset_0_1px_0_rgba(255,255,255,0.96)] sm:rounded-[22px]">
+        <div className="relative flex h-[238px] shrink-0 items-center justify-center overflow-hidden rounded-[18px] border border-white/70 bg-white/86 shadow-[inset_0_1px_0_rgba(255,255,255,0.96)] sm:h-[298px] sm:rounded-[22px]">
           <span className="absolute left-2.5 top-2.5 z-10 rounded-full border border-white/80 bg-white/88 px-2.5 py-1 text-[9px] font-semibold tracking-[0.12em] text-slate-600 shadow-sm sm:left-3 sm:top-3 sm:text-[10px]">
             {measure}
           </span>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_12%,rgba(255,255,255,0.96),transparent_34%)]" />
-          <div className="relative aspect-[4/5] w-full max-w-[168px] overflow-hidden rounded-[16px] bg-white transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1.5 group-hover:scale-[1.035] sm:max-w-[210px] sm:rounded-[18px]">
+          <div className="relative aspect-[4/5] w-full max-w-[168px] overflow-hidden rounded-[16px] bg-white sm:max-w-[210px] sm:rounded-[18px]">
             <Image
               src={image}
               alt={title}
               fill
               sizes="(min-width: 1536px) 16vw, (min-width: 1280px) 19vw, (min-width: 768px) 28vw, 45vw"
-              className="scale-[1.06] object-contain p-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.11] sm:p-2"
+              className="scale-[1.04] object-contain p-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.075] sm:p-2"
               priority={index < 4}
             />
           </div>
         </div>
 
-        <div className="relative mt-2 flex min-h-[118px] flex-col rounded-[18px] border border-white/58 bg-white/58 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.80)] sm:min-h-[132px] sm:rounded-[20px] sm:p-3">
-          {product.fatPercent ? (
-            <div className="mb-2 flex justify-end sm:mb-3">
+        <div className="relative mt-2 flex h-[154px] flex-col rounded-[18px] border border-white/58 bg-white/58 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.80)] sm:h-[172px] sm:rounded-[20px] sm:p-3">
+          <div className="mb-2 flex h-6 justify-end sm:mb-3">
+            {product.fatPercent ? (
               <span className="shrink-0 rounded-full bg-[#eef5ef] px-2 py-1 text-[9px] font-semibold text-[#47735b] sm:text-[10px]">
                 {product.fatPercent}
               </span>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
 
           <h2 className="line-clamp-2 min-h-[2.35rem] text-[13px] font-semibold leading-[1.3] text-slate-950 sm:min-h-[2.45rem] sm:text-[14px] sm:leading-[1.32]">
             {title}
@@ -103,10 +103,7 @@ function ProductCard({locale, product, index, reducedMotion}: ProductCardProps) 
             {product.subtitle[locale]}
           </p>
 
-          <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-            <span className="truncate text-[10px] font-medium uppercase tracking-[0.12em] text-[#9a8978] sm:text-xs sm:tracking-[0.2em]">
-              {product.badge}
-            </span>
+          <div className="mt-auto flex items-center justify-end gap-3 pt-3">
             <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/70 bg-[var(--brand-primary)] text-white shadow-[0_14px_28px_rgba(12,58,106,0.16)] transition-transform duration-300 group-hover:translate-x-1 sm:h-9 sm:w-9">
               <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </span>

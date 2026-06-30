@@ -21,6 +21,10 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
     subtitle: "От фермы — до полки.",
     description:
       "Свежие, качественные и полезные молочные продукты из эко-фермы — с вниманием к безопасности, вкусу и пути каждого продукта.",
+    cta: {
+      label: "Наш каталог",
+      href: "/products"
+    },
     group: "intro"
   },
   {
@@ -71,6 +75,10 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
       subtitle: "Fermadan — javongacha.",
       description:
         "Eko-fermadan yangi, sifatli va foydali sut mahsulotlari — xavfsizlik, ta’m va har bir mahsulot yo‘liga e’tibor bilan.",
+      cta: {
+        label: "Bizning katalog",
+        href: "/products"
+      },
       group: "intro"
     },
     {
@@ -121,6 +129,10 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
       subtitle: "From farm — to shelf.",
       description:
         "Fresh, high-quality dairy products from an eco farm, created with care for safety, taste and every step of the product journey.",
+      cta: {
+        label: "Our catalog",
+        href: "/products"
+      },
       group: "intro"
     },
     {

@@ -1047,18 +1047,18 @@ export const products: ProductItem[] = [
     }
   },
   {
-    slug: "qatiq-3",
+    slug: "qatiq",
     badge: "25",
     category: "qatiq",
     title: {
-      uz: "Qatiq 3%",
-      ru: "Катык 3%",
-      en: "Qatiq 3%"
+      uz: "Qatiq 1% / 3%",
+      ru: "Катык 1% / 3%",
+      en: "Qatiq 1% / 3%"
     },
     subtitle: {
-      uz: "Fermentlangan sut mahsuloti",
-      ru: "Кисломолочный продукт",
-      en: "Fermented dairy product"
+      uz: "1% va 3% fermentlangan sut mahsuloti",
+      ru: "Кисломолочный продукт 1% и 3%",
+      en: "1% and 3% fermented dairy product"
     },
     weight: {
       uz: "Hajmi: 900 ml",
@@ -1068,7 +1068,7 @@ export const products: ProductItem[] = [
     image: "/images/products/alone/qatiq1.webp",
     gallery: ["/images/products/alone/qatiq1.webp", "/images/products/alone/qatiq3.webp"],
     accent: "from-[#eef4fa] to-[#e5edf6]",
-    fatPercent: "3%",
+    fatPercent: "1% / 3%",
     netWeight: "900 ml",
     storageValue: {
       uz: "20 kun",
@@ -1081,9 +1081,9 @@ export const products: ProductItem[] = [
       en: "900 ml pack"
     },
     formatValue: {
-      uz: "Qatiq",
-      ru: "Катык",
-      en: "Qatiq"
+      uz: "Qatiq 1% / 3%",
+      ru: "Катык 1% / 3%",
+      en: "Qatiq 1% / 3%"
     },
     nutrition: {
       energy: "57 kkal",
@@ -1860,12 +1860,6 @@ const availableProductImages = new Set([
   "/images/products/alone/qatiq1.webp",
   "/images/products/alone/qatiq3.webp",
   "/images/products/alone/oxotnichiy-cheese.webp",
-  "/images/products/kefir-1-450.webp",
-  "/images/products/kefir-1-900.jp.webp",
-  "/images/products/kefir-25-450.webp",
-  "/images/products/kefir-25-900.webp",
-  "/images/products/kefir-32-450.webp",
-  "/images/products/kefir-32-900.webp",
   "/images/products/yogurt120/olcha.webp",
   "/images/products/yogurt120/shaftoli120.webp",
   "/images/products/yogurt120/ananas120.webp",
@@ -1910,8 +1904,6 @@ const availableProductImages = new Set([
 ]);
 
 const productImageAliases: Record<string, string> = {
-  "/images/products/kefir-1-900.jp.webp": "/images/products/kefir-1-900.jp.webp",
-  "/images/products/kefir-25-900.webp": "/images/products/kefir-25-900.webp",
   "/images/products/yogurt120/olcha.webp": "/images/products/yogurt120/olcha.webp",
   "/images/products/yogurt120/shaftoli120.webp": "/images/products/yogurt120/shaftoli120.webp",
   "/images/products/yogurt120/ananas120.webp": "/images/products/yogurt120/ananas120.webp",
@@ -1924,7 +1916,7 @@ const productImageAliases: Record<string, string> = {
 
 const fallbackProductImages = [
   "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp",
-  "/images/products/kefir-25-900.webp",
+  "/images/products/alone/kefir25.webp",
   "/images/products/alone/qaymaq.webp",
   "/images/products/alone/mozzarella.webp"
 ];
@@ -1951,7 +1943,7 @@ export function getProductImage(product: ProductItem, index = 0) {
       : "/images/products/yogurt/YOGURT_BOTTLE_QULUPNAY.webp");
   }
 
-  if (product.category === "kefir") return assetUrl("/images/products/kefir-25-900.webp");
+  if (product.category === "kefir") return assetUrl("/images/products/alone/kefir25.webp");
   if (product.category === "cheese") return assetUrl("/images/products/alone/mozzarella.webp");
   if (product.category === "cream" || product.category === "Qaymaq") {
     return assetUrl("/images/products/alone/qaymaq.webp");

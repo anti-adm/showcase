@@ -2,7 +2,7 @@
 
 import {useEffect, useMemo, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import {ArrowRight} from "lucide-react";
+import {ArrowRight, Leaf} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import {useLocale} from "next-intl";
@@ -37,11 +37,11 @@ export default function HeroStory() {
 
   const backgroundByScene = useMemo(
     () => [
-      "/images/hero/main-hero.png",
-      "/images/hero/main-hero.png",
-      "/images/hero/main-hero.png",
-      "/images/hero/hero-second.png",
-      "/images/hero/hero-second.png"
+      {desktop: "/images/main-hero.webp", mobile: "/images/main-hero-m.webp"},
+      {desktop: "/images/hero/main-hero.png"},
+      {desktop: "/images/hero/main-hero.png"},
+      {desktop: "/images/hero/hero-second.png"},
+      {desktop: "/images/hero/hero-second.png"}
     ],
     []
   );
@@ -84,7 +84,9 @@ export default function HeroStory() {
     });
   };
 
-  const currentBg = assetUrl(backgroundByScene[activeScene]);
+  const currentBg = backgroundByScene[activeScene] ?? backgroundByScene[0];
+  const currentBgDesktop = assetUrl(currentBg.desktop);
+  const currentBgMobile = assetUrl(currentBg.mobile ?? currentBg.desktop);
 
   return (
     <section id="hero-story-root" className="relative bg-[#07192d]">
@@ -96,7 +98,7 @@ export default function HeroStory() {
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#07192d]">
         <AnimatePresence initial={false}>
           <motion.div
-            key={currentBg}
+            key={`${currentBgDesktop}-${currentBgMobile}`}
             initial={{opacity: 0.18, scale: 1.02}}
             animate={{opacity: 1, scale: 1}}
             exit={{opacity: 0, scale: 1.01}}
@@ -108,24 +110,46 @@ export default function HeroStory() {
           >
             <div className="absolute inset-0">
               <Image
-                src={currentBg}
+                src={currentBgDesktop}
                 alt=""
                 fill
                 priority
                 unoptimized
-                quality={100}
                 sizes="100vw"
-                className="object-cover"
+                className="hidden object-cover sm:block"
+              />
+              <Image
+                src={currentBgMobile}
+                alt=""
+                fill
+                priority
+                unoptimized
+                sizes="100vw"
+                className="object-cover sm:hidden"
               />
             </div>
 
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_34%),linear-gradient(180deg,rgba(7,20,36,0.20)_0%,rgba(8,24,44,0.48)_50%,rgba(6,18,33,0.72)_100%)]" />
-            <div className="absolute inset-0 bg-[#07192d]/18" />
+            {activeScene === 0 ? (
+              <>
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,250,255,0.36)_0%,rgba(245,250,255,0.18)_34%,rgba(245,250,255,0)_66%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(237,246,255,0.06)_0%,rgba(237,246,255,0)_54%,rgba(230,240,250,0.14)_100%)]" />
+              </>
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_34%),linear-gradient(180deg,rgba(7,20,36,0.20)_0%,rgba(8,24,44,0.48)_50%,rgba(6,18,33,0.72)_100%)]" />
+                <div className="absolute inset-0 bg-[#07192d]/18" />
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="pointer-events-none fixed left-4 top-1/2 z-30 hidden -translate-y-1/2 lg:flex">
+      <div
+        className={cn(
+          "pointer-events-none fixed left-4 top-1/2 z-30 -translate-y-1/2",
+          activeScene === 0 ? "hidden" : "hidden lg:flex"
+        )}
+      >
         <div className="rounded-full border border-white/18 bg-white/8 px-2.5 py-3 backdrop-blur-2xl">
           <div className="flex flex-col gap-2.5">
             {heroScenes.map((scene: HeroScene, index: number) => (
@@ -167,7 +191,9 @@ export default function HeroStory() {
             >
               <div
                 className={cn(
-                  "mx-auto grid w-full max-w-[1380px] items-center gap-8 px-5 pb-14 pt-32 sm:px-8 sm:pt-36 lg:px-12 xl:gap-12",
+                  index === 0
+                    ? "mx-auto flex w-full max-w-[1672px] items-stretch px-6 pb-12 pt-32 sm:items-center sm:px-10 sm:pt-36 lg:px-14"
+                    : "mx-auto grid w-full max-w-[1380px] items-center gap-8 px-5 pb-14 pt-32 sm:px-8 sm:pt-36 lg:px-12 xl:gap-12",
                   index === 2
                     ? "lg:grid-cols-[minmax(0,0.86fr)_minmax(360px,0.72fr)]"
                     : "lg:grid-cols-1"
@@ -175,6 +201,9 @@ export default function HeroStory() {
               >
                 <AnimatePresence mode="wait">
                   {isActive ? (
+                    index === 0 ? (
+                      <HeroMainScene scene={scene} reducedMotion={reducedMotion} />
+                    ) : (
                     <motion.div
                       key={`content-${scene.id}`}
                       initial="hidden"
@@ -284,6 +313,7 @@ export default function HeroStory() {
                         </motion.div>
                       ) : null}
                     </motion.div>
+                    )
                   ) : null}
                 </AnimatePresence>
 
@@ -331,6 +361,107 @@ export default function HeroStory() {
 
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-16 bg-[linear-gradient(180deg,rgba(7,25,45,0),rgba(7,25,45,0.14))]" />
     </section>
+  );
+}
+
+function HeroMainScene({
+  scene,
+  reducedMotion
+}: {
+  scene: HeroScene;
+  reducedMotion: boolean;
+}) {
+  const item = {
+    hidden: {opacity: 0, y: 22, filter: "blur(10px)"},
+    visible: {opacity: 1, y: 0, filter: "blur(0px)"},
+    exit: {opacity: 0, y: -12, filter: "blur(8px)"}
+  };
+
+  return (
+    <motion.div
+      key={`content-${scene.id}`}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: reducedMotion ? 0 : 0.11,
+            delayChildren: reducedMotion ? 0 : 0.03
+          }
+        },
+        exit: {
+          transition: {
+            staggerChildren: 0.03,
+            staggerDirection: -1
+          }
+        }
+      }}
+      className="flex w-full max-w-[555px] flex-col text-[var(--brand-primary)] max-sm:min-h-[calc(100svh-11rem)]"
+    >
+      <motion.h1
+        variants={{
+          hidden: {opacity: 0, y: 26, scale: 0.985, filter: "blur(12px)"},
+          visible: {opacity: 1, y: 0, scale: 1, filter: "blur(0px)"},
+          exit: {opacity: 0, y: -14, scale: 0.992, filter: "blur(8px)"}
+        }}
+        transition={{duration: 0.82, ease: [0.22, 1, 0.36, 1]}}
+        className="text-[clamp(3.55rem,16vw,4.15rem)] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[clamp(5.5rem,9vw,8.5rem)] lg:text-[clamp(6.2rem,7.4vw,8.8rem)]"
+      >
+        {scene.title}
+      </motion.h1>
+
+      {scene.subtitle ? (
+        <motion.p
+          variants={item}
+          transition={{duration: 0.7, ease: [0.22, 1, 0.36, 1]}}
+          className="mt-3 text-[clamp(1.25rem,6vw,1.6rem)] font-medium leading-tight tracking-[-0.045em] sm:mt-8 sm:text-[clamp(2rem,3vw,2.85rem)]"
+        >
+          {scene.subtitle}
+        </motion.p>
+      ) : null}
+
+      <motion.div
+        variants={item}
+        transition={{duration: 0.64, ease: [0.22, 1, 0.36, 1]}}
+        className="mt-4 flex max-w-[250px] items-center gap-3 text-[#59799b] sm:mt-8 sm:max-w-[450px] sm:gap-4"
+        aria-hidden="true"
+      >
+        <span className="h-px flex-1 bg-[#9eb1c8]/62" />
+        <Leaf className="h-7 w-7" strokeWidth={1.9} />
+        <span className="h-px flex-1 bg-[#9eb1c8]/62" />
+      </motion.div>
+
+      <motion.div
+        variants={item}
+        transition={{duration: 0.72, ease: [0.22, 1, 0.36, 1]}}
+        className="mt-auto flex max-w-[535px] items-center gap-4 rounded-[24px] border border-white/60 bg-white/46 p-4 text-[#244d7c] shadow-[0_22px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[18px] sm:mt-7 sm:gap-6 sm:rounded-[30px] sm:bg-white/38 sm:p-6"
+      >
+        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[#315b89]/36 bg-white/26 text-[#315b89] sm:h-[74px] sm:w-[74px]">
+          <Leaf className="h-8 w-8" strokeWidth={1.8} />
+        </span>
+        <p className="text-pretty text-sm font-medium leading-7 sm:text-[16px] sm:leading-8">
+          {scene.description}
+        </p>
+      </motion.div>
+
+      {scene.cta ? (
+        <motion.div
+          variants={item}
+          transition={{duration: 0.68, ease: [0.22, 1, 0.36, 1]}}
+          className="mt-5 sm:mt-8"
+        >
+          <Link
+            href={scene.cta.href}
+            className="group inline-flex min-h-14 items-center gap-4 rounded-full bg-[var(--brand-primary)] px-7 text-sm font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[60px] sm:px-9 sm:text-base"
+          >
+            {scene.cta.label}
+            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </motion.div>
+      ) : null}
+    </motion.div>
   );
 }
 
