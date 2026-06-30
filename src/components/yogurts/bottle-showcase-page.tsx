@@ -64,7 +64,7 @@ type EndingSlide = {
   text: string;
 };
 
-const MODEL_PATH = "/models/New product/yogurtchalar yangi2.glb";
+const MODEL_PATH = "/models/New product/yogurtchalar yangi2.glb?v=20260630";
 const HERO_BACKGROUND = "/sofin-yogur-pics/background-bottles.png";
 const HERO_BACKGROUND_MOBILE = "/sofin-yogur-pics/background-bottles-m.png";
 const INTRO_TRANSITION_MS = 2200;
@@ -1919,9 +1919,11 @@ function useBottleModel(flavor: BottleFlavor) {
       const meshName = child.name.toLowerCase();
       const sourceMaterial = Array.isArray(child.material) ? child.material[0] : child.material;
       const material = patchBottleMaterial(sourceMaterial);
-      const hasUv = Boolean(child.geometry.getAttribute("uv"));
+      const materialName = sourceMaterial.name.toLowerCase();
+      const isLabelMesh = materialName.includes("label") || meshName.includes("texture");
+      const isCapMesh = meshName.includes("cylinder") || meshName.includes("object028");
 
-      if (hasUv || meshName.includes("object033") || meshName.includes("texture")) {
+      if (isLabelMesh) {
         child.renderOrder = 20;
         material.map = labelTexture;
         material.color = new THREE.Color("#ffffff");
@@ -1932,10 +1934,10 @@ function useBottleModel(flavor: BottleFlavor) {
         material.roughness = 0.68;
         material.metalness = 0.01;
         material.side = THREE.DoubleSide;
-      } else if (meshName.includes("cylinder") || meshName.includes("object028")) {
+      } else if (isCapMesh) {
         child.renderOrder = 4;
         material.map = null;
-        material.color = new THREE.Color("#173a6f");
+        material.color = sourceMaterial.color?.clone() ?? new THREE.Color("#173a6f");
         material.roughness = 0.5;
         material.metalness = 0.02;
       } else {
