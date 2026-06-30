@@ -70,6 +70,56 @@ const address = {
   en: "Address: Republic of Uzbekistan, Navoi region, Kyzyltepa district, Gʻoyibon MFY, Navgandi village, house 90."
 };
 
+const hardCheeseComposition = {
+  uz: "Pasterizatsiyalangan sut, osh tuzi, kalsiy xlorid, tabiiy rang beruvchi, shirdon, achitqi.",
+  ru: "Пастеризованное молоко, поваренная соль, хлорид кальция, натуральный краситель, сычужный фермент, закваска.",
+  en: "Pasteurized milk, salt, calcium chloride, natural coloring, rennet and starter culture."
+};
+
+const hardCheeseStorageText = {
+  uz: "Saqlash sharoiti: +2°C dan +4°C gacha, havoning nisbiy namligi 70% bo‘lgan holda saqlansin.",
+  ru: "Условия хранения: хранить при температуре от +2°C до +4°C и относительной влажности воздуха 70%.",
+  en: "Storage conditions: keep at +2°C to +4°C and 70% relative humidity."
+};
+
+const hardCheeseProductionDateText = {
+  uz: "Ishlab chiqarilgan sana, yaroqlilik muddati, ST.T va lot raqami qadoqda ko‘rsatilgan.",
+  ru: "Дата производства, срок годности, ST.T и номер партии указаны на упаковке.",
+  en: "Production date, expiry date, ST.T and batch number are indicated on the package."
+};
+
+const hardCheeseOpenedText = {
+  uz: "Ochilgandan so‘ng qisqa muddat ichida iste’mol qilinsin.",
+  ru: "После открытия употребить в короткий срок.",
+  en: "Consume shortly after opening."
+};
+
+const goudaNutrition = {
+  energy: "1571 K / 377 Kkal",
+  fat: "31 g",
+  protein: "24 g",
+  carbs: "0 g",
+  extra: [
+    {label: {uz: "To‘yingan yog‘", ru: "Насыщенные жиры", en: "Saturated fat"}, value: "21 g"},
+    {label: {uz: "Shakar", ru: "Сахара", en: "Sugars"}, value: "0 g"},
+    {label: {uz: "Tuz", ru: "Соль", en: "Salt"}, value: "1,8 g"},
+    {label: {uz: "Kalsiy", ru: "Кальций", en: "Calcium"}, value: "910 mg"}
+  ]
+};
+
+const gollandiyaNutrition = {
+  energy: "1467 K / 353 Kkal",
+  fat: "27 g",
+  protein: "26,4 g",
+  carbs: "1,1 g",
+  extra: [
+    {label: {uz: "To‘yingan yog‘", ru: "Насыщенные жиры", en: "Saturated fat"}, value: "17,6 g"},
+    {label: {uz: "Shakar", ru: "Сахара", en: "Sugars"}, value: "1,1 g"},
+    {label: {uz: "Tuz", ru: "Соль", en: "Salt"}, value: "2,3 g"},
+    {label: {uz: "Kalsiy", ru: "Кальций", en: "Calcium"}, value: "892 mg"}
+  ]
+};
+
 export const products: ProductItem[] = [
   {
     slug: "yogurt-cherry",
@@ -1249,27 +1299,29 @@ export const products: ProductItem[] = [
       en: "Smetana"
     },
     subtitle: {
-      uz: "Sour Cream",
-      ru: "Sour Cream",
-      en: "Sour Cream"
+      uz: "20% yog‘li smetana",
+      ru: "Сметана 20%",
+      en: "Sour cream 20%"
     },
     weight: {
-      uz: "Qadoq hajmi: ko‘rsatiladi",
-      ru: "Объем: уточняется",
-      en: "Pack size: to be specified"
+      uz: "Sof massa: 180 g",
+      ru: "Масса нетто: 180 g",
+      en: "Net weight: 180 g"
     },
-    image: "/images/products/alone/qaymaq.webp",
-    gallery: ["/images/products/alone/qaymaq.webp"],
+    image: "/images/products/alone/smetana-180g.webp",
+    gallery: ["/images/products/alone/smetana-180g.webp"],
     accent: "from-[#f1f5fa] to-[#e8edf5]",
+    fatPercent: "20%",
+    netWeight: "180 g",
     storageValue: {
       uz: "21 kun",
       ru: "21 день",
       en: "21 days"
     },
     packagingValue: {
-      uz: "Mahsulot kartasiga qo‘shiladi",
-      ru: "Будет добавлено в карточку",
-      en: "Will be added to the card"
+      uz: "180 g stakan",
+      ru: "Стакан 180 g",
+      en: "180 g cup"
     },
     formatValue: {
       uz: "Smetana",
@@ -1320,27 +1372,29 @@ export const products: ProductItem[] = [
       en: "Milk Cream"
     },
     subtitle: {
-      uz: "Milk Cream",
-      ru: "Milk Cream",
-      en: "Milk Cream"
+      uz: "45% yog‘li qaymaq",
+      ru: "Каймак 45%",
+      en: "Milk cream 45%"
     },
     weight: {
-      uz: "Qadoq hajmi: ko‘rsatiladi",
-      ru: "Объем: уточняется",
-      en: "Pack size: to be specified"
+      uz: "Sof massa: 200 g",
+      ru: "Масса нетто: 200 g",
+      en: "Net weight: 200 g"
     },
-    image: "/images/products/alone/qaymaq.webp",
-    gallery: ["/images/products/alone/qaymaq.webp"],
+    image: "/images/products/alone/qaymaq-180g.webp",
+    gallery: ["/images/products/alone/qaymaq-180g.webp"],
     accent: "from-[#f1f5fa] to-[#e8edf5]",
+    fatPercent: "45%",
+    netWeight: "200 g",
     storageValue: {
       uz: "21 kun",
       ru: "21 день",
       en: "21 days"
     },
     packagingValue: {
-      uz: "Mahsulot kartasiga qo‘shiladi",
-      ru: "Будет добавлено в карточку",
-      en: "Will be added to the card"
+      uz: "200 g stakan",
+      ru: "Стакан 200 g",
+      en: "200 g cup"
     },
     formatValue: {
       uz: "Qaymaq",
@@ -1382,8 +1436,122 @@ export const products: ProductItem[] = [
     }
   },
   {
-    slug: "mozzarella",
+    slug: "smetana-350g",
+    badge: "28",
+    category: "cream",
+    title: {
+      uz: "Smetana 350 g",
+      ru: "Сметана 350 g",
+      en: "Smetana 350 g"
+    },
+    subtitle: {
+      uz: "20% yog‘li smetana",
+      ru: "Сметана 20%",
+      en: "Sour cream 20%"
+    },
+    weight: {
+      uz: "Sof massa: 350 g",
+      ru: "Масса нетто: 350 g",
+      en: "Net weight: 350 g"
+    },
+    image: "/images/products/alone/smetana-350g.webp",
+    gallery: ["/images/products/alone/smetana-350g.webp"],
+    accent: "from-[#f1f5fa] to-[#e8edf5]",
+    fatPercent: "20%",
+    netWeight: "350 g",
+    storageValue: {uz: "21 kun", ru: "21 день", en: "21 days"},
+    packagingValue: {uz: "350 g stakan", ru: "Стакан 350 g", en: "350 g cup"},
+    formatValue: {uz: "Smetana", ru: "Сметана", en: "Smetana"},
+    nutrition: {
+      energy: "204 K / 854 Kkal",
+      fat: "20 g",
+      protein: "2,8 g",
+      carbs: "3,2 g"
+    },
+    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
+    composition: {
+      uz: "Me’yorlashtirilgan qaymoq, achitqi.",
+      ru: "Нормализованные сливки, закваска.",
+      en: "Standardized cream, starter culture."
+    },
+    storageText: {
+      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
+      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
+      en: "Storage conditions: keep at 4 ± 2°C."
+    },
+    productionDateText: {
+      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati idishda ko‘rsatilgan.",
+      ru: "Дата производства и срок годности указаны на упаковке.",
+      en: "Production date and expiry date are indicated on the package."
+    },
+    manufacturer,
+    address,
+    openedText: {
+      uz: "Saqlash muddati 21 kun. Ochilgandan so‘ng 24 soat davomida iste’mol qilinsin.",
+      ru: "Срок хранения 21 день. После открытия употребить в течение 24 часов.",
+      en: "Shelf life is 21 days. Consume within 24 hours after opening."
+    }
+  },
+  {
+    slug: "qaymaq-350g",
     badge: "29",
+    category: "cream",
+    title: {
+      uz: "Qaymaq 350 g",
+      ru: "Каймак 350 g",
+      en: "Milk Cream 350 g"
+    },
+    subtitle: {
+      uz: "45% yog‘li qaymaq",
+      ru: "Каймак 45%",
+      en: "Milk cream 45%"
+    },
+    weight: {
+      uz: "Sof massa: 350 g",
+      ru: "Масса нетто: 350 g",
+      en: "Net weight: 350 g"
+    },
+    image: "/images/products/alone/qaymaq-350g.webp",
+    gallery: ["/images/products/alone/qaymaq-350g.webp"],
+    accent: "from-[#f1f5fa] to-[#e8edf5]",
+    fatPercent: "45%",
+    netWeight: "350 g",
+    storageValue: {uz: "21 kun", ru: "21 день", en: "21 days"},
+    packagingValue: {uz: "350 g stakan", ru: "Стакан 350 g", en: "350 g cup"},
+    formatValue: {uz: "Qaymaq", ru: "Каймак", en: "Cream"},
+    nutrition: {
+      energy: "425,8 K / 1782 Kkal",
+      fat: "45 g",
+      protein: "2,3 g",
+      carbs: "2,9 g"
+    },
+    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
+    composition: {
+      uz: "Me’yorlashtirilgan qaymoq.",
+      ru: "Нормализованные сливки.",
+      en: "Standardized cream."
+    },
+    storageText: {
+      uz: "Saqlash sharoiti: 4 ± 2°C haroratda saqlansin.",
+      ru: "Условия хранения: хранить при температуре 4 ± 2°C.",
+      en: "Storage conditions: keep at 4 ± 2°C."
+    },
+    productionDateText: {
+      uz: "Ishlab chiqarilgan sana va yaroqlilik muddati idishda ko‘rsatilgan.",
+      ru: "Дата производства и срок годности указаны на упаковке.",
+      en: "Production date and expiry date are indicated on the package."
+    },
+    manufacturer,
+    address,
+    openedText: {
+      uz: "Saqlash muddati 21 kun. Ochilgandan so‘ng 24 soat ichida iste’mol qilinsin.",
+      ru: "Срок хранения 21 день. После открытия употребить в течение 24 часов.",
+      en: "Shelf life is 21 days. Consume within 24 hours after opening."
+    }
+  },
+  {
+    slug: "mozzarella",
+    badge: "30",
     category: "cheese",
     title: {
       uz: "Mozzarella",
@@ -1455,6 +1623,150 @@ export const products: ProductItem[] = [
       ru: "Массовая доля жира в сухом веществе не менее 45%.",
       en: "Milk fat in dry matter is at least 45%."
     }
+  },
+  {
+    slug: "gouda-cheese-wheel",
+    badge: "31",
+    category: "cheese",
+    title: {
+      uz: "Gouda pishloq 5 kg",
+      ru: "Сыр Gouda 5 kg",
+      en: "Gouda Cheese 5 kg"
+    },
+    subtitle: {
+      uz: "50% yog‘li Gouda pishloq",
+      ru: "Сыр Gouda 50%",
+      en: "Gouda cheese 50% fat"
+    },
+    weight: {
+      uz: "Sof massa: 5 kg",
+      ru: "Масса нетто: 5 kg",
+      en: "Net weight: 5 kg"
+    },
+    image: "/images/products/alone/gouda-buyuk-poset-etiket.webp",
+    gallery: ["/images/products/alone/gouda-buyuk-poset-etiket.webp", "/images/products/alone/gouda-balta-dilim.webp"],
+    accent: "from-[#eef8dd] to-[#d8edb9]",
+    fatPercent: "50%",
+    netWeight: "5 kg",
+    storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
+    packagingValue: {uz: "5 kg pishloq g‘ildiragi", ru: "Головка сыра 5 kg", en: "5 kg cheese wheel"},
+    formatValue: {uz: "Gouda pishloq", ru: "Сыр Gouda", en: "Gouda cheese"},
+    nutrition: goudaNutrition,
+    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
+    composition: hardCheeseComposition,
+    storageText: hardCheeseStorageText,
+    productionDateText: hardCheeseProductionDateText,
+    manufacturer,
+    address,
+    openedText: hardCheeseOpenedText
+  },
+  {
+    slug: "gouda-cheese-slice",
+    badge: "32",
+    category: "cheese",
+    title: {
+      uz: "Gouda pishloq dilim",
+      ru: "Сыр Gouda, кусок",
+      en: "Gouda Cheese Slice"
+    },
+    subtitle: {
+      uz: "50% yog‘li Gouda pishloq",
+      ru: "Сыр Gouda 50%",
+      en: "Gouda cheese 50% fat"
+    },
+    weight: {
+      uz: "Sof massa qadoqda ko‘rsatilgan",
+      ru: "Масса нетто указана на упаковке",
+      en: "Net weight is indicated on package"
+    },
+    image: "/images/products/alone/gouda-balta-dilim.webp",
+    gallery: ["/images/products/alone/gouda-balta-dilim.webp", "/images/products/alone/gouda-buyuk-poset-etiket.webp"],
+    accent: "from-[#eef8dd] to-[#d8edb9]",
+    fatPercent: "50%",
+    netWeight: "Dilim",
+    storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
+    packagingValue: {uz: "Dilim qadoq", ru: "Кусок в упаковке", en: "Packed slice"},
+    formatValue: {uz: "Gouda pishloq", ru: "Сыр Gouda", en: "Gouda cheese"},
+    nutrition: goudaNutrition,
+    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
+    composition: hardCheeseComposition,
+    storageText: hardCheeseStorageText,
+    productionDateText: hardCheeseProductionDateText,
+    manufacturer,
+    address,
+    openedText: hardCheeseOpenedText
+  },
+  {
+    slug: "gollandiya-cheese-wheel",
+    badge: "33",
+    category: "cheese",
+    title: {
+      uz: "Gollandiya pishloq 5 kg",
+      ru: "Сыр Gollandiya 5 kg",
+      en: "Gollandiya Cheese 5 kg"
+    },
+    subtitle: {
+      uz: "50% yog‘li Gollandiya pishloq",
+      ru: "Сыр Gollandiya 50%",
+      en: "Gollandiya cheese 50% fat"
+    },
+    weight: {
+      uz: "Sof massa: 5 kg",
+      ru: "Масса нетто: 5 kg",
+      en: "Net weight: 5 kg"
+    },
+    image: "/images/products/alone/gollandiya-buyuk-poset-etiket.webp",
+    gallery: ["/images/products/alone/gollandiya-buyuk-poset-etiket.webp", "/images/products/alone/gollandiya-balta-dilim.webp"],
+    accent: "from-[#eef4fb] to-[#dce8f6]",
+    fatPercent: "50%",
+    netWeight: "5 kg",
+    storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
+    packagingValue: {uz: "5 kg pishloq g‘ildiragi", ru: "Головка сыра 5 kg", en: "5 kg cheese wheel"},
+    formatValue: {uz: "Gollandiya pishloq", ru: "Сыр Gollandiya", en: "Gollandiya cheese"},
+    nutrition: gollandiyaNutrition,
+    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
+    composition: hardCheeseComposition,
+    storageText: hardCheeseStorageText,
+    productionDateText: hardCheeseProductionDateText,
+    manufacturer,
+    address,
+    openedText: hardCheeseOpenedText
+  },
+  {
+    slug: "gollandiya-cheese-slice",
+    badge: "34",
+    category: "cheese",
+    title: {
+      uz: "Gollandiya pishloq dilim",
+      ru: "Сыр Gollandiya, кусок",
+      en: "Gollandiya Cheese Slice"
+    },
+    subtitle: {
+      uz: "50% yog‘li Gollandiya pishloq",
+      ru: "Сыр Gollandiya 50%",
+      en: "Gollandiya cheese 50% fat"
+    },
+    weight: {
+      uz: "Sof massa qadoqda ko‘rsatilgan",
+      ru: "Масса нетто указана на упаковке",
+      en: "Net weight is indicated on package"
+    },
+    image: "/images/products/alone/gollandiya-balta-dilim.webp",
+    gallery: ["/images/products/alone/gollandiya-balta-dilim.webp", "/images/products/alone/gollandiya-buyuk-poset-etiket.webp"],
+    accent: "from-[#eef4fb] to-[#dce8f6]",
+    fatPercent: "50%",
+    netWeight: "Dilim",
+    storageValue: {uz: "+2 °C dan +4 °C gacha", ru: "От +2 °C до +4 °C", en: "From +2 °C to +4 °C"},
+    packagingValue: {uz: "Dilim qadoq", ru: "Кусок в упаковке", en: "Packed slice"},
+    formatValue: {uz: "Gollandiya pishloq", ru: "Сыр Gollandiya", en: "Gollandiya cheese"},
+    nutrition: gollandiyaNutrition,
+    compositionTitle: {uz: "Tarkibi", ru: "Состав", en: "Composition"},
+    composition: hardCheeseComposition,
+    storageText: hardCheeseStorageText,
+    productionDateText: hardCheeseProductionDateText,
+    manufacturer,
+    address,
+    openedText: hardCheeseOpenedText
   },
   {
   slug: "tvorog-soft-5",
@@ -1999,6 +2311,14 @@ const availableProductImages = new Set([
   "/images/products/yogurt120/qulupnay120.webp",
   "/images/products/yogurt120/qulupnay120.webp",
   "/images/products/alone/qaymaq.webp",
+  "/images/products/alone/smetana-180g.webp",
+  "/images/products/alone/smetana-350g.webp",
+  "/images/products/alone/qaymaq-180g.webp",
+  "/images/products/alone/qaymaq-350g.webp",
+  "/images/products/alone/gouda-balta-dilim.webp",
+  "/images/products/alone/gouda-buyuk-poset-etiket.webp",
+  "/images/products/alone/gollandiya-balta-dilim.webp",
+  "/images/products/alone/gollandiya-buyuk-poset-etiket.webp",
   "/images/products/alone/mozzarella.webp",
   "/images/products/alone/mozarella-al.webp",
   "/images/products/alone/mozarella-al.webp",
