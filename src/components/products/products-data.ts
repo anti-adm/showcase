@@ -25,7 +25,6 @@ export type NutritionItem = {
 
 export type ProductItem = {
   slug: string;
-  badge: string;
   category: Exclude<ProductCategory, "all">;
   title: LocalizedText;
   subtitle: LocalizedText;
@@ -123,7 +122,6 @@ const gollandiyaNutrition = {
 export const products: ProductItem[] = [
   {
     slug: "yogurt-cherry",
-    badge: "01",
     category: "yogurt",
     title: {
       uz: "Yogurt. Olcha ta’mi bilan",
@@ -196,7 +194,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-cherry-120",
-    badge: "02",
     category: "yogurt",
     title: {
       uz: "Yogurt. Olcha ta’mi bilan 120 g",
@@ -232,7 +229,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-forest-270",
-    badge: "03",
     category: "yogurt",
     title: {
       uz: "Yogurt. O‘rmon mevalari ta’mi bilan",
@@ -268,7 +264,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-forest-120",
-    badge: "04",
     category: "yogurt",
     title: {
       uz: "Yogurt. O‘rmon mevalari ta’mi bilan 120 g",
@@ -304,7 +299,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-peach-270",
-    badge: "05",
     category: "yogurt",
     title: {
       uz: "Yogurt. Shaftoli ta’mi bilan 270 g",
@@ -340,7 +334,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-peach-120",
-    badge: "06",
     category: "yogurt",
     title: {
       uz: "Yogurt. Shaftoli ta’mi bilan 120 g",
@@ -376,7 +369,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-strawberry-270",
-    badge: "07",
     category: "yogurt",
     title: {
       uz: "Yogurt. Qulupnay ta’mi bilan 270 g",
@@ -412,7 +404,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-strawberry-banana-270",
-    badge: "08",
     category: "yogurt",
     title: {
       uz: "Yogurt. Qulupnay va banan ta’mi bilan 270 g",
@@ -448,7 +439,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-strawberry-120",
-    badge: "08",
     category: "yogurt",
     title: {
       uz: "Yogurt. Qulupnay ta’mi bilan 120 g",
@@ -484,7 +474,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-raspberry-270",
-    badge: "09",
     category: "yogurt",
     title: {
       uz: "Yogurt. Malina ta’mi bilan 270 g",
@@ -520,7 +509,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-raspberry-120",
-    badge: "10",
     category: "yogurt",
     title: {
       uz: "Yogurt. Malina ta’mi bilan 120 g",
@@ -556,7 +544,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-banana-270",
-    badge: "11",
     category: "yogurt",
     title: {
       uz: "Yogurt. Banan ta’mi bilan 270 g",
@@ -592,7 +579,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-banana-120",
-    badge: "12",
     category: "yogurt",
     title: {
       uz: "Yogurt. Banan ta’mi bilan 120 g",
@@ -628,7 +614,7 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-pineapple-270",
-    badge: "13",
+
     category: "yogurt",
     title: {
       uz: "Yogurt. Ananas ta’mi bilan 270 g",
@@ -664,7 +650,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "yogurt-pineapple-120",
-    badge: "14",
     category: "yogurt",
     title: {
       uz: "Yogurt. Ananas ta’mi bilan 120 g",
@@ -700,7 +685,6 @@ export const products: ProductItem[] = [
   },
   {
   slug: "kefir-bio-25-450",
-  badge: "17",
   category: "kefir",
   title: {
     uz: "Bio Kefir 2,5% — 450 g",
@@ -781,7 +765,6 @@ export const products: ProductItem[] = [
 },
   {
   slug: "kefir-32-450",
-  badge: "16",
   category: "kefir",
   title: {
     uz: "Kefir 3,2% — 450 g",
@@ -862,7 +845,6 @@ export const products: ProductItem[] = [
 },
   {
     slug: "kefir-25-450",
-    badge: "15",
     category: "kefir",
     title: {
       uz: "Kefir 2,5% — 450 g",
@@ -898,7 +880,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "ayron-plain",
-    badge: "21",
     category: "ayran",
     title: {
       uz: "Ayron 1%",
@@ -955,7 +936,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "kefir-1-450",
-    badge: "15",
     category: "kefir",
     title: {
       uz: "Kefir 1% — 450 g",
@@ -991,7 +971,7 @@ export const products: ProductItem[] = [
   },
   {
     slug: "ayron-rayhonli",
-    badge: "22",
+
     category: "ayran",
     title: {
       uz: "Rayhonli ayron 1%",
@@ -1048,7 +1028,8 @@ export const products: ProductItem[] = [
   },
   {
     slug: "qatiq-3",
-    badge: "25",
+
+
     category: "qatiq",
     title: {
       uz: "Qatiq 3%",
@@ -1121,7 +1102,7 @@ export const products: ProductItem[] = [
   },
   {
     slug: "smetana",
-    badge: "26",
+
     category: "cream",
     title: {
       uz: "Smetana",
@@ -1194,7 +1175,8 @@ export const products: ProductItem[] = [
   },
   {
     slug: "qaymaq",
-    badge: "27",
+
+
     category: "cream",
     title: {
       uz: "Qaymaq",
@@ -1267,7 +1249,7 @@ export const products: ProductItem[] = [
   },
   {
     slug: "mozzarella",
-    badge: "30",
+
     category: "cheese",
     title: {
       uz: "Mozzarella",
@@ -1342,7 +1324,7 @@ export const products: ProductItem[] = [
   },
   {
     slug: "gouda-cheese",
-    badge: "31",
+
     category: "cheese",
     title: {
       uz: "Gouda pishloq",
@@ -1378,7 +1360,6 @@ export const products: ProductItem[] = [
   },
   {
     slug: "gollandiya-cheese",
-    badge: "32",
     category: "cheese",
     title: {
       uz: "Gollandiya pishloq",
@@ -1414,7 +1395,6 @@ export const products: ProductItem[] = [
   },
   {
   slug: "tvorog-soft-5",
-  badge: "32",
   category: "tvorog",
   title: {
     uz: "Yumshoq tvorog pishloq 5%",
@@ -1529,7 +1509,6 @@ export const products: ProductItem[] = [
 },
   {
     slug: "tvorog-soft",
-    badge: "30",
     category: "tvorog",
     title: {
       uz: "Yumshoq tvorog 5%",
@@ -1634,7 +1613,6 @@ export const products: ProductItem[] = [
   },
   {
   slug: "tvorog-soft-9",
-  badge: "31",
   category: "tvorog",
   title: {
     uz: "Yumshoq tvorog 9%",
@@ -1749,7 +1727,6 @@ export const products: ProductItem[] = [
 },
   {
     slug: "oxotnichiy-cheese",
-    badge: "31",
     category: "cheese",
     title: {
       uz: "Oxotnichiy pishloq",
