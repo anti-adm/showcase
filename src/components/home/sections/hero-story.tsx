@@ -12,6 +12,11 @@ import {assetUrl} from "@/lib/assets";
 import {cn} from "@/lib/utils";
 import HeroSnapController from "./hero-snap-controller";
 
+const MAIN_HERO_BACKGROUND = {
+  desktop: "/images/main-hero-4k.png",
+  mobile: "/images/main-hero-m-4k.png"
+};
+
 function useReducedMotionPreference() {
   const [reduced, setReduced] = useState(false);
 
@@ -37,11 +42,11 @@ export default function HeroStory() {
 
   const backgroundByScene = useMemo(
     () => [
-      {desktop: "/images/main-hero.webp", mobile: "/images/main-hero-m.webp"},
-      {desktop: "/images/hero/main-hero.png"},
-      {desktop: "/images/hero/main-hero.png"},
-      {desktop: "/images/hero/hero-second.png"},
-      {desktop: "/images/hero/hero-second.png"}
+      MAIN_HERO_BACKGROUND,
+      MAIN_HERO_BACKGROUND,
+      MAIN_HERO_BACKGROUND,
+      MAIN_HERO_BACKGROUND,
+      MAIN_HERO_BACKGROUND
     ],
     []
   );
@@ -129,17 +134,8 @@ export default function HeroStory() {
               />
             </div>
 
-            {activeScene === 0 ? (
-              <>
-                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,250,255,0.36)_0%,rgba(245,250,255,0.18)_34%,rgba(245,250,255,0)_66%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(237,246,255,0.06)_0%,rgba(237,246,255,0)_54%,rgba(230,240,250,0.14)_100%)]" />
-              </>
-            ) : (
-              <>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_34%),linear-gradient(180deg,rgba(7,20,36,0.20)_0%,rgba(8,24,44,0.48)_50%,rgba(6,18,33,0.72)_100%)]" />
-                <div className="absolute inset-0 bg-[#07192d]/18" />
-              </>
-            )}
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,250,255,0.42)_0%,rgba(245,250,255,0.22)_34%,rgba(245,250,255,0)_66%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(237,246,255,0.06)_0%,rgba(237,246,255,0)_54%,rgba(230,240,250,0.14)_100%)]" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -150,7 +146,7 @@ export default function HeroStory() {
           activeScene === 0 ? "hidden" : "hidden lg:flex"
         )}
       >
-        <div className="rounded-full border border-white/18 bg-white/8 px-2.5 py-3 backdrop-blur-2xl">
+        <div className="rounded-full border border-[#315b89]/18 bg-white/38 px-2.5 py-3 shadow-[0_14px_38px_rgba(25,68,112,0.10)] backdrop-blur-2xl">
           <div className="flex flex-col gap-2.5">
             {heroScenes.map((scene: HeroScene, index: number) => (
               <button
@@ -164,8 +160,8 @@ export default function HeroStory() {
                   className={cn(
                     "block h-2.5 w-2.5 rounded-full border transition-all duration-400",
                     activeScene === index
-                      ? "scale-110 border-white bg-white shadow-[0_0_12px_rgba(255,255,255,0.55)]"
-                      : "border-white/45 bg-white/12 hover:bg-white/24"
+                      ? "scale-110 border-[var(--brand-primary)] bg-[var(--brand-primary)] shadow-[0_0_12px_rgba(0,58,117,0.28)]"
+                      : "border-[#315b89]/45 bg-white/24 hover:bg-[#315b89]/18"
                   )}
                 />
               </button>
@@ -237,7 +233,7 @@ export default function HeroStory() {
                             duration: 0.45,
                             ease: [0.22, 1, 0.36, 1]
                           }}
-                          className="mb-4 inline-flex rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.32em] text-white/82 backdrop-blur-2xl"
+                          className="mb-4 inline-flex rounded-full border border-[#315b89]/18 bg-white/42 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.32em] text-[var(--brand-primary)] shadow-[0_12px_34px_rgba(25,68,112,0.08)] backdrop-blur-2xl"
                         >
                           {scene.eyebrow}
                         </motion.div>
@@ -254,7 +250,7 @@ export default function HeroStory() {
                           ease: [0.22, 1, 0.36, 1]
                         }}
                         className={cn(
-                          "max-w-[1080px] text-balance font-semibold leading-[1.06] tracking-[-0.045em] text-white",
+                          "max-w-[1080px] text-balance font-semibold leading-[1.06] tracking-[-0.045em] text-[var(--brand-primary)]",
                           index === 2
                             ? "max-w-[860px] leading-[1.06] text-[clamp(2rem,8.8vw,2.85rem)] sm:text-[clamp(2.55rem,5.7vw,3.45rem)] lg:text-[clamp(2.7rem,3vw,3.22rem)]"
                             : "text-[clamp(2.35rem,8.4vw,3.05rem)] sm:text-[clamp(2.8rem,5vw,3.7rem)] lg:text-[clamp(3rem,3.35vw,3.65rem)]"
@@ -275,7 +271,7 @@ export default function HeroStory() {
                             delay: reducedMotion ? 0 : 0.04,
                             ease: [0.22, 1, 0.36, 1]
                           }}
-                          className="mt-4 max-w-[540px] text-xl font-medium text-white/90 sm:text-2xl lg:text-[1.85rem]"
+                          className="mt-4 max-w-[540px] text-xl font-medium text-[#244d7c] sm:text-2xl lg:text-[1.85rem]"
                         >
                           {scene.subtitle}
                         </motion.p>
@@ -293,9 +289,9 @@ export default function HeroStory() {
                             delay: reducedMotion ? 0 : 0.08,
                             ease: [0.22, 1, 0.36, 1]
                           }}
-                          className="mt-7 max-w-[600px] rounded-[28px] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(4,19,36,0.18)] backdrop-blur-[24px] sm:p-6"
+                          className="mt-7 max-w-[600px] rounded-[28px] border border-white/60 bg-white/44 p-5 shadow-[0_22px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[24px] sm:p-6"
                         >
-                          <p className="text-pretty text-sm leading-7 text-white/80 sm:text-[15px] lg:text-base lg:leading-8">
+                          <p className="text-pretty text-sm leading-7 text-[#244d7c] sm:text-[15px] lg:text-base lg:leading-8">
                             {scene.description}
                           </p>
 
@@ -303,7 +299,7 @@ export default function HeroStory() {
                             <div className="mt-5">
                               <Link
                                 href={scene.cta.href}
-                                className="group inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/12 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                                className="group inline-flex items-center gap-2 rounded-full bg-[var(--brand-primary)] px-4 py-2.5 text-sm font-medium text-white shadow-[0_14px_34px_rgba(0,58,117,0.18)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
                               >
                                 {scene.cta.label}
                                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -359,7 +355,7 @@ export default function HeroStory() {
         })}
       </div>
 
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-16 bg-[linear-gradient(180deg,rgba(7,25,45,0),rgba(7,25,45,0.14))]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-16 bg-[linear-gradient(180deg,rgba(237,246,255,0),rgba(237,246,255,0.16))]" />
     </section>
   );
 }
@@ -469,10 +465,10 @@ function YogurtsPreviewCard() {
   return (
     <Link
       href="/yogurts"
-      className="group relative block min-h-[420px] overflow-hidden rounded-[32px] border border-white/22 bg-[linear-gradient(145deg,rgba(255,255,255,0.26),rgba(255,255,255,0.08))] p-5 shadow-[0_26px_80px_rgba(4,19,36,0.22)] outline-none transition duration-500 hover:-translate-y-1 hover:bg-white/18 focus-visible:ring-2 focus-visible:ring-white/70"
+      className="group relative block min-h-[420px] overflow-hidden rounded-[32px] border border-white/58 bg-white/40 p-5 shadow-[0_24px_70px_rgba(25,68,112,0.14)] outline-none transition duration-500 hover:-translate-y-1 hover:bg-white/52 focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)]"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.34),transparent_28%),radial-gradient(circle_at_78%_78%,rgba(255,220,184,0.18),transparent_32%)]" />
-      <div className="relative h-[380px] overflow-hidden rounded-[26px] border border-white/22 bg-white/18">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.46),transparent_28%),radial-gradient(circle_at_78%_78%,rgba(89,121,155,0.12),transparent_32%)]" />
+      <div className="relative h-[380px] overflow-hidden rounded-[26px] border border-white/56 bg-white/28">
         <Image
           src={assetUrl("/backgrounds/main-background.webp")}
           alt=""
@@ -480,15 +476,15 @@ function YogurtsPreviewCard() {
           sizes="520px"
           className="object-cover transition duration-700 group-hover:scale-[1.035]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(5,18,34,0.12)_50%,rgba(5,18,34,0.58)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(245,250,255,0.16)_50%,rgba(245,250,255,0.72)_100%)]" />
       </div>
 
-      <div className="absolute left-8 top-8 rounded-full border border-white/18 bg-white/18 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-white/86 backdrop-blur-md">
+      <div className="absolute left-8 top-8 rounded-full border border-[#315b89]/18 bg-white/58 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-[var(--brand-primary)] backdrop-blur-md">
         SOFIN / Yogurts
       </div>
 
-      <div className="absolute bottom-8 left-8 right-8 rounded-[22px] border border-white/18 bg-white/14 p-4 text-white backdrop-blur-md">
-        <div className="text-sm font-medium uppercase tracking-[0.28em] text-white/70">
+      <div className="absolute bottom-8 left-8 right-8 rounded-[22px] border border-white/54 bg-white/58 p-4 text-[var(--brand-primary)] backdrop-blur-md">
+        <div className="text-sm font-medium uppercase tracking-[0.28em] text-[#59799b]">
           Коллекция
         </div>
         <div className="mt-2 text-2xl font-semibold tracking-[-0.04em]">

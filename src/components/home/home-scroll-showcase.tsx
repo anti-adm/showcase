@@ -22,6 +22,7 @@ import {getProductImage, type ProductItem} from "@/components/products/products-
 import {getProductDisplayTitle} from "@/components/products/product-title";
 import type {RecipeItem} from "@/components/recipes/recipes-data";
 import {assetUrl} from "@/lib/assets";
+import {cn} from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Types & copy
@@ -88,6 +89,21 @@ const CARD_WIDTH_CLASS =
 const ACTIVE_SPRING = {stiffness: 90, damping: 26, mass: 0.65};
 const SCENE_SPRING = {stiffness: 85, damping: 26, mass: 0.8};
 
+const HOME_PRODUCT_CARD_IMAGES: Record<string, string> = {
+  "yogurt-raspberry-270": "/Hero-products/malina-bottle.png",
+  "yogurt-raspberry-120": "/Hero-products/malina.png",
+  "yogurt-peach-120": "/Hero-products/shaftoli.png",
+  "yogurt-strawberry-banana-270": "/Hero-products/strawberry-banan-bottle.png",
+  qaymaq: "/Hero-products/qaymaq.png",
+  "tvorog-soft-5": "/Hero-products/tvorog.png"
+};
+
+function getHomeProductCardImage(product: ProductItem) {
+  const image = HOME_PRODUCT_CARD_IMAGES[product.slug];
+
+  return image ? assetUrl(image) : null;
+}
+
 // ---------------------------------------------------------------------------
 // Root export
 // ---------------------------------------------------------------------------
@@ -100,7 +116,7 @@ export function HomeScrollShowcase({
   const copy = HOME_SCROLL_COPY[locale];
 
   return (
-    <main className="relative z-20 bg-[#d3dfeb]">
+    <main className="relative z-20 bg-[#eef5fb]">
       <div className="sticky top-0 z-0 h-svh overflow-hidden">
         <SceneBackdrop />
       </div>
@@ -367,20 +383,28 @@ function MobileProductShowcase({
         <div className="flex w-max gap-4">
           {products.map((product) => {
             const title = getProductDisplayTitle(product.title[locale]);
+            const homeImage = getHomeProductCardImage(product);
+            const image = homeImage ?? getProductImage(product);
 
             return (
               <Link
                 key={product.slug}
                 href={`/products/${product.slug}`}
-                className="group relative flex h-[430px] w-[82vw] max-w-[330px] shrink-0 snap-center flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_20px_54px_rgba(15,42,76,0.16)]"
+                className="group relative flex h-[430px] w-[82vw] max-w-[330px] shrink-0 snap-center flex-col overflow-hidden rounded-[22px] bg-white/88 shadow-[0_20px_54px_rgba(15,42,76,0.16)]"
               >
                 <div className="relative flex flex-1 items-center justify-center bg-[#f6f8fb]">
                   <Image
-                    src={getProductImage(product)}
+                    src={image}
                     alt={title}
                     fill
+                    unoptimized={Boolean(homeImage)}
                     sizes="82vw"
-                    className="scale-[1.08] object-contain p-7 transition-transform duration-700 group-hover:scale-[1.13]"
+                    className={cn(
+                      "transition-transform duration-700 group-hover:scale-[1.04]",
+                      homeImage
+                        ? "object-cover"
+                        : "scale-[1.08] object-contain p-7 group-hover:scale-[1.13]"
+                    )}
                   />
                 </div>
 
@@ -430,14 +454,14 @@ function MobileRecipeShowcase({
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,8,4,0.04),rgba(12,8,4,0.25)_52%,rgba(12,8,4,0.82))]" />
-              <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/62">
+              <div className="absolute inset-x-0 bottom-0 border-t border-white/48 bg-white/72 p-5 text-[var(--brand-primary)] backdrop-blur-md">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#59799b]">
                   {recipe.prepTime[locale]}
                 </p>
                 <h3 className="mt-2 line-clamp-2 text-[1.45rem] font-black uppercase leading-[0.96]">
                   {recipe.title[locale]}
                 </h3>
-                <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/80">
+                <p className="mt-3 line-clamp-2 text-sm leading-6 text-[#244d7c]">
                   {recipe.subtitle[locale]}
                 </p>
               </div>
@@ -466,17 +490,17 @@ function MobileShowcaseHeading({eyebrow, title}: {eyebrow: string; title: string
 
 function SceneBackdrop() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#cfdce8]">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#eef5fb]">
       <Image
-        src={assetUrl("/images/hero/hero-products.webp")}
+        src={assetUrl("/images/main-hero-4k.png")}
         alt=""
         fill
         unoptimized
         sizes="100vw"
-        className="object-cover opacity-95 saturate-[1.08] contrast-[1.05]"
+        className="object-cover opacity-100 saturate-[1.02] contrast-[1.02]"
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(91,141,207,0.14),transparent_36%),linear-gradient(180deg,rgba(226,236,247,0.2),rgba(211,224,238,0.1)_42%,rgba(195,211,229,0.2))]" />
-      <div className="absolute inset-x-0 bottom-0 h-[32vh] bg-[linear-gradient(180deg,transparent,rgba(210,222,235,0.2)_54%,rgba(207,220,232,0.38))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,250,255,0.48)_0%,rgba(245,250,255,0.26)_34%,rgba(245,250,255,0.08)_66%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(237,246,255,0.12)_0%,rgba(237,246,255,0.04)_54%,rgba(230,240,250,0.24)_100%)]" />
     </div>
   );
 }
@@ -1022,6 +1046,8 @@ function ProductSceneCard({
   const visual = useSceneCardVisuals({activity, sceneProgress});
   const isActive = realIndex === activeIndex && slotIndex === activeIndex;
   const title = getProductDisplayTitle(product.title[locale]);
+  const homeImage = getHomeProductCardImage(product);
+  const image = homeImage ?? getProductImage(product, realIndex);
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!isSceneActive || !isActive) {
@@ -1046,35 +1072,48 @@ function ProductSceneCard({
       <Link
         href={`/products/${product.slug}`}
         onClick={handleClick}
-        className="group relative block h-full overflow-hidden rounded-[24px] bg-white/92 shadow-[0_26px_70px_rgba(15,32,56,0.18),0_6px_18px_rgba(15,23,42,0.10)] [backface-visibility:hidden] [transform:translateZ(0)]"
+        className="group relative block h-full overflow-hidden rounded-[24px] bg-white/90 shadow-[0_26px_70px_rgba(15,32,56,0.18),0_6px_18px_rgba(15,23,42,0.10)] [backface-visibility:hidden] [transform:translateZ(0)]"
         style={{clipPath: "inset(0 round 24px)"}}
       >
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fc_48%,#e6edf5_100%)]">
           <Image
-            src={getProductImage(product, realIndex)}
+            src={image}
             alt={title}
             fill
+            unoptimized={Boolean(homeImage)}
             sizes="(min-width: 900px) 420px, (min-width: 640px) 46vw, 84vw"
-            className="object-contain p-9 transition duration-700 group-hover:scale-[1.04]"
+            className={cn(
+              "transition duration-700 group-hover:scale-[1.04]",
+              homeImage ? "object-cover" : "object-contain p-9"
+            )}
           />
         </div>
 
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,19,34,0)_0%,rgba(10,19,34,0)_38%,rgba(10,19,34,0.26)_66%,rgba(10,19,34,0.82)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(245,250,255,0)_0%,rgba(245,250,255,0)_46%,rgba(245,250,255,0.18)_70%,rgba(245,250,255,0.72)_100%)]" />
 
         <motion.div
-          className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-7"
+          className="absolute bottom-0 left-0 right-0 p-6 text-[var(--brand-primary)] sm:p-7"
           style={{y: visual.contentY}}
         >
-          <h3 className="max-w-[94%] text-[clamp(1.35rem,2.3vw,2.1rem)] font-black uppercase leading-[0.97] tracking-[-0.035em]">
-            {title}
-          </h3>
+          {homeImage ? null : (
+            <>
+              <h3 className="max-w-[94%] text-[clamp(1.35rem,2.3vw,2.1rem)] font-black uppercase leading-[0.97] tracking-[-0.035em]">
+                {title}
+              </h3>
 
-          <p className="mt-3 line-clamp-2 max-w-[90%] text-[13px] font-medium leading-relaxed text-white/80">
-            {product.subtitle[locale]}
-          </p>
+              <p className="mt-3 line-clamp-2 max-w-[90%] text-[13px] font-medium leading-relaxed text-[#244d7c]">
+                {product.subtitle[locale]}
+              </p>
+            </>
+          )}
 
           <motion.span
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/16 px-4 py-[7px] text-[10.5px] font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-md"
+            className={cn(
+              "inline-flex items-center gap-2 rounded-full px-4 py-[7px] text-[10.5px] font-semibold uppercase tracking-[0.16em] backdrop-blur-md",
+              homeImage
+                ? "mt-0 bg-white/72 text-[var(--brand-primary)] shadow-[0_12px_32px_rgba(25,68,112,0.12)]"
+                : "mt-5 bg-[var(--brand-primary)] text-white shadow-[0_12px_32px_rgba(0,58,117,0.18)]"
+            )}
             style={{
               opacity: visual.ctaOpacity,
               y: visual.ctaY,
@@ -1175,10 +1214,10 @@ function RecipeSceneCard({
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(12,8,4,0.06)_0%,rgba(12,8,4,0.12)_44%,rgba(12,8,4,0.38)_68%,rgba(12,8,4,0.82)_100%)]" />
 
         <motion.div
-          className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-7"
+          className="absolute bottom-0 left-0 right-0 border-t border-white/46 bg-white/70 p-6 text-[var(--brand-primary)] backdrop-blur-md sm:p-7"
           style={{y: visual.contentY}}
         >
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em] text-white/60">
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em] text-[#59799b]">
             {recipe.prepTime[locale]}
           </p>
 
@@ -1186,12 +1225,12 @@ function RecipeSceneCard({
             {recipe.title[locale]}
           </h3>
 
-          <p className="mt-3 line-clamp-2 max-w-[90%] text-[13px] font-medium leading-relaxed text-white/80">
+          <p className="mt-3 line-clamp-2 max-w-[90%] text-[13px] font-medium leading-relaxed text-[#244d7c]">
             {recipe.subtitle[locale]}
           </p>
 
           <motion.span
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/16 px-4 py-[7px] text-[10.5px] font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-md"
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--brand-primary)] px-4 py-[7px] text-[10.5px] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_32px_rgba(0,58,117,0.18)] backdrop-blur-md"
             style={{
               opacity: visual.ctaOpacity,
               y: visual.ctaY,
