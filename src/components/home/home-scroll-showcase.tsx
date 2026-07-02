@@ -490,17 +490,17 @@ function MobileShowcaseHeading({eyebrow, title}: {eyebrow: string; title: string
 
 function SceneBackdrop() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#eef5fb]">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#cfdce8]">
       <Image
-        src={assetUrl("/images/main-hero-4k.png")}
+        src={assetUrl("/images/hero/hero-products.webp")}
         alt=""
         fill
         unoptimized
         sizes="100vw"
-        className="object-cover opacity-100 saturate-[1.02] contrast-[1.02]"
+        className="object-cover opacity-95 saturate-[1.08] contrast-[1.05]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,250,255,0.48)_0%,rgba(245,250,255,0.26)_34%,rgba(245,250,255,0.08)_66%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(237,246,255,0.12)_0%,rgba(237,246,255,0.04)_54%,rgba(230,240,250,0.24)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(91,141,207,0.14),transparent_36%),linear-gradient(180deg,rgba(226,236,247,0.2),rgba(211,224,238,0.1)_42%,rgba(195,211,229,0.2))]" />
+      <div className="absolute inset-x-0 bottom-0 h-[32vh] bg-[linear-gradient(180deg,transparent,rgba(210,222,235,0.2)_54%,rgba(207,220,232,0.38))]" />
     </div>
   );
 }
@@ -672,7 +672,8 @@ function useWheelSceneController({
       return {
         pinned,
         sectionTop,
-        exitY
+        exitY,
+        scrollY
       };
     };
 
@@ -723,6 +724,13 @@ function useWheelSceneController({
       const maxIndex = Math.max(0, count - 1);
 
       if (!isSceneActiveRef.current || !hasEnteredSceneRef.current) {
+        const isNearTopEdge = state.scrollY <= state.sectionTop + window.innerHeight * 0.35;
+
+        if (direction < 0 && isNearTopEdge) {
+          releaseScene(-1);
+          return true;
+        }
+
         setSceneActive(true);
         hasEnteredSceneRef.current = true;
 

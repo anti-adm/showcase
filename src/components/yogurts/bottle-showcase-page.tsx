@@ -7,6 +7,7 @@ import {
   ArrowRight,
   Baby,
   Cherry,
+  ChevronUp,
   Citrus,
   Droplet,
   Grape,
@@ -780,6 +781,7 @@ export function BottleShowcasePage() {
         ? 1
         : 0;
   const showScrollHint = transition.placement === "overview" && !endingActive && !releasedToFooter;
+  const showBackToTop = transition.placement !== "overview" || endingActive || releasedToFooter;
 
   return (
     <main className={`${styles.page} ${releasedToFooter ? styles.page_released : ""}`}>
@@ -803,6 +805,14 @@ export function BottleShowcasePage() {
         <span />
         <em>scroll</em>
       </div>
+      <button
+        aria-label={locale === "ru" ? "Вернуться наверх" : locale === "uz" ? "Yuqoriga qaytish" : "Back to top"}
+        className={`${styles.showcaseBackToTop} ${showBackToTop ? styles.showcaseBackToTop_visible : ""}`}
+        onClick={returnToOverview}
+        type="button"
+      >
+        <ChevronUp aria-hidden="true" size={22} strokeWidth={2.2} />
+      </button>
     </main>
   );
 }

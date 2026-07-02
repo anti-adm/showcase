@@ -379,6 +379,7 @@
 }
 
 .introCategories {
+  display: none;
   width: min(100%, 470px);
   margin-top: clamp(22px, 1.8vw, 34px);
   border: 1px solid rgba(255, 255, 255, 0.68);
@@ -513,6 +514,7 @@
 .introFeatures article {
   display: flex;
   min-height: clamp(78px, 5.4vw, 104px);
+  min-width: 0;
   align-items: center;
   gap: clamp(12px, 1.1vw, 22px);
   border: 1px solid rgba(255, 255, 255, 0.68);
@@ -541,6 +543,10 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.84);
 }
 
+.introFeatures article > div {
+  min-width: 0;
+}
+
 .introFeatures h3 {
   margin: 0;
   color: #2a3e55;
@@ -548,6 +554,7 @@
   font-weight: 760;
   letter-spacing: 0;
   line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .introFeatures p {
@@ -556,6 +563,46 @@
   font-size: clamp(11px, 0.72vw, 13px);
   font-weight: 560;
   line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.showcaseBackToTop {
+  position: fixed;
+  z-index: 90;
+  right: 18px;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  color: #12365f;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow:
+    0 18px 44px rgba(20, 47, 82, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, 10px, 0) scale(0.94);
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease,
+    background 220ms ease;
+  backdrop-filter: blur(14px) saturate(1.08);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+}
+
+.showcaseBackToTop:hover {
+  background: rgba(255, 255, 255, 0.78);
+  transform: translate3d(0, 6px, 0) scale(1);
+}
+
+.showcaseBackToTop_visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .ending {
@@ -1115,18 +1162,18 @@
   .introBadge {
     top: auto;
     right: 18px;
-    bottom: 152px;
+    bottom: clamp(238px, 30vh, 292px);
     left: auto;
-    width: 88px;
-    height: 88px;
+    width: 82px;
+    height: 82px;
   }
 
   .introBadge strong {
-    font-size: 27px;
+    font-size: 25px;
   }
 
   .introBadge span {
-    font-size: 8px;
+    font-size: 7px;
   }
 
   .introFruitIcons {
@@ -1142,10 +1189,10 @@
   }
 
   .introFeatures article {
-    min-height: 82px;
+    min-height: 76px;
     gap: 10px;
     border-radius: 18px;
-    padding: 12px;
+    padding: 10px;
   }
 
   .introFeatures article > span {
@@ -1160,7 +1207,12 @@
   }
 
   .introFeatures h3 {
+    display: -webkit-box;
+    overflow: hidden;
     font-size: 12px;
+    line-height: 1.12;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .introFeatures p {
@@ -1169,6 +1221,13 @@
 
   .scrollHint {
     bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .showcaseBackToTop {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    width: 48px;
+    height: 48px;
   }
 
   .endingHeading {
