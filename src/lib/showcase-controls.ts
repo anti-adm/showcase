@@ -68,11 +68,11 @@ export const SLIDE_BACKGROUND_CONTROLS = {
 
   layers: [
     {
-      src: "/backgrounds/main-background.webp",
+      src: "/images/yogurts/sofin-yogurt-cups-hero-4k.png",
       steps: [0],
       position: "center center",
       size: "cover",
-      maxOpacity: 0.84,
+      maxOpacity: 1,
     },
     {
       src: "/backgrounds/malina.webp",

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Playfair_Display } from "next/font/google";
 import { useLocale } from "next-intl";
+import {ArrowRight, Heart, Leaf, Milk, ShieldCheck} from "lucide-react";
 import { IntroClusterStage } from "@/components/intro-cluster-stage";
 import { IntroTextLayer } from "@/components/intro-text-layer";
 import {assetUrl} from "@/lib/assets";
@@ -70,6 +71,7 @@ const PRELOAD_IMAGE_ASSETS = [
   "/media/logotip.webp",
   "/media/down.webp",
   "/media/slide1.webp",
+  "/images/yogurts/sofin-yogurt-cups-hero-4k.png",
   ...SLIDE_BACKGROUND_CONTROLS.layers.flatMap((layer) => [
     layer.src,
     layer.src.replace(/(\.[a-z]+)$/i, "-m$1"),
@@ -634,7 +636,7 @@ export function YogurtsShowcasePage() {
 
     return {
       ...layer,
-      src: assetUrl(getResponsiveBackgroundSrc(layer.src, isMobile)),
+      src: resolveShowcaseBackgroundSrc(getResponsiveBackgroundSrc(layer.src, isMobile)),
       presence,
       opacity: presence * (layer.maxOpacity ?? backgroundTransition.maxOpacity),
       scale: lerp(
@@ -647,7 +649,7 @@ export function YogurtsShowcasePage() {
     };
   });
   const backgroundVeilOpacity =
-    backgroundLayers.reduce((max, layer) => Math.max(max, layer.presence), 0) *
+    (step === 0 ? 0 : backgroundLayers.reduce((max, layer) => Math.max(max, layer.presence), 0)) *
     backgroundTransition.veilOpacity;
 
   const milkActive = MILK_STEPS.has(step);
@@ -736,19 +738,27 @@ export function YogurtsShowcasePage() {
             isMobile={isMobile}
           />
 
-          <IntroTextLayer
-            step={step}
-            step1Progress={step1Progress}
-            step2Progress={step2Progress}
-            step3Progress={step3Progress}
-            step4Progress={step4Progress}
-            step5Progress={step5Progress}
-            step6Progress={step6Progress}
-            step7Progress={step7Progress}
-            step8Progress={step8Progress}
-            step9Progress={step9Progress}
+          <YogurtCupsHeroOverlay
+            copy={YOGURT_HERO_TRANSLATIONS[locale]}
             isMobile={isMobile}
+            opacity={step === 0 ? 1 : 1 - smoothstep(0.04, 0.42, step1Progress)}
           />
+
+          {step === 0 ? null : (
+            <IntroTextLayer
+              step={step}
+              step1Progress={step1Progress}
+              step2Progress={step2Progress}
+              step3Progress={step3Progress}
+              step4Progress={step4Progress}
+              step5Progress={step5Progress}
+              step6Progress={step6Progress}
+              step7Progress={step7Progress}
+              step8Progress={step8Progress}
+              step9Progress={step9Progress}
+              isMobile={isMobile}
+            />
+          )}
         </div>
       ) : null}
 
@@ -783,6 +793,89 @@ export function YogurtsShowcasePage() {
   );
 }
 
+function YogurtCupsHeroOverlay({
+  copy,
+  isMobile,
+  opacity
+}: {
+  copy: HeroCopy;
+  isMobile: boolean;
+  opacity: number;
+}) {
+  const safeOpacity = Math.max(0, Math.min(1, opacity));
+  const hidden = safeOpacity <= 0.01;
+
+  const goNext = () => {
+    window.dispatchEvent(
+      new WheelEvent("wheel", {
+        deltaY: 140,
+        bubbles: true,
+        cancelable: true
+      })
+    );
+  };
+
+  return (
+    <section
+      aria-hidden={hidden}
+      className="pointer-events-none absolute inset-0 z-30 overflow-hidden"
+      style={{
+        opacity: safeOpacity,
+        transform: `translate3d(0, ${(-18 * (1 - safeOpacity)).toFixed(2)}px, 0)`,
+        transition: "opacity 520ms cubic-bezier(0.16,1,0.3,1), transform 680ms cubic-bezier(0.16,1,0.3,1)"
+      }}
+    >
+      <div
+        className={[
+          "absolute left-[clamp(1.4rem,6.6vw,8rem)] top-[clamp(10rem,23.5vh,15.8rem)] max-w-[min(39vw,620px)]",
+          isMobile ? "left-5 right-5 top-[8.6rem] max-w-none" : ""
+        ].join(" ")}
+      >
+        <div className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#7f6048]/18 bg-white/34 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3e3029]/82 shadow-[0_12px_34px_rgba(119,78,43,0.08)] backdrop-blur-md">
+          <Leaf aria-hidden="true" className="h-4 w-4 text-[#7e9f4c]" strokeWidth={2} />
+          <span>{copy.eyebrow}</span>
+        </div>
+
+        <h1
+          className={`${collectionSerif.className} mt-6 whitespace-pre-line text-balance text-[clamp(3.05rem,4.25vw,4.8rem)] font-medium leading-[0.94] tracking-[-0.025em] text-[#241a16] max-sm:mt-5 max-sm:max-w-[8ch] max-sm:text-[clamp(3.05rem,16vw,4.35rem)]`}
+        >
+          {copy.title}
+        </h1>
+
+        <p className="mt-6 max-w-[420px] text-pretty text-[clamp(0.95rem,1.05vw,1.15rem)] font-medium leading-[1.48] text-[#4e433d]/78 max-sm:mt-5 max-sm:max-w-[28ch] max-sm:text-sm">
+          {copy.description}
+        </p>
+
+        <button
+          className="pointer-events-auto mt-7 inline-flex min-h-14 items-center gap-4 rounded-full bg-[#eaa074] px-7 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(204,111,63,0.24)] transition hover:-translate-y-0.5 hover:bg-[#df9061] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eaa074] focus-visible:ring-offset-2 max-sm:mt-6 max-sm:min-h-12 max-sm:px-6"
+          onClick={goNext}
+          type="button"
+        >
+          <span>{copy.cta}</span>
+          <ArrowRight aria-hidden="true" className="h-5 w-5" strokeWidth={2.4} />
+        </button>
+      </div>
+
+      <div className="absolute bottom-[clamp(1.3rem,4.3vh,3.25rem)] left-1/2 flex w-[min(58vw,860px)] -translate-x-1/2 items-center justify-center rounded-full border border-white/44 bg-white/48 px-5 py-3 shadow-[0_20px_56px_rgba(130,86,50,0.13),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md max-sm:hidden">
+        <div className="grid w-full grid-cols-4 divide-x divide-[#7f6048]/10">
+          {copy.features.map((feature, index) => {
+            const Icon = HERO_FEATURE_ICONS[index] ?? Leaf;
+
+            return (
+              <div key={feature.title} className="flex min-w-0 items-center gap-3 px-5">
+                <Icon aria-hidden="true" className="h-6 w-6 shrink-0 text-[#7b6759]" strokeWidth={1.8} />
+                <span className="text-pretty text-[13px] font-semibold leading-tight text-[#3e3029]/88">
+                  {feature.title}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function isTypingTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) return false;
 
@@ -805,6 +898,55 @@ type CollectionCopy = {
   heading: string;
   subheading: string;
   slides: Array<{eyebrow: string; title: string; text: string}>;
+};
+
+type HeroCopy = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  cta: string;
+  features: Array<{title: string; text: string}>;
+};
+
+const HERO_FEATURE_ICONS = [Leaf, Milk, ShieldCheck, Heart] as const;
+
+const YOGURT_HERO_TRANSLATIONS: Record<Locale, HeroCopy> = {
+  uz: {
+    eyebrow: "100% TABIIY • SIFAT KAFOLATI",
+    title: "SOFIN tabiatdan\nyetilgan tabiiy\nzavq.",
+    description: "Mevalar va tabiiy yogurt uyg'unligi - kuningiz uchun eng yaxshi tanlov.",
+    cta: "Yogurtlarimizni kashf eting",
+    features: [
+      {title: "100% tabiiy va foydali", text: ""},
+      {title: "Sutdan tayyorlangan sifatli mahsulot", text: ""},
+      {title: "Sifat kafolati va ishonch", text: ""},
+      {title: "Har kuni uchun eng yaxshi tanlov", text: ""}
+    ]
+  },
+  ru: {
+    eyebrow: "100% НАТУРАЛЬНО • ГАРАНТИЯ КАЧЕСТВА",
+    title: "SOFIN -\nнатуральное\nудовольствие.",
+    description: "Фрукты и натуральный йогурт соединяются в мягкий выбор для каждого дня.",
+    cta: "Открыть йогурты",
+    features: [
+      {title: "100% натурально и полезно", text: ""},
+      {title: "Качественный продукт из молока", text: ""},
+      {title: "Гарантия качества и доверие", text: ""},
+      {title: "Лучший выбор на каждый день", text: ""}
+    ]
+  },
+  en: {
+    eyebrow: "100% NATURAL • QUALITY GUARANTEE",
+    title: "SOFIN, natural\npleasure grown\nby nature.",
+    description: "Fruit and natural yogurt come together for your best everyday choice.",
+    cta: "Discover our yogurts",
+    features: [
+      {title: "100% natural and wholesome", text: ""},
+      {title: "Quality product made from milk", text: ""},
+      {title: "Quality guarantee and trust", text: ""},
+      {title: "The best choice for every day", text: ""}
+    ]
+  }
 };
 
 const YOGURTS_PAGE_TRANSLATIONS: Record<
@@ -1140,6 +1282,12 @@ function lerp(from: number, to: number, t: number) {
   return from + (to - from) * t;
 }
 
+function smoothstep(edge0: number, edge1: number, value: number) {
+  const x = Math.min(1, Math.max(0, (value - edge0) / (edge1 - edge0)));
+
+  return x * x * (3 - 2 * x);
+}
+
 function getCurrentBackgroundProgress(
   step: ShowcaseStep,
   progress: Record<ProgressKey, number>
@@ -1171,8 +1319,15 @@ function getSlideBackgroundPresence(
 
 function getResponsiveBackgroundSrc(src: string, isMobile: boolean) {
   if (!isMobile) return src;
+  if (src.startsWith("/images/yogurts/")) return src;
 
   return src.replace(/(\.[a-z]+)$/i, "-m$1");
+}
+
+function resolveShowcaseBackgroundSrc(src: string) {
+  if (src.startsWith("/images/yogurts/")) return src;
+
+  return assetUrl(src);
 }
 
 function hexToRgb(hex: string) {

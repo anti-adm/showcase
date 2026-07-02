@@ -227,6 +227,16 @@ const STRAWBERRY_BANAN_POSE = {
   s: 0.82,
 };
 
+const DESKTOP_INTRO_CUP_POSES: Partial<Record<FlavorKey, TransformTarget & {hidden?: boolean}>> = {
+  malina: {x: 1.36, y: 0.34, z: 0.18, rx: 0.06, ry: 0.02, rz: 0.01, s: 0.52},
+  ananas: {x: 0.52, y: -0.44, z: 0.08, rx: 0.05, ry: 0.07, rz: -0.02, s: 0.5},
+  shaftoli: {x: 2.09, y: -0.42, z: 0.08, rx: 0.05, ry: -0.07, rz: 0.02, s: 0.5},
+  "ormon-meva": {x: 0.02, y: -1.18, z: 0.2, rx: 0.05, ry: 0.08, rz: -0.02, s: 0.46},
+  oulupnay: {x: 1.32, y: -1.2, z: 0.28, rx: 0.05, ry: 0, rz: 0, s: 0.52},
+  banan: {x: 2.58, y: -1.16, z: 0.2, rx: 0.05, ry: -0.08, rz: 0.02, s: 0.46},
+  olcha: {x: 3.18, y: -0.5, z: 0, rx: 0.05, ry: -0.08, rz: 0.02, s: 0.42, hidden: true},
+};
+
 const MOBILE_MAIN_POSE = {
   x: 0.9,
   y: 0.76,
@@ -950,6 +960,30 @@ function Cup({
     }
 
     if (!isMain) {
+      const desktopIntroPose = DESKTOP_INTRO_CUP_POSES[flavor];
+
+      if (step === 0 && desktopIntroPose) {
+        if (desktopIntroPose.hidden) {
+          setVisibility(group, false);
+          setOpacity(group, 0);
+          return;
+        }
+
+        applyTransform(group, delta, {
+          x: desktopIntroPose.x + heroMotion.x * 0.12,
+          y: desktopIntroPose.y + heroMotion.y * 0.14,
+          z: desktopIntroPose.z + heroMotion.z * 0.12,
+          rx: desktopIntroPose.rx + heroMotion.rx * 0.16,
+          ry: desktopIntroPose.ry + heroMotion.ry * 0.16,
+          rz: desktopIntroPose.rz + heroMotion.rz * 0.16,
+          s: desktopIntroPose.s,
+        });
+
+        setVisibility(group, true);
+        setOpacity(group, 1);
+        return;
+      }
+
       const lift = smoothstep(0.02, 0.18, step1Progress);
       const fall = smoothstep(0.14, 1, step1Progress);
       const side = position[0] < 0.2 ? -0.18 : position[0] < 1.5 ? 0.04 : 0.18;
@@ -995,9 +1029,14 @@ function Cup({
 
     const t1 = smoothstep(0.08, 1, step1Progress);
 
-    const startX = position[0];
-    const startY = position[1];
-    const startZ = position[2];
+    const desktopIntroMainPose = DESKTOP_INTRO_CUP_POSES[flavor];
+    const startX = desktopIntroMainPose?.x ?? position[0];
+    const startY = desktopIntroMainPose?.y ?? position[1];
+    const startZ = desktopIntroMainPose?.z ?? position[2];
+    const startRx = desktopIntroMainPose?.rx ?? rotation[0];
+    const startRy = desktopIntroMainPose?.ry ?? rotation[1];
+    const startRz = desktopIntroMainPose?.rz ?? rotation[2];
+    const startScale = desktopIntroMainPose?.s ?? scale;
 
     const heroX = 1.5;
     const heroY = 0.6;
@@ -1012,11 +1051,11 @@ function Cup({
       dropArc;
     let targetZ = THREE.MathUtils.lerp(startZ, heroZ, t1);
 
-    let targetRotX = THREE.MathUtils.lerp(rotation[0], 0.03, t1);
-    let targetRotY = THREE.MathUtils.lerp(rotation[1], 0.01, t1);
-    let targetRotZ = THREE.MathUtils.lerp(rotation[2], 0, t1);
+    let targetRotX = THREE.MathUtils.lerp(startRx, 0.03, t1);
+    let targetRotY = THREE.MathUtils.lerp(startRy, 0.01, t1);
+    let targetRotZ = THREE.MathUtils.lerp(startRz, 0, t1);
 
-    let targetScale = THREE.MathUtils.lerp(scale, 0.86, t1);
+    let targetScale = THREE.MathUtils.lerp(startScale, 0.86, t1);
     const aspect = state.size.width / state.size.height;
     const responsiveXScale = getResponsiveSceneXScale(aspect);
     const responsiveYLift = step >= 3 ? getResponsiveSceneYLift(aspect) : 0;
