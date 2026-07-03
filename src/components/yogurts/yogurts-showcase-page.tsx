@@ -16,6 +16,8 @@ import {
 const WHEEL_THRESHOLD = 18;
 const TOUCH_THRESHOLD = 46;
 const MOBILE_QUERY = "(max-width: 767.98px)";
+const DESKTOP_HERO_BACKGROUND_SRC = "/images/yogurts/sofin-yogurt-cups-hero-4k.png";
+const MOBILE_HERO_BACKGROUND_SRC = "/images/yogurts/sofin-yogurt-cups-hero-mobile.webp";
 const COLLECTION_SLIDE_COUNT = 8;
 const COLLECTION_LAST_STAGE = COLLECTION_SLIDE_COUNT + 1;
 const COLLECTION_NAVIGATION_LOCK_MS = 720;
@@ -71,9 +73,12 @@ const PRELOAD_IMAGE_ASSETS = [
   "/media/logotip.webp",
   "/media/down.webp",
   "/media/slide1.webp",
-  "/images/yogurts/sofin-yogurt-cups-hero-4k.png",
+  DESKTOP_HERO_BACKGROUND_SRC,
+  MOBILE_HERO_BACKGROUND_SRC,
   ...SLIDE_BACKGROUND_CONTROLS.layers.flatMap((layer) => (
-    layer.src.startsWith("/images/yogurts/")
+    layer.src === DESKTOP_HERO_BACKGROUND_SRC
+      ? [DESKTOP_HERO_BACKGROUND_SRC, MOBILE_HERO_BACKGROUND_SRC]
+      : layer.src.startsWith("/images/yogurts/")
       ? [layer.src]
       : [layer.src, layer.src.replace(/(\.[a-z]+)$/i, "-m$1")]
   )),
@@ -724,20 +729,22 @@ export function YogurtsShowcasePage() {
             />
           </div>
 
-          <IntroClusterStage
-            step={step}
-            step1Progress={step1Progress}
-            step2Progress={step2Progress}
-            step3Progress={step3Progress}
-            step4Progress={step4Progress}
-            step5Progress={step5Progress}
-            step6Progress={step6Progress}
-            step7Progress={step7Progress}
-            step8Progress={step8Progress}
-            step9Progress={step9Progress}
-            direction={direction}
-            isMobile={isMobile}
-          />
+          {isMobile && step === 0 ? null : (
+            <IntroClusterStage
+              step={step}
+              step1Progress={step1Progress}
+              step2Progress={step2Progress}
+              step3Progress={step3Progress}
+              step4Progress={step4Progress}
+              step5Progress={step5Progress}
+              step6Progress={step6Progress}
+              step7Progress={step7Progress}
+              step8Progress={step8Progress}
+              step9Progress={step9Progress}
+              direction={direction}
+              isMobile={isMobile}
+            />
+          )}
 
           <YogurtCupsHeroOverlay
             copy={YOGURT_HERO_TRANSLATIONS[locale]}
@@ -855,23 +862,27 @@ function YogurtCupsHeroOverlay({
           <span>{copy.cta}</span>
           <ArrowRight aria-hidden="true" className="h-5 w-5" strokeWidth={2.4} />
         </button>
-      </div>
 
-      <div className="absolute bottom-[clamp(1.3rem,4.3vh,3.25rem)] left-1/2 flex w-[min(58vw,860px)] -translate-x-1/2 items-center justify-center rounded-full border border-white/44 bg-white/48 px-5 py-3 shadow-[0_20px_56px_rgba(130,86,50,0.13),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md max-md:bottom-4 max-md:w-[calc(100%-2rem)] max-md:rounded-[1.6rem] max-md:px-2 max-md:py-4">
-        <div className="grid w-full grid-cols-4 divide-x divide-[#7f6048]/10 max-md:items-start">
-          {copy.features.map((feature, index) => {
-            const Icon = HERO_FEATURE_ICONS[index] ?? Leaf;
+        {SHOW_HERO_FEATURE_STRIP ? (
+          <div className="mt-5 grid max-w-[min(100%,520px)] grid-cols-2 overflow-hidden rounded-[1.7rem] border border-white/44 bg-white/46 shadow-[0_20px_56px_rgba(130,86,50,0.13),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md max-md:mt-4 max-md:rounded-[1.35rem]">
+            {copy.features.map((feature, index) => {
+              const Icon = HERO_FEATURE_ICONS[index] ?? Leaf;
+              const cellBorders = [
+                index % 2 === 1 ? "border-l border-[#7f6048]/10" : "",
+                index >= 2 ? "border-t border-[#7f6048]/10" : "",
+              ].filter(Boolean).join(" ");
 
-            return (
-              <div key={feature.title} className="flex min-w-0 items-center gap-3 px-5 max-md:flex-col max-md:gap-2 max-md:px-2 max-md:text-center">
-                <Icon aria-hidden="true" className="h-6 w-6 shrink-0 text-[#7b6759]" strokeWidth={1.8} />
-                <span className="text-pretty text-[13px] font-semibold leading-tight text-[#3e3029]/88 max-md:text-[11px]">
-                  {feature.title}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <div key={feature.title} className={`flex min-w-0 items-center gap-3 px-4 py-3 max-md:gap-2 max-md:px-3 max-md:py-2.5 ${cellBorders}`}>
+                  <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-[#7b6759] max-md:h-4 max-md:w-4" strokeWidth={1.8} />
+                  <span className="text-pretty text-[12px] font-semibold leading-tight text-[#3e3029]/88 max-md:text-[10px]">
+                    {feature.title}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </section>
   );
@@ -910,6 +921,7 @@ type HeroCopy = {
 };
 
 const HERO_FEATURE_ICONS = [Leaf, Milk, ShieldCheck, Heart] as const;
+const SHOW_HERO_FEATURE_STRIP = true;
 
 const YOGURT_HERO_TRANSLATIONS: Record<Locale, HeroCopy> = {
   uz: {
@@ -1319,6 +1331,7 @@ function getSlideBackgroundPresence(
 }
 
 function getResponsiveBackgroundSrc(src: string, isMobile: boolean) {
+  if (isMobile && src === DESKTOP_HERO_BACKGROUND_SRC) return MOBILE_HERO_BACKGROUND_SRC;
   if (!isMobile) return src;
   if (src.startsWith("/images/yogurts/")) return src;
 
@@ -1326,8 +1339,6 @@ function getResponsiveBackgroundSrc(src: string, isMobile: boolean) {
 }
 
 function resolveShowcaseBackgroundSrc(src: string) {
-  if (src.startsWith("/images/yogurts/")) return src;
-
   return assetUrl(src);
 }
 

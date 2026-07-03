@@ -61,6 +61,16 @@ type TransformTarget = {
 
 type MotionOffsets = TransformTarget;
 
+const STATIC_HERO_MOTION: MotionOffsets = {
+  x: 0,
+  y: 0,
+  z: 0,
+  rx: 0,
+  ry: 0,
+  rz: 0,
+  s: 1,
+};
+
 const BASE_MODEL_PATH = assetUrl("/models/products/base-cup.glb");
 const PRODUCT_TEXTURE_FLAVORS: FlavorKey[] = [
   "ananas",
@@ -228,12 +238,12 @@ const STRAWBERRY_BANAN_POSE = {
 };
 
 const DESKTOP_INTRO_CUP_POSES: Partial<Record<FlavorKey, TransformTarget & {hidden?: boolean}>> = {
-  malina: {x: 1.16, y: 0.46, z: 0.18, rx: 0.06, ry: 0.02, rz: 0.01, s: 0.6},
-  ananas: {x: 0.28, y: -0.42, z: 0.08, rx: 0.05, ry: 0.06, rz: -0.02, s: 0.57},
-  shaftoli: {x: 1.98, y: -0.42, z: 0.08, rx: 0.05, ry: -0.06, rz: 0.02, s: 0.57},
-  "ormon-meva": {x: -0.24, y: -1.34, z: 0.2, rx: 0.05, ry: 0.08, rz: -0.02, s: 0.54},
-  oulupnay: {x: 1.1, y: -1.34, z: 0.28, rx: 0.05, ry: 0, rz: 0, s: 0.58},
-  banan: {x: 2.45, y: -1.32, z: 0.2, rx: 0.05, ry: -0.08, rz: 0.02, s: 0.54},
+  malina: {x: 1.5, y: -0.1, z: 0.18, rx: 0.1, ry: 0.02, rz: 0.01, s: 0.6},
+  ananas: {x: 0.5, y: -0.62, z: 0.08, rx: 0.05, ry: 0.06, rz: -0.02, s: 0.57},
+  shaftoli: {x: 2.3, y: -0.62, z: 0.08, rx: 0.05, ry: -0.06, rz: 0.02, s: 0.57},
+  "ormon-meva": {x: -0.24, y: -1.34, z: 0.2, rx: 0.05, ry: -0.4, rz: -0.02, s: 0.54},
+  oulupnay: {x: 1.3, y: -1.34, z: 0.28, rx: 0.05, ry: 0, rz: 0, s: 0.58},
+  banan: {x: 2.6, y: -1.32, z: -0.2, rx: 0.09, ry: 0.2, rz: 0.02, s: 0.54},
   olcha: {x: 3.18, y: -0.5, z: 0, rx: 0.05, ry: -0.08, rz: 0.02, s: 0.42, hidden: true},
 };
 
@@ -394,11 +404,11 @@ function PremiumLightRig({
       step8Progress,
       step9Progress
     );
-    const settle = getCinematicMotionStrength(direction, step, activeProgress);
+    const settle = step === 0 ? 0 : getCinematicMotionStrength(direction, step, activeProgress);
     const premiumBias = direction === "backward" ? 1 : step >= 4 ? 1 : 0.76;
     const finalFlavorLight = step >= 9 ? smoothstep(0.18, 1, step9Progress) : 0;
-    const glow = Math.sin(time * 0.62 + 0.4) * 0.5 + 0.5;
-    const shimmer = Math.sin(time * 1.08 + 1.3);
+    const glow = step === 0 ? 0 : Math.sin(time * 0.62 + 0.4) * 0.5 + 0.5;
+    const shimmer = step === 0 ? 0 : Math.sin(time * 1.08 + 1.3);
 
     if (ambientRef.current) {
       ambientRef.current.intensity = dampValue(
@@ -420,19 +430,19 @@ function PremiumLightRig({
       );
       keyRef.current.position.x = dampValue(
         keyRef.current.position.x,
-        3.2 + Math.sin(time * 0.44 + 0.35) * 0.24 * premiumBias,
+        3.2 + Math.sin(time * 0.44 + 0.35) * 0.24 * premiumBias * (step === 0 ? 0 : 1),
         3,
         delta
       );
       keyRef.current.position.y = dampValue(
         keyRef.current.position.y,
-        3.4 + Math.cos(time * 0.32 + 0.6) * 0.18,
+        3.4 + Math.cos(time * 0.32 + 0.6) * 0.18 * (step === 0 ? 0 : 1),
         3,
         delta
       );
       keyRef.current.position.z = dampValue(
         keyRef.current.position.z,
-        5.2 + Math.cos(time * 0.28 + 0.8) * 0.16,
+        5.2 + Math.cos(time * 0.28 + 0.8) * 0.16 * (step === 0 ? 0 : 1),
         3,
         delta
       );
@@ -448,19 +458,19 @@ function PremiumLightRig({
       );
       fillRef.current.position.x = dampValue(
         fillRef.current.position.x,
-        -3 + Math.cos(time * 0.41 + 0.2) * 0.22,
+        -3 + Math.cos(time * 0.41 + 0.2) * 0.22 * (step === 0 ? 0 : 1),
         3,
         delta
       );
       fillRef.current.position.y = dampValue(
         fillRef.current.position.y,
-        2 + Math.sin(time * 0.36 + 1.4) * 0.14,
+        2 + Math.sin(time * 0.36 + 1.4) * 0.14 * (step === 0 ? 0 : 1),
         3,
         delta
       );
       fillRef.current.position.z = dampValue(
         fillRef.current.position.z,
-        4.6 + Math.sin(time * 0.24 + 0.3) * 0.12,
+        4.6 + Math.sin(time * 0.24 + 0.3) * 0.12 * (step === 0 ? 0 : 1),
         3,
         delta
       );
@@ -476,19 +486,19 @@ function PremiumLightRig({
       );
       pointRef.current.position.x = dampValue(
         pointRef.current.position.x,
-        1.6 + Math.sin(time * 0.58 + 0.5) * 0.3,
+        1.6 + Math.sin(time * 0.58 + 0.5) * 0.3 * (step === 0 ? 0 : 1),
         3.1,
         delta
       );
       pointRef.current.position.y = dampValue(
         pointRef.current.position.y,
-        1 + Math.cos(time * 0.52 + 0.7) * 0.18,
+        1 + Math.cos(time * 0.52 + 0.7) * 0.18 * (step === 0 ? 0 : 1),
         3.1,
         delta
       );
       pointRef.current.position.z = dampValue(
         pointRef.current.position.z,
-        4 + Math.cos(time * 0.31 + 0.4) * 0.18 * premiumBias,
+        4 + Math.cos(time * 0.31 + 0.4) * 0.18 * premiumBias * (step === 0 ? 0 : 1),
         3.1,
         delta
       );
@@ -551,6 +561,16 @@ function SceneCamera(
     let targetX = 0;
 
     if (isMobile) {
+      if (step === 0) {
+        camera.position.set(0, 0.16, 8.42);
+        if (Math.abs(camera.fov - 25.6) > 0.001) {
+          camera.fov = 25.6;
+          camera.updateProjectionMatrix();
+        }
+        camera.lookAt(0, 0.18, 0);
+        return;
+      }
+
       const activeProgress = getCurrentStepProgress(
         step,
         step1Progress,
@@ -596,6 +616,16 @@ function SceneCamera(
       }
 
       camera.lookAt(0, 0.18, 0);
+      return;
+    }
+
+    if (step === 0) {
+      camera.position.set(0, 0.02, 8.95);
+      if (Math.abs(camera.fov - 22.84) > 0.001) {
+        camera.fov = 22.84;
+        camera.updateProjectionMatrix();
+      }
+      camera.lookAt(0.15, -0.05, 0);
       return;
     }
 
@@ -861,6 +891,7 @@ function Cup({
       step1Progress
     );
     const heroMotion = getHeroCupMotion(time);
+    const introMotion = step === 0 ? STATIC_HERO_MOTION : heroMotion;
 
     if (isMobile) {
       if (!isMain) {
@@ -874,7 +905,7 @@ function Cup({
 
         const exit = step === 1 ? smoothstep(0.06, 0.42, step1Progress) : 0;
 
-        applyTransformMobile(group, delta, {
+        const introTarget = {
           ...introPose,
           y: introPose.y + exit * 0.1,
           z: introPose.z - exit * 0.14,
@@ -882,7 +913,13 @@ function Cup({
           ry: introPose.ry + exit * (introPose.x < 0 ? -0.24 : 0.24),
           rz: introPose.rz + exit * (introPose.x < 0 ? -0.08 : 0.08),
           s: introPose.s * lerp(1, 0.92, exit),
-        });
+        };
+
+        if (step === 0) {
+          setTransformImmediate(group, introTarget);
+        } else {
+          applyTransformMobile(group, delta, introTarget);
+        }
 
         setVisibility(group, exit < 0.98);
         setOpacity(group, 1 - exit);
@@ -905,13 +942,13 @@ function Cup({
       if (step === 0) {
         const introPose = getMobileIntroCupPose("malina") ?? getMobileMainPose(0);
 
-        applyTransformMobile(group, delta, {
-          x: introPose.x + heroMotion.x * 0.16,
-          y: introPose.y + heroMotion.y * 0.18,
-          z: introPose.z + heroMotion.z * 0.16,
-          rx: introPose.rx + heroMotion.rx * 0.18,
-          ry: introPose.ry + heroMotion.ry * 0.18,
-          rz: introPose.rz + heroMotion.rz * 0.18,
+        setTransformImmediate(group, {
+          x: introPose.x,
+          y: introPose.y,
+          z: introPose.z,
+          rx: introPose.rx,
+          ry: introPose.ry,
+          rz: introPose.rz,
           s: introPose.s,
         });
 
@@ -968,13 +1005,13 @@ function Cup({
           return;
         }
 
-        applyTransform(group, delta, {
-          x: desktopIntroPose.x + heroMotion.x * 0.12,
-          y: desktopIntroPose.y + heroMotion.y * 0.14,
-          z: desktopIntroPose.z + heroMotion.z * 0.12,
-          rx: desktopIntroPose.rx + heroMotion.rx * 0.16,
-          ry: desktopIntroPose.ry + heroMotion.ry * 0.16,
-          rz: desktopIntroPose.rz + heroMotion.rz * 0.16,
+        setTransformImmediate(group, {
+          x: desktopIntroPose.x,
+          y: desktopIntroPose.y,
+          z: desktopIntroPose.z,
+          rx: desktopIntroPose.rx,
+          ry: desktopIntroPose.ry,
+          rz: desktopIntroPose.rz,
           s: desktopIntroPose.s,
         });
 
@@ -983,33 +1020,46 @@ function Cup({
         return;
       }
 
+      const introPose = desktopIntroPose && !desktopIntroPose.hidden ? desktopIntroPose : null;
+      const introMix = introPose ? smoothstep(0.02, 0.32, step1Progress) : 1;
+      const introVisibility = desktopIntroPose?.hidden
+        ? smoothstep(0.08, 0.24, step1Progress)
+        : 1;
       const lift = smoothstep(0.02, 0.18, step1Progress);
       const fall = smoothstep(0.14, 1, step1Progress);
       const side = position[0] < 0.2 ? -0.18 : position[0] < 1.5 ? 0.04 : 0.18;
+      const baseX = introPose ? THREE.MathUtils.lerp(introPose.x, position[0], introMix) : position[0];
+      const baseY = introPose ? THREE.MathUtils.lerp(introPose.y, position[1], introMix) : position[1];
+      const baseZ = introPose ? THREE.MathUtils.lerp(introPose.z, position[2], introMix) : position[2];
+      const baseRotX = introPose
+        ? THREE.MathUtils.lerp(introPose.rx, rotation[0] + clusterIdleMotion.rx, introMix)
+        : rotation[0] + clusterIdleMotion.rx;
+      const baseRotY = introPose
+        ? THREE.MathUtils.lerp(introPose.ry, rotation[1] + clusterIdleMotion.ry, introMix)
+        : rotation[1] + clusterIdleMotion.ry;
+      const baseRotZ = introPose
+        ? THREE.MathUtils.lerp(introPose.rz, rotation[2] + clusterIdleMotion.rz, introMix)
+        : rotation[2] + clusterIdleMotion.rz;
+      const baseScale = introPose
+        ? THREE.MathUtils.lerp(introPose.s, scale * clusterIdleMotion.s, introMix)
+        : scale * clusterIdleMotion.s;
 
-      const targetX = position[0] + clusterIdleMotion.x + side * fall;
+      const targetX = baseX + clusterIdleMotion.x * introMix + side * fall;
       const targetY =
-        position[1] +
-        clusterIdleMotion.y +
+        baseY +
+        clusterIdleMotion.y * introMix +
         THREE.MathUtils.lerp(0, 0.16, lift) +
         THREE.MathUtils.lerp(0, -3.1, fall);
       const targetZ =
-        position[2] + clusterIdleMotion.z + THREE.MathUtils.lerp(0, position[2] - 0.72 - position[2], fall);
+        baseZ + clusterIdleMotion.z * introMix + THREE.MathUtils.lerp(0, -0.72, fall);
 
-      const targetRotX = THREE.MathUtils.lerp(rotation[0] + clusterIdleMotion.rx, 1.18, fall);
-      const targetRotY = THREE.MathUtils.lerp(
-        rotation[1] + clusterIdleMotion.ry,
-        rotation[1] * 0.2,
-        fall
-      );
-      const targetRotZ = THREE.MathUtils.lerp(
-        rotation[2] + clusterIdleMotion.rz,
-        side > 0 ? 0.18 : -0.18,
-        fall
-      );
+      const targetRotX = THREE.MathUtils.lerp(baseRotX, 1.18, fall);
+      const targetRotY = THREE.MathUtils.lerp(baseRotY, rotation[1] * 0.2, fall);
+      const targetRotZ = THREE.MathUtils.lerp(baseRotZ, side > 0 ? 0.18 : -0.18, fall);
 
-      const targetScale = THREE.MathUtils.lerp(scale * clusterIdleMotion.s, scale * 0.76, fall);
+      const targetScale = THREE.MathUtils.lerp(baseScale, scale * 0.76, fall);
       const fade = smoothstep(0.52, 1, step1Progress);
+      const opacity = introVisibility * (1 - fade);
 
       applyTransform(group, delta, {
         x: targetX,
@@ -1021,8 +1071,8 @@ function Cup({
         s: targetScale,
       });
 
-      setVisibility(group, true);
-      setOpacity(group, 1 - fade);
+      setVisibility(group, opacity > 0.01);
+      setOpacity(group, opacity);
       return;
     }
 
@@ -1036,6 +1086,21 @@ function Cup({
     const startRy = desktopIntroMainPose?.ry ?? rotation[1];
     const startRz = desktopIntroMainPose?.rz ?? rotation[2];
     const startScale = desktopIntroMainPose?.s ?? scale;
+
+    if (step === 0) {
+      setTransformImmediate(group, {
+        x: startX,
+        y: startY,
+        z: startZ,
+        rx: startRx,
+        ry: startRy,
+        rz: startRz,
+        s: startScale,
+      });
+      setVisibility(group, true);
+      setOpacity(group, 1);
+      return;
+    }
 
     const heroX = 1.5;
     const heroY = 0.6;
@@ -1085,7 +1150,7 @@ function Cup({
         ry: targetRotY,
         rz: targetRotZ,
         s: targetScale,
-      }, heroMotion, "base");
+      }, introMotion, "base");
 
       setVisibility(group, true);
       setOpacity(group, 1);
@@ -1530,6 +1595,12 @@ function applyTransformSpin(group: THREE.Group, delta: number, target: Transform
   group.scale.x = dampValue(group.scale.x, target.s, 4.9, delta);
   group.scale.y = dampValue(group.scale.y, target.s, 4.9, delta);
   group.scale.z = dampValue(group.scale.z, target.s, 4.9, delta);
+}
+
+function setTransformImmediate(group: THREE.Group, target: TransformTarget) {
+  group.position.set(target.x, target.y, target.z);
+  group.rotation.set(target.rx, target.ry, target.rz);
+  group.scale.setScalar(target.s);
 }
 
 function applyTransform(group: THREE.Group, delta: number, target: TransformTarget) {
