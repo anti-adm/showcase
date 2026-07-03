@@ -228,12 +228,12 @@ const STRAWBERRY_BANAN_POSE = {
 };
 
 const DESKTOP_INTRO_CUP_POSES: Partial<Record<FlavorKey, TransformTarget & {hidden?: boolean}>> = {
-  malina: {x: 1.36, y: 0.34, z: 0.18, rx: 0.06, ry: 0.02, rz: 0.01, s: 0.52},
-  ananas: {x: 0.52, y: -0.44, z: 0.08, rx: 0.05, ry: 0.07, rz: -0.02, s: 0.5},
-  shaftoli: {x: 2.09, y: -0.42, z: 0.08, rx: 0.05, ry: -0.07, rz: 0.02, s: 0.5},
-  "ormon-meva": {x: 0.02, y: -1.18, z: 0.2, rx: 0.05, ry: 0.08, rz: -0.02, s: 0.46},
-  oulupnay: {x: 1.32, y: -1.2, z: 0.28, rx: 0.05, ry: 0, rz: 0, s: 0.52},
-  banan: {x: 2.58, y: -1.16, z: 0.2, rx: 0.05, ry: -0.08, rz: 0.02, s: 0.46},
+  malina: {x: 1.16, y: 0.46, z: 0.18, rx: 0.06, ry: 0.02, rz: 0.01, s: 0.6},
+  ananas: {x: 0.28, y: -0.42, z: 0.08, rx: 0.05, ry: 0.06, rz: -0.02, s: 0.57},
+  shaftoli: {x: 1.98, y: -0.42, z: 0.08, rx: 0.05, ry: -0.06, rz: 0.02, s: 0.57},
+  "ormon-meva": {x: -0.24, y: -1.34, z: 0.2, rx: 0.05, ry: 0.08, rz: -0.02, s: 0.54},
+  oulupnay: {x: 1.1, y: -1.34, z: 0.28, rx: 0.05, ry: 0, rz: 0, s: 0.58},
+  banan: {x: 2.45, y: -1.32, z: 0.2, rx: 0.05, ry: -0.08, rz: 0.02, s: 0.54},
   olcha: {x: 3.18, y: -0.5, z: 0, rx: 0.05, ry: -0.08, rz: 0.02, s: 0.42, hidden: true},
 };
 
@@ -249,13 +249,12 @@ const MOBILE_MAIN_POSE = {
 
 const MOBILE_MODEL_EDITOR = {
   introCluster: {
-    banan: { x: -0.74, y: 1.2, z: 0.92, rx: 7.02, ry: 0.28, rz: -0.08, s: 0.25 },
-    shaftoli: { x: 0.9, y: 1.1, z: 1.08, rx: 7.04, ry: -0.18, rz: 0.00, s: 0.3 },
-    olcha: { x: -0.7, y: 0.72, z: 1.04, rx: 7.02, ry: 0.06, rz: 0.04, s: 0.28 },
-    ananas: { x: 0.1, y: 1.2, z: 1.08, rx: 7.04, ry: 0.18, rz: 0.02, s: 0.3 },
-    oulupnay: { x: 0.9, y: -0.15, z: 1.14, rx: 7, ry: -0.08, rz: -0, s: 0.3 },
-    malina: { x: 0.7, y: 0.5, z: 1.14, rx: 7, ry: 0.0, rz: 0.00, s: 0.4 },
-    "ormon-meva": { x: 0.1, y: -0.1, z: 1.14, rx: 7, ry: 0.08, rz: -0, s: 0.3 },
+    malina: { x: 0.62, y: -0.48, z: 1.12, rx: 7, ry: 0, rz: 0, s: 0.3 },
+    ananas: { x: -0.46, y: -0.76, z: 1.08, rx: 7.03, ry: 0.12, rz: -0.02, s: 0.26 },
+    shaftoli: { x: 0.8, y: -0.76, z: 1.08, rx: 7.03, ry: -0.12, rz: 0.02, s: 0.26 },
+    "ormon-meva": { x: -0.86, y: -1.04, z: 1.12, rx: 7, ry: 0.08, rz: -0.02, s: 0.23 },
+    oulupnay: { x: 0, y: -1.06, z: 1.16, rx: 7, ry: 0, rz: 0, s: 0.25 },
+    banan: { x: 0.86, y: -1.04, z: 1.12, rx: 7, ry: -0.08, rz: 0.02, s: 0.23 },
   },
 
   finalPoses: {

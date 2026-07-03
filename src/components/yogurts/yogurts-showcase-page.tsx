@@ -15,7 +15,7 @@ import {
 
 const WHEEL_THRESHOLD = 18;
 const TOUCH_THRESHOLD = 46;
-const MOBILE_QUERY = "(max-width: 640px)";
+const MOBILE_QUERY = "(max-width: 767.98px)";
 const COLLECTION_SLIDE_COUNT = 8;
 const COLLECTION_LAST_STAGE = COLLECTION_SLIDE_COUNT + 1;
 const COLLECTION_NAVIGATION_LOCK_MS = 720;
@@ -72,10 +72,11 @@ const PRELOAD_IMAGE_ASSETS = [
   "/media/down.webp",
   "/media/slide1.webp",
   "/images/yogurts/sofin-yogurt-cups-hero-4k.png",
-  ...SLIDE_BACKGROUND_CONTROLS.layers.flatMap((layer) => [
-    layer.src,
-    layer.src.replace(/(\.[a-z]+)$/i, "-m$1"),
-  ]),
+  ...SLIDE_BACKGROUND_CONTROLS.layers.flatMap((layer) => (
+    layer.src.startsWith("/images/yogurts/")
+      ? [layer.src]
+      : [layer.src, layer.src.replace(/(\.[a-z]+)$/i, "-m$1")]
+  )),
   ...PRELOAD_TEXTURE_FLAVORS.flatMap((flavor) => [
     `/textures/products/${flavor}-side.webp`,
     `/textures/products/${flavor}-lid.webp`,
@@ -828,26 +829,26 @@ function YogurtCupsHeroOverlay({
       <div
         className={[
           "absolute left-[clamp(1.4rem,6.6vw,8rem)] top-[clamp(10rem,23.5vh,15.8rem)] max-w-[min(39vw,620px)]",
-          isMobile ? "left-5 right-5 top-[8.6rem] max-w-none" : ""
+          isMobile ? "left-5 right-5 top-[10.2rem] max-w-none" : ""
         ].join(" ")}
       >
-        <div className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#7f6048]/18 bg-white/34 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3e3029]/82 shadow-[0_12px_34px_rgba(119,78,43,0.08)] backdrop-blur-md">
+        <div className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#7f6048]/18 bg-white/34 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3e3029]/82 shadow-[0_12px_34px_rgba(119,78,43,0.08)] backdrop-blur-md max-md:min-h-8 max-md:px-3 max-md:text-[10px] max-md:tracking-[0.14em]">
           <Leaf aria-hidden="true" className="h-4 w-4 text-[#7e9f4c]" strokeWidth={2} />
           <span>{copy.eyebrow}</span>
         </div>
 
         <h1
-          className={`${collectionSerif.className} mt-6 whitespace-pre-line text-balance text-[clamp(3.05rem,4.25vw,4.8rem)] font-medium leading-[0.94] tracking-[-0.025em] text-[#241a16] max-sm:mt-5 max-sm:max-w-[8ch] max-sm:text-[clamp(3.05rem,16vw,4.35rem)]`}
+          className={`${collectionSerif.className} mt-6 whitespace-pre-line text-balance text-[clamp(3.05rem,4.25vw,4.8rem)] font-medium leading-[0.94] tracking-[-0.025em] text-[#241a16] max-md:mt-5 max-md:max-w-[min(88vw,560px)] max-md:text-[clamp(2.75rem,11.2vw,3.45rem)]`}
         >
           {copy.title}
         </h1>
 
-        <p className="mt-6 max-w-[420px] text-pretty text-[clamp(0.95rem,1.05vw,1.15rem)] font-medium leading-[1.48] text-[#4e433d]/78 max-sm:mt-5 max-sm:max-w-[28ch] max-sm:text-sm">
+        <p className="mt-6 max-w-[420px] text-pretty text-[clamp(0.95rem,1.05vw,1.15rem)] font-medium leading-[1.48] text-[#4e433d]/78 max-md:mt-5 max-md:max-w-[28ch] max-md:text-sm">
           {copy.description}
         </p>
 
         <button
-          className="pointer-events-auto mt-7 inline-flex min-h-14 items-center gap-4 rounded-full bg-[#eaa074] px-7 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(204,111,63,0.24)] transition hover:-translate-y-0.5 hover:bg-[#df9061] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eaa074] focus-visible:ring-offset-2 max-sm:mt-6 max-sm:min-h-12 max-sm:px-6"
+          className="pointer-events-auto mt-7 inline-flex min-h-14 items-center gap-4 rounded-full bg-[#eaa074] px-7 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(204,111,63,0.24)] transition hover:-translate-y-0.5 hover:bg-[#df9061] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eaa074] focus-visible:ring-offset-2 max-md:mt-6 max-md:min-h-12 max-md:px-6"
           onClick={goNext}
           type="button"
         >
@@ -856,15 +857,15 @@ function YogurtCupsHeroOverlay({
         </button>
       </div>
 
-      <div className="absolute bottom-[clamp(1.3rem,4.3vh,3.25rem)] left-1/2 flex w-[min(58vw,860px)] -translate-x-1/2 items-center justify-center rounded-full border border-white/44 bg-white/48 px-5 py-3 shadow-[0_20px_56px_rgba(130,86,50,0.13),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md max-sm:hidden">
-        <div className="grid w-full grid-cols-4 divide-x divide-[#7f6048]/10">
+      <div className="absolute bottom-[clamp(1.3rem,4.3vh,3.25rem)] left-1/2 flex w-[min(58vw,860px)] -translate-x-1/2 items-center justify-center rounded-full border border-white/44 bg-white/48 px-5 py-3 shadow-[0_20px_56px_rgba(130,86,50,0.13),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md max-md:bottom-4 max-md:w-[calc(100%-2rem)] max-md:rounded-[1.6rem] max-md:px-2 max-md:py-4">
+        <div className="grid w-full grid-cols-4 divide-x divide-[#7f6048]/10 max-md:items-start">
           {copy.features.map((feature, index) => {
             const Icon = HERO_FEATURE_ICONS[index] ?? Leaf;
 
             return (
-              <div key={feature.title} className="flex min-w-0 items-center gap-3 px-5">
+              <div key={feature.title} className="flex min-w-0 items-center gap-3 px-5 max-md:flex-col max-md:gap-2 max-md:px-2 max-md:text-center">
                 <Icon aria-hidden="true" className="h-6 w-6 shrink-0 text-[#7b6759]" strokeWidth={1.8} />
-                <span className="text-pretty text-[13px] font-semibold leading-tight text-[#3e3029]/88">
+                <span className="text-pretty text-[13px] font-semibold leading-tight text-[#3e3029]/88 max-md:text-[11px]">
                   {feature.title}
                 </span>
               </div>
