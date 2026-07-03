@@ -86,7 +86,7 @@ export function YogurtsHubPage() {
   return (
     <div className="relative min-h-dvh overflow-hidden bg-[#f5eadb]">
       {mode === "cups" ? (
-        <div className="fixed left-1/2 top-[5.9rem] z-[48] -translate-x-1/2 px-3 sm:top-[6.8rem]">
+        <div className="fixed left-1/2 top-[5rem] z-[48] -translate-x-1/2 px-3 sm:top-[6.8rem]">
           <div className="flex rounded-full border border-white/45 bg-white/24 p-1 shadow-[0_18px_50px_rgba(18,34,58,0.18)] backdrop-blur-xl">
             {(["cups", "bottles"] as const).map((item) => {
               const active = mode === item;
@@ -96,7 +96,7 @@ export function YogurtsHubPage() {
                   key={item}
                   aria-pressed={active}
                   className={cn(
-                    "relative min-h-10 rounded-full px-4 text-sm font-semibold transition duration-300 sm:min-w-36 sm:px-6",
+                    "relative min-h-9 rounded-full px-3 text-[13px] font-semibold transition duration-300 sm:min-h-10 sm:min-w-36 sm:px-6 sm:text-sm",
                     active
                       ? "bg-white/78 text-[#123661] shadow-[inset_0_1px_0_rgba(255,255,255,0.74),0_10px_24px_rgba(23,50,84,0.16)]"
                       : "text-[#173657]/72 hover:bg-white/30 hover:text-[#123661]"

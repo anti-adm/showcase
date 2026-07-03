@@ -2,7 +2,7 @@
 
 import {useMemo, useState} from "react";
 import {motion, useReducedMotion} from "framer-motion";
-import {ArrowRight, Sparkles} from "lucide-react";
+import {ArrowRight, ChevronDown, Sparkles} from "lucide-react";
 import {useLocale, useTranslations} from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,6 @@ type ProductCardProps = {
 
 const categoryOrder: ProductCategory[] = [
   "all",
-  "milk",
   "kefir",
   "ayran",
   "yogurt",
@@ -118,6 +117,7 @@ export default function ProductsCatalogPage() {
   const t = useTranslations("ProductsCatalogPage");
   const locale = useLocale() as Locale;
   const [activeCategory, setActiveCategory] = useState<ProductCategory>("all");
+  const [catalogOpen, setCatalogOpen] = useState(false);
   const reducedMotion = useReducedMotion() ?? false;
 
   const categories = useMemo(
@@ -137,8 +137,11 @@ export default function ProductsCatalogPage() {
     [activeCategory]
   );
 
+  const activeCategoryLabel =
+    categories.find((category) => category.key === activeCategory)?.label ?? t("filters.all");
+
   return (
-    <main className="relative overflow-x-hidden pt-28 sm:pt-32">
+    <main className="relative overflow-x-hidden pt-24 sm:pt-32">
       <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)]" />
       <div className="absolute inset-0 -z-20 hidden sm:block">
         <Image
@@ -163,20 +166,20 @@ export default function ProductsCatalogPage() {
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.30)_0%,rgba(218,231,246,0.44)_52%,rgba(207,222,239,0.58)_100%)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_4%,rgba(255,255,255,0.52),transparent_30%),radial-gradient(circle_at_88%_2%,rgba(192,218,255,0.20),transparent_34%),radial-gradient(circle_at_50%_100%,rgba(44,78,120,0.08),transparent_42%)]" />
 
-      <section className="mx-auto max-w-[1580px] px-4 pb-16 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1580px] px-3 pb-12 sm:px-6 sm:pb-16 lg:px-8">
         <motion.div
           initial={reducedMotion ? false : {opacity: 0, y: 18}}
           animate={reducedMotion ? undefined : {opacity: 1, y: 0}}
           transition={{duration: 0.66, ease: [0.22, 1, 0.36, 1]}}
-          className="rounded-[36px] border border-white/42 bg-white/[0.18] p-4 shadow-[0_24px_80px_rgba(44,78,120,0.11)] sm:p-6 lg:p-8"
+          className="rounded-[28px] border border-white/42 bg-white/[0.18] p-3 shadow-[0_24px_80px_rgba(44,78,120,0.11)] sm:rounded-[36px] sm:p-6 lg:p-8"
         >
           <div className="mx-auto max-w-[1010px] text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/62 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#6d5d50] shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/62 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6d5d50] shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
               <Sparkles className="h-3.5 w-3.5 text-[#4b3d34]" />
               {t("eyebrow")}
             </div>
 
-            <h1 className="mt-5 text-balance text-4xl font-semibold text-[var(--brand-primary)] sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-balance text-[clamp(2.15rem,9vw,3rem)] font-semibold leading-[1.03] text-[var(--brand-primary)] sm:mt-5 sm:text-5xl lg:text-6xl">
               {t("title")}
             </h1>
 
@@ -186,7 +189,63 @@ export default function ProductsCatalogPage() {
               </p>
             ) : null}
 
-            <div className="mx-auto mt-8 grid max-w-[680px] grid-cols-2 gap-2 min-[420px]:grid-cols-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-3">
+            <div className="mx-auto mt-5 max-w-[440px] sm:hidden">
+              <button
+                type="button"
+                aria-expanded={catalogOpen}
+                onClick={() => setCatalogOpen((value) => !value)}
+                className="flex min-h-14 w-full items-center justify-between gap-3 rounded-full border border-white/68 bg-white/72 px-4 text-left text-sm font-semibold text-[var(--brand-primary)] shadow-[0_16px_40px_rgba(44,78,120,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl transition hover:bg-white/86"
+              >
+                <span className="inline-flex min-w-0 items-center gap-2">
+                  <Sparkles className="h-4 w-4 shrink-0 text-[#6d5d50]" />
+                  <span className="truncate">{t("eyebrow")}</span>
+                </span>
+                <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#eef4fb] px-3 py-1 text-[11px] text-slate-600">
+                  {activeCategoryLabel}
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform duration-300 ${catalogOpen ? "rotate-180" : ""}`}
+                  />
+                </span>
+              </button>
+
+              <motion.div
+                initial={false}
+                animate={
+                  catalogOpen
+                    ? {height: "auto", opacity: 1, y: 0}
+                    : {height: 0, opacity: 0, y: -8}
+                }
+                transition={{duration: reducedMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1]}}
+                className="overflow-hidden"
+              >
+                <div className="mt-3 grid grid-cols-2 gap-2 rounded-[24px] border border-white/58 bg-white/50 p-2 shadow-[0_18px_50px_rgba(44,78,120,0.10)] backdrop-blur-xl">
+                  {categories.map((category) => {
+                    const active = activeCategory === category.key;
+
+                    return (
+                      <button
+                        key={category.key}
+                        type="button"
+                        aria-pressed={active}
+                        onClick={() => {
+                          setActiveCategory(category.key);
+                          setCatalogOpen(false);
+                        }}
+                        className={`min-h-11 rounded-full border px-3 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-[background-color,border-color,color,box-shadow,transform] duration-300 ${
+                          active
+                            ? "border-[var(--brand-primary)] bg-[var(--brand-primary)] text-white shadow-[0_16px_34px_rgba(12,58,106,0.16)]"
+                            : "border-white/54 bg-white/64 text-slate-700 hover:bg-white/86 hover:text-[var(--brand-primary)]"
+                        }`}
+                      >
+                        {category.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="mx-auto mt-8 hidden max-w-[680px] grid-cols-2 gap-2 min-[420px]:grid-cols-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-3">
               {categories.map((category) => {
                 const active = activeCategory === category.key;
 
@@ -214,7 +273,7 @@ export default function ProductsCatalogPage() {
             initial={reducedMotion ? false : {opacity: 0, y: 10}}
             animate={reducedMotion ? undefined : {opacity: 1, y: 0}}
             transition={{duration: 0.36, ease: [0.22, 1, 0.36, 1]}}
-            className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+            className="mt-5 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
           >
             {filteredProducts.map((product, index) => (
               <ProductCard

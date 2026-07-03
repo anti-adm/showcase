@@ -86,7 +86,7 @@ export function SiteHeader() {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-      <div className="container-shell pt-4 sm:pt-5">
+      <div className="container-shell pt-3 sm:pt-5">
         <motion.div
           ref={glassRef}
           initial={{opacity: 0, y: -16, scale: 0.985, filter: 'blur(10px)'}}
@@ -94,7 +94,7 @@ export function SiteHeader() {
           transition={{duration: 0.72, ease: [0.22, 1, 0.36, 1]}}
           onPointerMove={handleGlassPointerMove}
           className={cn(
-            'liquid-glass-shell pointer-events-auto px-3 py-2.5 transition-[transform,box-shadow,background] duration-500 sm:px-5 sm:py-3',
+            'liquid-glass-shell pointer-events-auto px-3 py-2 transition-[transform,box-shadow,background] duration-500 sm:px-5 sm:py-3',
             scrolled && 'liquid-glass-shell-scrolled'
           )}
         >
@@ -170,7 +170,7 @@ export function SiteHeader() {
               aria-label={open ? t('closeMenu') : t('openMenu')}
               aria-expanded={open}
               onClick={() => setOpen((value) => !value)}
-              className="liquid-icon-button focus-ring ml-auto inline-flex h-11 w-11 items-center justify-center rounded-full text-[color:var(--text)] sm:h-12 sm:w-12 xl:hidden"
+              className="liquid-icon-button focus-ring ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--text)] sm:h-12 sm:w-12 xl:hidden"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {open ? (

@@ -37,6 +37,13 @@ body {
   min-height: 100dvh;
 }
 
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
 html.lenis,
 html.lenis body {
   height: auto;
@@ -367,7 +374,7 @@ main {
 }
 
 .scene-shell {
-  min-height: 100svh;
+  min-height: 100dvh;
 }
 
 .focus-ring {

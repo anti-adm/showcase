@@ -19,7 +19,7 @@ export function BackToTop() {
       {visible ? (
         <motion.button
           animate={{opacity: 1, y: 0, scale: 1}}
-          className="liquid-back-to-top focus-ring fixed bottom-5 right-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full text-[color:var(--text)] sm:bottom-7 sm:right-6 sm:h-14 sm:w-14"
+          className="liquid-back-to-top focus-ring fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full text-[color:var(--text)] sm:bottom-7 sm:right-6 sm:h-14 sm:w-14"
           exit={{opacity: 0, y: 14, scale: 0.9}}
           initial={{opacity: 0, y: 14, scale: 0.9}}
           onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}

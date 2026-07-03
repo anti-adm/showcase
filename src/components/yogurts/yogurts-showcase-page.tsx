@@ -834,28 +834,34 @@ function YogurtCupsHeroOverlay({
       }}
     >
       <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_26%_36%,rgba(255,255,255,0.76),transparent_42%),linear-gradient(180deg,rgba(255,244,229,0.30),rgba(255,244,229,0.16)_42%,rgba(255,244,229,0.60))] md:hidden"
+      />
+      <div
         className={[
           "absolute left-[clamp(1.4rem,6.6vw,8rem)] top-[clamp(10rem,23.5vh,15.8rem)] max-w-[min(39vw,620px)]",
-          isMobile ? "left-5 right-5 top-[10.2rem] max-w-none" : ""
+          isMobile
+            ? "left-4 right-4 top-[9.25rem] max-w-none rounded-[28px] border border-white/58 bg-white/54 p-4 shadow-[0_22px_64px_rgba(130,86,50,0.16),inset_0_1px_0_rgba(255,255,255,0.78)] backdrop-blur-[18px]"
+            : ""
         ].join(" ")}
       >
-        <div className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#7f6048]/18 bg-white/34 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3e3029]/82 shadow-[0_12px_34px_rgba(119,78,43,0.08)] backdrop-blur-md max-md:min-h-8 max-md:px-3 max-md:text-[10px] max-md:tracking-[0.14em]">
+        <div className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#7f6048]/18 bg-white/44 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3e3029]/82 shadow-[0_12px_34px_rgba(119,78,43,0.08)] backdrop-blur-md max-md:min-h-8 max-md:px-3 max-md:text-[9px] max-md:tracking-[0.12em]">
           <Leaf aria-hidden="true" className="h-4 w-4 text-[#7e9f4c]" strokeWidth={2} />
           <span>{copy.eyebrow}</span>
         </div>
 
         <h1
-          className={`${collectionSerif.className} mt-6 whitespace-pre-line text-balance text-[clamp(3.05rem,4.25vw,4.8rem)] font-medium leading-[0.94] tracking-[-0.025em] text-[#241a16] max-md:mt-5 max-md:max-w-[min(88vw,560px)] max-md:text-[clamp(2.75rem,11.2vw,3.45rem)]`}
+          className={`${collectionSerif.className} mt-6 whitespace-pre-line text-balance text-[clamp(3.05rem,4.25vw,4.8rem)] font-medium leading-[0.94] tracking-[-0.025em] text-[#241a16] max-md:mt-3 max-md:max-w-[min(88vw,560px)] max-md:text-[clamp(2.12rem,8.9vw,2.82rem)] max-md:leading-[0.96]`}
         >
           {copy.title}
         </h1>
 
-        <p className="mt-6 max-w-[420px] text-pretty text-[clamp(0.95rem,1.05vw,1.15rem)] font-medium leading-[1.48] text-[#4e433d]/78 max-md:mt-5 max-md:max-w-[28ch] max-md:text-sm">
+        <p className="mt-6 max-w-[420px] text-pretty text-[clamp(0.95rem,1.05vw,1.15rem)] font-medium leading-[1.48] text-[#4e433d]/78 max-md:mt-3 max-md:max-w-[32ch] max-md:text-[13px] max-md:leading-5">
           {copy.description}
         </p>
 
         <button
-          className="pointer-events-auto mt-7 inline-flex min-h-14 items-center gap-4 rounded-full bg-[#eaa074] px-7 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(204,111,63,0.24)] transition hover:-translate-y-0.5 hover:bg-[#df9061] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eaa074] focus-visible:ring-offset-2 max-md:mt-6 max-md:min-h-12 max-md:px-6"
+          className="pointer-events-auto mt-7 inline-flex min-h-14 items-center gap-4 rounded-full bg-[#eaa074] px-7 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(204,111,63,0.24)] transition hover:-translate-y-0.5 hover:bg-[#df9061] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eaa074] focus-visible:ring-offset-2 max-md:mt-4 max-md:min-h-11 max-md:px-5 max-md:text-[13px]"
           onClick={goNext}
           type="button"
         >
@@ -864,7 +870,7 @@ function YogurtCupsHeroOverlay({
         </button>
 
         {SHOW_HERO_FEATURE_STRIP ? (
-          <div className="mt-5 grid max-w-[min(100%,520px)] grid-cols-2 overflow-hidden rounded-[1.7rem] border border-white/44 bg-white/46 shadow-[0_20px_56px_rgba(130,86,50,0.13),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md max-md:mt-4 max-md:rounded-[1.35rem]">
+          <div className="mt-5 grid max-w-[min(100%,520px)] grid-cols-2 overflow-hidden rounded-[1.7rem] border border-white/44 bg-white/50 shadow-[0_20px_56px_rgba(130,86,50,0.13),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md max-md:mt-3 max-md:rounded-[1.25rem]">
             {copy.features.map((feature, index) => {
               const Icon = HERO_FEATURE_ICONS[index] ?? Leaf;
               const cellBorders = [
@@ -873,9 +879,9 @@ function YogurtCupsHeroOverlay({
               ].filter(Boolean).join(" ");
 
               return (
-                <div key={feature.title} className={`flex min-w-0 items-center gap-3 px-4 py-3 max-md:gap-2 max-md:px-3 max-md:py-2.5 ${cellBorders}`}>
-                  <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-[#7b6759] max-md:h-4 max-md:w-4" strokeWidth={1.8} />
-                  <span className="text-pretty text-[12px] font-semibold leading-tight text-[#3e3029]/88 max-md:text-[10px]">
+                <div key={feature.title} className={`flex min-w-0 items-center gap-3 px-4 py-3 max-md:gap-2 max-md:px-2.5 max-md:py-2 ${cellBorders}`}>
+                  <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-[#7b6759] max-md:h-3.5 max-md:w-3.5" strokeWidth={1.8} />
+                  <span className="text-pretty text-[12px] font-semibold leading-tight text-[#3e3029]/88 max-md:text-[9.5px]">
                     {feature.title}
                   </span>
                 </div>
