@@ -2,7 +2,16 @@
 
 import {useEffect, useMemo, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import {ArrowRight, Leaf} from "lucide-react";
+import {
+  ArrowRight,
+  Droplets,
+  Heart,
+  Leaf,
+  Milk,
+  ShieldCheck,
+  Truck,
+  type LucideIcon
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import {useLocale} from "next-intl";
@@ -12,9 +21,253 @@ import {assetUrl} from "@/lib/assets";
 import {cn} from "@/lib/utils";
 import HeroSnapController from "./hero-snap-controller";
 
+type Locale = "uz" | "ru" | "en";
+
+type MobileHeroTone = "main" | "brand" | "yogurts" | "products" | "trust";
+
+type MobileHeroFeature = {
+  label: string;
+  icon: LucideIcon;
+};
+
+type MobileHeroCopy = {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  lead?: string;
+  description: string;
+  cta: string;
+  href: string;
+  note?: string;
+  tone: MobileHeroTone;
+  features?: MobileHeroFeature[];
+};
+
+const MOBILE_HERO_BACKGROUND = "/images/home/mobile-hero-products.png";
+const MOBILE_YOGURT_IMAGE = "/images/products/yogurt120/qulupnay120.webp";
+
 const MAIN_HERO_BACKGROUND = {
   desktop: "/images/main-hero-4k.png",
-  mobile: "/images/main-hero-m-4k.png"
+  mobile: MOBILE_HERO_BACKGROUND
+};
+
+const MOBILE_HERO_COPY: Record<Locale, MobileHeroCopy[]> = {
+  ru: [
+    {
+      title: "SOFIN",
+      subtitle: "От фермы — до полки.",
+      lead: "Свежие, качественные\nи полезные молочные продукты",
+      description:
+        "из эко-фермы — с вниманием к безопасности, вкусу и пути каждого продукта.",
+      cta: "Наш каталог",
+      href: "/products",
+      tone: "main"
+    },
+    {
+      eyebrow: "О БРЕНДЕ",
+      title: "Свежесть,\nкоторой доверяют",
+      description:
+        "SOFIN объединяет натуральное сырьё, фермерский подход и современное производство. Мы бережно сохраняем вкус, качество и путь каждого продукта — от фермы до вашей полки.",
+      cta: "Узнать больше",
+      href: "/company",
+      note: "От фермы до полки с заботой о качестве",
+      tone: "brand",
+      features: [
+        {label: "Натуральное молоко", icon: Milk},
+        {label: "Контроль качества", icon: ShieldCheck},
+        {label: "Быстрая логистика", icon: Truck}
+      ]
+    },
+    {
+      eyebrow: "ЙОГУРТЫ",
+      title: "Нежные йогурты\nдля каждого дня",
+      description:
+        "Натуральные ингредиенты, сбалансированный вкус и разнообразие ярких сочетаний — для вашего удовольствия и заботы каждый день.",
+      cta: "Смотреть вкусы",
+      href: "/yogurts",
+      note: "От фермы до полки с заботой о качестве",
+      tone: "yogurts",
+      features: [
+        {label: "Натуральный состав", icon: Leaf},
+        {label: "Яркие вкусы", icon: Heart},
+        {label: "Удобный формат", icon: Milk}
+      ]
+    },
+    {
+      eyebrow: "ПРОДУКЦИЯ",
+      title: "Современные\nмолочные продукты\nна каждый день",
+      description:
+        "Йогурты, кефир, молоко и другие продукты SOFIN создаются с фокусом на свежесть, чистый вкус и удобный формат для ежедневного выбора.",
+      cta: "Перейти в каталог",
+      href: "/products",
+      note: "От фермы до полки с заботой о качестве",
+      tone: "products",
+      features: [
+        {label: "Свежесть каждый день", icon: Droplets},
+        {label: "Натуральный состав", icon: Leaf},
+        {label: "Удобный формат", icon: Milk}
+      ]
+    },
+    {
+      eyebrow: "ДОВЕРИЕ",
+      title: "От локального\nпроизводства\nк стабильному\nбренду",
+      description:
+        "SOFIN выстраивает доверие через стабильное качество, понятный состав и внимательный подход к каждому продукту. Мы соединяем локальное производство, современные стандарты и заботу о вкусе.",
+      cta: "Подробнее о бренде",
+      href: "/company",
+      note: "От фермы до полки — через доверие и качество",
+      tone: "trust",
+      features: [
+        {label: "Контроль качества", icon: ShieldCheck},
+        {label: "Проверенное сырьё", icon: Leaf},
+        {label: "Стабильный вкус", icon: Milk}
+      ]
+    }
+  ],
+  uz: [
+    {
+      title: "SOFIN",
+      subtitle: "Fermadan — javongacha.",
+      lead: "Yangi, sifatli\nva foydali sut mahsulotlari",
+      description:
+        "eko-fermadan — xavfsizlik, ta’m va har bir mahsulot yo‘liga e’tibor bilan.",
+      cta: "Bizning katalog",
+      href: "/products",
+      tone: "main"
+    },
+    {
+      eyebrow: "BREND HAQIDA",
+      title: "Ishonch uyg‘otadigan\nyangilik",
+      description:
+        "SOFIN tabiiy xomashyo, fermerlik yondashuvi va zamonaviy ishlab chiqarishni birlashtiradi. Biz har bir mahsulotning ta’mi, sifati va yo‘lini fermadan javongacha asrab boramiz.",
+      cta: "Batafsil",
+      href: "/company",
+      note: "Fermadan javongacha sifatga e’tibor bilan",
+      tone: "brand",
+      features: [
+        {label: "Tabiiy sut", icon: Milk},
+        {label: "Sifat nazorati", icon: ShieldCheck},
+        {label: "Tez logistika", icon: Truck}
+      ]
+    },
+    {
+      eyebrow: "YOGURTLAR",
+      title: "Har kun uchun\nmayin yogurtlar",
+      description:
+        "Tabiiy ingredientlar, muvozanatli ta’m va yorqin kombinatsiyalar — har kuni zavq va g‘amxo‘rlik uchun.",
+      cta: "Ta’mlarni ko‘rish",
+      href: "/yogurts",
+      note: "Fermadan javongacha sifatga e’tibor bilan",
+      tone: "yogurts",
+      features: [
+        {label: "Tabiiy tarkib", icon: Leaf},
+        {label: "Yorqin ta’mlar", icon: Heart},
+        {label: "Qulay format", icon: Milk}
+      ]
+    },
+    {
+      eyebrow: "MAHSULOTLAR",
+      title: "Har kun uchun\nzamonaviy sut\nmahsulotlari",
+      description:
+        "Yogurt, kefir, sut va boshqa SOFIN mahsulotlari yangilik, toza ta’m va kundalik tanlovga qulay format bilan yaratiladi.",
+      cta: "Katalogga o‘tish",
+      href: "/products",
+      note: "Fermadan javongacha sifatga e’tibor bilan",
+      tone: "products",
+      features: [
+        {label: "Har kun yangilik", icon: Droplets},
+        {label: "Tabiiy tarkib", icon: Leaf},
+        {label: "Qulay format", icon: Milk}
+      ]
+    },
+    {
+      eyebrow: "ISHONCH",
+      title: "Mahalliy ishlab\nchiqarishdan\nbarqaror brend sari",
+      description:
+        "SOFIN barqaror sifat, tushunarli tarkib va har bir mahsulotga e’tibor orqali ishonch yaratadi. Biz mahalliy ishlab chiqarish, zamonaviy standartlar va ta’mga g‘amxo‘rlikni birlashtiramiz.",
+      cta: "Brend haqida",
+      href: "/company",
+      note: "Fermadan javongacha — ishonch va sifat orqali",
+      tone: "trust",
+      features: [
+        {label: "Sifat nazorati", icon: ShieldCheck},
+        {label: "Tekshirilgan xomashyo", icon: Leaf},
+        {label: "Barqaror ta’m", icon: Milk}
+      ]
+    }
+  ],
+  en: [
+    {
+      title: "SOFIN",
+      subtitle: "From farm — to shelf.",
+      lead: "Fresh, high-quality\nand wholesome dairy products",
+      description:
+        "from an eco farm, created with care for safety, taste and every product journey.",
+      cta: "Our catalog",
+      href: "/products",
+      tone: "main"
+    },
+    {
+      eyebrow: "ABOUT THE BRAND",
+      title: "Freshness\nyou can trust",
+      description:
+        "SOFIN brings together natural ingredients, a farm-minded approach and modern production. We preserve taste, quality and every step of the journey from farm to shelf.",
+      cta: "Learn more",
+      href: "/company",
+      note: "From farm to shelf with care for quality",
+      tone: "brand",
+      features: [
+        {label: "Natural milk", icon: Milk},
+        {label: "Quality control", icon: ShieldCheck},
+        {label: "Fast logistics", icon: Truck}
+      ]
+    },
+    {
+      eyebrow: "YOGURTS",
+      title: "Gentle yogurts\nfor every day",
+      description:
+        "Natural ingredients, balanced taste and bright combinations for everyday pleasure and care.",
+      cta: "See flavors",
+      href: "/yogurts",
+      note: "From farm to shelf with care for quality",
+      tone: "yogurts",
+      features: [
+        {label: "Natural blend", icon: Leaf},
+        {label: "Bright flavors", icon: Heart},
+        {label: "Easy format", icon: Milk}
+      ]
+    },
+    {
+      eyebrow: "PRODUCTS",
+      title: "Modern dairy\nproducts for\nevery day",
+      description:
+        "Yogurts, kefir, milk and other SOFIN products are created around freshness, clean taste and convenient everyday formats.",
+      cta: "Open catalog",
+      href: "/products",
+      note: "From farm to shelf with care for quality",
+      tone: "products",
+      features: [
+        {label: "Daily freshness", icon: Droplets},
+        {label: "Natural blend", icon: Leaf},
+        {label: "Easy format", icon: Milk}
+      ]
+    },
+    {
+      eyebrow: "TRUST",
+      title: "From local\nproduction to\na stable brand",
+      description:
+        "SOFIN builds trust through steady quality, clear ingredients and attentive care for every product. We connect local production, modern standards and reliable taste.",
+      cta: "About the brand",
+      href: "/company",
+      note: "From farm to shelf — through trust and quality",
+      tone: "trust",
+      features: [
+        {label: "Quality control", icon: ShieldCheck},
+        {label: "Trusted milk", icon: Leaf},
+        {label: "Stable taste", icon: Milk}
+      ]
+    }
+  ]
 };
 
 function useReducedMotionPreference() {
@@ -39,6 +292,10 @@ export default function HeroStory() {
   const reducedMotion = useReducedMotionPreference();
   const locale = useLocale();
   const heroScenes = useMemo(() => getHeroScenes(locale), [locale]);
+  const mobileHeroScenes = useMemo(
+    () => MOBILE_HERO_COPY[normalizeLocale(locale)],
+    [locale]
+  );
 
   const backgroundByScene = useMemo(
     () => [
@@ -91,7 +348,10 @@ export default function HeroStory() {
 
   const currentBg = backgroundByScene[activeScene] ?? backgroundByScene[0];
   const currentBgDesktop = assetUrl(currentBg.desktop);
-  const currentBgMobile = assetUrl(currentBg.mobile ?? currentBg.desktop);
+  const currentBgMobile =
+    currentBg.mobile === MOBILE_HERO_BACKGROUND
+      ? MOBILE_HERO_BACKGROUND
+      : assetUrl(currentBg.mobile ?? currentBg.desktop);
 
   return (
     <section id="hero-story-root" className="relative bg-[#07192d]">
@@ -130,13 +390,13 @@ export default function HeroStory() {
                 priority
                 unoptimized
                 sizes="100vw"
-                className="object-cover sm:hidden"
+                className="object-cover object-center sm:hidden"
               />
             </div>
 
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,250,255,0.42)_0%,rgba(245,250,255,0.22)_34%,rgba(245,250,255,0)_66%)]" />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(237,246,255,0.06)_0%,rgba(237,246,255,0)_54%,rgba(230,240,250,0.14)_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_34%,rgba(255,255,255,0.68),transparent_42%),linear-gradient(180deg,rgba(255,250,235,0.18),rgba(255,250,235,0.50)_72%,rgba(255,250,235,0.72))] sm:hidden" />
+            <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(245,250,255,0.42)_0%,rgba(245,250,255,0.22)_34%,rgba(245,250,255,0)_66%)] sm:block" />
+            <div className="absolute inset-0 hidden bg-[linear-gradient(180deg,rgba(237,246,255,0.06)_0%,rgba(237,246,255,0)_54%,rgba(230,240,250,0.14)_100%)] sm:block" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0)_42%,rgba(244,248,255,0.18)_100%)] sm:hidden" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -171,9 +431,10 @@ export default function HeroStory() {
         </div>
       </div>
 
-      <div className="relative z-10 h-[500dvh]">
+      <div className="relative z-10 h-[500dvh] sm:h-[500svh]">
         {heroScenes.map((scene: HeroScene, index: number) => {
           const isActive = index === activeScene;
+          const mobileScene = mobileHeroScenes[index] ?? mobileHeroScenes[0];
 
           return (
             <div
@@ -183,7 +444,7 @@ export default function HeroStory() {
               }}
               data-scene-index={index}
               className={cn(
-                "relative flex h-[100dvh] items-center"
+                "relative flex h-[100dvh] items-center sm:h-[100svh]"
               )}
             >
               <div
@@ -196,11 +457,18 @@ export default function HeroStory() {
                     : "lg:grid-cols-1"
                 )}
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                   {isActive ? (
                     index === 0 ? (
-                      <HeroMainScene scene={scene} reducedMotion={reducedMotion} />
+                      <>
+                        <MobileHeroScene scene={mobileScene} reducedMotion={reducedMotion} />
+                        <div className="hidden w-full sm:block">
+                          <HeroMainScene scene={scene} reducedMotion={reducedMotion} />
+                        </div>
+                      </>
                     ) : (
+                    <>
+                    <MobileHeroScene scene={mobileScene} reducedMotion={reducedMotion} />
                     <motion.div
                       key={`content-${scene.id}`}
                       initial="hidden"
@@ -222,7 +490,7 @@ export default function HeroStory() {
                         }
                       }}
                       className={cn(
-                        "max-w-[1080px] max-sm:rounded-[28px] max-sm:border max-sm:border-white/58 max-sm:bg-white/48 max-sm:p-4 max-sm:shadow-[0_22px_64px_rgba(25,68,112,0.14),inset_0_1px_0_rgba(255,255,255,0.78)] max-sm:backdrop-blur-[18px]",
+                        "hidden max-w-[1080px] sm:block",
                         index === 2 && "lg:max-w-[920px]"
                       )}
                     >
@@ -237,7 +505,7 @@ export default function HeroStory() {
                             duration: 0.45,
                             ease: [0.22, 1, 0.36, 1]
                           }}
-                          className="mb-3 inline-flex rounded-full border border-[#315b89]/18 bg-white/56 px-3 py-2 text-[9px] font-medium uppercase tracking-[0.28em] text-[var(--brand-primary)] shadow-[0_12px_34px_rgba(25,68,112,0.08)] backdrop-blur-2xl sm:mb-4 sm:px-4 sm:text-[10px] sm:tracking-[0.32em]"
+                          className="mb-4 inline-flex rounded-full border border-[#315b89]/18 bg-white/42 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.32em] text-[var(--brand-primary)] shadow-[0_12px_34px_rgba(25,68,112,0.08)] backdrop-blur-2xl"
                         >
                           {scene.eyebrow}
                         </motion.div>
@@ -256,8 +524,8 @@ export default function HeroStory() {
                         className={cn(
                           "max-w-[1080px] text-balance font-semibold leading-[1.06] tracking-[-0.045em] text-[var(--brand-primary)]",
                           index === 2
-                            ? "max-w-[860px] leading-[1.08] text-[clamp(1.75rem,7.4vw,2.28rem)] sm:text-[clamp(2.55rem,5.7vw,3.45rem)] lg:text-[clamp(2.7rem,3vw,3.22rem)]"
-                            : "text-[clamp(1.95rem,8.2vw,2.55rem)] sm:text-[clamp(2.8rem,5vw,3.7rem)] lg:text-[clamp(3rem,3.35vw,3.65rem)]"
+                            ? "max-w-[860px] leading-[1.06] text-[clamp(2rem,8.8vw,2.85rem)] sm:text-[clamp(2.55rem,5.7vw,3.45rem)] lg:text-[clamp(2.7rem,3vw,3.22rem)]"
+                            : "text-[clamp(2.35rem,8.4vw,3.05rem)] sm:text-[clamp(2.8rem,5vw,3.7rem)] lg:text-[clamp(3rem,3.35vw,3.65rem)]"
                         )}
                       >
                         {scene.title}
@@ -275,7 +543,7 @@ export default function HeroStory() {
                             delay: reducedMotion ? 0 : 0.04,
                             ease: [0.22, 1, 0.36, 1]
                           }}
-                          className="mt-3 max-w-[540px] text-base font-medium text-[#244d7c] sm:mt-4 sm:text-2xl lg:text-[1.85rem]"
+                          className="mt-4 max-w-[540px] text-xl font-medium text-[#244d7c] sm:text-2xl lg:text-[1.85rem]"
                         >
                           {scene.subtitle}
                         </motion.p>
@@ -293,9 +561,9 @@ export default function HeroStory() {
                             delay: reducedMotion ? 0 : 0.08,
                             ease: [0.22, 1, 0.36, 1]
                           }}
-                          className="mt-4 max-w-[600px] rounded-[22px] border border-white/60 bg-white/54 p-4 shadow-[0_22px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[24px] sm:mt-7 sm:rounded-[28px] sm:bg-white/44 sm:p-6"
+                          className="mt-7 max-w-[600px] rounded-[28px] border border-white/60 bg-white/44 p-5 shadow-[0_22px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[24px] sm:p-6"
                         >
-                          <p className="text-pretty text-[13px] leading-6 text-[#244d7c] sm:text-[15px] sm:leading-7 lg:text-base lg:leading-8">
+                          <p className="text-pretty text-sm leading-7 text-[#244d7c] sm:text-[15px] lg:text-base lg:leading-8">
                             {scene.description}
                           </p>
 
@@ -313,6 +581,7 @@ export default function HeroStory() {
                         </motion.div>
                       ) : null}
                     </motion.div>
+                    </>
                     )
                   ) : null}
                 </AnimatePresence>
@@ -364,6 +633,184 @@ export default function HeroStory() {
   );
 }
 
+function MobileHeroScene({
+  scene,
+  reducedMotion
+}: {
+  scene: MobileHeroCopy;
+  reducedMotion: boolean;
+}) {
+  const isMain = scene.tone === "main";
+
+  return (
+    <motion.div
+      key={`mobile-${scene.tone}`}
+      initial={reducedMotion ? false : {opacity: 0, y: 18, filter: "blur(10px)"}}
+      animate={reducedMotion ? undefined : {opacity: 1, y: 0, filter: "blur(0px)"}}
+      exit={reducedMotion ? undefined : {opacity: 0, y: -10, filter: "blur(8px)"}}
+      transition={{duration: reducedMotion ? 0 : 0.58, ease: [0.22, 1, 0.36, 1]}}
+      className="relative flex min-h-[calc(100dvh-7.15rem)] w-full flex-col justify-end sm:hidden"
+    >
+      {isMain ? <MobileMainHero scene={scene} /> : <MobileStoryCard scene={scene} />}
+    </motion.div>
+  );
+}
+
+function MobileMainHero({scene}: {scene: MobileHeroCopy}) {
+  return (
+    <>
+      <div className="absolute left-1 right-1 top-[14.6vh]">
+        <h1 className="text-[clamp(4.3rem,24vw,6.2rem)] font-semibold leading-[0.84] tracking-[-0.075em] text-[var(--brand-primary)]">
+          {scene.title}
+        </h1>
+
+        {scene.subtitle ? (
+          <div className="mt-3 inline-flex rounded-full border border-white/64 bg-white/72 px-4 py-2 text-[clamp(1.15rem,5.7vw,1.45rem)] font-medium leading-none tracking-[-0.035em] text-[var(--brand-primary)] shadow-[0_14px_36px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
+            {scene.subtitle}
+          </div>
+        ) : null}
+      </div>
+
+      <div className="space-y-3 pb-[max(0.7rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center gap-4 rounded-[26px] border border-white/72 bg-white/78 p-4 text-[var(--brand-primary)] shadow-[0_20px_60px_rgba(25,68,112,0.13),inset_0_1px_0_rgba(255,255,255,0.90)] backdrop-blur-xl">
+          <span className="flex h-[58px] w-[58px] shrink-0 items-center justify-center rounded-full border border-[#315b89]/22 bg-white/54 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]">
+            <Leaf className="h-7 w-7" strokeWidth={1.8} />
+          </span>
+          <p className="text-[14px] leading-6 text-[#244d7c]">
+            {scene.lead ? (
+              <span className="mb-0.5 block whitespace-pre-line text-[16px] font-semibold leading-5 text-[var(--brand-primary)]">
+                {scene.lead}
+              </span>
+            ) : null}
+            {scene.description}
+          </p>
+        </div>
+
+        <Link
+          href={scene.href}
+          className="group flex min-h-16 w-full items-center justify-center gap-5 rounded-full bg-[var(--brand-primary)] px-6 text-[18px] font-semibold text-white shadow-[0_20px_52px_rgba(0,58,117,0.24)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+        >
+          {scene.cta}
+          <ArrowRight className="h-7 w-7 transition-transform duration-300 group-hover:translate-x-1" />
+        </Link>
+      </div>
+    </>
+  );
+}
+
+function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
+  const isSerif = scene.tone === "brand" || scene.tone === "yogurts";
+
+  return (
+    <div className="pb-[max(0.7rem,env(safe-area-inset-bottom))]">
+      <div className="relative overflow-hidden rounded-[32px] border border-white/78 bg-white/82 p-5 text-[var(--brand-primary)] shadow-[0_24px_72px_rgba(25,68,112,0.16),inset_0_1px_0_rgba(255,255,255,0.92)] backdrop-blur-[18px]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_92%_4%,rgba(255,244,224,0.72),transparent_32%),radial-gradient(circle_at_6%_0%,rgba(209,232,255,0.52),transparent_34%),linear-gradient(145deg,rgba(255,255,255,0.20),rgba(255,255,255,0)_58%)]" />
+        <MobileCardVisual tone={scene.tone} />
+
+        <div className="relative z-10">
+          {scene.eyebrow ? (
+            <div className="mb-4 inline-flex rounded-full border border-[#315b89]/18 bg-white/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.86)]">
+              {scene.eyebrow}
+            </div>
+          ) : null}
+
+          <h2
+            className={cn(
+              "whitespace-pre-line text-balance leading-[0.98] tracking-[-0.045em]",
+              isSerif
+                ? "max-w-[78%] font-[family:var(--font-display)] text-[clamp(2.15rem,9.8vw,3.15rem)] font-semibold"
+                : "max-w-[86%] text-[clamp(2.05rem,9vw,2.85rem)] font-semibold"
+            )}
+          >
+            {scene.title}
+          </h2>
+
+          <div className="mt-4 h-0.5 w-12 rounded-full bg-[#69aeea]" />
+
+          <p
+            className={cn(
+              "mt-4 text-pretty text-[14px] font-medium leading-6 text-[#244d7c]",
+              scene.tone === "trust" ? "max-w-[78%]" : "max-w-[82%]",
+              scene.tone === "products" && "max-w-[92%]"
+            )}
+          >
+            {scene.description}
+          </p>
+
+          {scene.features?.length ? (
+            <div className="mt-5 grid grid-cols-3 overflow-hidden rounded-[20px] border border-white/64 bg-white/56 shadow-[0_16px_40px_rgba(25,68,112,0.08),inset_0_1px_0_rgba(255,255,255,0.88)]">
+              {scene.features.map((feature, index) => {
+                const Icon = feature.icon;
+
+                return (
+                  <div
+                    key={feature.label}
+                    className={cn(
+                      "flex min-h-[104px] flex-col items-center justify-center gap-2 px-2 py-3 text-center",
+                      index > 0 && "border-l border-[#315b89]/10"
+                    )}
+                  >
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/66 text-[var(--brand-primary)] shadow-[0_10px_24px_rgba(25,68,112,0.08)]">
+                      <Icon className="h-6 w-6" strokeWidth={1.7} />
+                    </span>
+                    <span className="text-[12px] font-semibold leading-[1.2] text-[#244d7c]">
+                      {feature.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
+
+          <Link
+            href={scene.href}
+            className="group mt-5 flex min-h-[54px] w-full items-center justify-center gap-4 rounded-full bg-[var(--brand-primary)] px-5 text-[15px] font-semibold text-white shadow-[0_18px_44px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+          >
+            {scene.cta}
+            <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+
+          {scene.note ? (
+            <div className="mt-4 flex items-center justify-center gap-2 text-center text-[12px] font-medium text-[#7892b5]">
+              <Leaf className="h-4 w-4" strokeWidth={1.7} />
+              <span>{scene.note}</span>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileCardVisual({tone}: {tone: MobileHeroTone}) {
+  if (tone === "yogurts") {
+    return (
+      <div className="pointer-events-none absolute right-[-2.4rem] top-[4.4rem] z-0 h-44 w-44">
+        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.72)_46%,rgba(255,255,255,0)_70%)]" />
+        <Image
+          src={MOBILE_YOGURT_IMAGE}
+          alt=""
+          fill
+          sizes="176px"
+          className="rotate-[-8deg] object-contain opacity-95 drop-shadow-[0_22px_34px_rgba(25,68,112,0.16)]"
+        />
+      </div>
+    );
+  }
+
+  if (tone === "trust") {
+    return (
+      <div className="pointer-events-none absolute right-[-1.3rem] top-[4.2rem] z-0 h-44 w-44 text-[#74b7ee]">
+        <div className="absolute inset-5 rounded-full bg-[radial-gradient(circle,rgba(219,239,255,0.92),rgba(255,255,255,0)_68%)]" />
+        <div className="absolute inset-x-0 top-14 h-20 rounded-[999px] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.88),rgba(255,255,255,0)_70%)] blur-[1px]" />
+        <ShieldCheck className="absolute right-8 top-8 h-24 w-24 drop-shadow-[0_18px_28px_rgba(68,145,212,0.24)]" strokeWidth={1.35} />
+      </div>
+    );
+  }
+
+  return null;
+}
+
 function HeroMainScene({
   scene,
   reducedMotion
@@ -398,7 +845,7 @@ function HeroMainScene({
           }
         }
       }}
-      className="flex w-full max-w-[555px] flex-col text-[var(--brand-primary)] max-sm:min-h-[calc(100dvh-8rem)]"
+      className="flex w-full max-w-[555px] flex-col text-[var(--brand-primary)] max-sm:min-h-[calc(100svh-11rem)]"
     >
       <motion.h1
         variants={{
@@ -407,7 +854,7 @@ function HeroMainScene({
           exit: {opacity: 0, y: -14, scale: 0.992, filter: "blur(8px)"}
         }}
         transition={{duration: 0.82, ease: [0.22, 1, 0.36, 1]}}
-        className="w-fit rounded-[24px] border border-white/58 bg-white/54 px-3 py-2 text-[clamp(2.85rem,13vw,3.55rem)] font-semibold leading-[0.92] tracking-[-0.07em] shadow-[0_18px_52px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.78)] backdrop-blur-[16px] sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-[clamp(5.5rem,9vw,8.5rem)] sm:tracking-[-0.075em] sm:shadow-none sm:backdrop-blur-0 lg:text-[clamp(6.2rem,7.4vw,8.8rem)]"
+        className="text-[clamp(3.55rem,16vw,4.15rem)] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[clamp(5.5rem,9vw,8.5rem)] lg:text-[clamp(6.2rem,7.4vw,8.8rem)]"
       >
         {scene.title}
       </motion.h1>
@@ -416,7 +863,7 @@ function HeroMainScene({
         <motion.p
           variants={item}
           transition={{duration: 0.7, ease: [0.22, 1, 0.36, 1]}}
-          className="mt-2 w-fit rounded-2xl border border-white/52 bg-white/48 px-3 py-2 text-[clamp(1.05rem,5vw,1.36rem)] font-medium leading-tight tracking-[-0.035em] shadow-[0_12px_34px_rgba(25,68,112,0.10)] backdrop-blur-[14px] sm:mt-8 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-[clamp(2rem,3vw,2.85rem)] sm:tracking-[-0.045em] sm:shadow-none sm:backdrop-blur-0"
+          className="mt-3 text-[clamp(1.25rem,6vw,1.6rem)] font-medium leading-tight tracking-[-0.045em] sm:mt-8 sm:text-[clamp(2rem,3vw,2.85rem)]"
         >
           {scene.subtitle}
         </motion.p>
@@ -425,7 +872,7 @@ function HeroMainScene({
       <motion.div
         variants={item}
         transition={{duration: 0.64, ease: [0.22, 1, 0.36, 1]}}
-        className="mt-3 flex max-w-[220px] items-center gap-3 text-[#59799b] sm:mt-8 sm:max-w-[450px] sm:gap-4"
+        className="mt-4 flex max-w-[250px] items-center gap-3 text-[#59799b] sm:mt-8 sm:max-w-[450px] sm:gap-4"
         aria-hidden="true"
       >
         <span className="h-px flex-1 bg-[#9eb1c8]/62" />
@@ -436,12 +883,12 @@ function HeroMainScene({
       <motion.div
         variants={item}
         transition={{duration: 0.72, ease: [0.22, 1, 0.36, 1]}}
-        className="mt-auto flex max-w-[535px] items-center gap-3 rounded-[22px] border border-white/60 bg-white/58 p-3 text-[#244d7c] shadow-[0_22px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[18px] sm:mt-7 sm:gap-6 sm:rounded-[30px] sm:bg-white/38 sm:p-6"
+        className="mt-auto flex max-w-[535px] items-center gap-4 rounded-[24px] border border-white/60 bg-white/46 p-4 text-[#244d7c] shadow-[0_22px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[18px] sm:mt-7 sm:gap-6 sm:rounded-[30px] sm:bg-white/38 sm:p-6"
       >
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#315b89]/30 bg-white/38 text-[#315b89] sm:h-[74px] sm:w-[74px] sm:border-[#315b89]/36 sm:bg-white/26">
-          <Leaf className="h-5 w-5 sm:h-8 sm:w-8" strokeWidth={1.8} />
+        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[#315b89]/36 bg-white/26 text-[#315b89] sm:h-[74px] sm:w-[74px]">
+          <Leaf className="h-8 w-8" strokeWidth={1.8} />
         </span>
-        <p className="text-pretty text-[13px] font-medium leading-6 sm:text-[16px] sm:leading-8">
+        <p className="text-pretty text-sm font-medium leading-7 sm:text-[16px] sm:leading-8">
           {scene.description}
         </p>
       </motion.div>
@@ -450,11 +897,11 @@ function HeroMainScene({
         <motion.div
           variants={item}
           transition={{duration: 0.68, ease: [0.22, 1, 0.36, 1]}}
-          className="mt-4 sm:mt-8"
+          className="mt-5 sm:mt-8"
         >
           <Link
             href={scene.cta.href}
-            className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-[var(--brand-primary)] px-5 text-sm font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[60px] sm:gap-4 sm:px-9 sm:text-base"
+            className="group inline-flex min-h-14 items-center gap-4 rounded-full bg-[var(--brand-primary)] px-7 text-sm font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[60px] sm:px-9 sm:text-base"
           >
             {scene.cta.label}
             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -497,4 +944,9 @@ function YogurtsPreviewCard() {
       </div>
     </Link>
   );
+}
+
+function normalizeLocale(locale: string): Locale {
+  if (locale === "uz" || locale === "ru" || locale === "en") return locale;
+  return "ru";
 }
