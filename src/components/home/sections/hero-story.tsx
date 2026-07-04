@@ -289,6 +289,7 @@ function useReducedMotionPreference() {
 export default function HeroStory() {
   const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [activeScene, setActiveScene] = useState(0);
+  const [mobileHeroVisible, setMobileHeroVisible] = useState(true);
   const reducedMotion = useReducedMotionPreference();
   const locale = useLocale();
   const heroScenes = useMemo(() => getHeroScenes(locale), [locale]);
@@ -334,6 +335,25 @@ export default function HeroStory() {
     nodes.forEach((node) => observer.observe(node));
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const root = document.getElementById("hero-story-root");
+    if (!root) return;
+
+    const update = () => {
+      const rect = root.getBoundingClientRect();
+      setMobileHeroVisible(rect.top <= 8 && rect.bottom >= window.innerHeight * 0.18);
+    };
+
+    update();
+    window.addEventListener("scroll", update, {passive: true});
+    window.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   const snapToScene = (index: number) => {
@@ -431,10 +451,21 @@ export default function HeroStory() {
         </div>
       </div>
 
+      <AnimatePresence>
+        {mobileHeroVisible ? (
+          <div className="pointer-events-none fixed inset-x-0 top-0 z-20 h-dvh px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-24 sm:hidden">
+            <MobileHeroScene
+              key={`fixed-mobile-${activeScene}`}
+              scene={mobileHeroScenes[activeScene] ?? mobileHeroScenes[0]}
+              reducedMotion={reducedMotion}
+            />
+          </div>
+        ) : null}
+      </AnimatePresence>
+
       <div className="relative z-10 h-[500dvh] sm:h-[500svh]">
         {heroScenes.map((scene: HeroScene, index: number) => {
           const isActive = index === activeScene;
-          const mobileScene = mobileHeroScenes[index] ?? mobileHeroScenes[0];
 
           return (
             <div
@@ -461,14 +492,12 @@ export default function HeroStory() {
                   {isActive ? (
                     index === 0 ? (
                       <>
-                        <MobileHeroScene scene={mobileScene} reducedMotion={reducedMotion} />
                         <div className="hidden w-full sm:block">
                           <HeroMainScene scene={scene} reducedMotion={reducedMotion} />
                         </div>
                       </>
                     ) : (
                     <>
-                    <MobileHeroScene scene={mobileScene} reducedMotion={reducedMotion} />
                     <motion.div
                       key={`content-${scene.id}`}
                       initial="hidden"
@@ -649,7 +678,7 @@ function MobileHeroScene({
       animate={reducedMotion ? undefined : {opacity: 1, y: 0, filter: "blur(0px)"}}
       exit={reducedMotion ? undefined : {opacity: 0, y: -10, filter: "blur(8px)"}}
       transition={{duration: reducedMotion ? 0 : 0.58, ease: [0.22, 1, 0.36, 1]}}
-      className="relative flex min-h-[calc(100dvh-7.15rem)] w-full flex-col justify-end sm:hidden"
+      className="pointer-events-auto relative flex h-full w-full flex-col justify-end sm:hidden"
     >
       {isMain ? <MobileMainHero scene={scene} /> : <MobileStoryCard scene={scene} />}
     </motion.div>
@@ -659,26 +688,26 @@ function MobileHeroScene({
 function MobileMainHero({scene}: {scene: MobileHeroCopy}) {
   return (
     <>
-      <div className="absolute left-1 right-1 top-[14.6vh]">
-        <h1 className="text-[clamp(4.3rem,24vw,6.2rem)] font-semibold leading-[0.84] tracking-[-0.075em] text-[var(--brand-primary)]">
+      <div className="absolute left-1 right-1 top-[15.2vh]">
+        <h1 className="text-[clamp(3.55rem,19.5vw,5rem)] font-semibold leading-[0.86] tracking-[-0.07em] text-[var(--brand-primary)]">
           {scene.title}
         </h1>
 
         {scene.subtitle ? (
-          <div className="mt-3 inline-flex rounded-full border border-white/64 bg-white/72 px-4 py-2 text-[clamp(1.15rem,5.7vw,1.45rem)] font-medium leading-none tracking-[-0.035em] text-[var(--brand-primary)] shadow-[0_14px_36px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
+          <div className="mt-2 inline-flex rounded-full border border-white/60 bg-white/75 px-4 py-2 text-[clamp(1rem,4.9vw,1.26rem)] font-medium leading-none tracking-[-0.03em] text-[var(--brand-primary)] shadow-[0_14px_36px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
             {scene.subtitle}
           </div>
         ) : null}
       </div>
 
-      <div className="space-y-3 pb-[max(0.7rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center gap-4 rounded-[26px] border border-white/72 bg-white/78 p-4 text-[var(--brand-primary)] shadow-[0_20px_60px_rgba(25,68,112,0.13),inset_0_1px_0_rgba(255,255,255,0.90)] backdrop-blur-xl">
-          <span className="flex h-[58px] w-[58px] shrink-0 items-center justify-center rounded-full border border-[#315b89]/22 bg-white/54 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]">
-            <Leaf className="h-7 w-7" strokeWidth={1.8} />
+      <div className="space-y-2.5 pb-[max(0.45rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center gap-3 rounded-[24px] border border-white/80 bg-white/90 p-3.5 text-[var(--brand-primary)] shadow-[0_18px_52px_rgba(25,68,112,0.14),inset_0_1px_0_rgba(255,255,255,0.94)] backdrop-blur-xl">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#315b89]/20 bg-white/60 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]">
+            <Leaf className="h-6 w-6" strokeWidth={1.8} />
           </span>
-          <p className="text-[14px] leading-6 text-[#244d7c]">
+          <p className="text-[13px] leading-5 text-[#244d7c]">
             {scene.lead ? (
-              <span className="mb-0.5 block whitespace-pre-line text-[16px] font-semibold leading-5 text-[var(--brand-primary)]">
+              <span className="mb-0.5 block whitespace-pre-line text-[15px] font-semibold leading-[1.22] text-[var(--brand-primary)]">
                 {scene.lead}
               </span>
             ) : null}
@@ -688,10 +717,10 @@ function MobileMainHero({scene}: {scene: MobileHeroCopy}) {
 
         <Link
           href={scene.href}
-          className="group flex min-h-16 w-full items-center justify-center gap-5 rounded-full bg-[var(--brand-primary)] px-6 text-[18px] font-semibold text-white shadow-[0_20px_52px_rgba(0,58,117,0.24)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+          className="group flex min-h-[58px] w-full items-center justify-center gap-4 rounded-full bg-[var(--brand-primary)] px-6 text-[17px] font-semibold text-white shadow-[0_18px_48px_rgba(0,58,117,0.24)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
         >
           {scene.cta}
-          <ArrowRight className="h-7 w-7 transition-transform duration-300 group-hover:translate-x-1" />
+          <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
     </>
@@ -700,16 +729,24 @@ function MobileMainHero({scene}: {scene: MobileHeroCopy}) {
 
 function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
   const isSerif = scene.tone === "brand" || scene.tone === "yogurts";
+  const titleWidth =
+    scene.tone === "yogurts"
+      ? "max-w-[82%]"
+      : scene.tone === "trust"
+        ? "max-w-[68%]"
+        : scene.tone === "products"
+          ? "max-w-[92%]"
+          : "max-w-full";
 
   return (
-    <div className="pb-[max(0.7rem,env(safe-area-inset-bottom))]">
-      <div className="relative overflow-hidden rounded-[32px] border border-white/78 bg-white/82 p-5 text-[var(--brand-primary)] shadow-[0_24px_72px_rgba(25,68,112,0.16),inset_0_1px_0_rgba(255,255,255,0.92)] backdrop-blur-[18px]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_92%_4%,rgba(255,244,224,0.72),transparent_32%),radial-gradient(circle_at_6%_0%,rgba(209,232,255,0.52),transparent_34%),linear-gradient(145deg,rgba(255,255,255,0.20),rgba(255,255,255,0)_58%)]" />
+    <div className="pb-[max(0.55rem,env(safe-area-inset-bottom))]">
+      <div className="relative overflow-hidden rounded-[30px] border border-white/90 bg-white/95 p-4 text-[var(--brand-primary)] shadow-[0_22px_58px_rgba(25,68,112,0.16),inset_0_1px_0_rgba(255,255,255,0.96)] backdrop-blur-[24px]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_94%_2%,rgba(255,244,224,0.58),transparent_28%),radial-gradient(circle_at_0%_0%,rgba(213,235,255,0.42),transparent_30%),linear-gradient(145deg,rgba(255,255,255,0.34),rgba(255,255,255,0)_62%)]" />
         <MobileCardVisual tone={scene.tone} />
 
         <div className="relative z-10">
           {scene.eyebrow ? (
-            <div className="mb-4 inline-flex rounded-full border border-[#315b89]/18 bg-white/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.86)]">
+            <div className="mb-3 inline-flex rounded-full border border-[#315b89]/16 bg-white/90 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.92)]">
               {scene.eyebrow}
             </div>
           ) : null}
@@ -718,27 +755,28 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
             className={cn(
               "whitespace-pre-line text-balance leading-[0.98] tracking-[-0.045em]",
               isSerif
-                ? "max-w-[78%] font-[family:var(--font-display)] text-[clamp(2.15rem,9.8vw,3.15rem)] font-semibold"
-                : "max-w-[86%] text-[clamp(2.05rem,9vw,2.85rem)] font-semibold"
+                ? "font-[family:var(--font-display)] text-[clamp(1.86rem,8vw,2.42rem)] font-semibold"
+                : "text-[clamp(1.72rem,7.2vw,2.2rem)] font-semibold",
+              titleWidth
             )}
           >
             {scene.title}
           </h2>
 
-          <div className="mt-4 h-0.5 w-12 rounded-full bg-[#69aeea]" />
+          <div className="mt-2.5 h-0.5 w-11 rounded-full bg-[#69aeea]" />
 
           <p
             className={cn(
-              "mt-4 text-pretty text-[14px] font-medium leading-6 text-[#244d7c]",
-              scene.tone === "trust" ? "max-w-[78%]" : "max-w-[82%]",
-              scene.tone === "products" && "max-w-[92%]"
+              "mt-3 text-pretty text-[12px] font-medium leading-[1.48] text-[#244d7c]",
+              scene.tone === "trust" ? "max-w-[72%]" : "max-w-full",
+              scene.tone === "yogurts" && "max-w-[78%]"
             )}
           >
             {scene.description}
           </p>
 
           {scene.features?.length ? (
-            <div className="mt-5 grid grid-cols-3 overflow-hidden rounded-[20px] border border-white/64 bg-white/56 shadow-[0_16px_40px_rgba(25,68,112,0.08),inset_0_1px_0_rgba(255,255,255,0.88)]">
+            <div className="mt-3.5 grid grid-cols-3 overflow-hidden rounded-[18px] border border-[#d9e4f1]/70 bg-white/80 shadow-[0_12px_28px_rgba(25,68,112,0.08),inset_0_1px_0_rgba(255,255,255,0.92)]">
               {scene.features.map((feature, index) => {
                 const Icon = feature.icon;
 
@@ -746,14 +784,14 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
                   <div
                     key={feature.label}
                     className={cn(
-                      "flex min-h-[104px] flex-col items-center justify-center gap-2 px-2 py-3 text-center",
+                      "flex min-h-[70px] flex-col items-center justify-center gap-1 px-1.5 py-2 text-center",
                       index > 0 && "border-l border-[#315b89]/10"
                     )}
                   >
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/66 text-[var(--brand-primary)] shadow-[0_10px_24px_rgba(25,68,112,0.08)]">
-                      <Icon className="h-6 w-6" strokeWidth={1.7} />
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-[var(--brand-primary)] shadow-[0_8px_18px_rgba(25,68,112,0.08)]">
+                      <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
                     </span>
-                    <span className="text-[12px] font-semibold leading-[1.2] text-[#244d7c]">
+                    <span className="text-[10px] font-semibold leading-[1.12] text-[#244d7c]">
                       {feature.label}
                     </span>
                   </div>
@@ -764,15 +802,15 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
 
           <Link
             href={scene.href}
-            className="group mt-5 flex min-h-[54px] w-full items-center justify-center gap-4 rounded-full bg-[var(--brand-primary)] px-5 text-[15px] font-semibold text-white shadow-[0_18px_44px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+            className="group mt-3.5 flex min-h-[46px] w-full items-center justify-center gap-3 rounded-full bg-[var(--brand-primary)] px-5 text-[13.5px] font-semibold text-white shadow-[0_16px_36px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
           >
             {scene.cta}
-            <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
 
           {scene.note ? (
-            <div className="mt-4 flex items-center justify-center gap-2 text-center text-[12px] font-medium text-[#7892b5]">
-              <Leaf className="h-4 w-4" strokeWidth={1.7} />
+            <div className="mt-2.5 flex items-center justify-center gap-2 text-center text-[10.5px] font-medium text-[#7892b5]">
+              <Leaf className="h-3.5 w-3.5" strokeWidth={1.7} />
               <span>{scene.note}</span>
             </div>
           ) : null}
@@ -785,8 +823,8 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
 function MobileCardVisual({tone}: {tone: MobileHeroTone}) {
   if (tone === "yogurts") {
     return (
-      <div className="pointer-events-none absolute right-[-2.4rem] top-[4.4rem] z-0 h-44 w-44">
-        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.72)_46%,rgba(255,255,255,0)_70%)]" />
+      <div className="pointer-events-none absolute right-[-1.15rem] top-[3.75rem] z-0 h-32 w-32">
+        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.74)_46%,rgba(255,255,255,0)_70%)]" />
         <Image
           src={MOBILE_YOGURT_IMAGE}
           alt=""
@@ -800,10 +838,10 @@ function MobileCardVisual({tone}: {tone: MobileHeroTone}) {
 
   if (tone === "trust") {
     return (
-      <div className="pointer-events-none absolute right-[-1.3rem] top-[4.2rem] z-0 h-44 w-44 text-[#74b7ee]">
+      <div className="pointer-events-none absolute right-[-0.8rem] top-[3.4rem] z-0 h-32 w-32 text-[#74b7ee]">
         <div className="absolute inset-5 rounded-full bg-[radial-gradient(circle,rgba(219,239,255,0.92),rgba(255,255,255,0)_68%)]" />
         <div className="absolute inset-x-0 top-14 h-20 rounded-[999px] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.88),rgba(255,255,255,0)_70%)] blur-[1px]" />
-        <ShieldCheck className="absolute right-8 top-8 h-24 w-24 drop-shadow-[0_18px_28px_rgba(68,145,212,0.24)]" strokeWidth={1.35} />
+        <ShieldCheck className="absolute right-7 top-7 h-[4.5rem] w-[4.5rem] drop-shadow-[0_18px_28px_rgba(68,145,212,0.24)]" strokeWidth={1.35} />
       </div>
     );
   }
