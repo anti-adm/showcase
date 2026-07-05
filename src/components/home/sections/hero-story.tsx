@@ -688,26 +688,26 @@ function MobileHeroScene({
 function MobileMainHero({scene}: {scene: MobileHeroCopy}) {
   return (
     <>
-      <div className="absolute left-1 right-1 top-[15.2vh]">
+      <div className="absolute left-[8vw] right-4 top-[3.8vh]">
         <h1 className="text-[clamp(3.55rem,19.5vw,5rem)] font-semibold leading-[0.86] tracking-[-0.07em] text-[var(--brand-primary)]">
           {scene.title}
         </h1>
 
         {scene.subtitle ? (
-          <div className="mt-2 inline-flex rounded-full border border-white/60 bg-white/75 px-4 py-2 text-[clamp(1rem,4.9vw,1.26rem)] font-medium leading-none tracking-[-0.03em] text-[var(--brand-primary)] shadow-[0_14px_36px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
+          <div className="mt-2 inline-flex rounded-full border border-white/60 bg-white/75 px-4 py-2 text-[clamp(1.08rem,5.25vw,1.34rem)] font-medium leading-none tracking-[-0.03em] text-[var(--brand-primary)] shadow-[0_14px_36px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
             {scene.subtitle}
           </div>
         ) : null}
       </div>
 
-      <div className="space-y-2.5 pb-[max(0.45rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center gap-3 rounded-[24px] border border-white/80 bg-white/90 p-3.5 text-[var(--brand-primary)] shadow-[0_18px_52px_rgba(25,68,112,0.14),inset_0_1px_0_rgba(255,255,255,0.94)] backdrop-blur-xl">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#315b89]/20 bg-white/60 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]">
-            <Leaf className="h-6 w-6" strokeWidth={1.8} />
+      <div className="-mb-3 mx-2 space-y-2.5 pb-[max(0.45rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center gap-2.5 rounded-[24px] border border-white/80 bg-white/90 p-3 text-[var(--brand-primary)] shadow-[0_18px_52px_rgba(25,68,112,0.14),inset_0_1px_0_rgba(255,255,255,0.94)] backdrop-blur-xl">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#315b89]/20 bg-white/60 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]">
+            <Leaf className="h-[22px] w-[22px]" strokeWidth={1.8} />
           </span>
-          <p className="text-[13px] leading-5 text-[#244d7c]">
+          <p className="text-[12px] leading-[1.42] text-[#244d7c]">
             {scene.lead ? (
-              <span className="mb-0.5 block whitespace-pre-line text-[15px] font-semibold leading-[1.22] text-[var(--brand-primary)]">
+              <span className="mb-0.5 block whitespace-pre-line text-[14px] font-semibold leading-[1.18] text-[var(--brand-primary)]">
                 {scene.lead}
               </span>
             ) : null}
@@ -717,7 +717,7 @@ function MobileMainHero({scene}: {scene: MobileHeroCopy}) {
 
         <Link
           href={scene.href}
-          className="group flex min-h-[58px] w-full items-center justify-center gap-4 rounded-full bg-[var(--brand-primary)] px-6 text-[17px] font-semibold text-white shadow-[0_18px_48px_rgba(0,58,117,0.24)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+          className="group flex min-h-[52px] w-full items-center justify-center gap-4 rounded-full bg-[var(--brand-primary)] px-6 text-[16px] font-semibold text-white shadow-[0_18px_48px_rgba(0,58,117,0.24)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
         >
           {scene.cta}
           <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" />
@@ -728,35 +728,42 @@ function MobileMainHero({scene}: {scene: MobileHeroCopy}) {
 }
 
 function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
-  const isSerif = scene.tone === "brand" || scene.tone === "yogurts";
   const titleWidth =
     scene.tone === "yogurts"
-      ? "max-w-[82%]"
+      ? "max-w-[86%]"
       : scene.tone === "trust"
-        ? "max-w-[68%]"
+        ? "max-w-[70%]"
         : scene.tone === "products"
-          ? "max-w-[92%]"
+          ? "max-w-[96%]"
           : "max-w-full";
+  const titleClass =
+    scene.tone === "brand"
+      ? "font-[family:var(--font-display)] text-[clamp(2rem,8.75vw,2.62rem)] font-semibold"
+      : scene.tone === "yogurts"
+        ? "font-[family:var(--font-display)] text-[clamp(1.82rem,7.55vw,2.22rem)] font-semibold"
+        : scene.tone === "trust"
+          ? "text-[clamp(1.82rem,7.65vw,2.3rem)] font-semibold"
+          : "text-[clamp(1.82rem,7.65vw,2.3rem)] font-semibold";
+  const isDecorated = scene.tone === "yogurts" || scene.tone === "trust";
 
   return (
-    <div className="pb-[max(0.55rem,env(safe-area-inset-bottom))]">
-      <div className="relative overflow-hidden rounded-[30px] border border-white/90 bg-white/95 p-4 text-[var(--brand-primary)] shadow-[0_22px_58px_rgba(25,68,112,0.16),inset_0_1px_0_rgba(255,255,255,0.96)] backdrop-blur-[24px]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_94%_2%,rgba(255,244,224,0.58),transparent_28%),radial-gradient(circle_at_0%_0%,rgba(213,235,255,0.42),transparent_30%),linear-gradient(145deg,rgba(255,255,255,0.34),rgba(255,255,255,0)_62%)]" />
+    <div className="-mx-1 pb-[max(0.52rem,env(safe-area-inset-bottom))]">
+      <div className="relative px-4 pb-3.5 pt-[1.25rem] text-[var(--brand-primary)]">
+        <MobileCardShape />
+        <div className="pointer-events-none absolute inset-0 rounded-[32px] bg-[radial-gradient(circle_at_96%_4%,rgba(255,244,224,0.44),transparent_26%),radial-gradient(circle_at_0%_0%,rgba(213,235,255,0.34),transparent_31%),linear-gradient(145deg,rgba(255,255,255,0.20),rgba(255,255,255,0)_62%)]" />
         <MobileCardVisual tone={scene.tone} />
 
         <div className="relative z-10">
           {scene.eyebrow ? (
-            <div className="mb-3 inline-flex rounded-full border border-[#315b89]/16 bg-white/90 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.92)]">
+            <div className="mb-3 inline-flex rounded-full border border-[#315b89]/16 bg-white/90 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--brand-primary)] shadow-[0_8px_20px_rgba(25,68,112,0.05),inset_0_1px_0_rgba(255,255,255,0.92)]">
               {scene.eyebrow}
             </div>
           ) : null}
 
           <h2
             className={cn(
-              "whitespace-pre-line text-balance leading-[0.98] tracking-[-0.045em]",
-              isSerif
-                ? "font-[family:var(--font-display)] text-[clamp(1.86rem,8vw,2.42rem)] font-semibold"
-                : "text-[clamp(1.72rem,7.2vw,2.2rem)] font-semibold",
+              "whitespace-pre-line text-balance leading-[0.96] tracking-[-0.045em]",
+              titleClass,
               titleWidth
             )}
           >
@@ -767,16 +774,21 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
 
           <p
             className={cn(
-              "mt-3 text-pretty text-[12px] font-medium leading-[1.48] text-[#244d7c]",
+              "mt-3 text-pretty text-[12.5px] font-medium leading-[1.45] text-[#244d7c]",
               scene.tone === "trust" ? "max-w-[72%]" : "max-w-full",
-              scene.tone === "yogurts" && "max-w-[78%]"
+              scene.tone === "yogurts" && "max-w-[72%]"
             )}
           >
             {scene.description}
           </p>
 
           {scene.features?.length ? (
-            <div className="mt-3.5 grid grid-cols-3 overflow-hidden rounded-[18px] border border-[#d9e4f1]/70 bg-white/80 shadow-[0_12px_28px_rgba(25,68,112,0.08),inset_0_1px_0_rgba(255,255,255,0.92)]">
+            <div
+              className={cn(
+                "mt-3.5 grid grid-cols-3 overflow-hidden border border-[#d9e4f1]/78 bg-white/76 shadow-[0_12px_28px_rgba(25,68,112,0.08),inset_0_1px_0_rgba(255,255,255,0.92)]",
+                isDecorated ? "rounded-[18px]" : "rounded-[20px]"
+              )}
+            >
               {scene.features.map((feature, index) => {
                 const Icon = feature.icon;
 
@@ -789,9 +801,9 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
                     )}
                   >
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-[var(--brand-primary)] shadow-[0_8px_18px_rgba(25,68,112,0.08)]">
-                      <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                      <Icon className="h-[18px] w-[18px]" strokeWidth={1.72} />
                     </span>
-                    <span className="text-[10px] font-semibold leading-[1.12] text-[#244d7c]">
+                    <span className="text-[10.5px] font-semibold leading-[1.14] text-[#244d7c]">
                       {feature.label}
                     </span>
                   </div>
@@ -802,7 +814,7 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
 
           <Link
             href={scene.href}
-            className="group mt-3.5 flex min-h-[46px] w-full items-center justify-center gap-3 rounded-full bg-[var(--brand-primary)] px-5 text-[13.5px] font-semibold text-white shadow-[0_16px_36px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+            className="group mt-3.5 flex min-h-[48px] w-full items-center justify-center gap-3 rounded-full bg-[var(--brand-primary)] px-5 text-[14px] font-semibold text-white shadow-[0_18px_42px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
           >
             {scene.cta}
             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -820,11 +832,40 @@ function MobileStoryCard({scene}: {scene: MobileHeroCopy}) {
   );
 }
 
+function MobileCardShape() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 h-full w-full overflow-visible drop-shadow-[0_24px_54px_rgba(25,68,112,0.16)]"
+      preserveAspectRatio="none"
+      viewBox="0 0 360 430"
+    >
+      <path
+        d="M26 7C10 8 1 22 1 39V389C1 411 18 429 40 429H320C342 429 359 411 359 389V38C359 18 344 4 323 8C296 13 291 1 262 1H43C34 1 30 3 26 7Z"
+        fill="rgba(255,255,255,0.94)"
+        stroke="rgba(255,255,255,0.92)"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M28 10C11 14 4 25 4 42V386C4 409 22 426 43 426H317C339 426 356 409 356 386V42C356 25 345 14 329 12C296 18 291 5 262 5H44C36 5 31 7 28 10Z"
+        fill="url(#mobile-card-glow)"
+      />
+      <defs>
+        <linearGradient id="mobile-card-glow" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stopColor="rgba(255,255,255,0.28)" />
+          <stop offset="0.58" stopColor="rgba(255,255,255,0)" />
+          <stop offset="1" stopColor="rgba(235,244,255,0.18)" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
 function MobileCardVisual({tone}: {tone: MobileHeroTone}) {
   if (tone === "yogurts") {
     return (
-      <div className="pointer-events-none absolute right-[-1.15rem] top-[3.75rem] z-0 h-32 w-32">
-        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.74)_46%,rgba(255,255,255,0)_70%)]" />
+      <div className="pointer-events-none absolute right-[-1.45rem] top-[4.7rem] z-0 h-32 w-32">
+        <div className="absolute -inset-2 rotate-[-6deg] rounded-[18px] bg-white/72 shadow-[0_18px_34px_rgba(25,68,112,0.08)]" />
         <Image
           src={MOBILE_YOGURT_IMAGE}
           alt=""
@@ -838,10 +879,10 @@ function MobileCardVisual({tone}: {tone: MobileHeroTone}) {
 
   if (tone === "trust") {
     return (
-      <div className="pointer-events-none absolute right-[-0.8rem] top-[3.4rem] z-0 h-32 w-32 text-[#74b7ee]">
+      <div className="pointer-events-none absolute right-[-0.7rem] top-[3.6rem] z-0 h-36 w-36 text-[#74b7ee]">
         <div className="absolute inset-5 rounded-full bg-[radial-gradient(circle,rgba(219,239,255,0.92),rgba(255,255,255,0)_68%)]" />
-        <div className="absolute inset-x-0 top-14 h-20 rounded-[999px] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.88),rgba(255,255,255,0)_70%)] blur-[1px]" />
-        <ShieldCheck className="absolute right-7 top-7 h-[4.5rem] w-[4.5rem] drop-shadow-[0_18px_28px_rgba(68,145,212,0.24)]" strokeWidth={1.35} />
+        <div className="absolute inset-x-0 top-16 h-20 rounded-[999px] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.88),rgba(255,255,255,0)_70%)] blur-[1px]" />
+        <ShieldCheck className="absolute right-7 top-7 h-20 w-20 drop-shadow-[0_18px_28px_rgba(68,145,212,0.24)]" strokeWidth={1.35} />
       </div>
     );
   }
