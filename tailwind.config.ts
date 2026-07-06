@@ -16,6 +16,10 @@ export default {
         190: '760px',
         235: '940px'
       },
+      fontFamily: {
+        sans: ['var(--font-sans)', 'Inter', 'Arial', 'Helvetica', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'serif']
+      },
       opacity: {
         1: '0.01',
         6: '0.06',
