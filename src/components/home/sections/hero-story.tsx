@@ -401,7 +401,7 @@ export default function HeroStory() {
                 priority
                 unoptimized
                 sizes="100vw"
-                className="hidden object-cover sm:block"
+                className="hidden scale-[1.01] object-cover blur-[2px] sm:block"
               />
               <Image
                 src={currentBgMobile}

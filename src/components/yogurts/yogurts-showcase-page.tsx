@@ -18,7 +18,14 @@ const TOUCH_THRESHOLD = 46;
 const MOBILE_QUERY = "(max-width: 767.98px)";
 const DESKTOP_HERO_BACKGROUND_SRC = "/images/yogurts/sofin-yogurt-cups-hero-4k.png";
 const MOBILE_HERO_BACKGROUND_SRC = "/images/yogurts/sofin-yogurt-cups-hero-mobile.webp";
-const COLLECTION_SLIDE_COUNT = 8;
+const COLLECTION_SLIDE_IMAGES = [
+  "/media/slide1.png",
+  "/media/slide2.png",
+  "/media/slide3.png",
+  "/media/slide4.png",
+  "/media/slide5.png",
+] as const;
+const COLLECTION_SLIDE_COUNT = COLLECTION_SLIDE_IMAGES.length;
 const COLLECTION_LAST_STAGE = COLLECTION_SLIDE_COUNT + 1;
 const COLLECTION_NAVIGATION_LOCK_MS = 720;
 const SHOWCASE_UNMOUNT_AFTER_COLLECTION_MS = 1120;
@@ -72,7 +79,7 @@ const PRELOAD_TEXTURE_FLAVORS = [
 const PRELOAD_IMAGE_ASSETS = [
   "/media/logotip.webp",
   "/media/down.webp",
-  "/media/slide1.webp",
+  ...COLLECTION_SLIDE_IMAGES,
   DESKTOP_HERO_BACKGROUND_SRC,
   MOBILE_HERO_BACKGROUND_SRC,
   ...SLIDE_BACKGROUND_CONTROLS.layers.flatMap((layer) => (
@@ -983,10 +990,7 @@ const YOGURTS_PAGE_TRANSLATIONS: Record<
         {eyebrow: "02 / Фруктовая линия", title: "Яркие вкусы фруктов", text: "Ананас, банан, ягоды и персик раскрываются мягко, с деликатной сливочной базой."},
         {eyebrow: "03 / Собственное производство", title: "Контроль в каждой детали", text: "Мы бережно собираем коллекцию вкусов, чтобы каждый стаканчик ощущался цельным и узнаваемым."},
         {eyebrow: "04 / Нежная текстура", title: "Кремовая плотность", text: "Гладкая структура делает вкус более бархатным и приятным с первой ложки."},
-        {eyebrow: "05 / Ягодный характер", title: "Свежесть и мягкая кислинка", text: "Ягодные варианты добавляют выразительность, сохраняя десертную нежность SOFIN."},
-        {eyebrow: "06 / Лёгкая подача", title: "Для завтрака и паузы", text: "Формат удобно вписывается в быстрый день, спокойный вечер и маленький сладкий перерыв."},
-        {eyebrow: "07 / Баланс вкуса", title: "Сладость без перегруза", text: "Фруктовые ноты звучат аккуратно, поддерживая чистый молочный вкус."},
-        {eyebrow: "08 / Коллекция SOFIN", title: "Выберите свой вкус", text: "Каждый вариант раскрывает отдельное настроение, но вся линейка остается единой и мягкой."}
+        {eyebrow: "05 / Ягодный характер", title: "Свежесть и мягкая кислинка", text: "Ягодные варианты добавляют выразительность, сохраняя десертную нежность SOFIN."}
       ]
     }
   },
@@ -1001,10 +1005,7 @@ const YOGURTS_PAGE_TRANSLATIONS: Record<
         {eyebrow: "02 / Mevali yo‘nalish", title: "Yorqin meva ta’mlari", text: "Ananas, banan, rezavorlar va shaftoli nozik qaymoqli asosda yumshoq ochiladi."},
         {eyebrow: "03 / O‘z ishlab chiqarish", title: "Har detalda nazorat", text: "Har bir stakan yaxlit va tanish sezilishi uchun ta’mlar kolleksiyasini ehtiyotkorlik bilan yig‘amiz."},
         {eyebrow: "04 / Nozik tekstura", title: "Kremli zichlik", text: "Silliq tuzilma ta’mni birinchi qoshiqdanoq baxmal va yoqimli qiladi."},
-        {eyebrow: "05 / Rezavor xarakter", title: "Yangilik va mayin nordonlik", text: "Rezavor variantlar ifodalilik qo‘shadi, SOFIN desert yumshoqligini saqlab qoladi."},
-        {eyebrow: "06 / Yengil taqdim", title: "Nonushta va tanaffus uchun", text: "Format tez kun, sokin kech va kichik shirin tanaffusga oson mos keladi."},
-        {eyebrow: "07 / Ta’m balansi", title: "Ortiqcha bo‘lmagan shirinlik", text: "Mevali notalar toza sut ta’mini qo‘llab, sokin va aniq eshitiladi."},
-        {eyebrow: "08 / SOFIN kolleksiyasi", title: "O‘z ta’mingizni tanlang", text: "Har bir variant alohida kayfiyat ochadi, lekin butun liniya yagona va mayin qoladi."}
+        {eyebrow: "05 / Rezavor xarakter", title: "Yangilik va mayin nordonlik", text: "Rezavor variantlar ifodalilik qo‘shadi, SOFIN desert yumshoqligini saqlab qoladi."}
       ]
     }
   },
@@ -1019,10 +1020,7 @@ const YOGURTS_PAGE_TRANSLATIONS: Record<
         {eyebrow: "02 / Fruit line", title: "Bright fruit flavors", text: "Pineapple, banana, berries and peach open softly over a delicate creamy base."},
         {eyebrow: "03 / Own production", title: "Control in every detail", text: "We carefully build the flavor collection so every cup feels whole and recognizable."},
         {eyebrow: "04 / Tender texture", title: "Creamy density", text: "A smooth structure makes the taste more velvety and pleasant from the first spoon."},
-        {eyebrow: "05 / Berry character", title: "Freshness and soft tartness", text: "Berry flavors add expression while keeping SOFIN’s dessert softness."},
-        {eyebrow: "06 / Easy serving", title: "For breakfast and a pause", text: "The format fits a quick day, a calm evening and a small sweet break."},
-        {eyebrow: "07 / Taste balance", title: "Sweetness without overload", text: "Fruit notes stay gentle while supporting the clean dairy taste."},
-        {eyebrow: "08 / SOFIN collection", title: "Choose your flavor", text: "Each option reveals its own mood, while the whole line remains unified and soft."}
+        {eyebrow: "05 / Berry character", title: "Freshness and soft tartness", text: "Berry flavors add expression while keeping SOFIN’s dessert softness."}
       ]
     }
   }
@@ -1094,7 +1092,11 @@ function CollectionExperience({
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url("${assetUrl("/media/slide1.webp")}")` }}
+                  style={{
+                    backgroundImage: `url("${assetUrl(
+                      COLLECTION_SLIDE_IMAGES[index] ?? COLLECTION_SLIDE_IMAGES[0]
+                    )}")`
+                  }}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,24,19,0.72),rgba(34,24,19,0.22)_54%,rgba(34,24,19,0.06)),linear-gradient(180deg,transparent_42%,rgba(242,138,39,0.72))]" />
                 <div className="absolute bottom-6 left-5 max-w-[82%] text-left text-white">
@@ -1138,10 +1140,10 @@ function CollectionExperience({
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(244,250,251,0.34),rgba(244,250,251,0.12)_42%,rgba(244,250,251,0.28)_100%)]" />
 
       <div
-        className="absolute inset-x-0 top-[12vh] z-30 flex flex-col items-center px-5 text-center transition-[transform,opacity,filter] duration-620"
+        className="absolute inset-x-0 top-[15.8vh] z-30 flex flex-col items-center px-5 text-center transition-[transform,opacity,filter] duration-620"
         style={{
           transform:
-            stage <= 1 ? "translate3d(0,0,0)" : "translate3d(0,-1.2vh,0) scale(0.94)",
+            stage <= 1 ? "translate3d(0,0,0)" : "translate3d(0,-0.7vh,0) scale(0.94)",
           opacity: headingVisible ? 1 : 0,
           filter: headingVisible ? "blur(0px)" : "blur(10px)",
           transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -1182,7 +1184,11 @@ function CollectionExperience({
             >
               <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url("${assetUrl("/media/slide1.webp")}")` }}
+                style={{
+                  backgroundImage: `url("${assetUrl(
+                    COLLECTION_SLIDE_IMAGES[index] ?? COLLECTION_SLIDE_IMAGES[0]
+                  )}")`
+                }}
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,24,19,0.74),rgba(34,24,19,0.28)_44%,rgba(34,24,19,0.08)),linear-gradient(180deg,transparent_45%,rgba(242,138,39,0.72))]" />
               <div className="absolute bottom-7 left-6 max-w-[78%] text-left text-white">
