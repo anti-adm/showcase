@@ -4,6 +4,7 @@ export type HeroScene = {
   title: string;
   subtitle?: string;
   description: string;
+  highlights?: string[];
   cta?: {
     label: string;
     href: string;
@@ -42,9 +43,10 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
   {
     id: 2,
     eyebrow: "ЙОГУРТЫ",
-    title: "Приглашаем вас ознакомиться с нашим ассортиментом йогуртов",
+    title: "Нежные йогурты SOFIN для каждого дня",
     description:
-      "Откройте отдельную страницу SOFIN Yogurts: там собрана вся линейка вкусов, плавные 3D-переходы и мягкая визуальная история натуральных йогуртов собственного производства.",
+      "Откройте линейку натуральных йогуртов SOFIN: мягкая текстура, яркие фруктовые вкусы и удобные форматы для спокойного ежедневного выбора.",
+    highlights: ["Натуральное молоко", "Яркие вкусы", "Удобный формат"],
     cta: {
       label: "Открыть йогурты",
       href: "/yogurts"
@@ -96,9 +98,10 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
     {
       id: 2,
       eyebrow: "YOGURTLAR",
-      title: "Sizni yogurtlar assortimentimiz bilan tanishishga taklif qilamiz",
+      title: "Har kun uchun mayin SOFIN yogurtlari",
       description:
-        "SOFIN Yogurts sahifasini oching: unda barcha ta’mlar, silliq 3D-o‘tishlar va tabiiy yogurtlarimizning yumshoq vizual hikoyasi jamlangan.",
+        "SOFIN yogurtlari liniyasini kashf eting: mayin tekstura, yorqin mevali ta’mlar va har kungi sokin tanlov uchun qulay formatlar.",
+      highlights: ["Tabiiy sut", "Yorqin ta’mlar", "Qulay format"],
       cta: {
         label: "Yogurtlarni ochish",
         href: "/yogurts"
@@ -150,9 +153,10 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
     {
       id: 2,
       eyebrow: "YOGURTS",
-      title: "We invite you to explore our yogurt assortment",
+      title: "Gentle SOFIN yogurts for every day",
       description:
-        "Open the SOFIN Yogurts page: the full flavor line, smooth 3D transitions and a soft visual story of our natural yogurts live there.",
+        "Explore SOFIN's natural yogurt line: soft texture, bright fruit flavors and practical formats for an easy everyday choice.",
+      highlights: ["Natural milk", "Bright flavors", "Easy format"],
       cta: {
         label: "Open yogurts",
         href: "/yogurts"
