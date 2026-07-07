@@ -15,12 +15,28 @@ const PRELOAD_ASSETS = [
   '/logo/sofin-logo.webp'
 ];
 
+type SofinWindow = Window & {
+  __sofinPreloaderDone?: boolean;
+};
+
+const PRELOADER_DONE_EVENT = "sofin-preloader-done";
+
+function markPreloaderDone() {
+  const sofinWindow = window as SofinWindow;
+
+  if (sofinWindow.__sofinPreloaderDone) return;
+
+  sofinWindow.__sofinPreloaderDone = true;
+  window.dispatchEvent(new Event(PRELOADER_DONE_EVENT));
+}
+
 export function Preloader({disabled = false}: {disabled?: boolean}) {
   const [visible, setVisible] = useState(!disabled);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (disabled) {
+      markPreloaderDone();
       return;
     }
 
@@ -46,7 +62,12 @@ export function Preloader({disabled = false}: {disabled?: boolean}) {
       if (cancelled) return;
       setProgress(1);
       window.setTimeout(() => {
-        if (!cancelled) setVisible(false);
+        if (cancelled) return;
+
+        setVisible(false);
+        window.setTimeout(() => {
+          if (!cancelled) markPreloaderDone();
+        }, 720);
       }, 320);
     });
 
