@@ -45,7 +45,6 @@ type MobileHeroCopy = {
 };
 
 const MOBILE_HERO_BACKGROUND = "/images/home/mobile-hero-products.png";
-const MOBILE_YOGURT_IMAGE = "/images/products/yogurt120/qulupnay120.webp";
 const PRELOADER_DONE_EVENT = "sofin-preloader-done";
 
 const MAIN_HERO_BACKGROUND = {
@@ -486,11 +485,11 @@ export default function HeroStory() {
                 className={cn(
                   index === 0
                     ? "mx-auto flex w-full max-w-[1672px] items-stretch px-4 pb-[max(1.1rem,env(safe-area-inset-bottom))] pt-24 sm:items-center sm:px-10 sm:pb-12 sm:pt-36 lg:px-14"
-                    : "mx-auto grid w-full max-w-[1380px] items-center gap-8 px-4 pb-[max(1.3rem,env(safe-area-inset-bottom))] pt-24 sm:px-8 sm:pb-14 sm:pt-36 lg:px-12 xl:gap-12",
+                    : "mx-auto grid w-full max-w-[1672px] items-center gap-8 px-4 pb-[max(1.3rem,env(safe-area-inset-bottom))] pt-24 sm:px-10 sm:pb-14 sm:pt-36 lg:px-14 xl:gap-12",
                   isYogurtsScene
-                    ? "xl:max-w-[1440px] lg:grid-cols-[minmax(0,0.94fr)_minmax(400px,0.56fr)] xl:gap-12"
+                    ? "lg:grid-cols-[minmax(0,0.86fr)_minmax(430px,0.64fr)] xl:gap-16"
                     : isProductsScene
-                      ? "pt-24 sm:pt-32 lg:grid-cols-1 xl:max-w-[1180px]"
+                      ? "pt-28 sm:pt-40 lg:grid-cols-1"
                       : "lg:grid-cols-1"
                 )}
               >
@@ -526,8 +525,8 @@ export default function HeroStory() {
                       }}
                       className={cn(
                         "hidden max-w-[1080px] sm:block",
-                        isYogurtsScene && "lg:max-w-[820px]",
-                        isProductsScene && "lg:max-w-[820px] lg:self-center"
+                        isYogurtsScene && "lg:max-w-[760px]",
+                        isProductsScene && "lg:max-w-[745px] lg:self-center lg:pt-8 xl:pt-10"
                       )}
                     >
                       {scene.eyebrow ? (
@@ -542,9 +541,9 @@ export default function HeroStory() {
                             ease: [0.22, 1, 0.36, 1]
                           }}
                           className={cn(
-                            "mb-4 inline-flex rounded-full border border-[#315b89]/18 bg-white/42 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--brand-primary)] shadow-[0_12px_34px_rgba(25,68,112,0.08)] backdrop-blur-2xl",
-                            isYogurtsScene && "mb-5 bg-white/68 px-5 py-2.5 shadow-[0_16px_34px_rgba(25,68,112,0.08)]",
-                            isProductsScene && "mb-4 bg-white/70 px-5 py-2.5 text-[9.5px] tracking-[0.14em] shadow-[0_16px_34px_rgba(25,68,112,0.08)]"
+                            "mb-4 inline-flex rounded-full border border-[#315b89]/18 bg-white/42 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.32em] text-[var(--brand-primary)] shadow-[0_12px_34px_rgba(25,68,112,0.08)] backdrop-blur-2xl",
+                            isYogurtsScene && "mb-6 bg-white/68 px-5 py-2.5 shadow-[0_16px_34px_rgba(25,68,112,0.08)]",
+                            isProductsScene && "mb-5 bg-white/70 px-5 py-2.5 text-[9.5px] tracking-[0.34em] shadow-[0_16px_34px_rgba(25,68,112,0.08)]"
                           )}
                         >
                           {scene.eyebrow}
@@ -562,18 +561,13 @@ export default function HeroStory() {
                           ease: [0.22, 1, 0.36, 1]
                         }}
                         className={cn(
-                          "max-w-[1080px] text-balance font-semibold leading-[0.96] tracking-[0] text-[var(--brand-primary)]",
+                          "max-w-[1080px] text-balance font-semibold leading-[1.06] tracking-[-0.045em] text-[var(--brand-primary)]",
                           isYogurtsScene
-                            ? "max-w-[960px] leading-[0.92] text-[clamp(2.25rem,6vw,2.85rem)] sm:text-[clamp(2.75rem,4vw,3.4rem)] lg:text-[clamp(2.95rem,3.25vw,3.75rem)]"
+                            ? "max-w-[760px] leading-[0.98] tracking-[0] text-[clamp(2.35rem,8.4vw,3rem)] sm:text-[clamp(3rem,5vw,4rem)] lg:text-[clamp(3.2rem,4.2vw,4.85rem)]"
                             : isProductsScene
-                              ? "max-w-[980px] leading-[0.92] text-[clamp(2.25rem,5.8vw,2.85rem)] sm:text-[clamp(2.7rem,3.9vw,3.35rem)] lg:text-[clamp(2.85rem,3.1vw,3.55rem)]"
+                              ? "max-w-[780px] leading-[1.02] tracking-[0] text-[clamp(2.45rem,7.4vw,3.2rem)] sm:text-[clamp(3rem,4.8vw,4.15rem)] lg:text-[clamp(3.1rem,4.1vw,4.55rem)]"
                             : "text-[clamp(2.35rem,8.4vw,3.05rem)] sm:text-[clamp(2.8rem,5vw,3.7rem)] lg:text-[clamp(3rem,3.35vw,3.65rem)]"
                         )}
-                        style={
-                          isYogurtsScene || isProductsScene
-                            ? {letterSpacing: 0, lineHeight: 0.96}
-                            : undefined
-                        }
                       >
                         {scene.title}
                       </motion.h1>
@@ -1007,22 +1001,6 @@ function MobileCardShape({tone}: {tone: MobileHeroTone}) {
 }
 
 function MobileCardVisual({tone}: {tone: MobileHeroTone}) {
-  if (tone === "yogurts") {
-    return (
-      <div className="pointer-events-none absolute right-[-1.15rem] top-[4.6rem] z-0 h-36 w-36">
-        <div className="absolute right-[-2.4rem] top-4 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.78)_43%,rgba(255,255,255,0)_70%)] blur-[1px]" />
-        <div className="absolute inset-0 rotate-[-7deg] rounded-[10px] bg-white/82 shadow-[0_18px_34px_rgba(25,68,112,0.08)]" />
-        <Image
-          src={MOBILE_YOGURT_IMAGE}
-          alt=""
-          fill
-          sizes="176px"
-          className="rotate-[-8deg] object-contain opacity-95 drop-shadow-[0_22px_34px_rgba(25,68,112,0.16)]"
-        />
-      </div>
-    );
-  }
-
   if (tone === "trust") {
     return (
       <div className="pointer-events-none absolute right-[-0.3rem] top-[3.9rem] z-0 h-40 w-40 text-[#74b7ee]">
@@ -1058,23 +1036,23 @@ function YogurtsSceneInfo({
         delay: reducedMotion ? 0 : 0.08,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className="mt-5 max-w-[640px] rounded-[24px] border border-white/70 bg-white/52 p-4 text-[#244d7c] shadow-[0_20px_58px_rgba(25,68,112,0.1),inset_0_1px_0_rgba(255,255,255,0.84)] backdrop-blur-[24px] lg:p-5"
+      className="mt-7 max-w-[640px] rounded-[30px] border border-white/70 bg-white/54 p-5 text-[#244d7c] shadow-[0_24px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.84)] backdrop-blur-[26px] lg:p-6"
     >
-      <p className="text-pretty text-[15px] font-medium leading-6 lg:text-[16px] lg:leading-7">
+      <p className="text-pretty text-[15px] font-medium leading-7 lg:text-[17px] lg:leading-8">
         {scene.description}
       </p>
 
       {highlights.length ? (
-        <div className="mt-4 grid grid-cols-3 gap-2">
+        <div className="mt-5 grid grid-cols-3 gap-2.5">
           {highlights.map((highlight, index) => {
             const Icon = highlightIcons[index % highlightIcons.length];
 
             return (
               <div
                 key={highlight}
-                className="flex min-h-[66px] flex-col justify-between rounded-[14px] border border-[#315b89]/10 bg-white/56 px-3 py-2.5 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]"
+                className="flex min-h-[82px] flex-col justify-between rounded-[18px] border border-[#315b89]/10 bg-white/58 px-3.5 py-3 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]"
               >
-                <Icon className="h-[18px] w-[18px] text-[#4779aa]" strokeWidth={1.8} />
+                <Icon className="h-5 w-5 text-[#4779aa]" strokeWidth={1.8} />
                 <span className="text-[12px] font-semibold leading-[1.2]">
                   {highlight}
                 </span>
@@ -1087,7 +1065,7 @@ function YogurtsSceneInfo({
       {scene.cta ? (
         <Link
           href={scene.cta.href}
-          className="group mt-5 inline-flex min-h-[50px] items-center gap-3.5 rounded-full bg-[var(--brand-primary)] px-6 text-[14px] font-semibold text-white shadow-[0_16px_38px_rgba(0,58,117,0.2)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+          className="group mt-6 inline-flex min-h-[54px] items-center gap-4 rounded-full bg-[var(--brand-primary)] px-7 text-[15px] font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
         >
           {scene.cta.label}
           <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -1119,21 +1097,21 @@ function ProductsSceneInfo({
         delay: reducedMotion ? 0 : 0.08,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className="mt-5 max-w-[760px] rounded-[24px] border border-white/72 bg-white/52 p-4 text-[#244d7c] shadow-[0_20px_58px_rgba(25,68,112,0.1),inset_0_1px_0_rgba(255,255,255,0.86)] backdrop-blur-[24px] lg:p-5"
+      className="mt-7 max-w-[680px] rounded-[30px] border border-white/72 bg-white/58 p-5 text-[#244d7c] shadow-[0_24px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.86)] backdrop-blur-[26px] lg:p-6"
     >
-      <p className="max-w-[660px] text-pretty text-[15px] font-medium leading-6 lg:text-[16px] lg:leading-7">
+      <p className="max-w-[600px] text-pretty text-[15px] font-medium leading-7 lg:text-[17px] lg:leading-8">
         {scene.description}
       </p>
 
       {highlights.length ? (
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2.5">
           {highlights.slice(0, 3).map((highlight, index) => {
             const Icon = highlightIcons[index % highlightIcons.length];
 
             return (
               <span
                 key={highlight}
-                className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#315b89]/10 bg-white/60 px-3.5 text-[12px] font-semibold text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]"
+                className="inline-flex min-h-11 items-center gap-2.5 rounded-full border border-[#315b89]/10 bg-white/62 px-4 text-[12px] font-semibold text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]"
               >
                 <Icon className="h-4 w-4 text-[#4779aa]" strokeWidth={1.85} />
                 {highlight}
@@ -1146,7 +1124,7 @@ function ProductsSceneInfo({
       {scene.cta ? (
         <Link
           href={scene.cta.href}
-          className="group mt-5 inline-flex min-h-[50px] items-center gap-3.5 rounded-full bg-[var(--brand-primary)] px-6 text-[14px] font-semibold text-white shadow-[0_16px_38px_rgba(0,58,117,0.2)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+          className="group mt-6 inline-flex min-h-[54px] items-center gap-4 rounded-full bg-[var(--brand-primary)] px-7 text-[15px] font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
         >
           {scene.cta.label}
           <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
