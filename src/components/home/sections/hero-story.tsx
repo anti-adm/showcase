@@ -485,11 +485,11 @@ export default function HeroStory() {
                 className={cn(
                   index === 0
                     ? "mx-auto flex w-full max-w-[1672px] items-stretch px-4 pb-[max(1.1rem,env(safe-area-inset-bottom))] pt-24 sm:items-center sm:px-10 sm:pb-12 sm:pt-36 lg:px-14"
-                    : "mx-auto grid w-full max-w-[1672px] items-center gap-8 px-4 pb-[max(1.3rem,env(safe-area-inset-bottom))] pt-24 sm:px-10 sm:pb-14 sm:pt-36 lg:px-14 xl:gap-12",
+                    : "mx-auto grid w-full max-w-[1672px] items-center gap-7 px-4 pb-[max(1.3rem,env(safe-area-inset-bottom))] pt-24 sm:px-10 sm:pb-12 sm:pt-34 lg:px-14 xl:gap-10",
                   isYogurtsScene
-                    ? "lg:grid-cols-[minmax(0,0.86fr)_minmax(430px,0.64fr)] xl:gap-16"
+                    ? "lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,0.5fr)]"
                     : isProductsScene
-                      ? "pt-28 sm:pt-40 lg:grid-cols-1"
+                      ? "pt-24 sm:pt-32 lg:grid-cols-1"
                       : "lg:grid-cols-1"
                 )}
               >
@@ -525,8 +525,8 @@ export default function HeroStory() {
                       }}
                       className={cn(
                         "hidden max-w-[1080px] sm:block",
-                        isYogurtsScene && "lg:max-w-[760px]",
-                        isProductsScene && "lg:max-w-[745px] lg:self-center lg:pt-8 xl:pt-10"
+                        isYogurtsScene && "lg:max-w-[700px]",
+                        isProductsScene && "lg:max-w-[700px] lg:self-center"
                       )}
                     >
                       {scene.eyebrow ? (
@@ -541,9 +541,9 @@ export default function HeroStory() {
                             ease: [0.22, 1, 0.36, 1]
                           }}
                           className={cn(
-                            "mb-4 inline-flex rounded-full border border-[#315b89]/18 bg-white/42 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.32em] text-[var(--brand-primary)] shadow-[0_12px_34px_rgba(25,68,112,0.08)] backdrop-blur-2xl",
-                            isYogurtsScene && "mb-6 bg-white/68 px-5 py-2.5 shadow-[0_16px_34px_rgba(25,68,112,0.08)]",
-                            isProductsScene && "mb-5 bg-white/70 px-5 py-2.5 text-[9.5px] tracking-[0.34em] shadow-[0_16px_34px_rgba(25,68,112,0.08)]"
+                            "mb-3 inline-flex rounded-full border border-[#315b89]/16 bg-white/46 px-3.5 py-1.5 text-[9px] font-medium uppercase tracking-[0.16em] text-[var(--brand-primary)] shadow-[0_10px_26px_rgba(25,68,112,0.06)] backdrop-blur-2xl",
+                            isYogurtsScene && "mb-4 bg-white/64 px-4 py-2",
+                            isProductsScene && "mb-4 bg-white/66 px-4 py-2 tracking-[0.16em]"
                           )}
                         >
                           {scene.eyebrow}
@@ -561,13 +561,18 @@ export default function HeroStory() {
                           ease: [0.22, 1, 0.36, 1]
                         }}
                         className={cn(
-                          "max-w-[1080px] text-balance font-semibold leading-[1.06] tracking-[-0.045em] text-[var(--brand-primary)]",
+                          "max-w-[980px] text-balance font-semibold leading-[0.96] tracking-[0] text-[var(--brand-primary)]",
                           isYogurtsScene
-                            ? "max-w-[760px] leading-[0.98] tracking-[0] text-[clamp(2.35rem,8.4vw,3rem)] sm:text-[clamp(3rem,5vw,4rem)] lg:text-[clamp(3.2rem,4.2vw,4.85rem)]"
+                            ? "max-w-[700px] text-[clamp(2.1rem,5.6vw,2.65rem)] sm:text-[clamp(2.55rem,3.55vw,3.1rem)] lg:text-[clamp(2.65rem,2.95vw,3.35rem)]"
                             : isProductsScene
-                              ? "max-w-[780px] leading-[1.02] tracking-[0] text-[clamp(2.45rem,7.4vw,3.2rem)] sm:text-[clamp(3rem,4.8vw,4.15rem)] lg:text-[clamp(3.1rem,4.1vw,4.55rem)]"
-                            : "text-[clamp(2.35rem,8.4vw,3.05rem)] sm:text-[clamp(2.8rem,5vw,3.7rem)] lg:text-[clamp(3rem,3.35vw,3.65rem)]"
+                              ? "max-w-[720px] text-[clamp(2.05rem,5.4vw,2.6rem)] sm:text-[clamp(2.45rem,3.4vw,3rem)] lg:text-[clamp(2.55rem,2.8vw,3.2rem)]"
+                            : "text-[clamp(2.15rem,7vw,2.75rem)] sm:text-[clamp(2.45rem,4vw,3.15rem)] lg:text-[clamp(2.5rem,2.7vw,3.1rem)]"
                         )}
+                        style={
+                          isYogurtsScene || isProductsScene
+                            ? {letterSpacing: 0, lineHeight: 0.98}
+                            : undefined
+                        }
                       >
                         {scene.title}
                       </motion.h1>
@@ -663,7 +668,7 @@ export default function HeroStory() {
                           duration: 0.72,
                           ease: [0.22, 1, 0.36, 1]
                         }}
-                        className="ml-auto w-full max-w-[560px]"
+                        className="ml-auto w-full max-w-[470px]"
                       >
                         <YogurtsPreviewCard scene={scene} />
                       </motion.div>
@@ -1036,24 +1041,24 @@ function YogurtsSceneInfo({
         delay: reducedMotion ? 0 : 0.08,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className="mt-7 max-w-[640px] rounded-[30px] border border-white/70 bg-white/54 p-5 text-[#244d7c] shadow-[0_24px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.84)] backdrop-blur-[26px] lg:p-6"
+      className="mt-4 max-w-[580px] rounded-[22px] border border-white/68 bg-white/50 p-4 text-[#244d7c] shadow-[0_18px_48px_rgba(25,68,112,0.09),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[22px] lg:p-4"
     >
-      <p className="text-pretty text-[15px] font-medium leading-7 lg:text-[17px] lg:leading-8">
+      <p className="text-pretty text-[14px] font-medium leading-6 lg:text-[15px] lg:leading-6">
         {scene.description}
       </p>
 
       {highlights.length ? (
-        <div className="mt-5 grid grid-cols-3 gap-2.5">
+        <div className="mt-4 grid grid-cols-3 gap-2">
           {highlights.map((highlight, index) => {
             const Icon = highlightIcons[index % highlightIcons.length];
 
             return (
               <div
                 key={highlight}
-                className="flex min-h-[82px] flex-col justify-between rounded-[18px] border border-[#315b89]/10 bg-white/58 px-3.5 py-3 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]"
+                className="flex min-h-[58px] flex-col justify-between rounded-[14px] border border-[#315b89]/10 bg-white/56 px-3 py-2.5 text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]"
               >
-                <Icon className="h-5 w-5 text-[#4779aa]" strokeWidth={1.8} />
-                <span className="text-[12px] font-semibold leading-[1.2]">
+                <Icon className="h-[17px] w-[17px] text-[#4779aa]" strokeWidth={1.8} />
+                <span className="text-[11px] font-semibold leading-[1.16]">
                   {highlight}
                 </span>
               </div>
@@ -1065,7 +1070,7 @@ function YogurtsSceneInfo({
       {scene.cta ? (
         <Link
           href={scene.cta.href}
-          className="group mt-6 inline-flex min-h-[54px] items-center gap-4 rounded-full bg-[var(--brand-primary)] px-7 text-[15px] font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+          className="group mt-4 inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[var(--brand-primary)] px-5 text-[13px] font-semibold text-white shadow-[0_14px_32px_rgba(0,58,117,0.18)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
         >
           {scene.cta.label}
           <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -1097,21 +1102,21 @@ function ProductsSceneInfo({
         delay: reducedMotion ? 0 : 0.08,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className="mt-7 max-w-[680px] rounded-[30px] border border-white/72 bg-white/58 p-5 text-[#244d7c] shadow-[0_24px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.86)] backdrop-blur-[26px] lg:p-6"
+      className="mt-4 max-w-[640px] rounded-[22px] border border-white/70 bg-white/50 p-4 text-[#244d7c] shadow-[0_18px_48px_rgba(25,68,112,0.09),inset_0_1px_0_rgba(255,255,255,0.84)] backdrop-blur-[22px] lg:p-4"
     >
-      <p className="max-w-[600px] text-pretty text-[15px] font-medium leading-7 lg:text-[17px] lg:leading-8">
+      <p className="max-w-[580px] text-pretty text-[14px] font-medium leading-6 lg:text-[15px] lg:leading-6">
         {scene.description}
       </p>
 
       {highlights.length ? (
-        <div className="mt-5 flex flex-wrap gap-2.5">
+        <div className="mt-4 flex flex-wrap gap-2">
           {highlights.slice(0, 3).map((highlight, index) => {
             const Icon = highlightIcons[index % highlightIcons.length];
 
             return (
               <span
                 key={highlight}
-                className="inline-flex min-h-11 items-center gap-2.5 rounded-full border border-[#315b89]/10 bg-white/62 px-4 text-[12px] font-semibold text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]"
+                className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#315b89]/10 bg-white/60 px-3 text-[11px] font-semibold text-[var(--brand-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82)]"
               >
                 <Icon className="h-4 w-4 text-[#4779aa]" strokeWidth={1.85} />
                 {highlight}
@@ -1124,7 +1129,7 @@ function ProductsSceneInfo({
       {scene.cta ? (
         <Link
           href={scene.cta.href}
-          className="group mt-6 inline-flex min-h-[54px] items-center gap-4 rounded-full bg-[var(--brand-primary)] px-7 text-[15px] font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+          className="group mt-4 inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[var(--brand-primary)] px-5 text-[13px] font-semibold text-white shadow-[0_14px_32px_rgba(0,58,117,0.18)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
         >
           {scene.cta.label}
           <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -1343,7 +1348,7 @@ function HeroMainScene({
             duration: reducedMotion ? 0 : 0.92,
             ease: [0.22, 1, 0.36, 1]
           }}
-          className="text-[clamp(3.55rem,16vw,4.15rem)] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[clamp(5.5rem,9vw,8.5rem)] lg:text-[clamp(6.2rem,7.4vw,8.8rem)]"
+          className="text-[clamp(3.15rem,14vw,3.85rem)] font-semibold leading-[0.92] tracking-[-0.06em] sm:text-[clamp(4.8rem,7.4vw,7.25rem)] lg:text-[clamp(5.1rem,6vw,7.35rem)]"
         >
           {scene.title}
         </motion.h1>
@@ -1367,7 +1372,7 @@ function HeroMainScene({
               delay: reducedMotion ? 0 : 0.16,
               ease: [0.22, 1, 0.36, 1]
             }}
-            className="mt-3 text-[clamp(1.25rem,6vw,1.6rem)] font-medium leading-tight tracking-[-0.045em] sm:mt-8 sm:text-[clamp(2rem,3vw,2.85rem)]"
+            className="mt-3 text-[clamp(1.18rem,5.4vw,1.5rem)] font-medium leading-tight tracking-[-0.025em] sm:mt-6 sm:text-[clamp(1.65rem,2.35vw,2.2rem)]"
           >
             {scene.subtitle}
           </motion.p>
@@ -1382,7 +1387,7 @@ function HeroMainScene({
           delay: revealDelay,
           ease: [0.22, 1, 0.36, 1]
         }}
-        className="mt-4 flex max-w-[250px] items-center gap-3 text-[#59799b] sm:mt-8 sm:max-w-[450px] sm:gap-4"
+        className="mt-4 flex max-w-[230px] items-center gap-3 text-[#59799b] sm:mt-6 sm:max-w-[390px] sm:gap-4"
         aria-hidden="true"
       >
         <span className="h-px flex-1 bg-[#9eb1c8]/62" />
@@ -1398,12 +1403,12 @@ function HeroMainScene({
           delay: revealDelay + 0.14,
           ease: [0.22, 1, 0.36, 1]
         }}
-        className="mt-auto flex max-w-[535px] items-center gap-4 rounded-[24px] border border-white/60 bg-white/46 p-4 text-[#244d7c] shadow-[0_22px_70px_rgba(25,68,112,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[18px] sm:mt-7 sm:gap-6 sm:rounded-[30px] sm:bg-white/38 sm:p-6"
+        className="mt-auto flex max-w-[500px] items-center gap-4 rounded-[22px] border border-white/60 bg-white/44 p-4 text-[#244d7c] shadow-[0_18px_52px_rgba(25,68,112,0.1),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-[18px] sm:mt-6 sm:gap-5 sm:p-5"
       >
-        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[#315b89]/36 bg-white/26 text-[#315b89] sm:h-[74px] sm:w-[74px]">
-          <Leaf className="h-8 w-8" strokeWidth={1.8} />
+        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#315b89]/32 bg-white/26 text-[#315b89] sm:h-16 sm:w-16">
+          <Leaf className="h-7 w-7" strokeWidth={1.8} />
         </span>
-        <p className="text-pretty text-sm font-medium leading-7 sm:text-[16px] sm:leading-8">
+        <p className="text-pretty text-sm font-medium leading-6 sm:text-[15px] sm:leading-7">
           {scene.description}
         </p>
       </motion.div>
@@ -1417,11 +1422,11 @@ function HeroMainScene({
             delay: revealDelay + 0.28,
             ease: [0.22, 1, 0.36, 1]
           }}
-          className="mt-5 sm:mt-8"
+          className="mt-5 sm:mt-6"
         >
           <Link
             href={scene.cta.href}
-            className="group inline-flex min-h-14 items-center gap-4 rounded-full bg-[var(--brand-primary)] px-7 text-sm font-semibold text-white shadow-[0_18px_46px_rgba(0,58,117,0.22)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[60px] sm:px-9 sm:text-base"
+            className="group inline-flex min-h-[50px] items-center gap-3 rounded-full bg-[var(--brand-primary)] px-6 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(0,58,117,0.2)] transition hover:bg-[#0a4a89] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[54px] sm:px-7"
           >
             {scene.cta.label}
             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -1439,28 +1444,28 @@ function YogurtsPreviewCard({scene}: {scene: HeroScene}) {
   return (
     <Link
       href={href}
-      className="group relative block min-h-[520px] overflow-hidden rounded-[36px] border border-white/72 bg-white/34 p-4 shadow-[0_34px_90px_rgba(25,68,112,0.18),inset_0_1px_0_rgba(255,255,255,0.86)] outline-none backdrop-blur-[26px] transition duration-500 hover:-translate-y-1 hover:bg-white/44 focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)]"
+      className="group relative block min-h-[420px] overflow-hidden rounded-[28px] border border-white/72 bg-white/32 p-3 shadow-[0_24px_64px_rgba(25,68,112,0.14),inset_0_1px_0_rgba(255,255,255,0.84)] outline-none backdrop-blur-[22px] transition duration-500 hover:-translate-y-1 hover:bg-white/42 focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)]"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.84),transparent_30%),radial-gradient(circle_at_82%_16%,rgba(249,219,194,0.34),transparent_30%),linear-gradient(145deg,rgba(255,255,255,0.34),rgba(255,255,255,0.08))]" />
 
-      <div className="relative h-[492px] overflow-hidden rounded-[30px] border border-white/64 bg-[#f5f9fd]/42">
+      <div className="relative h-[396px] overflow-hidden rounded-[24px] border border-white/64 bg-[#f5f9fd]/42">
         <Image
           src={assetUrl("/sofin-yogur-pics/first-slide.webp")}
           alt=""
           fill
-          sizes="560px"
+          sizes="470px"
           className="object-cover object-[56%_50%] transition duration-700 group-hover:scale-[1.035]"
         />
 
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.08)_42%,rgba(244,248,252,0.94)_100%)]" />
 
-        <div className="absolute bottom-5 left-5 right-5 text-[var(--brand-primary)]">
+        <div className="absolute bottom-4 left-4 right-4 text-[var(--brand-primary)]">
           {highlights.length ? (
-            <div className="mb-4 flex flex-wrap gap-2">
+            <div className="mb-3 flex flex-wrap gap-1.5">
               {highlights.slice(0, 3).map((highlight) => (
                 <span
                   key={highlight}
-                  className="rounded-full border border-white/68 bg-white/68 px-3 py-1.5 text-[11px] font-semibold shadow-[0_8px_18px_rgba(25,68,112,0.06)] backdrop-blur-xl"
+                  className="rounded-full border border-white/68 bg-white/68 px-2.5 py-1 text-[10px] font-semibold shadow-[0_8px_18px_rgba(25,68,112,0.05)] backdrop-blur-xl"
                 >
                   {highlight}
                 </span>
@@ -1470,13 +1475,13 @@ function YogurtsPreviewCard({scene}: {scene: HeroScene}) {
 
           <div className="flex items-end justify-between gap-5">
             <div>
-              <div className="max-w-[360px] text-[clamp(1.55rem,2.2vw,2.05rem)] font-semibold leading-[1.06] tracking-[0]">
+              <div className="max-w-[300px] text-[clamp(1.25rem,1.75vw,1.6rem)] font-semibold leading-[1.04] tracking-[0]">
                 {scene.cta?.label ?? "Open yogurts"}
               </div>
             </div>
 
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[var(--brand-primary)] text-white shadow-[0_16px_34px_rgba(0,58,117,0.22)] transition-transform duration-300 group-hover:translate-x-1">
-              <ArrowRight className="h-6 w-6" />
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--brand-primary)] text-white shadow-[0_14px_28px_rgba(0,58,117,0.2)] transition-transform duration-300 group-hover:translate-x-1">
+              <ArrowRight className="h-5 w-5" />
             </span>
           </div>
         </div>
