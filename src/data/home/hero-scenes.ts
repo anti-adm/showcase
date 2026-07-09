@@ -59,6 +59,11 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
     title: "Современные молочные продукты на каждый день",
     description:
       "Йогурты, кефир, молоко и другие позиции SOFIN создаются с фокусом на свежесть, чистый вкус и удобный формат для ежедневного выбора.",
+    highlights: ["Йогурты", "Кефир", "Сливочные продукты"],
+    cta: {
+      label: "Наш каталог",
+      href: "/products"
+    },
     group: "production"
   },
   {
@@ -114,6 +119,11 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
       title: "Har kun uchun zamonaviy sut mahsulotlari",
       description:
         "Yogurt, kefir, sut va boshqa SOFIN mahsulotlari yangilik, toza ta’m va kundalik tanlovga qulay format bilan yaratiladi.",
+      highlights: ["Yogurtlar", "Kefir", "Qaymoqli mahsulotlar"],
+      cta: {
+        label: "Katalogni ochish",
+        href: "/products"
+      },
       group: "production"
     },
     {
@@ -169,6 +179,11 @@ const heroScenesByLocale: Record<Locale, HeroScene[]> = {
       title: "Modern dairy products for every day",
       description:
         "Yogurts, kefir, milk and other SOFIN items are created around freshness, clean taste and convenient everyday formats.",
+      highlights: ["Yogurts", "Kefir", "Creamy essentials"],
+      cta: {
+        label: "Open catalog",
+        href: "/products"
+      },
       group: "production"
     },
     {
