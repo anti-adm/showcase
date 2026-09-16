@@ -6,3 +6,7 @@ out
 .env*.local
 *.tsbuildinfo
 *.zip
+
+# Browser regression reports
+/playwright-report/
+/test-results/

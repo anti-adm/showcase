@@ -1,0 +1,1128 @@
+[
+  {
+    "path": "/uz/company",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/contacts",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/",
+    "status": 307,
+    "location": "/uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/recipes",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/yogurts",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-cherry",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-cherry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-forest-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-forest-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-peach-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-strawberry-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-peach-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-strawberry-banana-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-raspberry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-strawberry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-raspberry-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-banana-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-banana-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/kefir-25-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-pineapple-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/yogurt-pineapple-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/kefir-32-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/kefir-bio-25-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/ayron-plain",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/qatiq",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/kefir-1-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/ayron-rayhonli",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/smetana",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/qaymaq",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/mozzarella",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/tvorog-soft-5",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/gollandiya-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/gouda-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/tvorog-soft",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/recipes/syrniki",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/tvorog-soft-9",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/oxotnichiy-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/recipes/oladya",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/recipes/cheesecake-cups",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/yogurt-bottles",
+    "status": 307,
+    "location": "/uz/yogurts?showcase=bottles",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/showcase",
+    "status": 307,
+    "location": "/uz/yogurts",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/recipes/fruit-milkshake",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/recipes/bliny",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/audit-missing",
+    "status": 404,
+    "location": null,
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/products/audit-missing",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/uz/recipes/audit-missing",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/contacts",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/company",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/recipes",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-cherry",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/yogurts",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-cherry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-forest-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-forest-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-peach-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-peach-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-strawberry-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-strawberry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-strawberry-banana-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-raspberry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-raspberry-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-banana-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-pineapple-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-banana-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/kefir-bio-25-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/yogurt-pineapple-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/kefir-32-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/ayron-rayhonli",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/ayron-plain",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/kefir-25-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/kefir-1-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/qatiq",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/qaymaq",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/smetana",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/mozzarella",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/gouda-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/tvorog-soft",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/tvorog-soft-5",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/tvorog-soft-9",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/gollandiya-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/oxotnichiy-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/recipes/syrniki",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/recipes/oladya",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/recipes/cheesecake-cups",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/recipes/fruit-milkshake",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/recipes/bliny",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/showcase",
+    "status": 307,
+    "location": "/ru/yogurts",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/yogurt-bottles",
+    "status": 307,
+    "location": "/ru/yogurts?showcase=bottles",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/products/audit-missing",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/audit-missing",
+    "status": 404,
+    "location": null,
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/ru/recipes/audit-missing",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/contacts",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/company",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/recipes",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/yogurts",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-cherry",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-cherry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-forest-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-forest-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-peach-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-strawberry-banana-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-peach-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-strawberry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-strawberry-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-raspberry-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-raspberry-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-banana-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-pineapple-270",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-banana-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/kefir-bio-25-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/yogurt-pineapple-120",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/kefir-32-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/kefir-25-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/ayron-plain",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/kefir-1-450",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/ayron-rayhonli",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/qaymaq",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/qatiq",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/smetana",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/gouda-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/mozzarella",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/tvorog-soft",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/tvorog-soft-5",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/gollandiya-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/recipes/syrniki",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/oxotnichiy-cheese",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/tvorog-soft-9",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/recipes/oladya",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/recipes/bliny",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/yogurt-bottles",
+    "status": 307,
+    "location": "/en/yogurts?showcase=bottles",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/recipes/cheesecake-cups",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/showcase",
+    "status": 307,
+    "location": "/en/yogurts",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/audit-missing",
+    "status": 404,
+    "location": null,
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/recipes/fruit-milkshake",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/products/audit-missing",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  },
+  {
+    "path": "/en/recipes/audit-missing",
+    "status": 200,
+    "location": null,
+    "lang": "uz",
+    "title": "SOFIN",
+    "missingTranslation": false
+  }
+]

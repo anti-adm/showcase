@@ -1,6 +1,7 @@
 const rawAssetBaseUrl = process.env.NEXT_PUBLIC_ASSET_BASE_URL?.trim();
-const useLocalAssets = process.env.NEXT_PUBLIC_USE_REMOTE_ASSETS === "false";
-const shouldUseRemoteAssets = Boolean(rawAssetBaseUrl) && !useLocalAssets;
+// Remote delivery is opt-in: a configured but incomplete bucket must not break the site.
+const shouldUseRemoteAssets = Boolean(rawAssetBaseUrl) &&
+  process.env.NEXT_PUBLIC_USE_REMOTE_ASSETS === "true";
 
 export const assetBaseUrl = rawAssetBaseUrl && shouldUseRemoteAssets
   ? rawAssetBaseUrl.replace(/\/+$/, "")

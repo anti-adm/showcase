@@ -1,5 +1,6 @@
 'use client';
 
+import {useSearchParams} from 'next/navigation';
 import {Languages} from 'lucide-react';
 import {useLocale} from 'next-intl';
 import {Link, usePathname} from '@/i18n/navigation';
@@ -23,6 +24,8 @@ export default function LanguageSwitcher({
 }: LanguageSwitcherProps) {
   const locale = useLocale();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const href = {pathname, query: Object.fromEntries(searchParams.entries())};
 
   const handleChange = () => {
     onChange?.();
@@ -42,7 +45,7 @@ export default function LanguageSwitcher({
             return (
               <Link
                 key={item}
-                href={pathname}
+                href={href}
                 locale={item}
                 onClick={handleChange}
                 className={cn(
@@ -51,7 +54,7 @@ export default function LanguageSwitcher({
                     ? 'liquid-language-active text-[color:var(--text)]'
                     : 'text-[color:var(--text-soft)] hover:bg-white/42 hover:text-[color:var(--text)]'
                 )}
-                aria-pressed={active}
+                aria-current={active ? "page" : undefined}
               >
                 {labels[item]}
               </Link>
@@ -74,7 +77,7 @@ export default function LanguageSwitcher({
         return (
           <Link
             key={item}
-            href={pathname}
+            href={href}
             locale={item}
             onClick={handleChange}
             className={cn(
@@ -83,7 +86,7 @@ export default function LanguageSwitcher({
                 ? 'liquid-language-active text-[color:var(--text)]'
                 : 'text-[color:var(--text-soft)] hover:bg-white/42 hover:text-[color:var(--text)]'
             )}
-            aria-pressed={active}
+            aria-current={active ? "page" : undefined}
           >
             {labels[item]}
           </Link>

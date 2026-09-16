@@ -59,10 +59,7 @@ export default function HeroSnapController({
       locked = true;
       wheelAccumulator = 0;
 
-      nodes[next].scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      window.scrollTo({top: window.scrollY + nodes[next].getBoundingClientRect().top, behavior: "smooth"});
 
       window.setTimeout(() => {
         locked = false;

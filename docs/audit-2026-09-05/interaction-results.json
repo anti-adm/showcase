@@ -1,0 +1,168 @@
+[
+  {
+    "name": "closed-filter-keyboard-focus",
+    "expanded": "false",
+    "nextFocus": {
+      "text": "Все",
+      "html": "<button type=\"button\" aria-pressed=\"true\" class=\"min-h-11 rounded-full border px-3 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-[background-color,border-color,color,box-shadow,transform] duration-300 border-[var(--brand-primary)] bg-[var(--brand-primary)] text-white shadow-[0_16px_34px_rgba(12,58,106,0.16)]\">Все</button>",
+      "rect": {
+        "x": 34,
+        "y": 276.28125,
+        "width": 157,
+        "height": 44,
+        "top": 276.28125,
+        "right": 191,
+        "bottom": 320.28125,
+        "left": 34
+      }
+    }
+  },
+  {
+    "name": "catalog-filters",
+    "counts": [
+      {
+        "category": "Все",
+        "count": 31
+      },
+      {
+        "category": "Кефир",
+        "count": 4
+      },
+      {
+        "category": "Айран",
+        "count": 2
+      },
+      {
+        "category": "Йогурты",
+        "count": 15
+      },
+      {
+        "category": "Катык",
+        "count": 1
+      },
+      {
+        "category": "Сметана и сливки",
+        "count": 2
+      },
+      {
+        "category": "Творог",
+        "count": 3
+      },
+      {
+        "category": "Сыры",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "name": "mobile-menu-escape",
+    "expanded": "true"
+  },
+  {
+    "name": "mobile-menu-resize",
+    "bodyOverflow": "",
+    "menuVisible": false
+  },
+  {
+    "name": "gallery-buttons",
+    "buttons": [
+      {
+        "label": "Открыть меню",
+        "text": ""
+      },
+      {
+        "label": "Открыть изображение",
+        "text": ""
+      },
+      {
+        "label": "Открыть изображение",
+        "text": ""
+      },
+      {
+        "label": "Предыдущее изображение",
+        "text": ""
+      },
+      {
+        "label": null,
+        "text": ""
+      },
+      {
+        "label": "Следующее изображение",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "gallery-open",
+    "dialogs": 0,
+    "focus": "<button type=\"button\" class=\"relative flex min-h-[300px] w-full items-center justify-center overflow-hidden rounded-[26px] bg-white px-3 py-6 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.96)] sm:min-h-[430px] lg:h-[min(46svh,500px)] lg:min-h-[360px]\" aria-label=\"Открыть изображение\"><div class=\"absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(247,250,253,0.86),transparent_38%)]\"></div><div class=\"relative aspect-square w-full max-w-[540px] overflow-hidden rounded-[24px] bg-white\" style=\"opacity: 1; transform: none;\"><img alt=\"Йогурт со вкусом вишни 1\" decoding=\"async\" data-nimg=\"fill\" class=\"object-contain p-3 sm:p-5\" style=\"position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent\" sizes=\"(min-width: 1024px) 44vw, 92vw\" srcset=\"/_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=384&amp;q=75 384w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=640&amp;q=75 640w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=750&amp;q=75 750w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=828&amp;q=75 828w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=1080&amp;q=75 1080w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=1200&amp;q=75 1200w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=1920&amp;q=75 1920w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=2048&amp;q=75 2048w, /_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=3840&amp;q=75 3840w\" src=\"/_next/image?url=%2Fimages%2Fproducts%2Fyogurt%2FYOGURT_BOTTLE_OLCHA.webp&amp;w=3840&amp;q=75\"></div></button>",
+    "bodyOverflow": ""
+  },
+  {
+    "name": "gallery-escape",
+    "overlayPresent": 1
+  },
+  {
+    "name": "language-query-before",
+    "href": "/en/yogurts"
+  },
+  {
+    "name": "language-query-after",
+    "url": "http://localhost:3211/en/yogurts",
+    "htmlLang": "uz",
+    "cupsButton": 1
+  },
+  {
+    "name": "form-mocked-error",
+    "errorText": 1,
+    "alerts": 1,
+    "inputSizes": [
+      {
+        "id": "name",
+        "font": "15px",
+        "autocomplete": ""
+      },
+      {
+        "id": "email",
+        "font": "15px",
+        "autocomplete": ""
+      },
+      {
+        "id": "message",
+        "font": "15px",
+        "autocomplete": ""
+      }
+    ]
+  },
+  {
+    "name": "form-mocked-success",
+    "nameCleared": "",
+    "bodyText": "Имя\nEmail\nСообщение\nОтправить\nВаше сообщение успешно отправлено."
+  },
+  {
+    "name": "unknown-product",
+    "title": "Йогурт со вкусом вишни"
+  },
+  {
+    "name": "unknown-recipe",
+    "title": "Сырники"
+  },
+  {
+    "name": "reduced-motion-header",
+    "first": "opacity: 0.290806; transform: translateX(1.86299%);",
+    "second": "opacity: 0.617841; transform: translateX(102.264%);",
+    "changed": true
+  },
+  {
+    "name": "reduced-motion-scroll",
+    "after50ms": 26,
+    "after400ms": 797,
+    "after1100ms": 900
+  },
+  {
+    "name": "slow-unrelated-image-preloader",
+    "afterSeconds": 7,
+    "loaderVisible": true,
+    "contactInputReachable": false
+  }
+]

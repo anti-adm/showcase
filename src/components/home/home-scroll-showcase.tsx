@@ -16,7 +16,9 @@ import {
   useTransform,
   type MotionValue
 } from "framer-motion";
-import Image from "next/image";
+import {useLocale} from "next-intl";
+import Image from "@/components/shared/adaptive-image";
+import {usePrefersReducedMotion} from "@/lib/use-prefers-reduced-motion";
 import {Link} from "@/i18n/navigation";
 import {getProductImage, type ProductItem} from "@/components/products/products-data";
 import {getProductDisplayTitle} from "@/components/products/product-title";
@@ -95,7 +97,6 @@ const HOME_PRODUCT_CARD_IMAGES: Record<string, string> = {
   "yogurt-peach-120": "/Hero-products/shaftoli.png",
   "yogurt-strawberry-banana-270": "/Hero-products/strawberry-banan-bottle.png",
   qaymaq: "/Hero-products/qaymaq.png",
-  "tvorog-soft-5": "/Hero-products/tvorog.png"
 };
 
 function getHomeProductCardImage(product: ProductItem) {
@@ -116,7 +117,7 @@ export function HomeScrollShowcase({
   const copy = HOME_SCROLL_COPY[locale];
 
   return (
-    <main className="relative z-20 bg-[#eef5fb]">
+    <div className="relative z-20 bg-[#eef5fb]" data-home-scroll-showcase>
       <div className="sticky top-0 z-0 h-svh overflow-hidden">
         <SceneBackdrop />
       </div>
@@ -124,7 +125,7 @@ export function HomeScrollShowcase({
         <PinnedProductScenes copy={copy} locale={locale} products={products} />
         <PinnedRecipeScenes copy={copy} locale={locale} recipes={recipes} />
       </div>
-    </main>
+    </div>
   );
 }
 
@@ -142,10 +143,11 @@ function PinnedProductScenes({
   products: ProductItem[];
 }) {
   const isDesktop = useIsDesktop();
+  const reducedMotion = usePrefersReducedMotion();
 
   if (products.length <= 0) return null;
 
-  return isDesktop ? (
+  return isDesktop && !reducedMotion ? (
     <DesktopProductScenes copy={copy} locale={locale} products={products} />
   ) : (
     <MobileProductShowcase copy={copy} locale={locale} products={products} />
@@ -259,10 +261,11 @@ function PinnedRecipeScenes({
   recipes: RecipeItem[];
 }) {
   const isDesktop = useIsDesktop();
+  const reducedMotion = usePrefersReducedMotion();
 
   if (recipes.length <= 0) return null;
 
-  return isDesktop ? (
+  return isDesktop && !reducedMotion ? (
     <DesktopRecipeScenes copy={copy} locale={locale} recipes={recipes} />
   ) : (
     <MobileRecipeShowcase copy={copy} locale={locale} recipes={recipes} />
@@ -952,7 +955,7 @@ function ShowcaseHeading({
       }}
     >
       {eyebrow ? (
-        <p className="text-[10.5px] font-semibold uppercase tracking-[0.40em] text-slate-500/80">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500/80">
           {eyebrow}
         </p>
       ) : null}
@@ -986,6 +989,7 @@ function ScenePagination({
   onDotClick: (index: number) => void;
   tone: "blue" | "warm";
 }) {
+  const locale = useLocale();
   const activeColor = tone === "blue" ? "#2563eb" : "#d97706";
   const y = useTransform(sceneProgress, [0, 1], [10, 0]);
   const opacity = useTransform(sceneProgress, [0, 1], [0, 1]);
@@ -1002,10 +1006,11 @@ function ScenePagination({
       {Array.from({length: count}).map((_, index) => (
         <button
           key={index}
-          aria-label={`Go to card ${index + 1}`}
+          aria-label={`${locale === "ru" ? "Карточка" : locale === "uz" ? "Kartochka" : "Card"} ${index + 1}`}
+          aria-current={index === activeIndex ? "step" : undefined}
           onClick={() => onDotClick(index)}
           className="flex items-center justify-center"
-          style={{width: 30, height: 14}}
+          style={{width: 36, height: 36}}
         >
           <motion.span
             className="block rounded-full"
@@ -1109,7 +1114,7 @@ function ProductSceneCard({
                 {title}
               </h3>
 
-              <p className="mt-3 line-clamp-2 max-w-[90%] text-[13px] font-medium leading-relaxed text-[#244d7c]">
+              <p className="mt-3 line-clamp-2 max-w-[90%] text-sm font-medium leading-relaxed text-[#244d7c]">
                 {product.subtitle[locale]}
               </p>
             </>
@@ -1117,7 +1122,7 @@ function ProductSceneCard({
 
           <motion.span
             className={cn(
-              "inline-flex items-center gap-2 rounded-full px-4 py-[7px] text-[10.5px] font-semibold uppercase tracking-[0.16em] backdrop-blur-md",
+              "inline-flex items-center gap-2 rounded-full px-4 py-[7px] text-xs font-semibold tracking-[0.06em] backdrop-blur-md",
               homeImage
                 ? "mt-0 bg-white/72 text-[var(--brand-primary)] shadow-[0_12px_32px_rgba(25,68,112,0.12)]"
                 : "mt-5 bg-[var(--brand-primary)] text-white shadow-[0_12px_32px_rgba(0,58,117,0.18)]"
@@ -1233,12 +1238,12 @@ function RecipeSceneCard({
             {recipe.title[locale]}
           </h3>
 
-          <p className="mt-3 line-clamp-2 max-w-[90%] text-[13px] font-medium leading-relaxed text-[#244d7c]">
+          <p className="mt-3 line-clamp-2 max-w-[90%] text-sm font-medium leading-relaxed text-[#244d7c]">
             {recipe.subtitle[locale]}
           </p>
 
           <motion.span
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--brand-primary)] px-4 py-[7px] text-[10.5px] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_32px_rgba(0,58,117,0.18)] backdrop-blur-md"
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--brand-primary)] px-4 py-[7px] text-xs font-semibold tracking-[0.06em] text-white shadow-[0_12px_32px_rgba(0,58,117,0.18)] backdrop-blur-md"
             style={{
               opacity: visual.ctaOpacity,
               y: visual.ctaY,

@@ -301,7 +301,7 @@ export function IntroClusterStage({
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
 
   return (
-    <div className="absolute inset-0 z-20">
+    <div className="cup-model-stage absolute inset-0 z-20" data-cup-step={step} data-cup-progress={[1, step1Progress, step2Progress, step3Progress, step4Progress, step5Progress, step6Progress, step7Progress, step8Progress, step9Progress][step]}>
       <Canvas
         dpr={[1, 2]}
         gl={{

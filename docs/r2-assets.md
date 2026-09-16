@@ -39,3 +39,17 @@ Target export sizes:
 - Product detail hero: AVIF/WebP, 1200-1600 px long side, usually under 250 KB.
 - Full-screen backgrounds: AVIF/WebP, desktop 1920 px wide and mobile 1080 px wide.
 - 3D models: Draco or Meshopt compressed GLB, lazy-loaded after the section becomes visible.
+
+## Safe default after the September 2026 audit
+
+Asset delivery now defaults to the local `public` directory, even if a previous
+`NEXT_PUBLIC_ASSET_BASE_URL` is present. Enable remote delivery explicitly with
+`NEXT_PUBLIC_USE_REMOTE_ASSETS=true` only after verifying the bucket. The
+Cloudflare image loader also requires this flag. Optimized catalog images and
+static page backgrounds are served locally.
+
+Before enabling R2, check every required object, the deployed site's allowed
+CORS origin (including GLB/WebGL texture fetches), and Image Transformations.
+An HTTP 200 for a model does not prove the browser can use it across origins.
+Use `node scripts/optimize-product-images.cjs` to regenerate the local WebP
+catalog and responsive backgrounds from the existing source artwork.

@@ -1,7 +1,29 @@
 {
   "Metadata": {
-    "title": "SOFIN — Fermadan tokchagacha",
-    "description": "Skrroll asosidagi premium hikoya va to'liq ekranli kinomatografik bloklarga ega ko'p tilli sut brendi sayti."
+    "home": {
+      "title": "SOFIN sut mahsulotlari",
+      "description": "SOFIN yogurtlari, kefir, tvorog va pishloqlar katalogi. Retseptlar va ishlab chiqaruvchi bilan bog‘lanish ma’lumotlari."
+    },
+    "products": {
+      "title": "Sut mahsulotlari katalogi",
+      "description": "SOFIN yogurtlari, kefir, ayron, tvorog, qaymoq va pishloqlar. Tarkib va saqlash sharoitlari bilan tanishing."
+    },
+    "yogurts": {
+      "title": "SOFIN yogurtlari",
+      "description": "Stakancha va butilkalardagi SOFIN yogurtlari: ta’mlar, tarkib va qulay formatlar."
+    },
+    "company": {
+      "title": "SOFIN haqida",
+      "description": "SOFIN tarixi, sut mahsulotlarini ishlab chiqarish va kompaniya rivojlanishi."
+    },
+    "recipes": {
+      "title": "SOFIN bilan retseptlar",
+      "description": "SOFIN sut mahsulotlari bilan nonushta, shirinlik va kundalik taomlar uchun g‘oyalar."
+    },
+    "contacts": {
+      "title": "SOFIN bilan bog‘lanish",
+      "description": "SOFIN telefoni, elektron pochtasi, manzili va qayta aloqa shakli."
+    }
   },
   "Navigation": {
     "home": "Bosh sahifa",
@@ -11,7 +33,8 @@
     "recipes": "Retseptlar",
     "contacts": "Kontaktlar",
     "openMenu": "Menyuni ochish",
-    "closeMenu": "Menyuni yopish"
+    "closeMenu": "Menyuni yopish",
+    "label": "Asosiy navigatsiya"
   },
   "Hero": {
     "scrollLabel": "Hikoyani aylantiring",
@@ -107,7 +130,8 @@
     "contacts": "Aloqa ma'lumotlari",
     "address": "Navoiy viloyati, Qiziltepa tumani, “G‘oyibon” M.F.Y., Navgandi qishlog‘i, 90-uy",
     "phone": "+998 71 200 36 36",
-    "email": "hello@sofin.uz"
+    "email": "yangi_asr_2000@mail.ru",
+    "tagline": "Fermadan dasturxoningizgacha."
   },
   "FuturePages": {
     "products": {
@@ -182,180 +206,237 @@
       "openedText": "Saqlash muddati 21 kun. Ochilgandan so‘ng 24 soat davomida iste’mol qilinsin."
     }
   },
-    "ProductsCatalogPage": {
-  "eyebrow": "Mahsulot katalogi",
-  "title": "Mahsulotlar katalogi",
-  "description": "",
-  "filters": {
-    "all": "Barchasi",
-    "milk": "Sut",
-    "kefir": "Kefir",
-    "yogurt": "Yogurt",
-    "ayran": "Ayran",
-    "qatiq": "Qatiq",
-    "tvorog": "Tvorog",
-    "cheese": "Pishloq",
-    "cream": "Smetana va qaymoq"
-  },
-  "empty": "Bu kategoriya uchun mahsulotlar hali qo‘shilmagan."
+  "ProductsCatalogPage": {
+    "eyebrow": "Mahsulot katalogi",
+    "title": "Mahsulotlar katalogi",
+    "description": "Yogurt, kefir, tvorog va pishloqlar. O‘zingizga mos ta’m va hajmni tanlang.",
+    "filters": {
+      "all": "Barchasi",
+      "milk": "Sut",
+      "kefir": "Kefir",
+      "yogurt": "Yogurt",
+      "ayran": "Ayran",
+      "qatiq": "Qatiq",
+      "tvorog": "Tvorog",
+      "cheese": "Pishloq",
+      "cream": "Smetana va qaymoq"
+    },
+    "empty": "Bu kategoriya uchun mahsulotlar hali qo‘shilmagan."
   },
   "ContactsPage": {
-  "badge": "Aloqa",
-  "title": "Biz bilan bog'laning",
-  "description": "SOFIN bo'yicha savollar, hamkorlik takliflari yoki mahsulotlar haqidagi murojaatlaringizni yuboring. Biz siz bilan tez orada bog'lanamiz.",
-  "cards": {
-    "phone": {
-      "title": "Telefon",
-      "value": "+998 71 200 36 36"
+    "badge": "Aloqa",
+    "title": "Biz bilan bog'laning",
+    "description": "SOFIN bo'yicha savollar, hamkorlik takliflari yoki mahsulotlar haqidagi murojaatlaringizni yuboring. Biz siz bilan tez orada bog'lanamiz.",
+    "cards": {
+      "phone": {
+        "title": "Telefon",
+        "value": "+998 71 200 36 36"
+      },
+      "email": {
+        "title": "Elektron pochta",
+        "value": "yangi_asr_2000@mail.ru"
+      },
+      "instagram": {
+        "title": "Instagram",
+        "value": "@sofin.uz"
+      },
+      "telegram": {
+        "title": "Telegram",
+        "value": "@sofin_uz"
+      },
+      "address": {
+        "title": "Manzil",
+        "value": "O'zbekiston Respublikasi, Navoiy viloyati, Qiziltepa tumani, G'oyibon MFY, Navgandi qishlog'i, 90-uy"
+      }
     },
-    "email": {
-      "title": "Elektron pochta",
-      "value": "yangi_asr_2000@mail.ru"
-    },
-    "instagram": {
-      "title": "Instagram",
-      "value": "@sofin.uz"
-    },
-    "telegram": {
-      "title": "Telegram",
-      "value": "@sofin.uz"
-    },
-    "address": {
-      "title": "Manzil",
-      "value": "O'zbekiston Respublikasi, Navoiy viloyati, Qiziltepa tumani, G'oyibon MFY, Navgandi qishlog'i, 90-uy"
+    "form": {
+      "eyebrow": "Qayta aloqa",
+      "title": "Xabar yuborish",
+      "description": "Ismingizni, emailingizni va xabaringizni qoldiring.",
+      "name": "Ism",
+      "namePlaceholder": "Ismingizni kiriting",
+      "email": "Email",
+      "emailPlaceholder": "Email manzilingizni kiriting",
+      "message": "Xabar",
+      "messagePlaceholder": "Xabaringizni yozing",
+      "submit": "Yuborish",
+      "sending": "Yuborilmoqda...",
+      "success": "Xabaringiz muvaffaqiyatli yuborildi.",
+      "error": "Xabarni yuborib bo'lmadi. Qayta urinib ko'ring."
     }
-  },
-  "form": {
-    "eyebrow": "Qayta aloqa",
-    "title": "Xabar yuborish",
-    "description": "Ismingizni, emailingizni va xabaringizni qoldiring.",
-    "name": "Ism",
-    "namePlaceholder": "Ismingizni kiriting",
-    "email": "Email",
-    "emailPlaceholder": "Email manzilingizni kiriting",
-    "message": "Xabar",
-    "messagePlaceholder": "Xabaringizni yozing",
-    "submit": "Yuborish",
-    "sending": "Yuborilmoqda...",
-    "success": "Xabaringiz muvaffaqiyatli yuborildi.",
-    "error": "Xabarni yuborib bo'lmadi. Qayta urinib ko'ring."
-  }
   },
   "CompanyPage": {
-  "badge": "Kompaniya",
-  "title": "Korxona tarixi",
-  "description": "SOFIN va “Yangi asr” fermer xo‘jaligi tarixi — fermadan ishlab chiqarishgacha bo‘lgan yo‘l, zamonaviy sut mahsulotlari va yillik rivojlanish bosqichlari.",
-  "timelineLabel": "Bosqich",
-  "intro": {
-    "eyebrow": "Boshlanish",
-    "title": "“Yangi asr” fermer xo‘jaligining shakllanishi",
-    "paragraph1": "“Yangi asr” fermer xo‘jaligi 2000 yilda K-5/840-sonli Qiziltepa tuman hokimligi qaroriga asosan Vang‘ozi mahalla fuqarolar yig‘inida tashkil topgan.",
-    "paragraph2": "Fermer xo‘jaligi rahbari Temirov Jobir Jamolovich 1973-yil 11-mayda Navoiy viloyati, Qiziltepa tumani Vang‘ozi MFY hududida tug‘ilgan. Ma’lumoti o‘rta maxsus bo‘lib, Buxoro Bank kollejini tamomlagan.",
-    "paragraph3": "Faoliyat boshida xo‘jalik tarkibida 80 bosh yirik shoxli qoramol, 35 gektar paxtachilik yer maydoni, 45 gektar g‘allachilik yer maydoni hamda 60 gektar yaylov hududi mavjud edi."
-  },
-  "stats": {
-    "products": "turdagi sut mahsuloti",
-    "factory": "sutni qayta ishlash quvvati / sutka",
-    "cattle": "bosh naslli qoramol olib kelingan",
-    "milk": "sut sog‘imi kuniga"
-  },
-  "timeline": {
-    "foundation": {
-      "title": "Xo‘jalikning tashkil topishi",
-      "text": "2000-yilda xo‘jalik chorvachilik va dehqonchilik faoliyatini birlashtirgan holda o‘z faoliyatini boshladi. Dastlabki infratuzilma yer maydonlari, qoramol soni va yem-xashak bazasi asosida shakllantirildi."
+    "badge": "Kompaniya",
+    "title": "Korxona tarixi",
+    "description": "SOFIN va “Yangi asr” fermer xo‘jaligi tarixi — fermadan ishlab chiqarishgacha bo‘lgan yo‘l, zamonaviy sut mahsulotlari va yillik rivojlanish bosqichlari.",
+    "timelineLabel": "Bosqich",
+    "intro": {
+      "eyebrow": "Boshlanish",
+      "title": "“Yangi asr” fermer xo‘jaligining shakllanishi",
+      "paragraph1": "“Yangi asr” fermer xo‘jaligi 2000 yilda K-5/840-sonli Qiziltepa tuman hokimligi qaroriga asosan Vang‘ozi mahalla fuqarolar yig‘inida tashkil topgan.",
+      "paragraph2": "Fermer xo‘jaligi rahbari Temirov Jobir Jamolovich 1973-yil 11-mayda Navoiy viloyati, Qiziltepa tumani Vang‘ozi MFY hududida tug‘ilgan. Ma’lumoti o‘rta maxsus bo‘lib, Buxoro Bank kollejini tamomlagan.",
+      "paragraph3": "Faoliyat boshida xo‘jalik tarkibida 80 bosh yirik shoxli qoramol, 35 gektar paxtachilik yer maydoni, 45 gektar g‘allachilik yer maydoni hamda 60 gektar yaylov hududi mavjud edi."
     },
-    "import": {
-      "title": "Naslli qoramollarni olib kelish va rivojlanish",
-      "text": "2017-yil mart oyida Prezidentimiz Shavkat Miromonovich Mirziyoyevning Navoiy viloyatiga tashrifi davomida xo‘jalik rahbarining biznes loyihasi bilan tanishildi. Shu asosda Germaniya, Estoniya va Daniya davlatlaridan “GOLSHTEYN” zotli 394 bosh naslli qoramol olib kelinib, 40 nafar aholi ish bilan ta’minlandi. Natijada 396 bosh buzoq olinib, kuniga 4000–5000 litr sut sog‘ib olina boshlandi."
+    "stats": {
+      "products": "turdagi sut mahsuloti",
+      "factory": "sutni qayta ishlash quvvati / sutka",
+      "cattle": "bosh naslli qoramol olib kelingan",
+      "milk": "sut sog‘imi kuniga"
     },
-    "factory": {
-      "title": "Qayta ishlash zavodining ishga tushirilishi",
-      "text": "2019-yil sentyabr oyida Turkiya va Germaniya texnologiyasi asosida sutkasiga 40 tonna sutni qayta ishlash zavodi ishga tushirildi. Bu bosqichda tumandagi yana 70 nafar yoshlar ish bilan ta’minlandi. Hozirgi kunda xo‘jalik 37 turdagi sut mahsulotlarini ishlab chiqarib, respublika viloyatlariga yetkazib bermoqda."
+    "timeline": {
+      "foundation": {
+        "title": "Xo‘jalikning tashkil topishi",
+        "text": "2000-yilda xo‘jalik chorvachilik va dehqonchilik faoliyatini birlashtirgan holda o‘z faoliyatini boshladi. Dastlabki infratuzilma yer maydonlari, qoramol soni va yem-xashak bazasi asosida shakllantirildi."
+      },
+      "import": {
+        "title": "Naslli qoramollarni olib kelish va rivojlanish",
+        "text": "2017-yil mart oyida Prezidentimiz Shavkat Miromonovich Mirziyoyevning Navoiy viloyatiga tashrifi davomida xo‘jalik rahbarining biznes loyihasi bilan tanishildi. Shu asosda Germaniya, Estoniya va Daniya davlatlaridan “GOLSHTEYN” zotli 394 bosh naslli qoramol olib kelinib, 40 nafar aholi ish bilan ta’minlandi. Natijada 396 bosh buzoq olinib, kuniga 4000–5000 litr sut sog‘ib olina boshlandi."
+      },
+      "factory": {
+        "title": "Qayta ishlash zavodining ishga tushirilishi",
+        "text": "2019-yil sentyabr oyida Turkiya va Germaniya texnologiyasi asosida sutkasiga 40 tonna sutni qayta ishlash zavodi ishga tushirildi. Bu bosqichda tumandagi yana 70 nafar yoshlar ish bilan ta’minlandi. Hozirgi kunda xo‘jalik 37 turdagi sut mahsulotlarini ishlab chiqarib, respublika viloyatlariga yetkazib bermoqda."
+      },
+      "award": {
+        "title": "Yuksak e’tirof",
+        "text": "Kompaniya 2021-yil may oyida “Tashabbus-2021” tanlovida “Yilning eng yaxshi fermeri” yo‘nalishida tuman, viloyat va respublika bosqichlarida 1-o‘rinni egalladi."
+      }
     },
-    "award": {
-      "title": "Yuksak e’tirof",
-      "text": "Kompaniya 2021-yil may oyida “Tashabbus-2021” tanlovida “Yilning eng yaxshi fermeri” yo‘nalishida tuman, viloyat va respublika bosqichlarida 1-o‘rinni egalladi."
+    "production": {
+      "title": "Bugungi ishlab chiqarish va yo‘nalish",
+      "paragraph1": "Bugungi kunda “Yangi asr” fermer xo‘jaligi zamonaviy sut mahsulotlari ishlab chiqarish, logistika va sifat nazorati tizimi bilan ishlaydi. Ishlab chiqarish jarayonida xavfsizlik, tozalik va mahsulotning barqaror sifati ustuvor hisoblanadi.",
+      "paragraph2": "Korxonaning rivojlanish yo‘li fermer xo‘jaligidan yirik sut mahsulotlari ishlab chiqaruvchisigacha bo‘lgan bosqichlarni o‘z ichiga oladi. Bu esa SOFIN brendining asosiy qadriyatlarini — ishonch, sifat va zamonaviy yondashuvni mustahkamlaydi."
+    },
+    "cards": {
+      "employment": {
+        "title": "Bandlik",
+        "text": "Turli bosqichlarda o‘nlab aholi va yoshlar doimiy ish bilan ta’minlandi."
+      },
+      "capacity": {
+        "title": "Quvvat",
+        "text": "Zavod sutkasiga 40 tonnagacha sutni qayta ishlash imkoniyatiga ega."
+      },
+      "address": {
+        "title": "Manzil",
+        "text": "Navoiy viloyati, Qiziltepa tumani, “G‘oyibon” MFY, Navgandi qishlog‘i, 90-uy."
+      },
+      "email": {
+        "title": "Elektron pochta",
+        "text": "yangi_asr_2000@mail.ru"
+      }
     }
-  },
-  "production": {
-    "title": "Bugungi ishlab chiqarish va yo‘nalish",
-    "paragraph1": "Bugungi kunda “Yangi asr” fermer xo‘jaligi zamonaviy sut mahsulotlari ishlab chiqarish, logistika va sifat nazorati tizimi bilan ishlaydi. Ishlab chiqarish jarayonida xavfsizlik, tozalik va mahsulotning barqaror sifati ustuvor hisoblanadi.",
-    "paragraph2": "Korxonaning rivojlanish yo‘li fermer xo‘jaligidan yirik sut mahsulotlari ishlab chiqaruvchisigacha bo‘lgan bosqichlarni o‘z ichiga oladi. Bu esa SOFIN brendining asosiy qadriyatlarini — ishonch, sifat va zamonaviy yondashuvni mustahkamlaydi."
-  },
-  "cards": {
-    "employment": {
-      "title": "Bandlik",
-      "text": "Turli bosqichlarda o‘nlab aholi va yoshlar doimiy ish bilan ta’minlandi."
-    },
-    "capacity": {
-      "title": "Quvvat",
-      "text": "Zavod sutkasiga 40 tonnagacha sutni qayta ishlash imkoniyatiga ega."
-    },
-    "address": {
-      "title": "Manzil",
-      "text": "Navoiy viloyati, Qiziltepa tumani, “G‘oyibon” MFY, Navgandi qishlog‘i, 90-uy."
-    },
-    "email": {
-      "title": "Elektron pochta",
-      "text": "yangi_asr_2000@mail.ru"
-    }
-  }
   },
   "RecipesPage": {
-  "catalog": {
-    "badge": "Retseptlar katalogi",
-    "title": "Mazali sutli retseptlar",
-    "description": "SOFIN mahsulotlari bilan tayyorlanadigan nonushta, desert va kundalik taomlar uchun chiroyli retseptlar to‘plami.",
-    "cardBadge": "Retsept"
-  },
-  "detail": {
-    "back": "Retseptlarga qaytish",
-    "badge": "Retsept kartasi",
-    "ingredients": "Tarkibi",
-    "steps": "Tayyorlash usuli",
-    "servings": "Porsiya",
-    "totalWeight": "Umumiy massa",
-    "nutrition": {
-      "calories": "Kkal",
-      "protein": "Oqsillar",
-      "fat": "Yog‘lar",
-      "carbs": "Uglevodlar",
-      "weight": "Sof massa",
-      "time": "Vaqt"
-    }
-  }
-  },
-"ShowcasePage": {
-  "hero": {
-    "badge": "Premium showcase",
-    "points": {
-      "quality": "Nazorat ostidagi sifat",
-      "fresh": "Sovuq va toza taqdimot",
-      "line": "Premium yogurt line"
-    }
-  },
-  "scene": {
-    "primaryCta": "Katalogni ko‘rish",
-    "secondaryCta": "Brend haqida"
-  },
-  "ending": {
-    "badge": "SOFIN signature",
-    "title": "Mahsulot, vizual til va brend bir butun premium taassurotga aylanadi",
-    "description": "Bu sahifa keyinchalik to‘liq campaign landing, product launch yoki interaktiv premium prezentatsiya sifatida kengaytirilishi mumkin.",
-    "cards": {
-      "visual": {
-        "title": "Toza visual til",
-        "text": "Ko‘k-oq premium muhit mahsulotni aniq, qimmat va zamonaviy ko‘rsatadi."
-      },
-      "product": {
-        "title": "Hero-shot taqdimot",
-        "text": "Har bir model diqqat markazidagi premium mahsulot sifatida namoyon bo‘ladi."
-      },
-      "brand": {
-        "title": "Kuchli brend hissi",
-        "text": "SOFIN zamonaviy, ishonchli va esda qoladigan dairy-brend sifatida ko‘rinadi."
-      }
+    "catalog": {
+      "badge": "Retseptlar katalogi",
+      "title": "Mazali sutli retseptlar",
+      "description": "SOFIN mahsulotlari bilan tayyorlanadigan nonushta, desert va kundalik taomlar uchun chiroyli retseptlar to‘plami.",
+      "cardBadge": "Retsept"
+    },
+    "detail": {
+      "back": "Retseptlarga qaytish",
+      "badge": "Retsept kartasi",
+      "ingredients": "Tarkibi",
+      "steps": "Tayyorlash usuli",
+      "servings": "Porsiya",
+      "totalWeight": "Umumiy massa",
+      "nutrition": {
+        "calories": "Kkal",
+        "protein": "Oqsillar",
+        "fat": "Yog‘lar",
+        "carbs": "Uglevodlar",
+        "weight": "Sof massa",
+        "time": "Vaqt"
       }
     }
+  },
+  "ShowcasePage": {
+    "hero": {
+      "badge": "Premium showcase",
+      "points": {
+        "quality": "Nazorat ostidagi sifat",
+        "fresh": "Sovuq va toza taqdimot",
+        "line": "Premium yogurt line"
+      }
+    },
+    "scene": {
+      "primaryCta": "Katalogni ko‘rish",
+      "secondaryCta": "Brend haqida"
+    },
+    "ending": {
+      "badge": "SOFIN signature",
+      "title": "Mahsulot, vizual til va brend bir butun premium taassurotga aylanadi",
+      "description": "Bu sahifa keyinchalik to‘liq campaign landing, product launch yoki interaktiv premium prezentatsiya sifatida kengaytirilishi mumkin.",
+      "cards": {
+        "visual": {
+          "title": "Toza visual til",
+          "text": "Ko‘k-oq premium muhit mahsulotni aniq, qimmat va zamonaviy ko‘rsatadi."
+        },
+        "product": {
+          "title": "Hero-shot taqdimot",
+          "text": "Har bir model diqqat markazidagi premium mahsulot sifatida namoyon bo‘ladi."
+        },
+        "brand": {
+          "title": "Kuchli brend hissi",
+          "text": "SOFIN zamonaviy, ishonchli va esda qoladigan dairy-brend sifatida ko‘rinadi."
+        }
+      }
+    }
+  },
+  "CatalogExtras": {
+    "intro": "Yogurt, kefir, tvorog va pishloqlar. O‘zingizga mos ta’m va hajmni tanlang.",
+    "search": "Nomi, ta’mi yoki vazni",
+    "filters": "Filtrlar",
+    "reset": "Tozalash",
+    "count": "{count} ta mahsulot",
+    "emptyTitle": "Mahsulot topilmadi",
+    "emptyDescription": "Boshqa so‘rovni kiriting yoki barcha toifalarni tanlang."
+  },
+  "ProductExtras": {
+    "breadcrumbs": "Mahsulotga yo‘l",
+    "image": "{number}-rasm",
+    "nutritionNote": "Oziqaviy qiymat haqidagi to‘liq ma’lumot qadoqda ko‘rsatilgan.",
+    "details": "Mahsulot xususiyatlari",
+    "storage": "Saqlash va ishlab chiqaruvchi",
+    "back": "Katalogga qaytish",
+    "contact": "Savol berish"
+  },
+  "ContactErrors": {
+    "invalid_fields": "Ism, email va xabarni kiriting.",
+    "invalid_email": "Email manzilini tekshiring.",
+    "too_long": "Xabar juda uzun. 5000 ta belgigacha qisqartiring.",
+    "rate_limited": "Urinishlar juda ko‘p. Keyinroq qayta urinib ko‘ring.",
+    "unavailable": "Shakl vaqtincha ishlamayapti. Telefon yoki email orqali bog‘laning.",
+    "send_failed": "Xabar yuborilmadi. Qayta urinib ko‘ring yoki email orqali yozing."
+  },
+  "YogurtHub": {
+    "format": "Yogurt shakli",
+    "cups": "Stakan yogurtlar",
+    "bottles": "Yogurtchalar",
+    "eyebrow": "Yogurtlar",
+    "cupsTitle": "Sevimli ta’m. Mayin tuzilma.",
+    "bottlesTitle": "Sevimli ta’m — doim yoningizda.",
+    "cupsDescription": "SOFIN mevali yogurtlari stakanlarda. Nonushta, desert yoki kichik tanaffus uchun ta’mni tanlang.",
+    "bottlesDescription": "SOFIN ichimlik yogurtlari qulay butilkalarda. Meva va rezavorlarning sevimli uyg‘unligini toping.",
+    "choose": "Ta’mni tanlash",
+    "animate": "Harakatda ko‘rish",
+    "back": "Ta’mlarga qaytish",
+    "flavorCount": "{count} ta ta’m",
+    "cupsImage": "SOFIN stakan yogurtlari to‘plami",
+    "bottlesImage": "SOFIN ichimlik yogurtlari to‘plami",
+    "flavorsTitle": "O‘z ta’mingizni toping",
+    "catalog": "Barcha mahsulotlar",
+    "fallbackTitle": "Yogurtlar to‘plamini ko‘ring",
+    "fallbackCopy": "Animatsiya yuklanmadi. Barcha ta’mlar va mahsulot ma’lumotlari katalogda mavjud.",
+    "loading": "3D sahnangiz tayyorlanmoqda"
+  },
+  "CompanyStory": {
+    "explore": "Tarix bilan tanishish",
+    "since": "Boshidan beri",
+    "continuing": "Tarix davom etmoqda",
+    "chapters": "Tarix boblari",
+    "journeyTitle": "SOFIN yo‘li",
+    "imageAlt": "Ferma va sut mahsulotlari tasviri",
+    "details": "Korxona haqida",
+    "backToTop": "Yuqoriga"
   }
 }

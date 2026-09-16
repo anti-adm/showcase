@@ -1,3 +1,4 @@
+import {pageMetadata} from "@/lib/metadata";
 import HeroStory from "@/components/home/sections/hero-story";
 import {HomeScrollShowcase} from "@/components/home/home-scroll-showcase";
 import {listedProducts, type ProductItem} from "@/components/products/products-data";
@@ -14,8 +15,7 @@ const FEATURED_PRODUCT_SLUGS = [
   "yogurt-raspberry-120",
   "yogurt-peach-120",
   "yogurt-strawberry-banana-270",
-  "qaymaq",
-  "tvorog-soft-5"
+  "qaymaq"
 ];
 
 export default async function HomePage({params}: Props) {
@@ -29,18 +29,23 @@ export default async function HomePage({params}: Props) {
   const featuredRecipes = recipes;
 
   return (
-    <>
+    <main className="home-showcase-page">
       <HeroStory />
       <HomeScrollShowcase
         locale={locale}
         products={featuredProducts}
         recipes={featuredRecipes}
       />
-    </>
+    </main>
   );
 }
 
 function normalizeLocale(locale: string): Locale {
   if (locale === "uz" || locale === "ru" || locale === "en") return locale;
   return "ru";
+}
+
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
+  return pageMetadata(locale, "home");
 }

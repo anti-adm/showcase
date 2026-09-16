@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Inter, Playfair_Display } from "next/font/google";
+import {inter, playfair} from "@/lib/fonts";
 import { useLocale } from "next-intl";
 import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -14,20 +15,14 @@ import {
   type TextSceneControls,
 } from "@/lib/showcase-controls";
 
-const playfair = Playfair_Display({
-  subsets: ["latin", "cyrillic"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-  fallback: ["Georgia", "Times New Roman", "serif"],
-});
 
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  fallback: ["system-ui", "Arial", "sans-serif"],
-});
-
+const MotionLink = motion.create(Link);
+const CUP_DETAIL_SLUGS: Record<string, string> = {
+  "SOFIN / MALINA": "yogurt-raspberry-120", "SOFIN / ANANAS": "yogurt-pineapple-120",
+  "SOFIN / BANAN": "yogurt-banana-120", "SOFIN / OLCHA": "yogurt-cherry-120",
+  "SOFIN / ORMON MEVA": "yogurt-forest-120", "SOFIN / QULUPNAY": "yogurt-strawberry-120",
+  "SOFIN / SHAFTOLI": "yogurt-peach-120"
+};
 const PREMIUM_EASE = [0.16, 1, 0.3, 1] as const;
 const CONTENT_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -271,6 +266,8 @@ function MobileTextLayer({
   uiLabels: UiLabels;
   disableInitialAnimation?: boolean;
 }) {
+  const locale = normalizeLocale(useLocale());
+  const detailSlug = CUP_DETAIL_SLUGS[content.eyebrow];
   const phases = step >= 4 ? TEXT_REVEAL_PHASES.productGlass : TEXT_REVEAL_PHASES.productPlain;
   const eyebrowIn = content.eyebrow ? getPhaseProgress(phases.eyebrow, progress) : 1;
   const titleIn = getPhaseProgress(phases.title, progress);
@@ -309,9 +306,9 @@ function MobileTextLayer({
             scale: getTimedTransition(1.08, PREMIUM_EASE),
             filter: getTimedTransition(0.9, CONTENT_EASE),
           }}
-          className="absolute inset-x-0 flex justify-center px-3"
+          className="cup-mobile-copy absolute inset-x-0 flex justify-center px-3"
           style={{
-            bottom: "calc(env(safe-area-inset-bottom) + 2.6rem)",
+            bottom: "max(18px, env(safe-area-inset-bottom))",
           }}
         >
           <motion.div
@@ -322,6 +319,7 @@ function MobileTextLayer({
               scale: lerp(0.97, 1, cardIn),
             }}
             transition={getPhaseTransition(0.95)}
+            data-showcase-copy
             className="relative w-full max-w-[360px] overflow-hidden border border-white/48 bg-[linear-gradient(145deg,rgba(255,255,255,0.68),rgba(255,255,255,0.34)_48%,rgba(255,249,244,0.22)_100%)] px-4 py-4 text-center shadow-[0_22px_72px_rgba(78,49,31,0.18)] backdrop-blur-[26px]"
             style={{
               borderRadius: "clamp(24px, 8vw, 34px)",
@@ -410,19 +408,19 @@ function MobileTextLayer({
                   transition={getPhaseTransition(0.84)}
                   className="mt-4 flex flex-wrap justify-center gap-2.5"
                 >
-                  <button
-                    type="button"
+                  <Link
+                    href={`/${locale}/products?category=yogurt`}
                     className={`${inter.className} pointer-events-auto rounded-full bg-[#2f241f] px-5 py-2.5 text-[11px] font-semibold uppercase text-white shadow-[0_14px_30px_rgba(47,36,31,0.18)]`}
                   >
                     {uiLabels.catalog}
-                  </button>
+                  </Link>
 
-                  <button
-                    type="button"
+                  {detailSlug && <Link
+                    href={`/${locale}/products/${detailSlug}`}
                     className={`${inter.className} pointer-events-auto rounded-full border border-white/52 bg-white/62 px-5 py-2.5 text-[11px] font-semibold uppercase text-[#3b2d26] backdrop-blur-xl`}
                   >
                     {uiLabels.details}
-                  </button>
+                  </Link>}
                 </motion.div>
               ) : null}
             </div>
@@ -450,7 +448,7 @@ function MalinaLinkedScene({
   const subtitleIn = step === 2 ? getPhaseProgress(phases.subtitle, progress) : 0;
 
   return (
-    <div className="pointer-events-none absolute inset-0">
+    <div className="cup-linked-copy pointer-events-none absolute inset-x-0" style={{top: TEXT_LAYER_EDITOR.malina.headline.top}}>
       <motion.div
         initial={
           disableInitialAnimation
@@ -464,9 +462,8 @@ function MalinaLinkedScene({
           filter: "blur(0px)",
         }}
         transition={getPhaseTransition(1.05)}
-        className="absolute inset-x-0 flex flex-col items-center px-4 text-center"
+        className="cup-scene-headline relative flex flex-col items-center px-4 text-center"
         style={{
-          top: TEXT_LAYER_EDITOR.malina.headline.top,
           ...getFloatingBlockMoveStyle(TEXT_LAYER_EDITOR.malina.headline),
         }}
       >
@@ -520,9 +517,8 @@ function MalinaLinkedScene({
           filter: cssBlur(lerp(12, 0, subtitleIn)),
         }}
         transition={getPhaseTransition(1.02)}
-        className="absolute inset-x-0 flex flex-col items-center px-4 text-center"
+        className="cup-scene-description relative flex flex-col items-center px-4 text-center"
         style={{
-          top: TEXT_LAYER_EDITOR.malina.body.top,
           width: "100%",
           ...getFloatingBlockMoveStyle(TEXT_LAYER_EDITOR.malina.body),
         }}
@@ -662,6 +658,8 @@ function GlassCardScene({
   uiLabels,
   disableInitialAnimation = false,
 }: SceneProps & { uiLabels: UiLabels }) {
+  const locale = normalizeLocale(useLocale());
+  const detailSlug = CUP_DETAIL_SLUGS[content.eyebrow];
   const phases = TEXT_REVEAL_PHASES.productGlass;
   const cardIn = getPhaseProgress(phases.card, progress);
   const eyebrowIn = getPhaseProgress(phases.eyebrow, progress);
@@ -903,8 +901,8 @@ function GlassCardScene({
             gap: TEXT_LAYER_EDITOR.glass.actionsGap,
           }}
         >
-          <motion.button
-            type="button"
+          <MotionLink
+            href={`/${locale}/products?category=yogurt`}
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.985 }}
             className={`${inter.className} pointer-events-auto rounded-full border border-[#2f241f]/12 bg-[#2f241f] font-medium uppercase text-white shadow-[0_16px_38px_rgba(47,36,31,0.18)] transition-colors duration-300 hover:bg-[#3a2c24]`}
@@ -915,10 +913,10 @@ function GlassCardScene({
             }}
           >
             {uiLabels.catalog}
-          </motion.button>
+          </MotionLink>
 
-          <motion.button
-            type="button"
+          {detailSlug && <MotionLink
+            href={`/${locale}/products/${detailSlug}`}
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.985 }}
             className={`${inter.className} pointer-events-auto rounded-full border border-white/46 bg-white/58 font-medium uppercase text-[#3b2d26] shadow-[0_10px_26px_rgba(255,255,255,0.12)] backdrop-blur-xl transition-colors duration-300 hover:bg-white/72`}
@@ -929,7 +927,7 @@ function GlassCardScene({
             }}
           >
             {uiLabels.details}
-          </motion.button>
+          </MotionLink>}
         </motion.div>
       </div>
     </motion.div>

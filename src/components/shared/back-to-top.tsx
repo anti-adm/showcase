@@ -1,10 +1,13 @@
 'use client';
 
-import {AnimatePresence, motion} from 'framer-motion';
+import {useLocale} from 'next-intl';
+import {AnimatePresence, motion, useReducedMotion} from 'framer-motion';
 import {ChevronUp} from 'lucide-react';
 import {useEffect, useState} from 'react';
 
 export function BackToTop() {
+  const locale = useLocale();
+  const reducedMotion = useReducedMotion();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -22,7 +25,8 @@ export function BackToTop() {
           className="liquid-back-to-top focus-ring fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full text-[color:var(--text)] sm:bottom-7 sm:right-6 sm:h-14 sm:w-14"
           exit={{opacity: 0, y: 14, scale: 0.9}}
           initial={{opacity: 0, y: 14, scale: 0.9}}
-          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          onClick={() => window.scrollTo({top: 0, behavior: reducedMotion ? 'auto' : 'smooth'})}
+          aria-label={locale === "ru" ? "Наверх" : locale === "en" ? "Back to top" : "Yuqoriga"}
           type="button"
         >
           <ChevronUp className="h-5 w-5" />

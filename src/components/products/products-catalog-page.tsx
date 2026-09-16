@@ -1,303 +1,95 @@
 "use client";
 
-import {useMemo, useState} from "react";
-import {motion, useReducedMotion} from "framer-motion";
-import {ArrowRight, ChevronDown, Sparkles} from "lucide-react";
+import {ArrowRight, Search, SlidersHorizontal, X} from "lucide-react";
 import {useLocale, useTranslations} from "next-intl";
-import Image from "next/image";
+import {usePathname, useSearchParams} from "next/navigation";
+import {useState} from "react";
+import Image from "@/components/shared/adaptive-image";
 import Link from "next/link";
-import {assetUrl} from "@/lib/assets";
-import {
-  getProductImage,
-  listedProducts,
-  type ProductCategory,
-  type ProductItem
-} from "./products-data";
+import {formatMeasure} from "@/lib/product-format";
+import {getProductImage, listedProducts, type ProductCategory, type ProductItem} from "./products-data";
 import {getProductDisplayTitle} from "./product-title";
+import productImages from "@/data/product-images.json";
 
-type Locale = "uz" | "ru" | "en";
+export type Locale = "uz" | "ru" | "en";
+const categoryOrder: ProductCategory[] = ["all", "kefir", "ayran", "yogurt", "qatiq", "cream", "tvorog", "cheese"];
 
-type ProductCardProps = {
-  locale: Locale;
-  product: ProductItem;
-  index: number;
-  reducedMotion: boolean;
-};
-
-const categoryOrder: ProductCategory[] = [
-  "all",
-  "kefir",
-  "ayran",
-  "yogurt",
-  "qatiq",
-  "cream",
-  "tvorog",
-  "cheese"
-];
-
-const cardVariants = {
-  hidden: {opacity: 0, y: 18},
-  visible: {opacity: 1, y: 0}
-};
-
-function getProductMeasure(product: ProductItem, locale: Locale) {
-  return product.netWeight ?? product.weight[locale].replace(/^[^:]+:\s*/, "");
-}
-
-function ProductCard({locale, product, index, reducedMotion}: ProductCardProps) {
-  const image = getProductImage(product);
+export function ProductCard({product, locale, priority = false, heading = "h2"}: {
+  product: ProductItem; locale: Locale; priority?: boolean; heading?: "h2" | "h3";
+}) {
   const title = getProductDisplayTitle(product.title[locale]);
-  const measure = getProductMeasure(product, locale);
-
+  const measure = formatMeasure(product.netWeight ?? product.weight[locale].replace(/^[^:]+:\s*/, ""), locale);
+  const image = (productImages as Record<string, string>)[product.slug] ?? getProductImage(product);
+  const Heading = heading;
   return (
-    <motion.article
-      variants={cardVariants}
-      initial={reducedMotion ? false : "hidden"}
-      whileInView={reducedMotion ? undefined : "visible"}
-      viewport={{once: true, amount: 0.14, margin: "60px 0px"}}
-      transition={{
-        duration: reducedMotion ? 0 : 0.5,
-        delay: reducedMotion ? 0 : Math.min((index % 10) * 0.022, 0.15),
-        ease: [0.22, 1, 0.36, 1]
-      }}
-      className="product-card-shell h-full"
-    >
-      <Link
-        href={`/${locale}/products/${product.slug}`}
-        className="group relative flex h-full min-h-[408px] flex-col overflow-hidden rounded-[22px] border border-white/60 bg-white/38 p-2 shadow-[0_18px_54px_rgba(44,78,120,0.09)] transition-[background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-white/90 hover:bg-white/54 hover:shadow-[0_24px_70px_rgba(44,78,120,0.14)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 sm:min-h-[490px] sm:rounded-[24px]"
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.92),transparent_34%),radial-gradient(circle_at_92%_0%,rgba(255,225,188,0.30),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.36),transparent_58%)]" />
-        <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-white/76" />
-
-        <div className="relative flex h-[238px] shrink-0 items-center justify-center overflow-hidden rounded-[18px] border border-white/70 bg-white/86 shadow-[inset_0_1px_0_rgba(255,255,255,0.96)] sm:h-[298px] sm:rounded-[22px]">
-          <span className="absolute left-2.5 top-2.5 z-10 rounded-full border border-white/80 bg-white/88 px-2.5 py-1 text-[9px] font-semibold tracking-[0.12em] text-slate-600 shadow-sm sm:left-3 sm:top-3 sm:text-[10px]">
-            {measure}
-          </span>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_12%,rgba(255,255,255,0.96),transparent_34%)]" />
-          <div className="relative aspect-[4/5] w-full max-w-[168px] overflow-hidden rounded-[16px] bg-white sm:max-w-[210px] sm:rounded-[18px]">
-            <Image
-              src={image}
-              alt={title}
-              fill
-              sizes="(min-width: 1536px) 16vw, (min-width: 1280px) 19vw, (min-width: 768px) 28vw, 45vw"
-              className="scale-[1.04] object-contain p-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.075] sm:p-2"
-              priority={index < 4}
-            />
-          </div>
+    <article className="product-card-shell catalog-card">
+      <Link href={`/${locale}/products/${product.slug}`} className="catalog-card-link">
+        <div className="catalog-card-image">
+          <Image src={image} alt={title} fill sizes="(min-width: 1280px) 300px, (min-width: 768px) 30vw, (min-width: 360px) 46vw, 90vw" priority={priority} className="object-contain" />
         </div>
-
-        <div className="relative mt-2 flex h-[154px] flex-col rounded-[18px] border border-white/58 bg-white/58 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.80)] sm:h-[172px] sm:rounded-[20px] sm:p-3">
-          <div className="mb-2 flex h-6 justify-end sm:mb-3">
-            {product.fatPercent ? (
-              <span className="shrink-0 rounded-full bg-[#eef5ef] px-2 py-1 text-[9px] font-semibold text-[#47735b] sm:text-[10px]">
-                {product.fatPercent}
-              </span>
-            ) : null}
-          </div>
-
-          <h2 className="line-clamp-2 min-h-[2.35rem] text-[13px] font-semibold leading-[1.3] text-slate-950 sm:min-h-[2.45rem] sm:text-[14px] sm:leading-[1.32]">
-            {title}
-          </h2>
-          <p className="mt-1 line-clamp-2 text-[11px] leading-5 text-slate-600 sm:text-xs sm:leading-5">
-            {product.subtitle[locale]}
-          </p>
-
-          <div className="mt-auto flex items-center justify-end gap-3 pt-3">
-            <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/70 bg-[var(--brand-primary)] text-white shadow-[0_14px_28px_rgba(12,58,106,0.16)] transition-transform duration-300 group-hover:translate-x-1 sm:h-9 sm:w-9">
-              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            </span>
-          </div>
+        <div className="catalog-card-copy">
+          <div className="catalog-card-meta"><span>{measure}</span>{product.fatPercent && <span>{product.fatPercent}</span>}</div>
+          <Heading>{title}</Heading>
+          <p>{product.subtitle[locale]}</p>
+          <span className="catalog-card-action">{locale === "ru" ? "Подробнее" : locale === "en" ? "View product" : "Batafsil"}<ArrowRight size={18} aria-hidden="true" /></span>
         </div>
       </Link>
-    </motion.article>
+    </article>
   );
 }
 
 export default function ProductsCatalogPage() {
   const t = useTranslations("ProductsCatalogPage");
+  const ui = useTranslations("CatalogExtras");
   const locale = useLocale() as Locale;
-  const [activeCategory, setActiveCategory] = useState<ProductCategory>("all");
-  const [catalogOpen, setCatalogOpen] = useState(false);
-  const reducedMotion = useReducedMotion() ?? false;
-
-  const categories = useMemo(
-    () =>
-      categoryOrder.map((key) => ({
-        key,
-        label: t(`filters.${key}`)
-      })),
-    [t]
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const query = params.get("q") ?? "";
+  const category = params.get("category") as ProductCategory;
+  const activeCategory = categoryOrder.includes(category) ? category : "all";
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const normalizedQuery = query.trim().toLocaleLowerCase(locale);
+  const filtered = listedProducts.filter((product) =>
+    (activeCategory === "all" || product.category === activeCategory) &&
+    `${product.title[locale]} ${product.subtitle[locale]} ${product.netWeight ?? ""}`.toLocaleLowerCase(locale).includes(normalizedQuery)
   );
-
-  const filteredProducts = useMemo(
-    () =>
-      activeCategory === "all"
-        ? listedProducts
-        : listedProducts.filter((product) => product.category === activeCategory),
-    [activeCategory]
-  );
-
-  const activeCategoryLabel =
-    categories.find((category) => category.key === activeCategory)?.label ?? t("filters.all");
-
+  function update(key: string, value: string) {
+    const next = new URLSearchParams(params.toString());
+    if (!value || (key === "category" && value === "all")) next.delete(key); else next.set(key, value);
+    window.history.replaceState(null, "", `${pathname}${next.size ? `?${next}` : ""}`);
+  }
+  function reset() {
+    const next = new URLSearchParams(params.toString()); next.delete("category"); next.delete("q");
+    window.history.replaceState(null, "", `${pathname}${next.size ? `?${next}` : ""}`);
+  }
   return (
-    <main className="relative overflow-x-hidden pt-24 sm:pt-32">
-      <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)]" />
-      <div className="absolute inset-0 -z-20 hidden sm:block">
-        <Image
-          src={assetUrl("/images/products.webp")}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center opacity-38"
-        />
+    <main className="catalog-page page-content">
+      <div className="content-container">
+        <div className="catalog-heading">
+          <span className="eyebrow">SOFIN / {t("eyebrow")}</span>
+          <h1 className="page-title">{t("title")}</h1>
+          <p className="page-intro">{ui("intro")}</p>
+        </div>
+        <div className="catalog-toolbar">
+          <label className="catalog-search">
+            <Search size={20} aria-hidden="true" />
+            <span className="sr-only">{ui("search")}</span>
+            <input type="search" value={query} onChange={(e) => update("q", e.target.value)} placeholder={ui("search")} maxLength={120} />
+          </label>
+          <button className="button-secondary catalog-filter-toggle" aria-expanded={filtersOpen} aria-controls="catalog-filters" onClick={() => setFiltersOpen(!filtersOpen)} type="button">
+            <SlidersHorizontal size={18} aria-hidden="true" />{ui("filters")}
+          </button>
+        </div>
+        <div id="catalog-filters" className={`catalog-filters ${filtersOpen ? "is-open" : ""}`}>
+          {categoryOrder.map((key) => <button key={key} type="button" aria-pressed={key === activeCategory} className="filter-chip" onClick={() => {update("category", key); setFiltersOpen(false);}}>{t(`filters.${key}`)}</button>)}
+        </div>
+        <div className="catalog-results-line">
+          <p role="status" aria-live="polite" aria-atomic="true">{ui("count", {count: filtered.length})}</p>
+          {(query || activeCategory !== "all") && <button type="button" onClick={reset} className="text-button"><X size={16} aria-hidden="true" />{ui("reset")}</button>}
+        </div>
+        {filtered.length ? <div className="catalog-grid">{filtered.map((product, index) => <ProductCard key={product.slug} product={product} locale={locale} priority={index < 4} />)}</div> :
+          <div className="catalog-empty"><Search size={32} aria-hidden="true" /><h2>{ui("emptyTitle")}</h2><p>{ui("emptyDescription")}</p><button type="button" className="button-primary" onClick={reset}>{ui("reset")}</button></div>}
       </div>
-      <div className="absolute inset-0 -z-20 sm:hidden">
-        <Image
-          src={assetUrl("/images/products-m.webp")}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center opacity-34"
-        />
-      </div>
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.30)_0%,rgba(218,231,246,0.44)_52%,rgba(207,222,239,0.58)_100%)]" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_4%,rgba(255,255,255,0.52),transparent_30%),radial-gradient(circle_at_88%_2%,rgba(192,218,255,0.20),transparent_34%),radial-gradient(circle_at_50%_100%,rgba(44,78,120,0.08),transparent_42%)]" />
-
-      <section className="mx-auto max-w-[1580px] px-3 pb-12 sm:px-6 sm:pb-16 lg:px-8">
-        <motion.div
-          initial={reducedMotion ? false : {opacity: 0, y: 18}}
-          animate={reducedMotion ? undefined : {opacity: 1, y: 0}}
-          transition={{duration: 0.66, ease: [0.22, 1, 0.36, 1]}}
-          className="rounded-[28px] border border-white/42 bg-white/[0.18] p-3 shadow-[0_24px_80px_rgba(44,78,120,0.11)] sm:rounded-[36px] sm:p-6 lg:p-8"
-        >
-          <div className="mx-auto max-w-[1010px] text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/62 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6d5d50] shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] sm:px-4 sm:text-[11px] sm:tracking-[0.24em]">
-              <Sparkles className="h-3.5 w-3.5 text-[#4b3d34]" />
-              {t("eyebrow")}
-            </div>
-
-            <h1 className="mt-4 text-balance text-[clamp(2.15rem,9vw,3rem)] font-semibold leading-[1.03] text-[var(--brand-primary)] sm:mt-5 sm:text-5xl lg:text-6xl">
-              {t("title")}
-            </h1>
-
-            {t("description") ? (
-              <p className="mx-auto mt-5 max-w-[720px] text-base leading-8 text-slate-700 lg:text-lg">
-                {t("description")}
-              </p>
-            ) : null}
-
-            <div className="mx-auto mt-5 max-w-[440px] sm:hidden">
-              <button
-                type="button"
-                aria-expanded={catalogOpen}
-                onClick={() => setCatalogOpen((value) => !value)}
-                className="flex min-h-14 w-full items-center justify-between gap-3 rounded-full border border-white/68 bg-white/72 px-4 text-left text-sm font-semibold text-[var(--brand-primary)] shadow-[0_16px_40px_rgba(44,78,120,0.12),inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl transition hover:bg-white/86"
-              >
-                <span className="inline-flex min-w-0 items-center gap-2">
-                  <Sparkles className="h-4 w-4 shrink-0 text-[#6d5d50]" />
-                  <span className="truncate">{t("eyebrow")}</span>
-                </span>
-                <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#eef4fb] px-3 py-1 text-[11px] text-slate-600">
-                  {activeCategoryLabel}
-                  <ChevronDown
-                    className={`h-3.5 w-3.5 transition-transform duration-300 ${catalogOpen ? "rotate-180" : ""}`}
-                  />
-                </span>
-              </button>
-
-              <motion.div
-                initial={false}
-                animate={
-                  catalogOpen
-                    ? {height: "auto", opacity: 1, y: 0}
-                    : {height: 0, opacity: 0, y: -8}
-                }
-                transition={{duration: reducedMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1]}}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 grid grid-cols-2 gap-2 rounded-[24px] border border-white/58 bg-white/50 p-2 shadow-[0_18px_50px_rgba(44,78,120,0.10)] backdrop-blur-xl">
-                  {categories.map((category) => {
-                    const active = activeCategory === category.key;
-
-                    return (
-                      <button
-                        key={category.key}
-                        type="button"
-                        aria-pressed={active}
-                        onClick={() => {
-                          setActiveCategory(category.key);
-                          setCatalogOpen(false);
-                        }}
-                        className={`min-h-11 rounded-full border px-3 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-[background-color,border-color,color,box-shadow,transform] duration-300 ${
-                          active
-                            ? "border-[var(--brand-primary)] bg-[var(--brand-primary)] text-white shadow-[0_16px_34px_rgba(12,58,106,0.16)]"
-                            : "border-white/54 bg-white/64 text-slate-700 hover:bg-white/86 hover:text-[var(--brand-primary)]"
-                        }`}
-                      >
-                        {category.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            </div>
-
-            <div className="mx-auto mt-8 hidden max-w-[680px] grid-cols-2 gap-2 min-[420px]:grid-cols-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-3">
-              {categories.map((category) => {
-                const active = activeCategory === category.key;
-
-                return (
-                  <button
-                    key={category.key}
-                    type="button"
-                    aria-pressed={active}
-                    onClick={() => setActiveCategory(category.key)}
-                    className={`w-full rounded-full border px-3 py-2.5 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-[background-color,border-color,color,box-shadow,transform] duration-300 sm:w-auto sm:px-5 ${
-                      active
-                        ? "border-[var(--brand-primary)] bg-[var(--brand-primary)] text-white shadow-[0_16px_34px_rgba(12,58,106,0.16)]"
-                        : "border-white/54 bg-white/58 text-slate-700 hover:-translate-y-0.5 hover:bg-white/76 hover:text-[var(--brand-primary)]"
-                    }`}
-                  >
-                    {category.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <motion.div
-            key={activeCategory}
-            initial={reducedMotion ? false : {opacity: 0, y: 10}}
-            animate={reducedMotion ? undefined : {opacity: 1, y: 0}}
-            transition={{duration: 0.36, ease: [0.22, 1, 0.36, 1]}}
-            className="mt-5 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
-          >
-            {filteredProducts.map((product, index) => (
-              <ProductCard
-                key={`${product.slug}-${index}`}
-                index={index}
-                locale={locale}
-                product={product}
-                reducedMotion={reducedMotion}
-              />
-            ))}
-          </motion.div>
-
-          {filteredProducts.length === 0 ? (
-            <motion.div
-              initial={reducedMotion ? false : {opacity: 0, y: 14}}
-              animate={reducedMotion ? undefined : {opacity: 1, y: 0}}
-              transition={{duration: 0.36}}
-              className="mt-10 rounded-[24px] border border-white/58 bg-white/58 px-6 py-10 text-center text-[#66594e]"
-            >
-              {t("empty")}
-            </motion.div>
-          ) : null}
-        </motion.div>
-      </section>
     </main>
   );
 }

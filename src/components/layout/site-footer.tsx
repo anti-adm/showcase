@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/shared/adaptive-image";
+import {siteContacts} from "@/data/contacts";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -34,8 +35,8 @@ export function SiteFooter() {
   ];
   const contactItems = [
     {href: "tel:+998712003636", label: t("phone"), icon: Phone},
-    {href: "mailto:hello@sofin.uz", label: t("email"), icon: Mail},
-    {href: "https://t.me/sofinuz", label: "Telegram", icon: Send}
+    {href: `mailto:${siteContacts.email}`, label: siteContacts.email, icon: Mail},
+    {href: siteContacts.telegram, label: "Telegram", icon: Send}
   ];
 
   return (
@@ -54,9 +55,9 @@ export function SiteFooter() {
       ) : null}
       <div className={isHome ? "container-shell relative z-10" : ""}>
       <div className="rounded-[34px] border border-white/62 bg-white/34 px-5 py-6 shadow-[0_24px_80px_rgba(44,78,120,0.10)] backdrop-blur-[24px] sm:px-7 sm:py-7 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[0.82fr_1.08fr_0.88fr] lg:items-stretch">
+        <div className="grid gap-6 xl:grid-cols-[0.82fr_1.08fr_0.88fr] lg:items-stretch">
           <div className="flex h-full flex-col gap-6">
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center gap-4">
               <div className="flex h-[78px] w-[78px] items-center justify-center rounded-[20px] bg-white/82 shadow-[0_14px_36px_rgba(25,68,112,0.10)]">
                 <Image
                   src="/logo/sofin-logo.webp"
@@ -68,16 +69,16 @@ export function SiteFooter() {
               </div>
 
               <div>
-                <div className="text-[clamp(1.45rem,2.1vw,2rem)] font-semibold tracking-[0.28em] text-[var(--text)]">
+                <div className="text-[clamp(1.35rem,2.1vw,2rem)] font-semibold tracking-[0.28em] text-[var(--text)]">
                   SOFIN
                 </div>
-                <div className="mt-1 text-xs uppercase tracking-[0.34em] text-[var(--muted)]">
+                <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-[var(--muted)]">
                   From farm to shelf
                 </div>
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 lg:mt-auto lg:grid-cols-1">
+            <div className="grid gap-3 lg:mt-auto lg:grid-cols-1">
               {contactItems.map((item) => {
                 const Icon = item.icon;
 
@@ -92,7 +93,7 @@ export function SiteFooter() {
                     <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef6ff] text-[var(--brand-primary)] shadow-[0_8px_20px_rgba(44,78,120,0.08)] transition group-hover:bg-white">
                       <Icon className="h-5 w-5" />
                     </span>
-                    <span className="truncate">{item.label}</span>
+                    <span className="min-w-0 break-all">{item.label}</span>
                     <ArrowRight className="ml-auto h-5 w-5 shrink-0 text-[#8aa3c4] transition group-hover:translate-x-0.5 group-hover:text-[var(--brand-primary)]" />
                   </a>
                 );
@@ -112,7 +113,7 @@ export function SiteFooter() {
 
             <div className="my-5 h-px bg-[#b9cbe1]/55" />
 
-            <nav className="grid grid-cols-2 gap-x-6 gap-y-7 text-center text-sm font-semibold text-[var(--text-soft)] sm:grid-cols-3">
+            <nav aria-label={t("navigation")} className="grid grid-cols-2 gap-x-6 gap-y-7 text-center text-sm font-semibold text-[var(--text-soft)] sm:grid-cols-3">
               {navItems.map((item) => {
                 const Icon = item.icon;
 
@@ -161,7 +162,7 @@ export function SiteFooter() {
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/70 text-[var(--brand-primary)] shadow-[0_10px_24px_rgba(44,78,120,0.08)]">
                   <Mail className="h-5 w-5" />
                 </span>
-                <p>{t("email")}</p>
+                <p className="min-w-0 break-all">{siteContacts.email}</p>
               </div>
             </div>
           </div>

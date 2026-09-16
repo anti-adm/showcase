@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const assetBaseUrl = process.env.NEXT_PUBLIC_ASSET_BASE_URL?.trim();
-const cloudflareImageCdn = process.env.NEXT_PUBLIC_IMAGE_CDN === 'cloudflare';
+const cloudflareImageCdn = process.env.NEXT_PUBLIC_USE_REMOTE_ASSETS === 'true' && process.env.NEXT_PUBLIC_IMAGE_CDN === 'cloudflare';
 
 function getAssetRemotePattern() {
   if (!assetBaseUrl) return undefined;

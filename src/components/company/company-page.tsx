@@ -1,252 +1,68 @@
 "use client";
 
-import {motion} from "framer-motion";
+import {useEffect, useRef, useState, type ReactNode} from "react";
+import {motion, useInView, useScroll, useSpring, useTransform} from "framer-motion";
 import {useTranslations} from "next-intl";
-import {
-  Award,
-  Factory,
-  Landmark,
-  Mail,
-  MapPin,
-  Milk,
-  Sprout,
-  Users
-} from "lucide-react";
-import {assetUrl} from "@/lib/assets";
+import {ArrowDown, Award, Factory, Landmark, Mail, MapPin, Milk, Sprout, Users} from "lucide-react";
+import Image from "@/components/shared/adaptive-image";
+import {siteContacts} from "@/data/contacts";
+import {usePrefersReducedMotion} from "@/lib/use-prefers-reduced-motion";
+import styles from "./company-story.module.css";
 
-const easeCurve = [0.22, 1, 0.36, 1] as const;
+const ease = [.22, 1, .36, 1] as const;
+const years = ["2000", "2017", "2019", "2021"];
 
-const fadeUp = {
-  initial: {opacity: 0, y: 36, filter: "blur(10px)"},
-  whileInView: {opacity: 1, y: 0, filter: "blur(0px)"},
-  viewport: {once: true, amount: 0.25},
-  transition: {duration: 0.8, ease: easeCurve}
-};
+function Reveal({children, className, delay = 0}: {children: ReactNode; className?: string; delay?: number}) {
+  const reduced = usePrefersReducedMotion();
+  return <motion.div className={className} initial="hidden" whileInView="visible" animate={reduced ? "visible" : undefined} viewport={{once: true, amount: .08}} variants={{hidden: {opacity: 0, y: 28, filter: "blur(7px)"}, visible: {opacity: 1, y: 0, filter: "blur(0px)"}}} transition={{duration: reduced ? 0 : .85, delay: reduced ? 0 : delay, ease}}>{children}</motion.div>;
+}
+
+function Milestone({year, title, text, icon, index, onActive}: {year: string; title: string; text: string; icon: ReactNode; index: number; onActive: (index: number) => void}) {
+  const ref = useRef<HTMLElement>(null);
+  const visible = useInView(ref, {margin: "-25% 0px -35% 0px"});
+  useEffect(() => {if (visible) onActive(index);}, [visible, index, onActive]);
+  return <article ref={ref} id={`year-${year}`} className={styles.milestone} data-company-year={year}>
+    <Reveal className={styles.yearStamp}><span>{String(index + 1).padStart(2, "0")}</span><strong>{year}</strong></Reveal>
+    <Reveal className={styles.chapterCard} delay={.1}><span className={styles.chapterIcon}>{icon}</span><h3>{title}</h3><p>{text}</p></Reveal>
+  </article>;
+}
 
 export default function CompanyPage() {
   const t = useTranslations("CompanyPage");
-
+  const ui = useTranslations("CompanyStory");
+  const reduced = usePrefersReducedMotion();
+  const timelineRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+  const {scrollYProgress} = useScroll({target: timelineRef, offset: ["start center", "end center"]});
+  const progress = useSpring(scrollYProgress, {stiffness: 110, damping: 30, mass: .6});
+  const glowY = useTransform(progress, [0, 1], [0, 120]);
   const milestones = [
-    {
-      year: "2000",
-      title: t("timeline.foundation.title"),
-      text: t("timeline.foundation.text"),
-      icon: Landmark
-    },
-    {
-      year: "2017",
-      title: t("timeline.import.title"),
-      text: t("timeline.import.text"),
-      icon: Sprout
-    },
-    {
-      year: "2019",
-      title: t("timeline.factory.title"),
-      text: t("timeline.factory.text"),
-      icon: Factory
-    },
-    {
-      year: "2021",
-      title: t("timeline.award.title"),
-      text: t("timeline.award.text"),
-      icon: Award
-    }
+    {year: "2000", key: "foundation", icon: <Landmark size={26} />},
+    {year: "2017", key: "import", icon: <Sprout size={26} />},
+    {year: "2019", key: "factory", icon: <Factory size={26} />},
+    {year: "2021", key: "award", icon: <Award size={26} />}
   ];
+  return <main className={`${styles.page} company-page`}>
+    <section className={`${styles.hero} content-container`}>
+      <div className={styles.heroCopy}><Reveal><span className="eyebrow">SOFIN / {t("badge")}</span><h1>{t("title")}</h1></Reveal><Reveal delay={.16}><p>{t("description")}</p><a className="button-primary" href="#company-journey" onClick={event => {event.preventDefault(); document.getElementById('company-journey')?.scrollIntoView({behavior: reduced ? 'auto' : 'smooth'});}}>{ui("explore")}<ArrowDown size={18} aria-hidden="true" /></a></Reveal></div>
+      <Reveal className={styles.heroVisual} delay={.12}><Image src="/images/company.webp" alt={ui("imageAlt")} fill priority sizes="(min-width: 1024px) 650px, 90vw" className="object-cover" /><div className={styles.visualShade} /><div className={styles.since}><span>{ui("since")}</span><strong>2000</strong><span>{ui("continuing")}</span></div></Reveal>
+    </section>
 
-  const stats = [
-    {value: "37", label: t("stats.products")},
-    {value: "40T", label: t("stats.factory")},
-    {value: "394", label: t("stats.cattle")},
-    {value: "4000–5000L", label: t("stats.milk")}
-  ];
+    <section className={`${styles.intro} content-container`}>
+      <Reveal><span className="eyebrow">{t("intro.eyebrow")}</span><h2>{t("intro.title")}</h2></Reveal>
+      <Reveal delay={.1} className={styles.introCopy}>{[1,2,3].map(index => <p key={index}>{t(`intro.paragraph${index}`)}</p>)}</Reveal>
+    </section>
 
-  return (
-    <main className="relative min-h-screen overflow-hidden pt-28 sm:pt-32">
-      <div className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#dfe8f2_0%,#d8e3ef_50%,#d1dcea_100%)]" />
+    <section ref={timelineRef} id="company-journey" className={`${styles.journey} content-container`}>
+      <aside className={styles.chapterNav}><span className="eyebrow">{ui("chapters")}</span><h2>{ui("journeyTitle")}</h2><nav aria-label={ui("chapters")}>{years.map((year,index) => <a key={year} href={`#year-${year}`} aria-current={active === index ? "step" : undefined} onClick={event => {event.preventDefault(); document.getElementById(`year-${year}`)?.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'center'});}}><span>{year}</span><span className={styles.navDot} /></a>)}</nav><div className={styles.progressTrack}><motion.span style={{scaleX: reduced ? scrollYProgress : progress}} /></div></aside>
+      <div className={styles.chapters}><motion.div className={styles.journeyGlow} aria-hidden="true" style={{y: reduced ? 0 : glowY}} />{milestones.map((item,index) => <Milestone key={item.year} year={item.year} index={index} onActive={setActive} title={t(`timeline.${item.key}.title`)} text={t(`timeline.${item.key}.text`)} icon={item.icon} />)}</div>
+    </section>
 
-      <div
-        className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat opacity-45"
-        style={{backgroundImage: `url("${assetUrl("/images/company.webp")}")`}}
-      />
-
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(237,244,252,0.16)_0%,rgba(218,231,246,0.24)_52%,rgba(207,222,239,0.34)_100%)] backdrop-blur-[4px]" />
-
-      <section className="mx-auto max-w-[1440px] px-5 pb-16 sm:px-8 lg:px-10">
-        <div className="rounded-[36px] border border-white/35 bg-white/1 p-5 shadow-[0_24px_80px_rgba(44,78,120,0.10)] backdrop-blur-[18px] sm:p-7 lg:p-8">
-          <motion.div
-            {...fadeUp}
-            className="mx-auto max-w-[920px] text-center"
-          >
-            <div className="inline-flex rounded-full border border-[rgba(12,58,106,0.10)] bg-white/60 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.28em] text-[var(--brand-primary)]">
-              {t("badge")}
-            </div>
-
-            <h1 className="mt-5 text-balance text-4xl font-semibold tracking-[-0.05em] text-[var(--brand-primary)] sm:text-5xl lg:text-6xl">
-              {t("title")}
-            </h1>
-
-            <p className="mx-auto mt-5 max-w-[820px] text-pretty text-base leading-8 text-slate-700 sm:text-lg">
-              {t("description")}
-            </p>
-          </motion.div>
-
-          <motion.section
-            {...fadeUp}
-            className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]"
-          >
-            <div className="rounded-[32px] border border-white/24 bg-white/8 p-6 shadow-[0_20px_70px_rgba(44,78,120,0.08)] backdrop-blur-[16px] sm:p-8">
-              <div className="text-sm uppercase tracking-[0.24em] text-slate-500">
-                {t("intro.eyebrow")}
-              </div>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[var(--brand-primary)] sm:text-4xl">
-                {t("intro.title")}
-              </h2>
-              <div className="mt-6 space-y-4 text-[15px] leading-8 text-slate-700 sm:text-base">
-                <p>{t("intro.paragraph1")}</p>
-                <p>{t("intro.paragraph2")}</p>
-                <p>{t("intro.paragraph3")}</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  initial={{opacity: 0, y: 24, filter: "blur(8px)"}}
-                  whileInView={{opacity: 1, y: 0, filter: "blur(0px)"}}
-                  viewport={{once: true, amount: 0.35}}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.08,
-                    ease: easeCurve
-                  }}
-                  className="rounded-[28px] border border-white/40 bg-white/30 p-5 shadow-[0_18px_50px_rgba(44,78,120,0.06)] backdrop-blur-[14px] sm:p-6"
-                >
-                  <div className="text-3xl font-semibold tracking-[-0.05em] text-[var(--brand-primary)] sm:text-4xl">
-                    {item.value}
-                  </div>
-                  <div className="mt-2 text-sm leading-6 text-slate-600">
-                    {item.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
-
-          <section className="mt-10 space-y-6">
-            {milestones.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <motion.article
-                  key={item.year}
-                  initial={{opacity: 0, y: 40, filter: "blur(10px)"}}
-                  whileInView={{opacity: 1, y: 0, filter: "blur(0px)"}}
-                  viewport={{once: true, amount: 0.22}}
-                  transition={{
-                    duration: 0.82,
-                    delay: index * 0.05,
-                    ease: easeCurve
-                  }}
-                  className="grid grid-cols-1 gap-4 rounded-[32px] border border-white/38 bg-white/20 p-5 shadow-[0_18px_60px_rgba(44,78,120,0.08)] backdrop-blur-[16px] sm:p-6 lg:grid-cols-[180px_1fr]"
-                >
-                  <div className="flex items-start gap-4 lg:flex-col lg:gap-5">
-                    <div className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[rgba(12,58,106,0.08)] text-[var(--brand-primary)]">
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <div className="text-sm uppercase tracking-[0.24em] text-slate-500">
-                        {t("timelineLabel")}
-                      </div>
-                      <div className="mt-1 text-3xl font-semibold tracking-[-0.04em] text-[var(--brand-primary)]">
-                        {item.year}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-[26px] border border-white/24 bg-white/12 p-5 backdrop-blur-[14px] sm:p-6">
-                    <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[var(--brand-primary)] sm:text-3xl">
-                      {item.title}
-                    </h3>
-                    <p className="mt-4 text-[15px] leading-8 text-slate-700 sm:text-base">
-                      {item.text}
-                    </p>
-                  </div>
-                </motion.article>
-              );
-            })}
-          </section>
-
-          <motion.section
-            {...fadeUp}
-            className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[0.9fr_1.1fr]"
-          >
-            <div className="rounded-[28px] border border-white/26 bg-white/12 p-6 shadow-[0_20px_70px_rgba(44,78,120,0.08)] backdrop-blur-[16px] sm:p-8">
-              <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[rgba(12,58,106,0.08)] text-[var(--brand-primary)]">
-                <Milk className="h-6 w-6" />
-              </div>
-              <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-[var(--brand-primary)] sm:text-4xl">
-                {t("production.title")}
-              </h2>
-              <div className="mt-5 space-y-4 text-[15px] leading-8 text-slate-700 sm:text-base">
-                <p>{t("production.paragraph1")}</p>
-                <p>{t("production.paragraph2")}</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <InfoCard
-                icon={<Users className="h-5 w-5" />}
-                title={t("cards.employment.title")}
-                text={t("cards.employment.text")}
-              />
-              <InfoCard
-                icon={<Factory className="h-5 w-5" />}
-                title={t("cards.capacity.title")}
-                text={t("cards.capacity.text")}
-              />
-              <InfoCard
-                icon={<MapPin className="h-5 w-5" />}
-                title={t("cards.address.title")}
-                text={t("cards.address.text")}
-              />
-              <InfoCard
-                icon={<Mail className="h-5 w-5" />}
-                title={t("cards.email.title")}
-                text="yangi_asr_2000@mail.ru"
-              />
-            </div>
-          </motion.section>
-        </div>
-      </section>
-    </main>
-  );
-}
-
-function InfoCard({
-  icon,
-  title,
-  text
-}: {
-  icon: React.ReactNode;
-  title: string;
-  text: string;
-}) {
-  return (
-    <motion.div
-      initial={{opacity: 0, y: 24, filter: "blur(8px)"}}
-      whileInView={{opacity: 1, y: 0, filter: "blur(0px)"}}
-      viewport={{once: true, amount: 0.28}}
-      transition={{duration: 0.75, ease: easeCurve}}
-      className="rounded-[28px] border border-white/40 bg-white/30 p-5 shadow-[0_18px_50px_rgba(44,78,120,0.06)] backdrop-blur-[14px] sm:p-6"
-    >
-      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[rgba(12,58,106,0.08)] text-[var(--brand-primary)]">
-        {icon}
-      </div>
-      <h3 className="mt-4 text-lg font-semibold text-[var(--brand-primary)]">
-        {title}
-      </h3>
-      <p className="mt-2 text-sm leading-7 text-slate-700">{text}</p>
-    </motion.div>
-  );
+    <section className={`${styles.production} content-container`}>
+      <Reveal className={styles.productionCopy}><span className={styles.chapterIcon}><Milk size={28} aria-hidden="true" /></span><h2>{t("production.title")}</h2><p>{t("production.paragraph1")}</p><p>{t("production.paragraph2")}</p></Reveal>
+      <div className={styles.facts}>{[{value:"37",label:t("stats.products")},{value:"40T",label:t("stats.factory")},{value:"394",label:t("stats.cattle")},{value:"4000–5000L",label:t("stats.milk")}].map((item,index)=><Reveal key={item.label} className={styles.fact} delay={(index % 2) * .08}><strong>{item.value}</strong><span>{item.label}</span></Reveal>)}</div>
+    </section>
+    <section className={`${styles.infoGrid} content-container`} aria-label={ui("details")}>{[{icon:<Users size={22}/>,key:'employment'},{icon:<Factory size={22}/>,key:'capacity'},{icon:<MapPin size={22}/>,key:'address'},{icon:<Mail size={22}/>,key:'email'}].map((item,index)=><Reveal key={item.key} className={styles.infoCard} delay={index * .04}><span className={styles.chapterIcon}>{item.icon}</span><h3>{t(`cards.${item.key}.title`)}</h3>{item.key==='email'?<a href={`mailto:${siteContacts.email}`}>{siteContacts.email}</a>:<p>{t(`cards.${item.key}.text`)}</p>}</Reveal>)}</section>
+    <button type="button" className={`button-secondary ${styles.returnTop}`} onClick={() => window.scrollTo({top: 0, behavior: reduced ? "auto" : "smooth"})}>{ui("backToTop")}<ArrowDown size={18} className="rotate-180" aria-hidden="true" /></button>
+  </main>;
 }

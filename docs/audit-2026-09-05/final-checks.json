@@ -1,0 +1,255 @@
+[
+  {
+    "route": "/ru",
+    "totalBytes": 10913647,
+    "largest": [
+      {
+        "url": "http://localhost:3211/images/main-hero-4k.png",
+        "bytes": 5221605
+      },
+      {
+        "url": "http://localhost:3211/images/home/mobile-hero-products.png",
+        "bytes": 2152298
+      },
+      {
+        "url": "http://localhost:3211/images/hero/hero-second.png",
+        "bytes": 2032513
+      },
+      {
+        "url": "http://localhost:3211/images/hero/hero-products.webp",
+        "bytes": 473072
+      },
+      {
+        "url": "http://localhost:3211/images/main-hero-m.webp",
+        "bytes": 290034
+      },
+      {
+        "url": "http://localhost:3211/images/main-hero.webp",
+        "bytes": 194278
+      },
+      {
+        "url": "http://localhost:3211/images/brand/pack-line.webp",
+        "bytes": 73346
+      },
+      {
+        "url": "http://localhost:3211/logo/sofin-logo.webp",
+        "bytes": 66576
+      }
+    ],
+    "h1": "Inter, \"Inter Fallback\", Arial, Helvetica, sans-serif",
+    "fonts": [
+      {
+        "family": "Inter",
+        "weight": "100 900"
+      },
+      {
+        "family": "Inter",
+        "weight": "100 900"
+      }
+    ]
+  },
+  {
+    "route": "/ru/yogurts",
+    "totalBytes": 25650219,
+    "largest": [
+      {
+        "url": "http://localhost:3211/images/yogurts/sofin-yogurt-cups-hero-4k.png",
+        "bytes": 6553866
+      },
+      {
+        "url": "http://localhost:3211/media/slide3.png",
+        "bytes": 2217969
+      },
+      {
+        "url": "http://localhost:3211/media/slide5.png",
+        "bytes": 2191904
+      },
+      {
+        "url": "http://localhost:3211/media/slide4.png",
+        "bytes": 2190220
+      },
+      {
+        "url": "http://localhost:3211/media/slide2.png",
+        "bytes": 2147722
+      },
+      {
+        "url": "http://localhost:3211/media/slide1.png",
+        "bytes": 2046875
+      },
+      {
+        "url": "http://localhost:3211/images/yogurts/sofin-yogurt-cups-hero-mobile.webp",
+        "bytes": 1385124
+      },
+      {
+        "url": "http://localhost:3211/textures/products2/YOGURT_BOTTLE_QULUPNAY_BANAN.webp",
+        "bytes": 438976
+      }
+    ],
+    "h1": "\"Playfair Display\", \"Playfair Display Fallback\", Georgia, \"Times New Roman\", serif",
+    "fonts": [
+      {
+        "family": "Inter",
+        "weight": "100 900"
+      },
+      {
+        "family": "Inter",
+        "weight": "100 900"
+      },
+      {
+        "family": "Playfair Display",
+        "weight": "500"
+      },
+      {
+        "family": "Playfair Display",
+        "weight": "500"
+      },
+      {
+        "family": "Playfair Display",
+        "weight": "600"
+      },
+      {
+        "family": "Playfair Display",
+        "weight": "600"
+      },
+      {
+        "family": "Inter",
+        "weight": "400"
+      },
+      {
+        "family": "Inter",
+        "weight": "400"
+      },
+      {
+        "family": "Inter",
+        "weight": "500"
+      },
+      {
+        "family": "Inter",
+        "weight": "500"
+      },
+      {
+        "family": "Inter",
+        "weight": "600"
+      },
+      {
+        "family": "Inter",
+        "weight": "600"
+      }
+    ]
+  },
+  {
+    "route": "/ru/yogurts?showcase=bottles",
+    "totalBytes": 15018080,
+    "largest": [
+      {
+        "url": "http://localhost:3211/sofin-yogur-pics/background-bottles.png",
+        "bytes": 5370132
+      },
+      {
+        "url": "http://localhost:3211/sofin-yogur-pics/background-bottles-m.png",
+        "bytes": 1723898
+      },
+      {
+        "url": "http://localhost:3211/textures/products2/YOGURT_BOTTLE_QULUPNAY_BANAN.webp",
+        "bytes": 438976
+      },
+      {
+        "url": "http://localhost:3211/textures/products2/YOGURT_BOTTLE_QULUPNAY.webp",
+        "bytes": 423246
+      },
+      {
+        "url": "http://localhost:3211/textures/products2/YOGURT_BOTTLE_BANAN.webp",
+        "bytes": 421676
+      },
+      {
+        "url": "http://localhost:3211/textures/products2/YOGURT_BOTTLE_MALINA.webp",
+        "bytes": 416370
+      },
+      {
+        "url": "http://localhost:3211/textures/products2/YOGURT_BOTTLE_ORMON_MEVA.webp",
+        "bytes": 410282
+      },
+      {
+        "url": "http://localhost:3211/textures/products2/YOGURT_BOTTLE_SHAFTOLI.webp",
+        "bytes": 404810
+      }
+    ],
+    "h1": "\"Playfair Display\", \"Playfair Display Fallback\", Georgia, serif",
+    "fonts": [
+      {
+        "family": "Inter",
+        "weight": "100 900"
+      },
+      {
+        "family": "Inter",
+        "weight": "100 900"
+      },
+      {
+        "family": "Playfair Display",
+        "weight": "400 900"
+      },
+      {
+        "family": "Playfair Display",
+        "weight": "400 900"
+      },
+      {
+        "family": "Inter",
+        "weight": "400"
+      },
+      {
+        "family": "Inter",
+        "weight": "400"
+      },
+      {
+        "family": "Inter",
+        "weight": "600"
+      },
+      {
+        "family": "Inter",
+        "weight": "600"
+      }
+    ]
+  },
+  {
+    "formLiveRegions": 0
+  },
+  {
+    "lightboxNextHitTest": {
+      "hit": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-right h-5 w-5\" aria-hidden=\"true\"><path d=\"m9 18 6-6-6-6\"></path></svg>",
+      "clickable": true
+    }
+  },
+  {
+    "backToTopButtons": [
+      {
+        "ariaLabel": null,
+        "title": null,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "configuredRemoteConsole": [
+      "Access to fetch at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/models/products/base-cup.glb' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/ananas-lid.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/banan-side.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/banan-lid.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/malina-lid.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to fetch at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/models/products/base-cup.glb' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/olcha-side.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/ormon-meva-side.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/olcha-lid.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Access to image at 'https://pub-c989a42aeddb41c38229a5e3b4dd2c94.r2.dev/textures/products/ormon-meva-lid.webp' from origin 'http://localhost:3210' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  }
+]

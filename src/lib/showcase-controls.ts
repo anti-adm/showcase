@@ -217,18 +217,18 @@ export const TEXT_LAYER_CONTROLS = {
   malina: {
     headline: {
       x: "0px",
-      y: "-45px",
-      top: "clamp(10vh, 18vh, 19vh)",
+      y: "0px",
+      top: "max(var(--scene-content-top, 184px), 18vh)",
     },
     body: {
       x: "0px",
       y: "0px",
       top: "clamp(40vh, 43vh, 45vh)",
     },
-    titleFontSize: "clamp(3.2rem, 4.2vw, 6rem)",
+    titleFontSize: "clamp(2.6rem, min(4.2vw, 7vh), 5.3rem)",
     titleLineHeight: 0.92,
     titleLetterSpacing: "0em",
-    titleMaxWidth: "16ch",
+    titleMaxWidth: "26ch",
     eyebrowFontSize: "11px",
     eyebrowTracking: "0em",
     bodyWidth: "min(86vw, 1080px)",

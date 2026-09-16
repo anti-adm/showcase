@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Playfair_Display } from "next/font/google";
+import {playfair as collectionSerif} from "@/lib/fonts";
 import { useLocale } from "next-intl";
 import {ArrowRight, Heart, Leaf, Milk, ShieldCheck} from "lucide-react";
 import { IntroClusterStage } from "@/components/intro-cluster-stage";
@@ -32,12 +32,6 @@ const SHOWCASE_UNMOUNT_AFTER_COLLECTION_MS = 1120;
 
 type Locale = "uz" | "ru" | "en";
 
-const collectionSerif = Playfair_Display({
-  subsets: ["latin", "cyrillic"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-  fallback: ["Georgia", "Times New Roman", "serif"],
-});
 
 type AnimatedStep = Exclude<ShowcaseStep, 0>;
 type ProgressKey = `step${AnimatedStep}`;
@@ -184,6 +178,7 @@ export function YogurtsShowcasePage() {
 
   useEffect(() => {
     const preventTouchBounce = (event: TouchEvent) => {
+      if (isScrollableCopy(event.target)) return;
       if (event.touches.length > 1) return;
       if (isMobileRef.current && collectionStageRef.current > 0) return;
       event.preventDefault();
@@ -279,29 +274,29 @@ export function YogurtsShowcasePage() {
   }, [collectionActive]);
 
   useEffect(() => {
-    const commitProgressState = (nextProgress: ProgressState) => {
+    const commitProgressState = (nextProgress: ProgressState, complete = false) => {
       const previous = progressRef.current;
       const hasChanged = PROGRESS_KEYS.some(
         (key) => Math.abs(previous[key] - nextProgress[key]) > 0.0005
       );
 
-      if (!hasChanged) return false;
+      if (!hasChanged && !complete) return false;
 
       progressRef.current = nextProgress;
       setProgressState(nextProgress);
       return true;
     };
 
-    const setProgress = (key: ProgressKey, value: number) => {
+    const setProgress = (key: ProgressKey, value: number, complete = false) => {
       const currentValue = progressRef.current[key];
-      if (Math.abs(currentValue - value) <= 0.0005) return false;
+      if (Math.abs(currentValue - value) <= 0.0005 && !complete) return false;
 
       const nextProgress = {
         ...progressRef.current,
         [key]: value,
       };
 
-      return commitProgressState(nextProgress);
+      return commitProgressState(nextProgress, complete);
     };
 
     const run = (
@@ -314,7 +309,7 @@ export function YogurtsShowcasePage() {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
       if (Math.abs(from - to) <= 0.0005) {
-        setProgress(key, to);
+        setProgress(key, to, true);
         runningRef.current = false;
         rafRef.current = null;
         onDone?.();
@@ -328,7 +323,8 @@ export function YogurtsShowcasePage() {
         const eased = easeInOutCubic(t);
         const next = from + (to - from) * eased;
 
-        setProgress(key, next);
+        // Always commit the exact endpoint before accepting the next navigation.
+        setProgress(key, next, t === 1);
 
         if (t < 1) {
           rafRef.current = requestAnimationFrame(tick);
@@ -440,6 +436,7 @@ export function YogurtsShowcasePage() {
     };
 
     const onWheel = (event: WheelEvent) => {
+      if (isScrollableCopy(event.target)) return;
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
       event.preventDefault();
 
@@ -447,6 +444,7 @@ export function YogurtsShowcasePage() {
     };
 
     const onTouchStart = (event: TouchEvent) => {
+      if (isScrollableCopy(event.target)) {touchStartYRef.current = null; return;}
       if (event.touches.length !== 1) return;
       touchStartYRef.current = event.touches[0].clientY;
     };
@@ -478,6 +476,7 @@ export function YogurtsShowcasePage() {
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLElement && event.target.closest("button, a, input, textarea, select, [data-showcase-copy]")) return;
       if (event.defaultPrevented || isTypingTarget(event.target)) return;
 
       if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ") {
@@ -669,7 +668,7 @@ export function YogurtsShowcasePage() {
 
   return (
     <main
-      className="relative min-h-dvh overflow-hidden"
+      className="fixed inset-0 z-40 overflow-clip"
       style={{
         background: palette.base,
         overscrollBehavior: "none",
@@ -868,7 +867,7 @@ function YogurtCupsHeroOverlay({
         </p>
 
         <button
-          className="pointer-events-auto mt-7 inline-flex min-h-14 items-center gap-4 rounded-full bg-[#eaa074] px-7 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(204,111,63,0.24)] transition hover:-translate-y-0.5 hover:bg-[#df9061] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eaa074] focus-visible:ring-offset-2 max-md:mt-4 max-md:min-h-11 max-md:px-5 max-md:text-[13px]"
+          className="pointer-events-auto mt-7 inline-flex min-h-14 items-center gap-4 rounded-full bg-[#0c3a6a] px-7 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(204,111,63,0.24)] transition hover:-translate-y-0.5 hover:bg-[#174d9e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eaa074] focus-visible:ring-offset-2 max-md:mt-4 max-md:min-h-11 max-md:px-5 max-md:text-[13px]"
           onClick={goNext}
           type="button"
         >
@@ -1065,7 +1064,7 @@ function CollectionExperience({
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(244,250,251,0.28),rgba(244,250,251,0.08)_42%,rgba(244,250,251,0.22)_100%)]" />
 
-        <div className="relative z-10 flex min-h-[220vh] flex-col px-5 pb-14 pt-28">
+        <div className="collection-mobile-content relative z-10 flex min-h-full flex-col px-5 pb-14">
           <header className="mx-auto flex max-w-190 flex-col items-center text-center">
             <p
               className={`${collectionSerif.className} text-[clamp(2.4rem,16vw,4.7rem)] font-semibold uppercase leading-[0.9] text-[#241a16]/92`}
@@ -1114,7 +1113,6 @@ function CollectionExperience({
             ))}
           </div>
 
-          <div className="min-h-[20vh]" />
         </div>
       </section>
     );
@@ -1140,7 +1138,7 @@ function CollectionExperience({
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(244,250,251,0.34),rgba(244,250,251,0.12)_42%,rgba(244,250,251,0.28)_100%)]" />
 
       <div
-        className="absolute inset-x-0 top-[15.8vh] z-30 flex flex-col items-center px-5 text-center transition-[transform,opacity,filter] duration-620"
+        className="collection-heading absolute inset-x-0 z-30 flex flex-col items-center px-5 text-center transition-[transform,opacity,filter] duration-620"
         style={{
           transform:
             stage <= 1 ? "translate3d(0,0,0)" : "translate3d(0,-0.7vh,0) scale(0.94)",
@@ -1160,7 +1158,7 @@ function CollectionExperience({
       </div>
 
       <div
-        className="absolute bottom-[4vh] left-0 z-20 flex gap-[clamp(1rem,2vw,2rem)] px-[clamp(1rem,5vw,4.5rem)] transition-[transform,opacity,filter] duration-620"
+        className="collection-track absolute left-0 z-20 flex gap-[clamp(1rem,2vw,2rem)] px-[clamp(1rem,5vw,4.5rem)] transition-[transform,opacity,filter] duration-620"
         style={{
           transform: `translate3d(${carouselShift}vw, 0, 0)`,
           opacity: 1,
@@ -1174,9 +1172,9 @@ function CollectionExperience({
           return (
             <article
               key={`${slide.eyebrow}-${index}`}
-              className="relative h-[min(62vh,620px)] w-[min(72vw,440px)] shrink-0 overflow-hidden rounded-lg shadow-[0_28px_80px_rgba(38,30,24,0.2)] transition-[transform,opacity,filter] duration-520"
+              className="collection-slide relative w-[min(72vw,440px)] shrink-0 overflow-hidden rounded-lg shadow-[0_28px_80px_rgba(38,30,24,0.2)] transition-[transform,opacity,filter] duration-520"
               style={{
-                transform: focused ? "translateY(-4vh) scale(1.035)" : "translateY(0) scale(1)",
+                transform: focused ? "translateY(-10px) scale(1.018)" : "translateY(0) scale(1)",
                 opacity: stage <= 1 || focused ? 1 : 0.58,
                 filter: focused || stage <= 1 ? "blur(0px)" : "blur(1.2px)",
                 transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -1433,4 +1431,9 @@ function buildBackground(
     radial-gradient(circle at 50% 58%, ${rgbaFromHex(palette.milk, 0.08 + pulse * 0.06)}, transparent 44%),
     linear-gradient(180deg, ${rgbaFromHex(palette.base, 0.98)}, ${rgbaFromHex(palette.base, 0.92)})
   `;
+}
+
+function isScrollableCopy(target: EventTarget | null) {
+  const copy = target instanceof Element ? target.closest<HTMLElement>("[data-showcase-copy]") : null;
+  return !!copy && copy.scrollHeight > copy.clientHeight + 1;
 }

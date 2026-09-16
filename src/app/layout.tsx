@@ -1,23 +1,13 @@
 import type {Metadata, Viewport} from "next";
-import {Inter, Playfair_Display} from "next/font/google";
+import {inter, playfair} from "@/lib/fonts";
+import {getLocale} from "next-intl/server";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-sans",
-  display: "swap"
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-display",
-  display: "swap"
-});
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  ...(process.env.NEXT_PUBLIC_SITE_URL ? {metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL)} : {}),
   title: "SOFIN",
-  description: "SOFIN premium dairy brand website foundation.",
+  description: "SOFIN — sut mahsulotlari. Yogurt, kefir, tvorog va pishloqlar.",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -35,13 +25,14 @@ export const viewport: Viewport = {
   themeColor: "#eef4fb"
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
   return (
-    <html lang="uz" suppressHydrationWarning>
+    <html lang={locale}>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         {children}
       </body>

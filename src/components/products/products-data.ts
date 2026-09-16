@@ -1412,121 +1412,7 @@ export const products: ProductItem[] = [
     address,
     openedText: hardCheeseOpenedText
   },
-  {
-  slug: "tvorog-soft-5",
-  badge: "32",
-  category: "tvorog",
-  title: {
-    uz: "Yumshoq tvorog pishloq 5%",
-    ru: "Мягкий творожный сыр 5%",
-    en: "Soft Curd Cheese 5%"
-  },
-  subtitle: {
-    uz: "Tvorog pishloq",
-    ru: "Творожный сыр",
-    en: "Curd cheese"
-  },
-  weight: {
-    uz: "Sof massa: 400 g",
-    ru: "Масса нетто: 400 g",
-    en: "Net weight: 400 g"
-  },
-  image: "/images/products/tvorog/tvorog.webp",
-  gallery: ["/images/products/tvorog/tvorog.webp"],
-  accent: "from-[#eef7c7] to-[#b7cf62]",
 
-  fatPercent: "5%",
-  netWeight: "400 g",
-
-  storageValue: {
-    uz: "+2 °C dan +4 °C gacha",
-    ru: "От +2 °C до +4 °C",
-    en: "From +2 °C to +4 °C"
-  },
-  packagingValue: {
-    uz: "400 g qadoq",
-    ru: "Упаковка 400 g",
-    en: "400 g pack"
-  },
-  formatValue: {
-    uz: "Yumshoq tvorog pishloq",
-    ru: "Мягкий творожный сыр",
-    en: "Soft curd cheese"
-  },
-
-  nutrition: {
-    energy: "118,3 K / 308 Kkal",
-    fat: "5,0 g",
-    protein: "18 g",
-    carbs: "3,0 g",
-    extra: [
-      {
-        label: {
-          uz: "To‘yingan yog‘",
-          ru: "Насыщенные жиры",
-          en: "Saturated fat"
-        },
-        value: "3,0 g"
-      },
-      {
-        label: {
-          uz: "Shakar",
-          ru: "Сахара",
-          en: "Sugars"
-        },
-        value: "3,1 g"
-      },
-      {
-        label: {
-          uz: "Tuz",
-          ru: "Соль",
-          en: "Salt"
-        },
-        value: "1,1 g"
-      },
-      {
-        label: {
-          uz: "Kalsiy",
-          ru: "Кальций",
-          en: "Calcium"
-        },
-        value: "150 mg"
-      }
-    ]
-  },
-
-  compositionTitle: {
-    uz: "Tarkibi",
-    ru: "Состав",
-    en: "Composition"
-  },
-  composition: {
-    uz: "Pasterizatsiyalangan sut, achitqi.",
-    ru: "Пастеризованное молоко, закваска.",
-    en: "Pasteurized milk, starter culture."
-  },
-
-  storageText: {
-    uz: "+2 °C dan +4 °C haroratda va havoning nisbiy namligi 70% bo‘lgan holda saqlansin.",
-    ru: "Хранить при температуре от +2 °C до +4 °C и относительной влажности воздуха 70%.",
-    en: "Store at a temperature from +2 °C to +4 °C and relative air humidity of 70%."
-  },
-
-  productionDateText: {
-    uz: "Ishlab chiqarilgan sana, yaroqlilik muddati va lot raqami qadoqda ko‘rsatilgan.",
-    ru: "Дата производства, срок годности и номер партии указаны на упаковке.",
-    en: "Production date, expiry date and batch number are indicated on the package."
-  },
-
-  manufacturer,
-  address,
-
-  openedText: {
-    uz: "Ochilgandan so‘ng qisqa muddat ichida iste’mol qilinsin.",
-    ru: "После открытия употребить в короткий срок.",
-    en: "Consume shortly after opening."
-  }
-},
   {
     slug: "tvorog-soft",
     badge: "30",
@@ -1899,7 +1785,6 @@ const availableProductImages = new Set([
   "/images/products/alone/kefir25.webp",
   "/images/products/tvorog/tvorog5.webp",
   "/images/products/tvorog/tvorog9.webp",
-  "/images/products/tvorog/tvorog.webp",
   "/images/products/alone/kefirBIO.webp"
 ]);
 
@@ -1948,7 +1833,7 @@ export function getProductImage(product: ProductItem, index = 0) {
   if (product.category === "cream" || product.category === "Qaymaq") {
     return assetUrl("/images/products/alone/qaymaq.webp");
   }
-  if (product.category === "tvorog") return assetUrl("/images/products/tvorog/tvorog.webp");
+  if (product.category === "tvorog") return assetUrl("/images/products/tvorog/tvorog5.webp");
   if (product.category === "qatiq") return assetUrl("/images/products/alone/qatiq1.webp");
   if (product.category === "ayran") return assetUrl("/images/products/alone/ayron-green.webp");
 

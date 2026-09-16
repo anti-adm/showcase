@@ -44,11 +44,11 @@ type MobileHeroCopy = {
   features?: MobileHeroFeature[];
 };
 
-const MOBILE_HERO_BACKGROUND = "/images/home/mobile-hero-products.png";
+const MOBILE_HERO_BACKGROUND = "/images/optimized/home-mobile.webp";
 const PRELOADER_DONE_EVENT = "sofin-preloader-done";
 
 const MAIN_HERO_BACKGROUND = {
-  desktop: "/images/main-hero-4k.png",
+  desktop: "/images/optimized/home-desktop.webp",
   mobile: MOBILE_HERO_BACKGROUND
 };
 
@@ -361,10 +361,7 @@ export default function HeroStory() {
     const node = sceneRefs.current[index];
     if (!node) return;
 
-    node.scrollIntoView({
-      behavior: reducedMotion ? "auto" : "smooth",
-      block: "start"
-    });
+    window.scrollTo({top: window.scrollY + node.getBoundingClientRect().top, behavior: reducedMotion ? "auto" : "smooth"});
   };
 
   const currentBg = backgroundByScene[activeScene] ?? backgroundByScene[0];
@@ -376,10 +373,10 @@ export default function HeroStory() {
 
   return (
     <section id="hero-story-root" className="relative bg-[#07192d]">
-      <HeroSnapController
+      {!reducedMotion && <HeroSnapController
         rootId="hero-story-root"
         selector="[data-scene-index]"
-      />
+      />}
 
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#07192d]">
         <AnimatePresence initial={false}>
@@ -395,24 +392,10 @@ export default function HeroStory() {
             className="absolute inset-0"
           >
             <div className="absolute inset-0">
-              <Image
-                src={currentBgDesktop}
-                alt=""
-                fill
-                priority
-                unoptimized
-                sizes="100vw"
-                className="hidden scale-[1.01] object-cover blur-[2px] sm:block"
-              />
-              <Image
-                src={currentBgMobile}
-                alt=""
-                fill
-                priority
-                unoptimized
-                sizes="100vw"
-                className="object-cover object-center sm:hidden"
-              />
+              <picture>
+                <source media="(max-width: 639px)" srcSet={currentBgMobile} />
+                <img src={currentBgDesktop} alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover object-center sm:scale-[1.01] sm:blur-[2px]" />
+              </picture>
             </div>
 
             <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(245,250,255,0.42)_0%,rgba(245,250,255,0.22)_34%,rgba(245,250,255,0)_66%)] sm:block" />
@@ -425,7 +408,7 @@ export default function HeroStory() {
       <div
         className={cn(
           "pointer-events-none fixed left-4 top-1/2 z-30 -translate-y-1/2",
-          activeScene === 0 ? "hidden" : "hidden lg:flex"
+          activeScene === 0 || !mobileHeroVisible ? "hidden" : "hidden lg:flex"
         )}
       >
         <div className="rounded-full border border-[#315b89]/18 bg-white/38 px-2.5 py-3 shadow-[0_14px_38px_rgba(25,68,112,0.10)] backdrop-blur-2xl">
@@ -435,8 +418,9 @@ export default function HeroStory() {
                 key={scene.id}
                 type="button"
                 onClick={() => snapToScene(index)}
-                className="pointer-events-auto flex items-center justify-center"
-                aria-label={`Go to scene ${index + 1}`}
+                className="home-scene-dot pointer-events-auto flex items-center justify-center"
+                aria-label={`${locale === "ru" ? "Сцена" : locale === "uz" ? "Sahna" : "Scene"} ${index + 1}`}
+                aria-current={activeScene === index ? "step" : undefined}
               >
                 <span
                   className={cn(
@@ -477,11 +461,13 @@ export default function HeroStory() {
                 sceneRefs.current[index] = node;
               }}
               data-scene-index={index}
+              data-home-scene
               className={cn(
                 "relative flex h-[100dvh] items-center sm:h-[100svh]"
               )}
             >
               <div
+                data-home-scene-frame
                 className={cn(
                   index === 0
                     ? "mx-auto flex w-full max-w-[1672px] items-stretch px-4 pb-[max(1.1rem,env(safe-area-inset-bottom))] pt-24 sm:items-center sm:px-10 sm:pb-12 sm:pt-36 lg:px-14"
@@ -524,7 +510,7 @@ export default function HeroStory() {
                         }
                       }}
                       className={cn(
-                        "hidden max-w-[1080px] sm:block",
+                        "home-scene-copy hidden max-w-[1080px] sm:block",
                         isYogurtsScene && "lg:max-w-[700px]",
                         isProductsScene && "lg:max-w-[700px] lg:self-center"
                       )}
@@ -1188,7 +1174,7 @@ function HeroMainScene({
       releaseIntro();
     } else {
       window.addEventListener(PRELOADER_DONE_EVENT, releaseIntro, {once: true});
-      fallbackTimer = window.setTimeout(releaseIntro, 1500);
+      fallbackTimer = window.setTimeout(releaseIntro, 120);
     }
 
     return () => {

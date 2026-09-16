@@ -1,6 +1,7 @@
 'use client';
 
 import {AnimatePresence, motion} from 'framer-motion';
+import {usePrefersReducedMotion} from '@/lib/use-prefers-reduced-motion';
 import {Menu, X} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
 import type {PointerEvent} from 'react';
@@ -23,6 +24,9 @@ const springTransition = {
 };
 
 export function SiteHeader() {
+  const reducedMotion = usePrefersReducedMotion();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobilePanelRef = useRef<HTMLDivElement>(null);
   const t = useTranslations('Navigation');
   const pathname = usePathname();
   const locale = useLocale();
@@ -30,6 +34,20 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
   const glassRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const shell = glassRef.current;
+    if (!shell) return;
+    const update = () => {
+      // offsetTop/clientHeight avoid measuring an animated transform.
+      const top = Number.parseFloat(getComputedStyle(shell.parentElement!).paddingTop) || 0;
+      if (!open) document.documentElement.style.setProperty('--site-header-bottom', `${Math.ceil(top + shell.offsetHeight)}px`);
+    };
+    const observer = new ResizeObserver(update);
+    observer.observe(shell); update();
+    window.addEventListener('resize', update);
+    return () => {observer.disconnect(); window.removeEventListener('resize', update);};
+  }, [open, locale]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -45,11 +63,32 @@ export function SiteHeader() {
 
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const closeOnResize = () => setOpen(false);
+    const background = [document.getElementById('main-content'), document.querySelector('footer')].filter((item): item is HTMLElement => !!item);
+    const previousInert = background.map(item => item.inert);
+    background.forEach(item => {item.inert = true;});
+
+    const closeOnResize = () => { if (window.innerWidth >= 1280) setOpen(false); };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Tab') {
+        const controls = Array.from(glassRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []).filter(item => item.getClientRects().length > 0);
+        const first = controls[0]; const last = controls.at(-1);
+        if (event.shiftKey && document.activeElement === first) {event.preventDefault(); last?.focus();}
+        if (!event.shiftKey && document.activeElement === last) {event.preventDefault(); first?.focus();}
+      }
+      if (event.key === 'Escape') {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('resize', closeOnResize);
 
     window.addEventListener('orientationchange', closeOnResize);
     return () => {
       document.body.style.overflow = previous;
+      background.forEach((item, index) => {item.inert = previousInert[index];});
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('resize', closeOnResize);
       window.removeEventListener('orientationchange', closeOnResize);
     };
   }, [open]);
@@ -89,7 +128,7 @@ export function SiteHeader() {
       <div className="container-shell pt-3 sm:pt-5">
         <motion.div
           ref={glassRef}
-          initial={{opacity: 0, y: -16, scale: 0.985, filter: 'blur(10px)'}}
+          initial={reducedMotion ? false : {opacity: 0, y: -16, scale: 0.985, filter: 'blur(10px)'}}
           animate={{opacity: 1, y: 0, scale: 1, filter: 'blur(0px)'}}
           transition={{duration: 0.72, ease: [0.22, 1, 0.36, 1]}}
           onPointerMove={handleGlassPointerMove}
@@ -99,7 +138,7 @@ export function SiteHeader() {
           )}
         >
           <div className="liquid-glass-noise" />
-          <motion.div
+          {!reducedMotion && <motion.div
             aria-hidden="true"
             className="liquid-glass-sweep"
             animate={{x: ['-45%', '145%'], opacity: [0, 0.64, 0]}}
@@ -109,14 +148,14 @@ export function SiteHeader() {
               repeatDelay: 7.5,
               ease: [0.22, 1, 0.36, 1]
             }}
-          />
+          />}
 
           <div className="relative z-10 flex items-center gap-3">
-            <Link aria-label="SOFIN home" className="shrink-0" href="/" locale={locale}>
+            <Link aria-label={`SOFIN — ${t("home")}`} className="shrink-0" href="/" locale={locale}>
               <Logo />
             </Link>
 
-            <nav className="hidden min-w-0 flex-1 items-center justify-center xl:flex">
+            <nav aria-label={t("label")} className="hidden min-w-0 flex-1 items-center justify-center xl:flex">
               <ul
                 className="liquid-nav-pill flex items-center gap-1 p-1"
                 onMouseLeave={() => setHoveredHref(null)}
@@ -149,6 +188,7 @@ export function SiteHeader() {
                             ? 'text-[color:var(--text)]'
                             : 'text-[color:var(--text-soft)] hover:text-[color:var(--text)]'
                         )}
+                        aria-current={active ? "page" : undefined}
                         href={item.href}
                         locale={locale}
                         onMouseEnter={() => setHoveredHref(item.href)}
@@ -168,6 +208,8 @@ export function SiteHeader() {
             <button
               type="button"
               aria-label={open ? t('closeMenu') : t('openMenu')}
+              ref={menuButtonRef}
+              aria-controls="mobile-navigation"
               aria-expanded={open}
               onClick={() => setOpen((value) => !value)}
               className="liquid-icon-button focus-ring ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--text)] sm:h-12 sm:w-12 xl:hidden"
@@ -201,10 +243,12 @@ export function SiteHeader() {
           <AnimatePresence>
             {open ? (
               <motion.div
+                id="mobile-navigation"
+                ref={mobilePanelRef}
                 initial={{height: 0, opacity: 0}}
                 animate={{height: 'auto', opacity: 1}}
                 exit={{height: 0, opacity: 0}}
-                transition={{duration: 0.38, ease: [0.22, 1, 0.36, 1]}}
+                transition={{duration: reducedMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1]}}
                 className="liquid-mobile-panel relative z-10 mt-3 max-h-[calc(100svh-7rem)] overflow-y-auto xl:hidden"
               >
                 <div className="space-y-1.5 pb-2 pt-3">
@@ -214,7 +258,7 @@ export function SiteHeader() {
                     return (
                       <motion.div
                         key={item.href}
-                        initial={{opacity: 0, x: -12, filter: 'blur(8px)'}}
+                        initial={reducedMotion ? false : {opacity: 0, x: -12, filter: 'blur(8px)'}}
                         animate={{opacity: 1, x: 0, filter: 'blur(0px)'}}
                         transition={{
                           duration: 0.34,
@@ -229,7 +273,8 @@ export function SiteHeader() {
                               ? 'liquid-mobile-active text-[color:var(--text)]'
                               : 'text-[color:var(--text-soft)] hover:bg-white/38 hover:text-[color:var(--text)]'
                           )}
-                          href={item.href}
+                          aria-current={active ? "page" : undefined}
+                        href={item.href}
                           locale={locale}
                           onClick={() => setOpen(false)}
                         >

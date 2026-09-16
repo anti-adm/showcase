@@ -1,151 +1,84 @@
 "use client";
 
-import {useCallback, useEffect, useRef, useState} from "react";
-import {AnimatePresence, motion} from "framer-motion";
-import {useLocale} from "next-intl";
+import {Component, type ReactNode, useEffect, useState} from "react";
+import {usePrefersReducedMotion} from "@/lib/use-prefers-reduced-motion";
+import {useLocale, useTranslations} from "next-intl";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {BottleShowcasePage} from "@/components/yogurts/bottle-showcase-page";
-import {YogurtsShowcasePage} from "@/components/yogurts/yogurts-showcase-page";
-import {cn} from "@/lib/utils";
+import dynamic from "next/dynamic";
+import {ArrowDown, ArrowLeft, ArrowRight, Play} from "lucide-react";
+import Link from "next/link";
+import Image from "@/components/shared/adaptive-image";
+import {ProductCard, type Locale} from "@/components/products/products-catalog-page";
+import productImages from "@/data/product-images.json";
+import {listedProducts} from "@/components/products/products-data";
 
-type Locale = "uz" | "ru" | "en";
-type ShowcaseMode = "cups" | "bottles";
+const Cups = dynamic(() => import("./yogurts-showcase-page").then((module) => module.YogurtsShowcasePage), {ssr: false, loading: ShowcaseLoading});
+const Bottles = dynamic(() => import("./bottle-showcase-page").then((module) => module.BottleShowcasePage), {ssr: false, loading: ShowcaseLoading});
+function ShowcaseLoading() {
+  const t = useTranslations("YogurtHub");
+  return <div className="showcase-loading" role="status"><Image src="/logo/sofin-logo.webp" alt="" width={76} height={76} priority /><p>{t("loading")}</p><span aria-hidden="true" /></div>;
+}
+type Mode = "cups" | "bottles";
 
-const HUB_COPY: Record<Locale, Record<ShowcaseMode, string>> = {
-  uz: {
-    cups: "Stakan yogurtlar",
-    bottles: "Yogurtchalar"
-  },
-  ru: {
-    cups: "Стаканчики",
-    bottles: "Бутылочки"
-  },
-  en: {
-    cups: "Yogurt cups",
-    bottles: "Yogurt bottles"
-  }
-};
-
-const HUB_INTRO_COPY: Record<Locale, {title: string; subtitle: string}> = {
-  uz: {
-    title: "Yangi yogurtchalar",
-    subtitle: "Ichishga qulay format, yangi ta'mlar va silliq 3D sahna."
-  },
-  ru: {
-    title: "Новые йогуртчалар",
-    subtitle: "Питьевой формат, новые вкусы и плавная 3D-сцена."
-  },
-  en: {
-    title: "New yogurtchalar",
-    subtitle: "A drinkable format, new flavors and a smooth 3D scene."
-  }
-};
-
-export function YogurtsHubPage() {
-  const locale = normalizeLocale(useLocale());
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const routeMode = searchParams.get("showcase") === "bottles" ? "bottles" : "cups";
-  const [mode, setMode] = useState<ShowcaseMode>(routeMode);
-  const [introVisible, setIntroVisible] = useState(false);
-  const introTimerRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    setMode(routeMode);
-  }, [routeMode]);
-
-  useEffect(() => () => {
-    if (introTimerRef.current) {
-      window.clearTimeout(introTimerRef.current);
-    }
-  }, []);
-
-  const selectMode = useCallback((nextMode: ShowcaseMode) => {
-    const changed = nextMode !== mode;
-
-    setMode(nextMode);
-
-    const nextHref = nextMode === "bottles" ? `${pathname}?showcase=bottles` : pathname;
-    router.replace(nextHref, {scroll: false});
-
-    if (changed && nextMode === "bottles") {
-      setIntroVisible(true);
-
-      if (introTimerRef.current) {
-        window.clearTimeout(introTimerRef.current);
-      }
-
-      introTimerRef.current = window.setTimeout(() => {
-        setIntroVisible(false);
-        introTimerRef.current = null;
-      }, 1450);
-    }
-  }, [mode, pathname, router]);
-
-  return (
-    <div className="relative min-h-dvh overflow-hidden bg-[#f5eadb]">
-      {mode === "cups" ? (
-        <div className="fixed left-1/2 top-[5rem] z-[48] -translate-x-1/2 px-3 sm:top-[6.8rem]">
-          <div className="flex rounded-full border border-white/45 bg-white/24 p-1 shadow-[0_18px_50px_rgba(18,34,58,0.18)] backdrop-blur-xl">
-            {(["cups", "bottles"] as const).map((item) => {
-              const active = mode === item;
-
-              return (
-                <button
-                  key={item}
-                  aria-pressed={active}
-                  className={cn(
-                    "relative min-h-9 rounded-full px-3 text-[13px] font-semibold transition duration-300 sm:min-h-10 sm:min-w-36 sm:px-6 sm:text-sm",
-                    active
-                      ? "bg-white/78 text-[#123661] shadow-[inset_0_1px_0_rgba(255,255,255,0.74),0_10px_24px_rgba(23,50,84,0.16)]"
-                      : "text-[#173657]/72 hover:bg-white/30 hover:text-[#123661]"
-                  )}
-                  type="button"
-                  onClick={() => selectMode(item)}
-                >
-                  {HUB_COPY[locale][item]}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
-
-      {mode === "cups" ? <YogurtsShowcasePage /> : <BottleShowcasePage />}
-
-      <AnimatePresence>
-        {introVisible ? (
-          <motion.div
-            className="pointer-events-none fixed inset-0 z-[70] flex items-center justify-center bg-[radial-gradient(circle_at_50%_42%,rgba(255,255,255,0.24),transparent_36%),linear-gradient(180deg,rgba(15,42,76,0.78),rgba(12,28,48,0.88))] px-6 text-center text-white backdrop-blur-md"
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-            transition={{duration: 0.36, ease: [0.22, 1, 0.36, 1]}}
-          >
-            <motion.div
-              initial={{opacity: 0, y: 24, scale: 0.98, filter: "blur(12px)"}}
-              animate={{opacity: 1, y: 0, scale: 1, filter: "blur(0px)"}}
-              exit={{opacity: 0, y: -14, scale: 0.99, filter: "blur(10px)"}}
-              transition={{duration: 0.72, ease: [0.16, 1, 0.3, 1]}}
-              className="max-w-[780px]"
-            >
-              <div className="mx-auto mb-5 h-px w-32 bg-white/42" />
-              <h2 className="text-balance text-[clamp(2.6rem,8vw,5.8rem)] font-semibold leading-[0.92] tracking-[-0.055em]">
-                {HUB_INTRO_COPY[locale].title}
-              </h2>
-              <p className="mx-auto mt-5 max-w-[560px] text-pretty text-base font-medium leading-7 text-white/78 sm:text-xl sm:leading-8">
-                {HUB_INTRO_COPY[locale].subtitle}
-              </p>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </div>
-  );
+class ShowcaseBoundary extends Component<{children: ReactNode; fallback: ReactNode}, {failed: boolean}> {
+  state = {failed: false};
+  static getDerivedStateFromError() {return {failed: true};}
+  render() {return this.state.failed ? this.props.fallback : this.props.children;}
 }
 
-function normalizeLocale(locale: string): Locale {
-  if (locale === "uz" || locale === "ru" || locale === "en") return locale;
-  return "ru";
+export function YogurtsHubPage() {
+  const locale = useLocale() as Locale;
+  const t = useTranslations("YogurtHub");
+  const params = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const reducedMotion = usePrefersReducedMotion();
+  const mode: Mode = params.get("showcase") === "bottles" ? "bottles" : "cups";
+  const immersive = params.get("view") !== "static" && !reducedMotion;
+  const [ready, setReady] = useState(false);
+  useEffect(() => {setReady(true);}, []);
+  const products = listedProducts.filter((item) => item.category === "yogurt" && (mode === "cups" ? item.netWeight === "120 g" : item.netWeight !== "120 g"));
+  function navigate(nextMode: Mode, interactive = immersive) {
+    const next = new URLSearchParams(params.toString());
+    if (nextMode === "bottles") next.set("showcase", "bottles"); else next.delete("showcase");
+    if (interactive) next.delete("view"); else next.set("view", "static");
+    router.replace(`${pathname}${next.size ? `?${next}` : ""}`, {scroll: false});
+  }
+  const modePicker = <div className="yogurt-mode-picker" role="group" aria-label={t("format")}>
+    {(["cups", "bottles"] as const).map((item) => <button type="button" key={item} aria-pressed={mode === item} onClick={() => navigate(item)}>{t(item)}</button>)}
+  </div>;
+  const fallback = <div className="showcase-fallback"><h1>{t("fallbackTitle")}</h1><p>{t("fallbackCopy")}</p><button className="button-primary" type="button" onClick={() => navigate(mode, false)}>{t("back")}</button></div>;
+  if (!ready && params.get("view") !== "static") return <ShowcaseLoading />;
+  if (ready && immersive) return <div className="immersive-hub">
+    <div className="immersive-mode-bar">{modePicker}
+    <button className="button-secondary immersive-exit" type="button" onClick={() => navigate(mode, false)}><ArrowLeft size={18} aria-hidden="true" /><span>{t("catalog")}</span></button></div>
+    <ShowcaseBoundary key={mode} fallback={fallback}>{mode === "cups" ? <Cups /> : <Bottles />}</ShowcaseBoundary>
+  </div>;
+
+  return (
+    <main className={`yogurt-hub page-content yogurt-hub-${mode}`}>
+      <div className="content-container">
+        <div className="yogurt-topline"><span className="eyebrow">SOFIN / {t("eyebrow")}</span>{modePicker}</div>
+        <section className="yogurt-hero-layout">
+          <div className="yogurt-hero-copy">
+            <h1>{t(`${mode}Title`)}</h1>
+            <p>{t(`${mode}Description`)}</p>
+            <div className="yogurt-hero-actions">
+              <a className="button-primary" href="#yogurt-flavors">{t("choose")}<ArrowDown size={18} aria-hidden="true" /></a>
+              {!reducedMotion && <button type="button" className="button-secondary" onClick={() => navigate(mode, true)}><Play size={16} aria-hidden="true" />{t("animate")}</button>}
+            </div>
+            <p className="yogurt-format-note">{mode === "cups" ? "120 " : "270 "}{locale === "ru" ? "г" : "g"} · {t("flavorCount", {count: products.length})}</p>
+          </div>
+          <div className="yogurt-hero-image">
+            <Image src={`/images/optimized/${mode}-desktop.webp`} alt="" fill priority sizes="(min-width: 1024px) 720px, 100vw" className="object-cover" />
+            <div className={`yogurt-packshots yogurt-packshots-${mode}`} role="img" aria-label={t(`${mode}Image`)}>{[products[1], products[0], products[2]].filter(Boolean).map((product, index) => <div className={`yogurt-packshot yogurt-packshot-${index}`} key={product.slug}><Image src={(productImages as Record<string, string>)[product.slug]} alt="" fill priority sizes="(min-width: 1024px) 260px, 38vw" className="object-contain" /></div>)}</div>
+          </div>
+        </section>
+        <section className="yogurt-flavors" id="yogurt-flavors">
+          <div className="section-heading"><div><span className="eyebrow">{t("eyebrow")}</span><h2>{t("flavorsTitle")}</h2></div><Link className="text-button" href={`/${locale}/products?category=yogurt`}>{t("catalog")}<ArrowRight size={18} aria-hidden="true" /></Link></div>
+          <div className="catalog-grid">{products.map((product) => <ProductCard key={product.slug} product={product} locale={locale} heading="h3" />)}</div>
+        </section>
+      </div>
+    </main>
+  );
 }

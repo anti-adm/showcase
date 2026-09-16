@@ -695,6 +695,7 @@ export function BottleShowcasePage() {
 
   useEffect(() => {
     const onWheel = (event: WheelEvent) => {
+      if (isScrollableCopy(event.target)) return;
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
       if (releasedToFooterRef.current) {
         if (event.deltaY < 0 && window.scrollY <= 8) {
@@ -708,6 +709,7 @@ export function BottleShowcasePage() {
     };
 
     const onTouchStart = (event: TouchEvent) => {
+      if (isScrollableCopy(event.target)) {touchStartYRef.current = null; return;}
       if (event.touches.length !== 1) return;
       touchStartYRef.current = event.touches[0].clientY;
     };
@@ -735,6 +737,7 @@ export function BottleShowcasePage() {
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLElement && event.target.closest("button, a, input, textarea, select, [data-showcase-copy]")) return;
       if (event.defaultPrevented) return;
       if (releasedToFooterRef.current) {
         if ((event.key === "ArrowUp" || event.key === "PageUp") && window.scrollY <= 8) {
@@ -1096,7 +1099,7 @@ function GlassCopyCard({
   } as CSSProperties;
 
   return (
-    <article aria-hidden={!active} className={styles.glassCopy} style={cardStyle}>
+    <article data-showcase-copy aria-hidden={!active} className={styles.glassCopy} style={cardStyle}>
       <h1 className={styles.copyTitle}>{copy.title}</h1>
       <p className={styles.copyHeadline}>{copy.headline}</p>
       <p className={styles.copyDescription}>{copy.description}</p>
@@ -2085,4 +2088,9 @@ if (typeof window !== "undefined") {
   BOTTLE_FLAVORS.forEach((flavor) => {
     useLoader.preload(THREE.TextureLoader, flavor.texture);
   });
+}
+
+function isScrollableCopy(target: EventTarget | null) {
+  const copy = target instanceof Element ? target.closest<HTMLElement>("[data-showcase-copy]") : null;
+  return !!copy && copy.scrollHeight > copy.clientHeight + 1;
 }
