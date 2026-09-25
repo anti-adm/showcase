@@ -1,5 +1,7 @@
 "use client";
 
+import {FlavorNavigation} from "./flavor-navigation";
+
 import {Suspense, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {Environment, PerspectiveCamera, useGLTF} from "@react-three/drei";
@@ -66,8 +68,8 @@ type EndingSlide = {
 };
 
 const MODEL_PATH = "/models/New product/yogurtchalar yangi2.glb?v=20260630";
-const HERO_BACKGROUND = "/sofin-yogur-pics/background-bottles.png";
-const HERO_BACKGROUND_MOBILE = "/sofin-yogur-pics/background-bottles-m.png";
+const HERO_BACKGROUND = "/sofin-yogur-pics/background-bottles.webp";
+const HERO_BACKGROUND_MOBILE = "/sofin-yogur-pics/background-bottles-m.webp";
 const INTRO_TRANSITION_MS = 2200;
 const FLAVOR_TRANSITION_MS = 2200;
 const WHEEL_THRESHOLD = 18;
@@ -522,12 +524,16 @@ export function BottleShowcasePage() {
   }, [releasedToFooter]);
 
   useEffect(() => {
+    const mobileViewport =
+      window.innerWidth / Math.max(1, window.innerHeight) < MOBILE_ASPECT_MAX;
+
     [
-      HERO_BACKGROUND,
-      HERO_BACKGROUND_MOBILE,
+      mobileViewport ? HERO_BACKGROUND_MOBILE : HERO_BACKGROUND,
       ENDING_BACKGROUND,
       ...ENDING_SLIDES.map((slide) => slide.src),
-      ...BOTTLE_FLAVORS.flatMap((flavor) => [flavor.background, flavor.mobileBackground])
+      ...BOTTLE_FLAVORS.map((flavor) =>
+        mobileViewport ? flavor.mobileBackground : flavor.background
+      )
     ].forEach((src) => {
       const image = new window.Image();
       image.decoding = "async";
@@ -590,7 +596,7 @@ export function BottleShowcasePage() {
     lockEndingNavigation();
   }, [lockEndingNavigation]);
 
-  const goTo = useCallback((direction: 1 | -1) => {
+  const goTo = useCallback((direction: 1 | -1, target?: number) => {
     if (releasedToFooterRef.current) {
       if (direction < 0 && window.scrollY <= 8) {
         returnToOverview();
@@ -600,6 +606,13 @@ export function BottleShowcasePage() {
 
     const current = transitionRef.current;
     if (current.running) return;
+    if (target === current.to && current.placement !== "overview" && !endingStageRef.current) return;
+    if (target !== undefined) {
+      if (endingNavigationTimerRef.current) window.clearTimeout(endingNavigationTimerRef.current);
+      endingNavigationLockedRef.current = false;
+      endingStageRef.current = 0;
+      setEndingStage(0);
+    }
 
     const currentEndingStage = endingStageRef.current;
     if (currentEndingStage > 0) {
@@ -629,15 +642,15 @@ export function BottleShowcasePage() {
     const isReturningToOverview =
       current.placement !== "overview" &&
       current.to === 0 &&
-      direction < 0;
+      direction < 0 && target === undefined;
     const kind = current.placement === "overview" || isReturningToOverview ? "intro" : "flavor";
 
-    if (current.placement === "overview" && direction < 0) return;
+    if (current.placement === "overview" && direction < 0 && target === undefined) return;
 
     const isLastFlavor =
       current.placement !== "overview" &&
       current.to === BOTTLE_FLAVORS.length - 1 &&
-      direction > 0;
+      direction > 0 && target === undefined;
 
     if (isLastFlavor) {
       setEndingStageLocked(1);
@@ -645,7 +658,7 @@ export function BottleShowcasePage() {
     }
 
     const from = current.to;
-    const to = kind === "intro" ? from : wrapIndex(from + direction);
+    const to = target ?? (kind === "intro" ? from : wrapIndex(from + direction));
     const start = performance.now();
     const duration = kind === "intro" ? INTRO_TRANSITION_MS : FLAVOR_TRANSITION_MS;
 
@@ -695,6 +708,7 @@ export function BottleShowcasePage() {
 
   useEffect(() => {
     const onWheel = (event: WheelEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-flavor-navigation]")) return;
       if (isScrollableCopy(event.target)) return;
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
       if (releasedToFooterRef.current) {
@@ -709,6 +723,7 @@ export function BottleShowcasePage() {
     };
 
     const onTouchStart = (event: TouchEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-flavor-navigation]")) {touchStartYRef.current = null; return;}
       if (isScrollableCopy(event.target)) {touchStartYRef.current = null; return;}
       if (event.touches.length !== 1) return;
       touchStartYRef.current = event.touches[0].clientY;
@@ -787,7 +802,8 @@ export function BottleShowcasePage() {
   const showBackToTop = transition.placement !== "overview" || endingActive || releasedToFooter;
 
   return (
-    <main className={`${styles.page} ${releasedToFooter ? styles.page_released : ""}`}>
+    <main data-bottle-flavor={BOTTLE_FLAVORS[transition.to].key} data-bottle-running={transition.running} className={`${styles.page} ${releasedToFooter ? styles.page_released : ""}`}>
+      {!releasedToFooter && <FlavorNavigation locale={locale} flavors={BOTTLE_FLAVORS.map(flavor => flavor.key)} active={transition.placement === "overview" && transition.kind === "none" || endingActive ? null : toFlavor.key} disabled={transition.running} onSelect={index => goTo(index >= transition.to ? 1 : -1, index)} />}
       <div className={`${styles.showcaseScene} ${endingActive ? styles.showcaseScene_ending : ""}`}>
         <BottleBackground
           from={fromFlavor}
@@ -796,9 +812,9 @@ export function BottleShowcasePage() {
           to={toFlavor}
           transition={transition}
         />
-        <BottleStage transition={transition} />
-        <BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} />
-        <BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} />
+        <div className="flavor-scene-content"><BottleStage transition={transition} /></div>
+        <div className="flavor-scene-content" style={{zIndex: 44}}><BottleIntroHero locale={locale} onExplore={() => goTo(1)} opacity={introHeroOpacity} /></div>
+        <div className="flavor-scene-content"><BottleCopyOverlay locale={locale} progress={easedProgress} transition={transition} /></div>
       </div>
       <BottleEndingExperience locale={locale} stage={endingStage} />
       <div
@@ -836,6 +852,7 @@ function BottleIntroHero({
   return (
     <section
       aria-hidden={hidden}
+      inert={hidden}
       className={styles.introHero}
       data-locale={locale}
       style={{
@@ -1112,7 +1129,10 @@ function GlassCopyCard({
 }
 
 function useIsMobileViewport() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.innerWidth / Math.max(1, window.innerHeight) < MOBILE_ASPECT_MAX;
+  });
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 900px)");

@@ -8,7 +8,7 @@ import {assetUrl} from '@/lib/assets';
 const PRELOAD_ASSETS = [
   '/images/main-hero.webp',
   '/images/main-hero-m.webp',
-  '/images/hero/hero-second.png',
+  '/images/hero/hero-second.webp',
   '/images/hero/hero-products.webp',
   '/images/products.webp',
   '/images/brand/pack-line.webp',

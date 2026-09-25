@@ -92,11 +92,11 @@ const ACTIVE_SPRING = {stiffness: 90, damping: 26, mass: 0.65};
 const SCENE_SPRING = {stiffness: 85, damping: 26, mass: 0.8};
 
 const HOME_PRODUCT_CARD_IMAGES: Record<string, string> = {
-  "yogurt-raspberry-270": "/Hero-products/malina-bottle.png",
-  "yogurt-raspberry-120": "/Hero-products/malina.png",
-  "yogurt-peach-120": "/Hero-products/shaftoli.png",
-  "yogurt-strawberry-banana-270": "/Hero-products/strawberry-banan-bottle.png",
-  qaymaq: "/Hero-products/qaymaq.png",
+  "yogurt-raspberry-270": "/images/optimized/products/yogurt-raspberry-270.webp",
+  "yogurt-raspberry-120": "/Hero-products/malina.webp",
+  "yogurt-peach-120": "/Hero-products/shaftoli.webp",
+  "yogurt-strawberry-banana-270": "/images/optimized/products/yogurt-strawberry-banana-270.webp",
+  qaymaq: "/images/optimized/products/qaymaq.webp",
 };
 
 function getHomeProductCardImage(product: ProductItem) {

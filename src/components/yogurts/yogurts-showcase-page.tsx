@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import {CUP_FLAVORS, FlavorNavigation} from "./flavor-navigation";
 import {playfair as collectionSerif} from "@/lib/fonts";
 import { useLocale } from "next-intl";
 import {ArrowRight, Heart, Leaf, Milk, ShieldCheck} from "lucide-react";
@@ -16,14 +17,14 @@ import {
 const WHEEL_THRESHOLD = 18;
 const TOUCH_THRESHOLD = 46;
 const MOBILE_QUERY = "(max-width: 767.98px)";
-const DESKTOP_HERO_BACKGROUND_SRC = "/images/yogurts/sofin-yogurt-cups-hero-4k.png";
+const DESKTOP_HERO_BACKGROUND_SRC = "/images/yogurts/sofin-yogurt-cups-hero-4k.webp";
 const MOBILE_HERO_BACKGROUND_SRC = "/images/yogurts/sofin-yogurt-cups-hero-mobile.webp";
 const COLLECTION_SLIDE_IMAGES = [
-  "/media/slide1.png",
-  "/media/slide2.png",
-  "/media/slide3.png",
-  "/media/slide4.png",
-  "/media/slide5.png",
+  "/media/slide1.webp",
+  "/media/slide2.webp",
+  "/media/slide3.webp",
+  "/media/slide4.webp",
+  "/media/slide5.webp",
 ] as const;
 const COLLECTION_SLIDE_COUNT = COLLECTION_SLIDE_IMAGES.length;
 const COLLECTION_LAST_STAGE = COLLECTION_SLIDE_COUNT + 1;
@@ -93,10 +94,13 @@ const PRELOAD_FETCH_ASSETS = ["/models/products/base-cup.glb"];
 export function YogurtsShowcasePage() {
   const locale = normalizeLocale(useLocale());
   const pageCopy = YOGURTS_PAGE_TRANSLATIONS[locale];
+  const [selectionOpacity, setSelectionOpacity] = useState(1);
   const [step, setStep] = useState<ShowcaseStep>(0);
   const [progressState, setProgressState] = useState<ProgressState>(INITIAL_PROGRESS);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(MOBILE_QUERY).matches
+  );
   const [isPreloading, setIsPreloading] = useState(true);
   const [preloadProgress, setPreloadProgress] = useState(0);
   const [collectionStage, setCollectionStage] = useState(0);
@@ -128,7 +132,17 @@ export function YogurtsShowcasePage() {
 
   useEffect(() => {
     let cancelled = false;
-    const imageAssets = Array.from(new Set(PRELOAD_IMAGE_ASSETS));
+    const allImageAssets = Array.from(new Set(PRELOAD_IMAGE_ASSETS));
+    const mobileViewport = window.matchMedia(MOBILE_QUERY).matches;
+    const imageAssetSet = new Set(allImageAssets);
+    const imageAssets = allImageAssets.filter((src) => {
+      if (src === DESKTOP_HERO_BACKGROUND_SRC) return !mobileViewport;
+      if (src === MOBILE_HERO_BACKGROUND_SRC) return mobileViewport;
+      if (/-m\.[a-z]+$/i.test(src)) return mobileViewport;
+
+      const mobileVariant = src.replace(/(\.[a-z]+)$/i, "-m$1");
+      return !imageAssetSet.has(mobileVariant) || !mobileViewport;
+    });
     const fetchAssets = Array.from(new Set(PRELOAD_FETCH_ASSETS));
     const total = imageAssets.length + fetchAssets.length;
     let completed = 0;
@@ -178,6 +192,7 @@ export function YogurtsShowcasePage() {
 
   useEffect(() => {
     const preventTouchBounce = (event: TouchEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-flavor-navigation]")) return;
       if (isScrollableCopy(event.target)) return;
       if (event.touches.length > 1) return;
       if (isMobileRef.current && collectionStageRef.current > 0) return;
@@ -201,6 +216,43 @@ export function YogurtsShowcasePage() {
       if (showcaseUnmountTimerRef.current) window.clearTimeout(showcaseUnmountTimerRef.current);
     };
   }, []);
+
+  const selectFlavor = (index: number) => {
+    if (preloadingRef.current) return;
+    const target = (index + 2) as ShowcaseStep;
+    if (target === stepRef.current && !collectionStageRef.current && !runningRef.current) return;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    if (collectionLockTimerRef.current) window.clearTimeout(collectionLockTimerRef.current);
+    if (showcaseUnmountTimerRef.current) window.clearTimeout(showcaseUnmountTimerRef.current);
+    runningRef.current = true;
+    const start = performance.now();
+    const initialOpacity = selectionOpacity;
+    let committed = false;
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      if (elapsed < 180) {
+        setSelectionOpacity(initialOpacity * (1 - elapsed / 180));
+      } else {
+        if (!committed) {
+          committed = true;
+          const next = {...INITIAL_PROGRESS};
+          PROGRESS_KEYS.forEach((key, i) => {next[key] = i < target ? 1 : 0;});
+          progressRef.current = next;
+          setProgressState(next);
+          setDirection("forward");
+          stepRef.current = target;
+          setStep(target);
+          collectionStageRef.current = 0;
+          setCollectionStage(0);
+          setShowcaseSceneMounted(true);
+        }
+        setSelectionOpacity(easeInOutSoft(Math.min(1, (elapsed - 180) / 720)));
+      }
+      if (elapsed < 900) rafRef.current = requestAnimationFrame(tick);
+      else {runningRef.current = false; rafRef.current = null;}
+    };
+    rafRef.current = requestAnimationFrame(tick);
+  };
 
   const resetToTop = () => {
     if (runningRef.current) return;
@@ -436,6 +488,7 @@ export function YogurtsShowcasePage() {
     };
 
     const onWheel = (event: WheelEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-flavor-navigation]")) return;
       if (isScrollableCopy(event.target)) return;
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
       event.preventDefault();
@@ -444,6 +497,7 @@ export function YogurtsShowcasePage() {
     };
 
     const onTouchStart = (event: TouchEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-flavor-navigation]")) {touchStartYRef.current = null; return;}
       if (isScrollableCopy(event.target)) {touchStartYRef.current = null; return;}
       if (event.touches.length !== 1) return;
       touchStartYRef.current = event.touches[0].clientY;
@@ -675,6 +729,7 @@ export function YogurtsShowcasePage() {
         touchAction: collectionActive && isMobile ? "auto" : "none",
       }}
     >
+      <FlavorNavigation locale={locale} flavors={CUP_FLAVORS} active={step > 0 && !collectionActive ? CUP_FLAVORS[Math.max(0, step - 2)] : null} onSelect={selectFlavor} disabled={isPreloading} />
       {showcaseSceneMounted ? (
         <div
           className="absolute inset-0 transition-[transform,opacity] duration-980"
@@ -735,6 +790,7 @@ export function YogurtsShowcasePage() {
             />
           </div>
 
+          <div className="flavor-scene-content" style={{opacity: selectionOpacity}}>
           {isMobile && step === 0 ? null : (
             <IntroClusterStage
               step={step}
@@ -752,12 +808,17 @@ export function YogurtsShowcasePage() {
             />
           )}
 
+          </div>
+
+          <div className="flavor-scene-content" style={{zIndex: 44}}>
           <YogurtCupsHeroOverlay
             copy={YOGURT_HERO_TRANSLATIONS[locale]}
             isMobile={isMobile}
             opacity={step === 0 ? 1 : 1 - smoothstep(0.04, 0.42, step1Progress)}
           />
+          </div>
 
+          <div className="flavor-scene-content" style={{opacity: selectionOpacity}}>
           {step === 0 ? null : (
             <IntroTextLayer
               step={step}
@@ -773,6 +834,7 @@ export function YogurtsShowcasePage() {
               isMobile={isMobile}
             />
           )}
+          </div>
         </div>
       ) : null}
 
@@ -790,9 +852,7 @@ export function YogurtsShowcasePage() {
           step > 0 && !collectionActive ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0 pointer-events-none"
         }`}
         style={{
-          ...(isMobile
-            ? { bottom: "calc(env(safe-area-inset-bottom) + 17rem)" }
-            : { bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }),
+          bottom: "max(18px, env(safe-area-inset-bottom))",
         }}
       >
         ↑
@@ -832,6 +892,7 @@ function YogurtCupsHeroOverlay({
   return (
     <section
       aria-hidden={hidden}
+      inert={hidden}
       className="pointer-events-none absolute inset-0 z-30 overflow-hidden"
       style={{
         opacity: safeOpacity,

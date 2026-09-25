@@ -1129,10 +1129,12 @@ function Cup({
       motion: MotionOffsets,
       mode: "base" | "softSwap" | "spin"
     ) => {
+      // Leave room at both edges after the flavor rail narrows the stage.
+      const railFit = state.size.width > 900 && state.size.height > 650 ? 0.8 : 1;
       applyMainTransform(
         group,
         delta,
-        target,
+        {...target, x: target.x * railFit},
         motion,
         mode,
         responsiveXScale,
@@ -1462,10 +1464,15 @@ function useCupModel(flavor: FlavorKey) {
   const { scene } = useGLTF(BASE_MODEL_PATH);
 
   const sideTexture = useLoader(THREE.TextureLoader, assetUrl(`/textures/products/${flavor}-side.webp`));
-  const lidTexture = useLoader(THREE.TextureLoader, assetUrl(`/textures/products/${flavor}-lid.webp`));
+  const lidTexture = useLoader(
+    THREE.TextureLoader,
+    assetUrl(`/textures/products/${flavor}-lid.webp`)
+  );
 
   const model = useMemo(() => {
     const cloned = scene.clone(true);
+    const mappedSideTexture = sideTexture.clone();
+    const mappedLidTexture = lidTexture.clone();
     cloned.updateMatrixWorld(true);
 
     const box = new THREE.Box3().setFromObject(cloned);
@@ -1480,8 +1487,15 @@ function useCupModel(flavor: FlavorKey) {
     const fitScale = 2 / Math.max(size.x, size.y, size.z, 0.001);
     cloned.scale.setScalar(fitScale);
 
-    prepareTexture(sideTexture);
-    prepareTexture(lidTexture);
+    prepareTexture(mappedSideTexture);
+    prepareTexture(mappedLidTexture);
+
+    if (flavor === "malina") {
+      // Keep the printed cut guide at the image boundary outside the lid's UVs.
+      // A centered inset preserves the label alignment and the inner oval artwork.
+      mappedLidTexture.repeat.set(0.98, 0.98);
+      mappedLidTexture.offset.set(0.01, 0.01);
+    }
 
     cloned.traverse((child) => {
       if (!(child instanceof THREE.Mesh)) return;
@@ -1502,14 +1516,14 @@ function useCupModel(flavor: FlavorKey) {
         meshName.includes("side") ||
         meshName.includes("body")
       ) {
-        nextMap = sideTexture;
+        nextMap = mappedSideTexture;
       } else if (
         matName.includes("lid") ||
         matName.includes("label_lid") ||
         meshName.includes("lid") ||
         meshName.includes("top")
       ) {
-        nextMap = lidTexture;
+        nextMap = mappedLidTexture;
       } else {
         nextMap = null;
       }
@@ -1539,7 +1553,7 @@ function useCupModel(flavor: FlavorKey) {
     });
 
     return cloned;
-  }, [scene, sideTexture, lidTexture]);
+  }, [scene, sideTexture, lidTexture, flavor]);
 
   return model;
 }
